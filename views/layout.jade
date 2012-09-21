@@ -1,0 +1,24 @@
+!!! 5
+html
+  head
+    title NoodleApp
+    meta(content='width=device-width, height=device-height, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0', name='viewport')
+    meta(content='yes', name='apple-mobile-web-app-capable')
+    meta(content='chrome=1', http-equiv='X-UA-Compatible')
+    link(rel='shortcut icon', href='/images/favicon.png')
+    link(rel='stylesheet', href='/stylesheets/main.css')
+
+  body
+    header
+      h1 NoodleApp
+
+    if user
+      a(href='/logout', id='logout') Log out
+    else
+      a(href='/auth/appdotnet', id='login') Log in
+
+    block content
+    footer
+
+    script(src='https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js')
+    script(src='/javascripts/require.js', data-main='/javascripts/main')
