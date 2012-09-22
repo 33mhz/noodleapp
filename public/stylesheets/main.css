@@ -68,11 +68,28 @@ header {
     background-color: #111;
     border-bottom: 1px solid #eee;
     color: #eee;
+    font-family: 'LeagueGothicRegular';
     opacity: 0.95;
-    padding: 10px;
     position: fixed;
     width: 100%;
     z-index: 2;
+}
+
+header span {
+    display: block;
+    float: left;
+    font-size: 20px;
+    padding: 8px;
+    text-transform: uppercase;
+}
+
+header a {
+    color: #eee;
+    display: block;
+    float: right;
+    font-size: 18px;
+    padding: 8px;
+    text-decoration: none;
 }
 
 #dashboard {
@@ -90,18 +107,44 @@ header {
     box-shadow: #ddd 0 0 4px;
     float: left;
     position: relative;
+    width: 100%;
 }
 
-#profile {
-    margin-top: 15px;
+#write {
+    margin-top: 30px;
 }
 
-#profile, section {
+#write, section {
+    clear: both;
+    float: left;
     padding: 20px;
 }
 
-#profile img {
-    width: 80px;
+section {
+    padding-top: 0;
+}
+
+#write {
+    padding-bottom: 10px;
+}
+
+#write textarea {
+    border: 0;
+    color: #888;
+    font-family: Arial;
+    padding: 10px;
+    width: 540px;
+    resize: none;
+}
+
+button[type="submit"] {
+    background-color: #111;
+    border: 0;
+    color: #eee;
+    float: right;
+    font-size: 15px;
+    margin-top: 5px;
+    padding: 3px 6px;
 }
 
 ol.tabs li {
@@ -114,7 +157,7 @@ ol.tabs li {
     float: left;
     margin: 5px 5px 0 0;
     font-family: 'LeagueGothicRegular';
-    font-size: 35px;
+    font-size: 30px;
     padding: 10px 20px;
     text-transform: uppercase;
 }
@@ -129,15 +172,26 @@ ol.tabs li.selected {
     color: #22c7e0;
 }
 
+
+ol.messages li.loading img {
+    display: block;
+    height: 66px;
+    margin: 0 auto;
+    padding: 40px 0;
+    width: 66px;
+}
+
 ol.messages li {
     background-color: #fff;
     box-shadow: #f1f1f1 3px 1px 2px;
     display: block;
+    float: left;
     font-size: 13px;
     line-height: 16px;
     margin-bottom: 1px;
+    overflow: hidden;
     padding: 10px 5px;
-    width: 565px;
+    width: 550px;
 }
 
 ol.messages li:first-child {
@@ -150,8 +204,21 @@ ol.messages li .meta {
     padding-left: 10px;
 }
 
+ol.messages li .who {
+    display: block;
+    float: left;
+    width: 50px;
+}
+
+ol.messages li .who img {
+    margin: 5px;
+    width: 50px;
+}
+
 ol.messages li p {
+    clear: both;
     color: #333;
+    float: left;
     font-size: 14px;
     line-height: 18px;
     padding: 10px;
@@ -160,6 +227,10 @@ ol.messages li p {
 ol.messages li p a {
     color: #20c2c0;
     text-decoration: none;
+}
+
+ol.messages li p img {
+    max-width: 535px;
 }
 
 ol.messages li,
@@ -183,16 +254,24 @@ ol.messages li p audio, ol.messages li p object {
     ol.tabs li {
         font-size: 25px;
         margin: 5px 2px 0 0;
-        padding: 7px 11px;
+        padding: 7px 9px;
     }
 
-    ol.messages li p iframe, ol.messages li p img, ol.messages li p video,
+    #write textarea {
+        width: 260px;
+    }
+
+    ol.messages li p iframe, ol.messages li p video,
     ol.messages li p audio, ol.messages li p object {
-        height: 163px;
-        width: 290px;
+        height: 140px;
+        width: 250px;
     }
 
     ol.messages li {
-        width: 310px;
+        width: 270px;
     }
+
+    ol.messages li p img {
+    max-width: 250px;
+}
 }

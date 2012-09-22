@@ -3,11 +3,13 @@
 module.exports = function(app) {
   var appnet = require('../lib/appnet');
   var webremix = require('../lib/web-remix');
+  var utils = require('../lib/utils');
 
   app.get('/', function(req, res) {
     res.render('index', {
       pageType: 'index',
-      user: req.session.passport.user
+      user: req.session.passport.user,
+      csrf: req.session._csrf
     });
   });
 
@@ -15,30 +17,16 @@ module.exports = function(app) {
     var newMessages = [];
 
     appnet.myPosts(req, function(err, recentMessages) {
-      recentMessages.forEach(function(recent, counter) {
-        if (err) {
-          res.status(500);
-          res.json({ 'message': 'error retrieving your posts' });
-
-        } else {
-          if (recent.text) {
-            var messageData = {};
-            webremix.generate(recent.text, function(errMsg, message) {
-              if (!errMsg) {
-                messageData.created_at = recent.created_at;
-                messageData.message = message;
-                newMessages.push(messageData);
-              }
-            });
-          }
-
-          if (counter === recentMessages.length - 1) {
-            res.json({
-              messages: newMessages
-            });
-          }
-        }
-      });
+      if (err) {
+        res.status(500);
+        res.json({ 'error': 'error retrieving your posts' });
+      } else {
+        utils.generateFeed(recentMessages, function(messages) {
+          res.json({
+            messages: messages
+          })
+        });
+      }
     });
   });
 
@@ -46,62 +34,46 @@ module.exports = function(app) {
     var newMessages = [];
 
     appnet.myFeed(req, function(err, recentMessages) {
-      console.log(recentMessages)
-      recentMessages.forEach(function(recent, counter) {
-        if (err) {
-          res.status(500);
-          res.json({ 'message': 'error retrieving feed posts' });
-
-        } else {
-          if (recent.text) {
-            var messageData = {};
-            webremix.generate(recent.text, function(errMsg, message) {
-              if (!errMsg) {
-                messageData.created_at = recent.created_at;
-                messageData.message = message;
-                newMessages.push(messageData);
-              }
-            });
-          }
-
-          if (counter === recentMessages.length - 1) {
-            res.json({
-              messages: newMessages
-            });
-          }
-        }
-      });
+      if (err) {
+        res.status(500);
+        res.json({ 'error': 'error retrieving your personal feed' });
+      } else {
+        utils.generateFeed(recentMessages, function(messages) {
+          res.json({
+            messages: messages
+          })
+        });
+      }
     });
   });
 
   app.get('/global/feed', function(req, res) {
-    var newMessages = [];
-
     appnet.globalFeed(function(err, recentMessages) {
-      recentMessages.forEach(function(recent, counter) {
-        if (err) {
-          res.status(500);
-          res.json({ 'message': 'error retrieving global posts' });
+      if (err) {
+        res.status(500);
+        res.json({ 'error': 'error retrieving the global feed' });
+      } else {
+        utils.generateFeed(recentMessages, function(messages) {
+          res.json({
+            messages: messages
+          })
+        });
+      }
+    });
+  });
 
-        } else {
-          if (recent.text) {
-            var messageData = {};
-            webremix.generate(recent.text, function(errMsg, message) {
-              if (!errMsg) {
-                messageData.created_at = recent.created_at;
-                messageData.message = message;
-                newMessages.push(messageData);
-              }
-            });
-          }
-
-          if (counter === recentMessages.length - 1) {
-            res.json({
-              messages: newMessages
-            });
-          }
-        }
-      });
+  app.post('/add', function(req, res) {
+    appnet.addMessage(req, function(err, message) {
+      if (err) {
+        res.status(500);
+        res.json({ 'error': 'error posting a new message' });
+      } else {
+        utils.generateFeed([message], function(messages) {
+          res.json({
+            messages: messages
+          })
+        });
+      }
     });
   });
 };

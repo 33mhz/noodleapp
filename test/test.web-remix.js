@@ -7,7 +7,7 @@ describe('web-remix', function() {
 
     it('returns embed code for a youtu.be short url', function(done) {
       webRemix.generate('http://youtu.be/5cazkHAHiPU', function(err, subject) {
-        subject.should.equal(' <iframe width="500" height="281" src="//www.youtube.com/embed/5cazkHAHiPU?wmode=transparent" ' +
+        subject.should.equal(' <iframe width="530" height="298" src="//www.youtube.com/embed/5cazkHAHiPU?wmode=transparent" ' +
         'frameborder="0" allowfullscreen></iframe>');
         done();
       });
@@ -15,7 +15,7 @@ describe('web-remix', function() {
 
     it('returns embed code for a youtube normal url', function(done) {
       webRemix.generate('http://www.youtube.com/watch?v=5cazkHAHiPU', function(err, subject) {
-        subject.should.equal(' <iframe width="500" height="281" src="//www.youtube.com/embed/5cazkHAHiPU?wmode=transparent" ' +
+        subject.should.equal(' <iframe width="530" height="298" src="//www.youtube.com/embed/5cazkHAHiPU?wmode=transparent" ' +
           'frameborder="0" allowfullscreen></iframe>');
         done();
       });
@@ -23,7 +23,7 @@ describe('web-remix', function() {
 
     it('returns embed code for a vimeo video url', function(done) {
       webRemix.generate('http://vimeo.com/37872583', function(err, subject) {
-        subject.should.equal(' <iframe src="//player.vimeo.com/video/37872583" width="500" height="281" ' +
+        subject.should.equal(' <iframe src="//player.vimeo.com/video/37872583" width="530" height="298" ' +
           'frameborder="0" webkitAllowFullScreen mozallowfullscreen allowFullScreen></iframe>');
         done();
       });
@@ -31,13 +31,13 @@ describe('web-remix', function() {
 
     it('returns embed code for a mixcloud audio url', function(done) {
       webRemix.generate('http://www.mixcloud.com/LuckyMe/25-jamie-vexd-sunday-walkman-mix/', function(err, subject) {
-        subject.should.equal(' <object width="440" height="251"><param name="movie" value="http://www.mixcloud.' +
+        subject.should.equal(' <object width="470" height="268"><param name="movie" value="http://www.mixcloud.' +
           'com/media/swf/player/mixcloudLoader.swf?feed=http%3A//www.mixcloud.com/LuckyMe/25-jamie-vexd-sunday-' +
           'walkman-mix/&embed_type=widget_standard"></param><param name="allowFullScreen" value="false"></param>' +
           '<param name="wmode" value="opaque"></param><param name="allowscriptaccess" value="always"></param>' +
           '<embed src="//www.mixcloud.com/media/swf/player/mixcloudLoader.swf?feed=http%3A//www.mixcloud.com' +
           '/LuckyMe/25-jamie-vexd-sunday-walkman-mix/&embed_type=widget_standard" type="application/x-shockwave-' +
-          'flash" wmode="opaque" allowscriptaccess="always" allowfullscreen="true" width="440" height="251"></embed>' +
+          'flash" wmode="opaque" allowscriptaccess="always" allowfullscreen="true" width="470" height="268"></embed>' +
           '</object><div style="clear:both; height:3px;"><div style="clear:both; height:3px;"></div></div>');
         done();
       });
@@ -111,6 +111,20 @@ describe('web-remix', function() {
       webRemix.generate(audio, function(err, subject) {
         subject.should.equal(' <audio controls="controls" preload="none" autobuffer><source src="' + audio +
           '" type="audio/ogg" /></audio>');
+        done();
+      });
+    });
+
+    it('returns the user link', function(done) {
+      webRemix.generate('@borg', function(err, subject) {
+        subject.should.equal(' <a href="/user/borg">@borg</a>');
+        done();
+      });
+    });
+
+    it('returns a non-user link', function(done) {
+      webRemix.generate('@ borg', function(err, subject) {
+        subject.should.equal(' @ borg');
         done();
       });
     });

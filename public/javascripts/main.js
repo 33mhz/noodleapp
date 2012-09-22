@@ -30,4 +30,12 @@ define(['jquery', 'appnet'],
     $(this).addClass('selected');
     appnet.getGlobalFeed();
   });
+
+  $('#write form').submit(function(ev) {
+    ev.preventDefault();
+
+    var self = $(this);
+    appnet.postMessage(self);
+    self.find('textarea').val('');
+  })
 });
