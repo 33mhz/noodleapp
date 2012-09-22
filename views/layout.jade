@@ -10,12 +10,12 @@ html
 
   body
     header
-      h1 NoodleApp
+      span NoodleApp
 
-    if user
-      a(href='/logout', id='logout') Log out
-    else
-      a(href='/auth/appdotnet', id='login') Log in
+      if user
+        a(href='/logout', id='logout') Log out
+      else
+        a(href='/auth/appdotnet', id='login') Log in
 
     block content
     footer

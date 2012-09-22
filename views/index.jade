@@ -2,14 +2,15 @@ extend layout
 
 block content
   #dashboard
-    if user
-      #profile
-        img(src='#{user._json.avatar_image.url}')
+    .dashboard-content
+      if user
+        #profile
+          img(src='#{user._json.avatar_image.url}')
 
-      section
-        h1 My Posts
+        section
+          ol.tabs
+            li.my-posts.selected My Posts
+            li.my-feed My Feed
+            li.global-feed Global Feed
 
-        ol.messages
-          for message in messages
-            li
-              p!= message
+          ol.messages

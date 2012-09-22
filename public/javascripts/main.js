@@ -8,7 +8,26 @@ requirejs.config({
   }
 });
 
-define(['jquery'],
-  function($) {
+define(['jquery', 'appnet'],
+  function($, appnet) {
 
+  appnet.getMyPosts();
+
+  $('.my-posts').click(function() {
+    $(this).siblings().removeClass('selected');
+    $(this).addClass('selected');
+    appnet.getMyPosts();
+  });
+
+  $('.my-feed').click(function() {
+    $(this).siblings().removeClass('selected');
+    $(this).addClass('selected');
+    appnet.getMyFeed();
+  });
+
+  $('.global-feed').click(function() {
+    $(this).siblings().removeClass('selected');
+    $(this).addClass('selected');
+    appnet.getGlobalFeed();
+  });
 });

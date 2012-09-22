@@ -25,6 +25,7 @@ passport.use(new AppDotNetStrategy({
   },
   function(accessToken, refreshToken, profile, done) {
     process.nextTick(function (err) {
+      profile.access_token = accessToken;
       return done(err, profile);
     });
   }

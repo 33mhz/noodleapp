@@ -47,39 +47,152 @@ table {
     border-spacing: 0;
 }
 
+html, body {
+    height: 100%;
+    position: relative;
+}
+
+@font-face {
+    font-family: 'LeagueGothicRegular';
+    src: url('../fonts/League_Gothic-webfont.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
 body {
+    background-color: #f3f3f3;
     font-family: Arial;
 }
 
+header {
+    background-color: #111;
+    border-bottom: 1px solid #eee;
+    color: #eee;
+    opacity: 0.95;
+    padding: 10px;
+    position: fixed;
+    width: 100%;
+    z-index: 2;
+}
+
 #dashboard {
+    height: 100%;
     margin: 0 auto;
-    max-width: 500px;
+    max-width: 600px;
     min-width: 320px;
+    position: relative;
+}
+
+.dashboard-content {
+    background-color: #f8f8f8;
+    border-left: 1px solid #eee;
+    border-right: 1px solid #eee;
+    box-shadow: #ddd 0 0 4px;
+    float: left;
+    position: relative;
 }
 
 #profile {
-    padding: 20px;
+    margin-top: 15px;
 }
 
 #profile, section {
     padding: 20px;
 }
 
-ol.messages {
+#profile img {
+    width: 80px;
+}
+
+ol.tabs li {
+    background-color: #ccc;
+    border-top-left-radius: 8px;
+    border-top-right-radius: 8px;
+    box-shadow: #f1f1f1 2px 1px 2px;
+    color: #aaa;
+    cursor: pointer;
+    float: left;
+    margin: 5px 5px 0 0;
+    font-family: 'LeagueGothicRegular';
+    font-size: 35px;
+    padding: 10px 20px;
+    text-transform: uppercase;
+}
+
+ol.tabs li:hover {
+    background-color: #e2e2e2;
+    color: #a7b7b9;
+}
+
+ol.tabs li.selected {
+    background-color: #fff;
+    color: #22c7e0;
+}
+
+ol.messages li {
+    background-color: #fff;
+    box-shadow: #f1f1f1 3px 1px 2px;
+    display: block;
+    font-size: 13px;
+    line-height: 16px;
+    margin-bottom: 1px;
+    padding: 10px 5px;
+    width: 565px;
+}
+
+ol.messages li:first-child {
+    border-top: none;
+    padding-top: 15px;
+}
+
+ol.messages li .meta {
+    color: #ccc;
+    padding-left: 10px;
+}
+
+ol.messages li p {
+    color: #333;
+    font-size: 14px;
+    line-height: 18px;
+    padding: 10px;
+}
+
+ol.messages li p a {
+    color: #20c2c0;
+    text-decoration: none;
+}
+
+ol.messages li,
+ol.messages li p iframe, ol.messages li p img, ol.messages li p video,
+ol.messages li p audio, ol.messages li p object {
+    clear: both;
     display: block;
     float: left;
 }
 
-ol.messages li {
-    background-color: #eee;
-    clear: both;
-    float: left;
-    font-size: 13px;
-    line-height: 16px;
-    margin-bottom: 5px;
-    width: 100%;
+ol.messages li p iframe, ol.messages li p img, ol.messages li p video,
+ol.messages li p audio, ol.messages li p object {
+    margin: 5px 0;
 }
 
-ol.messages li p {
-    padding: 5px;
+@media only screen and (max-width: 599px) {
+    #dashboard {
+        width: 320px;
+    }
+
+    ol.tabs li {
+        font-size: 25px;
+        margin: 5px 2px 0 0;
+        padding: 7px 11px;
+    }
+
+    ol.messages li p iframe, ol.messages li p img, ol.messages li p video,
+    ol.messages li p audio, ol.messages li p object {
+        height: 163px;
+        width: 290px;
+    }
+
+    ol.messages li {
+        width: 310px;
+    }
 }
