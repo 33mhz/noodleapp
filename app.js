@@ -21,6 +21,7 @@ passport.deserializeUser(function(obj, done) {
 passport.use(new AppDotNetStrategy({
     clientID: nconf.get('appnet_consumer_key'),
     clientSecret: nconf.get('appnet_consumer_secret'),
+    scope: 'stream messages write_post follow',
     callbackURL: nconf.get('domain') + ':' + nconf.get('authPort') + '/auth/appdotnet/callback'
   },
   function(accessToken, refreshToken, profile, done) {
