@@ -6,9 +6,10 @@ block content
       #profile
         img(src='#{user._json.avatar_image.url}')
 
-      h1 My Posts
+      section
+        h1 My Posts
 
-      ol.messages
-        for message in messages
-          li
-            p!= message
+        ol.messages
+          for message in messages
+            li
+              p!= message

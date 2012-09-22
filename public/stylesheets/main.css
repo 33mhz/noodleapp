@@ -52,18 +52,22 @@ body {
 }
 
 #dashboard {
+    margin: 0 auto;
     max-width: 500px;
-    width: 100%;
+    min-width: 320px;
 }
 
-#dashboard img {
-    width: 60px;
+#profile {
+    padding: 20px;
+}
+
+#profile, section {
+    padding: 20px;
 }
 
 ol.messages {
     display: block;
     float: left;
-    padding: 20px;
 }
 
 ol.messages li {
