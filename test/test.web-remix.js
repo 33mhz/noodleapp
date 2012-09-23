@@ -78,8 +78,8 @@ describe('web-remix', function() {
     it('returns image code for an img url', function() {
       webRemix.generate('http://3.bp.blogspot.com/_K_1LxF4TvhU/S7UUE6PYKiI/AAAAAAAADto/XfpdX2CIxqY/' +
         's400/Riley+the+smiling+dog.jpg', function(err, subject) {
-        subject.should.equal(' <img src="http://3.bp.blogspot.com/_K_1LxF4TvhU/S7UUE6PYKiI/AAAAAAAADto/XfpdX2CIxqY/' +
-          's400/Riley+the+smiling+dog.jpg">');
+        subject.should.equal(' <div class="image-wrapper"><img src="http://3.bp.blogspot.com/_K_1LxF4TvhU/S7UUE6PYKiI/AAAAAAAADto/XfpdX2CIxqY/' +
+          's400/Riley+the+smiling+dog.jpg"></div>');
       });
     });
 
