@@ -9,14 +9,18 @@ module.exports = function(app) {
     res.render('index', {
       pageType: 'index',
       user: req.session.passport.user,
-      csrf: req.session._csrf
+      csrf: req.session._csrf,
+      url: req.session.url || '/my/feed'
     });
   });
 
-  app.get('/my/posts', function(req, res) {
+  app.get('/user/posts', function(req, res) {
     var newMessages = [];
+    var userId = req.params.id || req.session.passport.user.id;
 
-    appnet.myPosts(req, function(err, recentMessages) {
+    req.session.url = '/user/posts/?id=' + parseInt(userId, 10);
+
+    appnet.userPosts(req, function(err, recentMessages) {
       if (err) {
         res.status(500);
         res.json({ 'error': 'error retrieving your posts' });
@@ -30,8 +34,29 @@ module.exports = function(app) {
     });
   });
 
+  app.get('/my/mentions', function(req, res) {
+    var newMessages = [];
+
+    req.session.url = '/my/mentions';
+
+    appnet.myMentions(req, function(err, recentMessages) {
+      if (err) {
+        res.status(500);
+        res.json({ 'error': 'error retrieving your mentions' });
+      } else {
+        utils.generateFeed(recentMessages, function(messages) {
+          res.json({
+            messages: messages
+          })
+        });
+      }
+    });
+  });
+
   app.get('/my/feed', function(req, res) {
     var newMessages = [];
+
+    req.session.url = '/my/feed';
 
     appnet.myFeed(req, function(err, recentMessages) {
       if (err) {
@@ -48,7 +73,9 @@ module.exports = function(app) {
   });
 
   app.get('/global/feed', function(req, res) {
-    appnet.globalFeed(function(err, recentMessages) {
+    req.session.url = '/global/feed';
+
+    appnet.globalFeed(req, function(err, recentMessages) {
       if (err) {
         res.status(500);
         res.json({ 'error': 'error retrieving the global feed' });

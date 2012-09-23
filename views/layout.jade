@@ -8,9 +8,9 @@ html
     link(rel='shortcut icon', href='/images/favicon.png')
     link(rel='stylesheet', href='/stylesheets/main.css')
 
-  body
+  body(data-url='#{url}')
     header
-      span NoodleApp
+      span N
 
       if user
         a(href='/logout', id='logout') Log out

@@ -11,25 +11,39 @@ requirejs.config({
 define(['jquery', 'appnet'],
   function($, appnet) {
 
-  appnet.getMyPosts();
+  var url = $('body').data('url');
+  var myMentions = $('.my-mentions');
+  var globalFeed = $('.global-feed');
+  var myFeed = $('.my-feed');
 
-  $('.my-posts').click(function() {
+  myMentions.click(function() {
+    var self = $(this);
     $(this).siblings().removeClass('selected');
     $(this).addClass('selected');
-    appnet.getMyPosts();
+    appnet.getMentions();
   });
 
-  $('.my-feed').click(function() {
-    $(this).siblings().removeClass('selected');
-    $(this).addClass('selected');
+  myFeed.click(function() {
+    var self = $(this);
+    self.siblings().removeClass('selected');
+    self.addClass('selected');
     appnet.getMyFeed();
   });
 
-  $('.global-feed').click(function() {
-    $(this).siblings().removeClass('selected');
-    $(this).addClass('selected');
+  globalFeed.click(function() {
+    var self = $(this);
+    self.siblings().removeClass('selected');
+    self.addClass('selected');
     appnet.getGlobalFeed();
   });
+
+  if (url === '/my/feed') {
+    myFeed.click();
+  } else if (url === '/global/feed') {
+    globalFeed.click();
+  } else {
+    myMentions.click();
+  }
 
   $('#write form').submit(function(ev) {
     ev.preventDefault();

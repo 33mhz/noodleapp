@@ -65,31 +65,45 @@ body {
 }
 
 header {
-    background-color: #111;
+    background: #aaa;
     border-bottom: 1px solid #eee;
     color: #eee;
     font-family: 'LeagueGothicRegular';
-    opacity: 0.95;
+    opacity: 0.9;
+    padding: 3px 0;
     position: fixed;
     width: 100%;
     z-index: 2;
 }
 
 header span {
+    background-color: #ccc;
+    border-radius: 100px;
+    color: #fff;
     display: block;
     float: left;
-    font-size: 20px;
-    padding: 8px;
+    font-size: 18px;
+    line-height: 18px;
+    margin-left: 10px;
+    padding: 5px 10px;
     text-transform: uppercase;
 }
 
 header a {
-    color: #eee;
+    background-color: #ccc;
+    border-radius: 5px;
+    color: #fff;
     display: block;
     float: right;
     font-size: 18px;
-    padding: 8px;
+    margin: 1px 10px 0;
+    padding: 3px 8px;
     text-decoration: none;
+}
+
+header a:hover {
+    background-color: #888;
+    color: #bbb;
 }
 
 #dashboard {
@@ -130,6 +144,7 @@ section {
 
 #write textarea {
     border: 0;
+    border-radius: 5px;
     color: #888;
     font-family: Arial;
     padding: 10px;
@@ -138,13 +153,22 @@ section {
 }
 
 button[type="submit"] {
-    background-color: #111;
+    background-color: #a6c139;
     border: 0;
-    color: #eee;
+    border-radius: 5px;
+    color: #fff;
+    cursor: pointer;
     float: right;
-    font-size: 15px;
+    font-family: 'LeagueGothicRegular';
+    font-size: 20px;
     margin-top: 5px;
-    padding: 3px 6px;
+    padding: 1px 6px;
+    text-transform: uppercase;
+}
+
+button[type="submit"]:hover {
+    background-color: #6b941d;
+    color: #aad753;
 }
 
 ol.tabs li {
@@ -157,8 +181,8 @@ ol.tabs li {
     float: left;
     margin: 5px 5px 0 0;
     font-family: 'LeagueGothicRegular';
-    font-size: 30px;
-    padding: 10px 20px;
+    font-size: 25px;
+    padding: 8px 20px;
     text-transform: uppercase;
 }
 
@@ -200,19 +224,43 @@ ol.messages li:first-child {
 }
 
 ol.messages li .meta {
+    clear: both;
     color: #ccc;
+    float: left;
     padding-left: 10px;
 }
 
-ol.messages li .who {
+.meta {
+    margin-bottom: 10px;
+}
+
+.meta .who {
     display: block;
     float: left;
     width: 50px;
 }
 
-ol.messages li .who img {
-    margin: 5px;
+.meta .who img {
+    float: left;
+    margin: 0 5px;
     width: 50px;
+}
+
+.meta .actions {
+    display: block;
+    float: right;
+    width: 400px;
+}
+
+.meta .actions li {
+    box-shadow: none;
+    border: 0;
+    float: left;
+    padding: 0;
+}
+
+.meta time {
+    padding-left: 20px;
 }
 
 ol.messages li p {
@@ -227,6 +275,12 @@ ol.messages li p {
 ol.messages li p a {
     color: #20c2c0;
     text-decoration: none;
+}
+
+ol.messages li p .image-wrapper {
+    clear: both;
+    float: left;
+    width: 100%;
 }
 
 ol.messages li p img {
@@ -252,9 +306,14 @@ ol.messages li p audio, ol.messages li p object {
     }
 
     ol.tabs li {
-        font-size: 25px;
-        margin: 5px 2px 0 0;
+        font-size: 22px;
+        margin: 5px 2px 0;
         padding: 7px 9px;
+    }
+
+    #meta {
+        background-color: #f00;
+        margin-bottom: 0 !important;
     }
 
     #write textarea {
