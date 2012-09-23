@@ -76,29 +76,29 @@ header {
     z-index: 2;
 }
 
-header span {
+header a {
     background-color: #ccc;
-    border-radius: 100px;
     color: #fff;
     display: block;
+    text-decoration: none;
+}
+
+header a.home {
+    border-radius: 100px;
     float: left;
-    font-size: 18px;
-    line-height: 18px;
+    font-size: 20px;
+    line-height: 20px;
     margin-left: 10px;
-    padding: 5px 10px;
+    padding: 3px 9px;
     text-transform: uppercase;
 }
 
-header a {
-    background-color: #ccc;
+header a#logout {
     border-radius: 5px;
-    color: #fff;
-    display: block;
     float: right;
     font-size: 18px;
     margin: 1px 10px 0;
     padding: 3px 8px;
-    text-decoration: none;
 }
 
 header a:hover {
@@ -138,8 +138,16 @@ section {
     padding-top: 0;
 }
 
+section.public li h1 {
+    color: #22c7e0;
+    font-size: 30px;
+    line-height: 35px;
+    margin-top: 50px;
+    padding: 20px;
+}
+
 #write {
-    padding-bottom: 10px;
+    padding-bottom: 0;
 }
 
 #write textarea {
@@ -152,8 +160,8 @@ section {
     resize: none;
 }
 
-button[type="submit"] {
-    background-color: #a6c139;
+button[type="submit"], section.public li a {
+    background-color: #a3d134;
     border: 0;
     border-radius: 5px;
     color: #fff;
@@ -166,9 +174,20 @@ button[type="submit"] {
     text-transform: uppercase;
 }
 
-button[type="submit"]:hover {
-    background-color: #6b941d;
+button[type="submit"]:hover, section.public li a:hover {
+    background-color: #7b9e28;
     color: #aad753;
+}
+
+section.public li a {
+    display: block;
+    float: none;
+    font-size: 20px;
+    margin: 10px auto;
+    padding: 6px 10px;
+    text-align: center;
+    text-decoration: none;
+    width: 150px;
 }
 
 ol.tabs li {
@@ -182,7 +201,7 @@ ol.tabs li {
     margin: 5px 5px 0 0;
     font-family: 'LeagueGothicRegular';
     font-size: 25px;
-    padding: 8px 20px;
+    padding: 5px 20px;
     text-transform: uppercase;
 }
 
@@ -205,7 +224,7 @@ ol.messages li.loading img {
     width: 66px;
 }
 
-ol.messages li {
+ol.messages > li {
     background-color: #fff;
     box-shadow: #f1f1f1 3px 1px 2px;
     display: block;
@@ -218,12 +237,12 @@ ol.messages li {
     width: 550px;
 }
 
-ol.messages li:first-child {
+ol.messages > li:first-child {
     border-top: none;
     padding-top: 15px;
 }
 
-ol.messages li .meta {
+ol.messages > li .meta {
     clear: both;
     color: #ccc;
     float: left;
@@ -237,6 +256,7 @@ ol.messages li .meta {
 .meta .who {
     display: block;
     float: left;
+    height: 50px;
     width: 50px;
 }
 
@@ -248,22 +268,71 @@ ol.messages li .meta {
 
 .meta .actions {
     display: block;
-    float: right;
+    float: left;
     width: 400px;
 }
 
-.meta .actions li {
+.meta .actions > li {
     box-shadow: none;
     border: 0;
     float: left;
+    margin: 14px 12px 0 0;
     padding: 0;
 }
 
 .meta time {
-    padding-left: 20px;
+    clear: both;
+    float: left;
 }
 
-ol.messages li p {
+.details {
+    float: left;
+    margin-left: 20px;
+    width: 400px;
+}
+
+.actions > li {
+    background-repeat: no-repeat;
+    float: left;
+    height: 21px;
+    opacity: 0.3;
+    position: relative;
+    width: 24px;
+}
+
+.actions > li span {
+    background-color: #fff;
+    border: 1px solid #eee;
+    border-radius: 5px;
+    bottom: -30px;
+    color: #111;
+    display: none;
+    padding: 3px 6px;
+    position: absolute;
+    z-index: 2;
+}
+
+.actions > li:hover {
+    opacity: 1;
+}
+
+.actions > li:hover span {
+    display: block;
+}
+
+.actions .like {
+    background-image: url('/images/like.png');
+}
+
+.actions .reply {
+    background-image: url('/images/reply.png');
+}
+
+.actions .repost {
+    background-image: url('/images/repost.png');
+}
+
+ol.messages > li p {
     clear: both;
     color: #333;
     float: left;
@@ -272,22 +341,22 @@ ol.messages li p {
     padding: 10px;
 }
 
-ol.messages li p a {
+ol.messages > li p a {
     color: #20c2c0;
     text-decoration: none;
 }
 
-ol.messages li p .image-wrapper {
+ol.messages > li p .image-wrapper {
     clear: both;
     float: left;
     width: 100%;
 }
 
-ol.messages li p img {
+ol.messages > li p img {
     max-width: 535px;
 }
 
-ol.messages li,
+ol.messages > li,
 ol.messages li p iframe, ol.messages li p img, ol.messages li p video,
 ol.messages li p audio, ol.messages li p object {
     clear: both;
@@ -305,15 +374,19 @@ ol.messages li p audio, ol.messages li p object {
         width: 320px;
     }
 
+    section.public li h1 {
+        font-size: 25px;
+        line-height: 30px;
+    }
+
     ol.tabs li {
         font-size: 22px;
         margin: 5px 2px 0;
         padding: 7px 9px;
     }
 
-    #meta {
-        background-color: #f00;
-        margin-bottom: 0 !important;
+    .meta .details, .meta .actions {
+        width: 170px;
     }
 
     #write textarea {
@@ -326,11 +399,15 @@ ol.messages li p audio, ol.messages li p object {
         width: 250px;
     }
 
-    ol.messages li {
+    ol.messages > li {
         width: 270px;
     }
 
-    ol.messages li p img {
-    max-width: 250px;
-}
+    ol.messages > li p {
+        padding-top: 5px;
+    }
+
+    ol.messages > li p img {
+        max-width: 250px;
+    }
 }

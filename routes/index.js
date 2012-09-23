@@ -6,19 +6,45 @@ module.exports = function(app) {
   var utils = require('../lib/utils');
 
   app.get('/', function(req, res) {
+    // If we've been browsing another user and we come back to the index
+    // page, just reset it to your personal feed
+    if (req.session.url.match(/\/user\/posts/)) {
+      req.session.url = '/my/feed';
+    }
+
     res.render('index', {
       pageType: 'index',
-      user: req.session.passport.user,
+      session: req.session.passport.user,
       csrf: req.session._csrf,
       url: req.session.url || '/my/feed'
     });
   });
 
-  app.get('/user/posts', function(req, res) {
+  app.get('/user/:username', function(req, res) {
+    appnet.getUser(req, function(err, user) {
+      if (err) {
+        res.status(500);
+        res.json({ 'error': 'could not retrieve user' });
+      } else {
+        req.session.url = '/user/posts?id=' + user.id;
+
+        res.render('profile', {
+          pageType: 'profile',
+          csrf: req.session._csrf,
+          username: req.params.username,
+          session: req.session.passport.user,
+          user: user,
+          url: req.session.url || '/my/feed'
+        });
+      }
+    });
+  });
+
+  app.get('/user/posts/:id', function(req, res) {
     var newMessages = [];
     var userId = req.params.id || req.session.passport.user.id;
 
-    req.session.url = '/user/posts/?id=' + parseInt(userId, 10);
+    req.session.url = '/user/posts/' + parseInt(userId, 10);
 
     appnet.userPosts(req, function(err, recentMessages) {
       if (err) {
@@ -28,26 +54,47 @@ module.exports = function(app) {
         utils.generateFeed(recentMessages, function(messages) {
           res.json({
             messages: messages
-          })
+          });
         });
       }
     });
   });
 
-  app.get('/my/mentions', function(req, res) {
+  app.get('/user/mentions/:id', function(req, res) {
     var newMessages = [];
+    var userId = req.params.id || req.session.passport.user.id;
 
-    req.session.url = '/my/mentions';
+    req.session.url = '/user/mentions/' + parseInt(userId, 10);
 
-    appnet.myMentions(req, function(err, recentMessages) {
+    appnet.userMentions(req, function(err, recentMessages) {
       if (err) {
         res.status(500);
-        res.json({ 'error': 'error retrieving your mentions' });
+        res.json({ 'error': 'error retrieving mentions' });
       } else {
         utils.generateFeed(recentMessages, function(messages) {
           res.json({
             messages: messages
-          })
+          });
+        });
+      }
+    });
+  });
+
+  app.get('/user/starred/:id', function(req, res) {
+    var newMessages = [];
+    var userId = req.params.id || req.session.passport.user.id;
+
+    req.session.url = '/user/starred/' + parseInt(userId, 10);
+
+    appnet.userStarred(req, function(err, recentMessages) {
+      if (err) {
+        res.status(500);
+        res.json({ 'error': 'error retrieving starred' });
+      } else {
+        utils.generateFeed(recentMessages, function(messages) {
+          res.json({
+            messages: messages
+          });
         });
       }
     });
@@ -66,7 +113,7 @@ module.exports = function(app) {
         utils.generateFeed(recentMessages, function(messages) {
           res.json({
             messages: messages
-          })
+          });
         });
       }
     });
@@ -95,10 +142,8 @@ module.exports = function(app) {
         res.status(500);
         res.json({ 'error': 'error posting a new message' });
       } else {
-        utils.generateFeed([message], function(messages) {
-          res.json({
-            messages: messages
-          })
+        res.json({
+          'message': 'posted successfully'
         });
       }
     });

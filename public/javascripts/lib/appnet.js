@@ -21,6 +21,7 @@ define(['jquery'], function ($) {
     currentFeed = url;
     if (!isFragment) {
       messages.html('<li class="loading"><img src="/images/ajax-loader.gif"></li>');
+      sinceId = null;
     }
     $.ajax({
       url: url,
@@ -34,24 +35,28 @@ define(['jquery'], function ($) {
         messages.empty();
       }
 
-      for (var i = 0; i < data.messages.length; i ++) {
-        var message = $('<li><div class="meta">' +
-          '<a href="" class="who" title=""><img src=""></a>' +
-          '<time></time><ol class="actions"><li class="repost"></li>' +
-          '<li class="fave"></li></ol></div><p></p></li>');
-        message.find('time').html(data.messages[i].created_at);
-        message.find('a.who')
-          .attr('title', data.messages[i].name)
-          .attr('href', '/user/' + data.messages[i].user_id);
-        message.find('a.who img').attr('src', data.messages[i].user);
-        message.find('p').html(data.messages[i].message);
+      if (data.messages.length > 0) {
+        for (var i = 0; i < data.messages.length; i ++) {
+          var message = $('<li><div class="meta">' +
+            '<a href="" class="who" title=""><img src=""></a><div class="details">' +
+            '<time></time><ol class="actions"><li class="repost"><span>Repost</span></li>' +
+            '<li class="like"><span>Like</span></li><li class="reply"><span>Reply</span>' +
+            '</li></ol></div></div><p></p></li>');
+          message.find('time').html(data.messages[i].created_at);
+          message.find('a.who')
+            .attr('title', data.messages[i].name)
+            .attr('href', '/user/' + data.messages[i].username);
+          message.find('a.who img').attr('src', data.messages[i].user);
+          message.find('p').html(data.messages[i].message);
 
-        messages.prepend(message);
+          messages.prepend(message);
+        }
+
+        messages.find('> li:gt(' + MESSAGE_LIMIT + ')').remove();
+        sinceId = data.messages[data.messages.length - 1].id;
+      } else {
+        messages.html('<li><p>No messages found</p></li>')
       }
-
-      messages.find('> li:gt(' + MESSAGE_LIMIT + ')').remove();
-
-      sinceId = data.messages[data.messages.length - 1].id;
 
       if (!isFragment) {
         clearTimeout(pollMessages);
@@ -73,12 +78,17 @@ define(['jquery'], function ($) {
 
     getUserPosts: function() {
       isFragment = false;
-      setMessage('/user/posts', 'GET');
+      setMessage('/user/posts/' + messages.data('userid'), 'GET');
     },
 
-    getMentions: function() {
+    getUserMentions: function() {
       isFragment = false;
-      setMessage('/my/mentions', 'GET');
+      setMessage('/user/mentions/' + messages.data('userid'), 'GET');
+    },
+
+    getUserStarred: function() {
+      isFragment = false;
+      setMessage('/user/starred/' + messages.data('userid'), 'GET');
     },
 
     getGlobalFeed: function() {
@@ -96,6 +106,7 @@ define(['jquery'], function ($) {
         cache: false
 
       }).done(function(data) {
+        sinceId = null;
         myFeed.click();
       });
     }

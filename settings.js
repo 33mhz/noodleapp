@@ -31,10 +31,6 @@ module.exports = function(app, configurations, express) {
     app.use(express.csrf());
     app.use(app.router);
     app.use(function(req, res, next) {
-      res.locals.session = req.session;
-      next();
-    });
-    app.use(function(req, res, next) {
       res.status(403);
       res.render('403', { url: req.url, layout: false });
       return;

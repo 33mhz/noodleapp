@@ -10,12 +10,10 @@ html
 
   body(data-url='#{url}')
     header
-      span N
+      a.home(href='/') N
 
-      if user
+      if session
         a(href='/logout', id='logout') Log out
-      else
-        a(href='/auth/appdotnet', id='login') Log in
 
     block content
     footer

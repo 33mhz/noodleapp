@@ -3,7 +3,7 @@ extend layout
 block content
   #dashboard
     .dashboard-content
-      if user
+      if session
         #write
           form(method='post')
             textarea(name='message', placeholder='Write your message')
@@ -13,7 +13,13 @@ block content
         section
           ol.tabs
             li.my-feed.selected My Feed
-            li.my-mentions Mentions
+            li.user-mentions Mentions
             li.global-feed Global Feed
 
+          ol.messages(data-userid='#{session.id}')
+      else
+        section.public
           ol.messages
+            li
+              h1 You need to sign in with your App.net account to see this glorious noodle.
+              a(href='/auth/appdotnet', id='login') Log in

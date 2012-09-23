@@ -1,0 +1,20 @@
+extend layout
+
+block content
+  #dashboard
+    .dashboard-content
+      #profile
+        img(src='#{user.avatar_image.url}')
+      #write
+        form(method='post')
+          textarea(name='message', placeholder='Write a message to @{username}') @#{username}&#xa0;
+          input(type='hidden', name='_csrf', value='#{csrf}')
+          button(type='submit') Post
+
+      section
+        ol.tabs
+          li.user-posts.selected Posts
+          li.user-mentions Mentions
+          li.user-starred Starred
+
+        ol.messages(data-userid='#{user.id}')
