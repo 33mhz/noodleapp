@@ -37,12 +37,23 @@ define(['jquery'], function ($) {
 
       if (data.messages.length > 0) {
         for (var i = 0; i < data.messages.length; i ++) {
-          var message = $('<li><div class="meta">' +
+          var otherPostActions = '';
+          var threadAction = '';
+
+          if (!data.messages[i].isSelf) {
+            otherPostActions = '<li class="repost"><span>Repost</span></li>';
+          };
+
+          if (data.messages[i].isThread) {
+            threadAction = '<li class="thread"><span>Thread</span></li>';
+          }
+
+          var message = $('<li class=""><div class="meta">' +
             '<a href="" class="who" title=""><img src=""></a><div class="details">' +
-            '<time></time><ol class="actions"><li class="thread"><span>Thread</span></li>' +
-            '<li class="repost"><span>Repost</span></li>' +
-            '<li class="like"><span>Like</span></li><li class="reply"><span>Reply</span>' +
-            '</li></ol></div></div><p></p></li>');
+            '<time></time><ol class="actions">' + threadAction +
+            '<li class="like"><span>Like</span></li>' +
+            '<li class="reply"><span>Reply</span></li>' + otherPostActions +
+            '</ol></div></div><p></p></li>');
           message.find('time').html(data.messages[i].created_at);
           message.find('a.who')
             .attr('title', data.messages[i].name)

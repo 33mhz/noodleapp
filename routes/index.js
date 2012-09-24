@@ -66,7 +66,7 @@ module.exports = function(app) {
         res.status(500);
         res.json({ 'error': 'error retrieving your posts' });
       } else {
-        utils.generateFeed(recentMessages, function(messages) {
+        utils.generateFeed(recentMessages, req.session.passport.user.id, function(messages) {
           res.json({
             messages: messages
           });
@@ -86,7 +86,7 @@ module.exports = function(app) {
         res.status(500);
         res.json({ 'error': 'error retrieving mentions' });
       } else {
-        utils.generateFeed(recentMessages, function(messages) {
+        utils.generateFeed(recentMessages, req.session.passport.user.id, function(messages) {
           res.json({
             messages: messages
           });
@@ -106,7 +106,7 @@ module.exports = function(app) {
         res.status(500);
         res.json({ 'error': 'error retrieving starred' });
       } else {
-        utils.generateFeed(recentMessages, function(messages) {
+        utils.generateFeed(recentMessages, req.session.passport.user.id, function(messages) {
           res.json({
             messages: messages
           });
@@ -125,7 +125,7 @@ module.exports = function(app) {
         res.status(500);
         res.json({ 'error': 'error retrieving your personal feed' });
       } else {
-        utils.generateFeed(recentMessages, function(messages) {
+        utils.generateFeed(recentMessages, req.session.passport.user.id, function(messages) {
           res.json({
             messages: messages
           });
@@ -142,7 +142,7 @@ module.exports = function(app) {
         res.status(500);
         res.json({ 'error': 'error retrieving the global feed' });
       } else {
-        utils.generateFeed(recentMessages, function(messages) {
+        utils.generateFeed(recentMessages, req.session.passport.user.id, function(messages) {
           res.json({
             messages: messages
           })
