@@ -34,8 +34,16 @@ passport.use(new AppDotNetStrategy({
   }
 ));
 
+var isLoggedIn = function(req, res, next) {
+  if (req.session.passport.user) {
+    next();
+  } else {
+    res.redirect('/');
+  }
+};
+
 // routes
-require('./routes')(app, client);
+require('./routes')(app, client, isLoggedIn);
 require('./routes/auth')(app, passport);
 
 app.get('/404', function(req, res, next){

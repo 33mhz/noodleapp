@@ -10,7 +10,7 @@ block content
           h3 Following #{user.counts.following}
           h3 Followers #{user.counts.followers}
 
-          if user.id !== session.id
+          if session && (user.id !== session.id)
             ol.action-buttons(data-userid='#{user.id}')
               if user.you_follow
                 li(class='follow on') Unfollow

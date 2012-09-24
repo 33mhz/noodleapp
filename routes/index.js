@@ -1,6 +1,6 @@
 'use strict';
 
-module.exports = function(app, client) {
+module.exports = function(app, client, isLoggedIn) {
   var appnet = require('../lib/appnet');
   var webremix = require('../lib/web-remix');
   var utils = require('../lib/utils');
@@ -28,13 +28,12 @@ module.exports = function(app, client) {
     }
   });
 
-  app.get('/user/:username', function(req, res) {
+  app.get('/user/:username', isLoggedIn, function(req, res) {
     appnet.getUser(req, function(err, user) {
       if (err) {
         res.status(500);
         res.json({ 'error': 'could not retrieve user' });
       } else {
-        req.session.url = '/user/posts/' + user.id;
         var description = '';
 
         // User descriptions don't always exist
@@ -42,20 +41,32 @@ module.exports = function(app, client) {
           description = user.description.html;
         }
 
-        res.render('profile', {
-          pageType: 'profile',
-          csrf: req.session._csrf,
-          username: req.params.username,
-          session: req.session.passport.user,
-          user: user,
-          url: req.session.url || '/my/feed',
-          description: description
-        });
+        if (req.session) {
+          req.session.url = '/user/posts/' + user.id;
+
+          res.render('profile', {
+            pageType: 'profile',
+            csrf: req.session._csrf,
+            username: req.params.username,
+            session: req.session.passport.user,
+            user: user,
+            url: req.session.url || '/my/feed',
+            description: description
+          });
+        } else {
+          res.render('profile', {
+            pageType: 'profile',
+            username: req.params.username,
+            user: user,
+            url: null,
+            description: description
+          });
+        }
       }
     });
   });
 
-  app.get('/user/posts/:id', function(req, res) {
+  app.get('/user/posts/:id', isLoggedIn, function(req, res) {
     var newMessages = [];
     var userId = req.params.id || req.session.passport.user.id;
 
@@ -75,7 +86,7 @@ module.exports = function(app, client) {
     });
   });
 
-  app.get('/user/mentions/:id', function(req, res) {
+  app.get('/user/mentions/:id', isLoggedIn, function(req, res) {
     var newMessages = [];
     var userId = req.params.id || req.session.passport.user.id;
 
@@ -95,7 +106,7 @@ module.exports = function(app, client) {
     });
   });
 
-  app.get('/user/starred/:id', function(req, res) {
+  app.get('/user/starred/:id', isLoggedIn, function(req, res) {
     var newMessages = [];
     var userId = req.params.id || req.session.passport.user.id;
 
@@ -115,7 +126,7 @@ module.exports = function(app, client) {
     });
   });
 
-  app.get('/my/feed', function(req, res) {
+  app.get('/my/feed', isLoggedIn, function(req, res) {
     var newMessages = [];
 
     req.session.url = '/my/feed';
@@ -134,7 +145,7 @@ module.exports = function(app, client) {
     });
   });
 
-  app.get('/global/feed', function(req, res) {
+  app.get('/global/feed', isLoggedIn, function(req, res) {
     req.session.url = '/global/feed';
 
     appnet.globalFeed(req, function(err, recentMessages) {
@@ -151,7 +162,7 @@ module.exports = function(app, client) {
     });
   });
 
-  app.post('/add', function(req, res) {
+  app.post('/add', isLoggedIn, function(req, res) {
     appnet.addMessage(req, function(err, message) {
       if (err) {
         res.status(500);
@@ -164,7 +175,7 @@ module.exports = function(app, client) {
     });
   });
 
-  app.post('/star', function(req, res) {
+  app.post('/star', isLoggedIn, function(req, res) {
     appnet.starMessage(req, client, function(err, message) {
       if (err) {
         res.status(500);
@@ -177,7 +188,7 @@ module.exports = function(app, client) {
     });
   });
 
-  app.delete('/star', function(req, res) {
+  app.delete('/star', isLoggedIn, function(req, res) {
     appnet.unstarMessage(req, client, function(err, message) {
       if (err) {
         res.status(500);
@@ -190,7 +201,7 @@ module.exports = function(app, client) {
     });
   });
 
-  app.post('/repost', function(req, res) {
+  app.post('/repost', isLoggedIn, function(req, res) {
     appnet.repost(req, client, function(err, message) {
       if (err) {
         res.status(500);
@@ -203,7 +214,7 @@ module.exports = function(app, client) {
     });
   });
 
-  app.delete('/repost', function(req, res) {
+  app.delete('/repost', isLoggedIn, function(req, res) {
     appnet.unrepost(req, client, function(err, message) {
       if (err) {
         res.status(500);
@@ -216,7 +227,7 @@ module.exports = function(app, client) {
     });
   });
 
-  app.post('/follow', function(req, res) {
+  app.post('/follow', isLoggedIn, function(req, res) {
     appnet.follow(req, function(err, user) {
       if (err) {
         res.status(500);
@@ -229,7 +240,7 @@ module.exports = function(app, client) {
     });
   });
 
-  app.delete('/follow', function(req, res) {
+  app.delete('/follow', isLoggedIn, function(req, res) {
     appnet.unfollow(req, function(err, user) {
       if (err) {
         res.status(500);
@@ -242,7 +253,7 @@ module.exports = function(app, client) {
     });
   });
 
-  app.post('/mute', function(req, res) {
+  app.post('/mute', isLoggedIn, function(req, res) {
     appnet.mute(req, function(err, user) {
       if (err) {
         res.status(500);
@@ -255,7 +266,7 @@ module.exports = function(app, client) {
     });
   });
 
-  app.delete('/mute', function(req, res) {
+  app.delete('/mute', isLoggedIn, function(req, res) {
     console.log('got here')
     appnet.unmute(req, function(err, user) {
       if (err) {
