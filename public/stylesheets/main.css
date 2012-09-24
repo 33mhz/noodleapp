@@ -53,8 +53,8 @@ html, body {
 }
 
 @font-face {
-    font-family: 'LeagueGothicRegular';
-    src: url('../fonts/League_Gothic-webfont.woff') format('woff');
+    font-family: 'Oswald';
+    src: url('../fonts/Oswald-Regular-webfont.woff') format('woff');
     font-weight: normal;
     font-style: normal;
 }
@@ -65,11 +65,11 @@ body {
 }
 
 header {
-    background: #111;
+    background: #aaa;
     border-bottom: 1px solid #eee;
     color: #eee;
-    font-family: 'LeagueGothicRegular';
-    opacity: 0.9;
+    font-family: 'Oswald';
+    opacity: 0.8;
     padding: 3px 0;
     position: fixed;
     width: 100%;
@@ -96,9 +96,9 @@ header a.home {
 header a#logout {
     border-radius: 5px;
     float: right;
-    font-size: 18px;
+    font-size: 15px;
     margin: 1px 10px 0;
-    padding: 3px 8px;
+    padding: 5px 8px;
 }
 
 header a:hover {
@@ -139,8 +139,8 @@ header a:hover {
 }
 
 #profile .user-info h2 {
-    color: #888;
-    font-family: 'LeagueGothicRegular';
+    color: #222;
+    font-family: 'Oswald';
     font-size: 40px;
     margin-bottom: 10px;
     text-shadow: #fff 0 1px 0, #eee 0 -1px 0;
@@ -148,7 +148,7 @@ header a:hover {
 }
 
 #profile .user-info h3 {
-    color: #888;
+    color: #222;
     float: left;
     font-size: 20px;
     line-height: 30px;
@@ -163,6 +163,7 @@ header a:hover {
 
 #profile .user-info p {
     clear: both;
+    color: #888;
     float: left;
     font-size: 14px;
     line-height: 18px;
@@ -182,7 +183,7 @@ header a:hover {
 }
 
 #write, #profile {
-    margin-top: 30px;
+    margin-top: 32px;
 }
 
 #write.profile {
@@ -209,7 +210,7 @@ section.public li h1 {
 }
 
 #write {
-    padding-bottom: 0;
+    padding-bottom: 5px;
 }
 
 #write textarea {
@@ -217,22 +218,32 @@ section.public li h1 {
     border-radius: 5px;
     color: #888;
     font-family: Arial;
+    margin-bottom: 10px;
     padding: 10px;
     width: 540px;
     resize: none;
 }
 
+#write textarea.on {
+    color: #111;
+}
+
+button[type="submit"] {
+    margin-bottom: 30px;
+}
+
 button[type="submit"], section.public li a {
-    background-color: #b7de5b;
+    background-color: #74b908;
     border: 0;
     border-radius: 5px;
     color: #fff;
     cursor: pointer;
+    display: none;
     float: right;
-    font-family: 'LeagueGothicRegular';
-    font-size: 20px;
-    margin-top: 5px;
-    padding: 1px 6px;
+    font-family: 'Oswald';
+    font-size: 18px;
+    line-height: 18px;
+    padding: 3px 10px;
     text-transform: uppercase;
 }
 
@@ -259,10 +270,10 @@ ol.tabs li, .action-buttons li {
     cursor: pointer;
     float: left;
     margin: 2px 2px 5px;
-    font-family: 'LeagueGothicRegular';
-    font-size: 22px;
-    line-height: 22px;
-    padding: 5px 20px;
+    font-family: 'Oswald';
+    font-size: 20px;
+    line-height: 20px;
+    padding: 5px 12px;
     text-transform: uppercase;
 }
 
@@ -305,11 +316,10 @@ ol.messages > li .meta {
     clear: both;
     color: #ccc;
     float: left;
-    padding-left: 10px;
 }
 
 .meta {
-    margin-bottom: 10px;
+    margin: 5px 0 10px;
 }
 
 .meta .who {
@@ -321,7 +331,7 @@ ol.messages > li .meta {
 
 .meta .who img {
     float: left;
-    margin: 0 5px;
+    margin: 0 5px 0 10px;
     width: 50px;
 }
 
@@ -365,7 +375,7 @@ ol.messages > li .meta {
     bottom: -30px;
     color: #eee;
     display: none;
-    font-family: 'LeagueGothicRegular';
+    font-family: 'Oswald';
     font-size: 16px;
     padding: 4px 7px;
     position: absolute;
@@ -385,8 +395,8 @@ ol.messages > li .meta {
     background-image: url('/images/thread.png');
 }
 
-.actions .like {
-    background-image: url('/images/like.png');
+.actions .star {
+    background-image: url('/images/star.png');
 }
 
 .actions .reply {
@@ -395,6 +405,10 @@ ol.messages > li .meta {
 
 .actions .repost {
     background-image: url('/images/repost.png');
+}
+
+.actions .on {
+    opacity: 1.0;
 }
 
 ol.messages > li p {
@@ -449,9 +463,10 @@ ol.messages li p audio, ol.messages li p object {
     }
 
     ol.tabs li {
-        font-size: 20px;
+        font-size: 16px;
+        line-height: 16px;
         margin: 8px 2px 5px;
-        padding: 7px 9px;
+        padding: 3px 10px;
     }
 
     .meta .details, .meta .actions {

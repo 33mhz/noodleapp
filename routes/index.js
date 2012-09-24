@@ -1,6 +1,6 @@
 'use strict';
 
-module.exports = function(app) {
+module.exports = function(app, client) {
   var appnet = require('../lib/appnet');
   var webremix = require('../lib/web-remix');
   var utils = require('../lib/utils');
@@ -61,12 +61,12 @@ module.exports = function(app) {
 
     req.session.url = '/user/posts/' + parseInt(userId, 10);
 
-    appnet.userPosts(req, function(err, recentMessages) {
+    appnet.userPosts(req, client, function(err, recentMessages) {
       if (err) {
         res.status(500);
         res.json({ 'error': 'error retrieving your posts' });
       } else {
-        utils.generateFeed(recentMessages, req.session.passport.user.id, function(messages) {
+        utils.generateFeed(recentMessages, req.session.passport.user.id, client, function(messages) {
           res.json({
             messages: messages
           });
@@ -86,7 +86,7 @@ module.exports = function(app) {
         res.status(500);
         res.json({ 'error': 'error retrieving mentions' });
       } else {
-        utils.generateFeed(recentMessages, req.session.passport.user.id, function(messages) {
+        utils.generateFeed(recentMessages, req.session.passport.user.id, client, function(messages) {
           res.json({
             messages: messages
           });
@@ -101,12 +101,12 @@ module.exports = function(app) {
 
     req.session.url = '/user/starred/' + parseInt(userId, 10);
 
-    appnet.userStarred(req, function(err, recentMessages) {
+    appnet.userStarred(req, client, function(err, recentMessages) {
       if (err) {
         res.status(500);
         res.json({ 'error': 'error retrieving starred' });
       } else {
-        utils.generateFeed(recentMessages, req.session.passport.user.id, function(messages) {
+        utils.generateFeed(recentMessages, req.session.passport.user.id, client, function(messages) {
           res.json({
             messages: messages
           });
@@ -125,7 +125,7 @@ module.exports = function(app) {
         res.status(500);
         res.json({ 'error': 'error retrieving your personal feed' });
       } else {
-        utils.generateFeed(recentMessages, req.session.passport.user.id, function(messages) {
+        utils.generateFeed(recentMessages, req.session.passport.user.id, client, function(messages) {
           res.json({
             messages: messages
           });
@@ -142,7 +142,7 @@ module.exports = function(app) {
         res.status(500);
         res.json({ 'error': 'error retrieving the global feed' });
       } else {
-        utils.generateFeed(recentMessages, req.session.passport.user.id, function(messages) {
+        utils.generateFeed(recentMessages, req.session.passport.user.id, client, function(messages) {
           res.json({
             messages: messages
           })
@@ -159,6 +159,111 @@ module.exports = function(app) {
       } else {
         res.json({
           'message': 'posted successfully'
+        });
+      }
+    });
+  });
+
+  app.post('/star', function(req, res) {
+    appnet.starMessage(req, client, function(err, message) {
+      if (err) {
+        res.status(500);
+        res.json({ 'error': 'error starring message' });
+      } else {
+        res.json({
+          'message': 'starred successfully'
+        });
+      }
+    });
+  });
+
+  app.delete('/star', function(req, res) {
+    appnet.unstarMessage(req, client, function(err, message) {
+      if (err) {
+        res.status(500);
+        res.json({ 'error': 'error unstarring message' });
+      } else {
+        res.json({
+          'message': 'unstarred successfully'
+        });
+      }
+    });
+  });
+
+  app.post('/repost', function(req, res) {
+    appnet.repost(req, client, function(err, message) {
+      if (err) {
+        res.status(500);
+        res.json({ 'error': 'error reposting message' });
+      } else {
+        res.json({
+          'message': 'reposted successfully'
+        });
+      }
+    });
+  });
+
+  app.delete('/repost', function(req, res) {
+    appnet.unrepost(req, client, function(err, message) {
+      if (err) {
+        res.status(500);
+        res.json({ 'error': 'error reposting message' });
+      } else {
+        res.json({
+          'message': 'unreposted successfully'
+        });
+      }
+    });
+  });
+
+  app.post('/follow', function(req, res) {
+    appnet.follow(req, function(err, user) {
+      if (err) {
+        res.status(500);
+        res.json({ 'error': 'error following user' });
+      } else {
+        res.json({
+          'message': 'followed successfully'
+        });
+      }
+    });
+  });
+
+  app.delete('/follow', function(req, res) {
+    appnet.unfollow(req, function(err, user) {
+      if (err) {
+        res.status(500);
+        res.json({ 'error': 'error unfollowing user' });
+      } else {
+        res.json({
+          'message': 'unfollowed successfully'
+        });
+      }
+    });
+  });
+
+  app.post('/mute', function(req, res) {
+    appnet.mute(req, function(err, user) {
+      if (err) {
+        res.status(500);
+        res.json({ 'error': 'error muting user' });
+      } else {
+        res.json({
+          'message': 'muted successfully'
+        });
+      }
+    });
+  });
+
+  app.delete('/mute', function(req, res) {
+    console.log('got here')
+    appnet.unmute(req, function(err, user) {
+      if (err) {
+        res.status(500);
+        res.json({ 'error': 'error unmuting user' });
+      } else {
+        res.json({
+          'message': 'unmuted successfully'
         });
       }
     });

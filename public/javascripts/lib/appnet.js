@@ -37,22 +37,33 @@ define(['jquery'], function ($) {
 
       if (data.messages.length > 0) {
         for (var i = 0; i < data.messages.length; i ++) {
-          var otherPostActions = '';
+          var isRepost = '';
           var threadAction = '';
+          var isStarred = '<li class="star"><span>Star</span></li>';
+          var isRepost = '';
 
           if (!data.messages[i].isSelf) {
-            otherPostActions = '<li class="repost"><span>Repost</span></li>';
+            isRepost = '<li class="repost"><span>Repost</span></li>';
+
+            if (data.messages[i].isRepost) {
+              isRepost = '<li class="repost on"><span>Unrepost</span></li>';
+            }
           };
 
           if (data.messages[i].isThread) {
             threadAction = '<li class="thread"><span>Thread</span></li>';
           }
 
-          var message = $('<li class=""><div class="meta">' +
-            '<a href="" class="who" title=""><img src=""></a><div class="details">' +
-            '<time></time><ol class="actions">' + threadAction +
-            '<li class="like"><span>Like</span></li>' +
-            '<li class="reply"><span>Reply</span></li>' + otherPostActions +
+          if (data.messages[i].isStarred) {
+            isStarred = '<li class="star on"><span>Unstar</span></li>';
+          }
+
+          var message = $('<li class="message-item" data-id="' +
+            data.messages[i].id + '" ' + 'data-username="' + data.messages[i].username + '">' +
+            '<div class="meta"><a href="" class="who" title=""><img src=""></a>' +
+            '<div class="details"><time></time><ol class="actions">' +
+            threadAction + isStarred +
+            '<li class="reply"><span>Reply</span></li>' + isRepost +
             '</ol></div></div><p></p></li>');
           message.find('time').html(data.messages[i].created_at);
           message.find('a.who')
@@ -109,6 +120,94 @@ define(['jquery'], function ($) {
       isFragment = false;
       sinceId = null;
       setMessage('/global/feed', 'GET');
+    },
+
+    starMessage: function(id, csrf) {
+      isFragment = true;
+      $.ajax({
+        url: '/star',
+        type: 'POST',
+        data: { post_id: id, _csrf: csrf },
+        dataType: 'json',
+        cache: false
+      });
+    },
+
+    unstarMessage: function(id, csrf) {
+      isFragment = true;
+      $.ajax({
+        url: '/star',
+        type: 'DELETE',
+        data: { post_id: id, _csrf: csrf },
+        dataType: 'json',
+        cache: false
+      });
+    },
+
+    repostMessage: function(id, csrf) {
+      isFragment = true;
+      $.ajax({
+        url: '/repost',
+        type: 'POST',
+        data: { post_id: id, _csrf: csrf },
+        dataType: 'json',
+        cache: false
+      });
+    },
+
+    unrepostMessage: function(id, csrf) {
+      isFragment = true;
+      $.ajax({
+        url: '/repost',
+        type: 'DELETE',
+        data: { post_id: id, _csrf: csrf },
+        dataType: 'json',
+        cache: false
+      });
+    },
+
+    follow: function(id, csrf) {
+      isFragment = true;
+      $.ajax({
+        url: '/follow',
+        type: 'POST',
+        data: { user_id: id, _csrf: csrf },
+        dataType: 'json',
+        cache: false
+      });
+    },
+
+    unfollow: function(id, csrf) {
+      isFragment = true;
+      $.ajax({
+        url: '/follow',
+        type: 'DELETE',
+        data: { user_id: id, _csrf: csrf },
+        dataType: 'json',
+        cache: false
+      });
+    },
+
+    mute: function(id, csrf) {
+      isFragment = true;
+      $.ajax({
+        url: '/mute',
+        type: 'POST',
+        data: { user_id: id, _csrf: csrf },
+        dataType: 'json',
+        cache: false
+      });
+    },
+
+    unmute: function(id, csrf) {
+      isFragment = true;
+      $.ajax({
+        url: '/mute',
+        type: 'DELETE',
+        data: { user_id: id, _csrf: csrf },
+        dataType: 'json',
+        cache: false
+      });
     },
 
     postMessage: function(form) {

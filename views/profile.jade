@@ -11,25 +11,26 @@ block content
           h3 Followers #{user.counts.followers}
 
           if user.id !== session.id
-            ol.action-buttons
+            ol.action-buttons(data-userid='#{user.id}')
               if user.you_follow
-                li Unfollow
+                li(class='follow on') Unfollow
               else
-                li Follow
+                li(class='follow') Follow
               if user.you_muted
-                li Unmute
+                li(class='mute on') Unmute
               else
-                li Mute
+                li(class='mute') Mute
           p!= description
       #write.profile
         form(method='post')
-          textarea(name='message', placeholder='Write a message to @{username}') @#{username}&#xa0;
+          textarea(name='message', placeholder='Write a message to @#{username}') @#{username}&#xa0;
+          input(type='hidden', name='reply_to', value='', id='reply_to')
           input(type='hidden', name='_csrf', value='#{csrf}')
           button(type='submit') Post
 
       section
         ol.tabs
-          li.user-posts.selected Posts
+          li.user-posts.selected Recent
           li.user-mentions Mentions
           li.user-starred Starred
 

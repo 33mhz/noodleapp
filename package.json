@@ -15,7 +15,9 @@
     "passport": ">= 0.1.12",
     "passport-appdotnet": ">= 0.1.0",
     "connect-redis": ">= 1.4.4",
-    "express-messages": ">= 0.0.2"
+    "express-messages": ">= 0.0.2",
+    "hiredis": "0.1.14",
+    "redis": "0.7.2"
   },
   "devDependencies": {
     "mocha": ">= 1.4.2",

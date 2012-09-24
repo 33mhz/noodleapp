@@ -6,6 +6,8 @@ var app = express();
 var nconf = require('nconf');
 var settings = require('./settings')(app, configurations, express);
 var passport = require('passport');
+var redis = require('redis');
+var client = redis.createClient();
 var AppDotNetStrategy = require('passport-appdotnet').Strategy;
 
 nconf.argv().env().file({ file: 'local.json' });
@@ -33,7 +35,7 @@ passport.use(new AppDotNetStrategy({
 ));
 
 // routes
-require('./routes')(app);
+require('./routes')(app, client);
 require('./routes/auth')(app, passport);
 
 app.get('/404', function(req, res, next){

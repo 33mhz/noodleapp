@@ -17,6 +17,10 @@ define(['jquery', 'appnet'],
   var userPosts = $('.user-posts');
   var userStarred = $('.user-starred');
   var myFeed = $('.my-feed');
+  var messages = $('ol.messages');
+  var write = $('#write form');
+  var userInfo = $('.user-info');
+  var csrf = write.find('input[name="_csrf"]').val();
   var resetTab = function(self, callback) {
     self.siblings().removeClass('selected');
     self.addClass('selected');
@@ -58,6 +62,66 @@ define(['jquery', 'appnet'],
     });
   });
 
+  messages.on('click', '.details .reply', function() {
+    var self = $(this);
+    write.find('textarea').val('@' + self.closest('.message-item').data('username') + ' ');
+    write.find('#reply_to').val(self.closest('.message-item').data('id'));
+    document.location.href = '#top';
+    write.find('textarea').focus();
+  });
+
+  messages.on('click', '.details .star', function() {
+    var self = $(this);
+    if (self.hasClass('on')) {
+      self.removeClass('on');
+      self.find('span').text('Star');
+      appnet.unstarMessage(self.closest('.message-item').data('id'), csrf);
+    } else {
+      self.addClass('on');
+      self.find('span').text('Unstar');
+      appnet.starMessage(self.closest('.message-item').data('id'), csrf);
+    }
+  });
+
+  messages.on('click', '.details .repost', function() {
+    var self = $(this);
+    if (self.hasClass('on')) {
+      self.removeClass('on');
+      self.find('span').text('Repost');
+      appnet.unrepostMessage(self.closest('.message-item').data('id'), csrf);
+    } else {
+      self.addClass('on');
+      self.find('span').text('Unrepost');
+      appnet.repostMessage(self.closest('.message-item').data('id'), csrf);
+    }
+  });
+
+  userInfo.on('click', '.follow', function() {
+    var self = $(this);
+    if (self.hasClass('on')) {
+      self.removeClass('on');
+      self.text('Follow');
+      appnet.unfollow(self.parent().data('userid'), csrf);
+    } else {
+      self.addClass('on');
+      self.text('Unfollow');
+      appnet.follow(self.parent().data('userid'), csrf);
+    }
+  });
+
+  userInfo.on('click', '.mute', function() {
+    var self = $(this);
+    if (self.hasClass('on')) {
+      self.removeClass('on');
+      self.text('Mute');
+      appnet.unmute(self.parent().data('userid'), csrf);
+    } else {
+      self.addClass('on');
+      self.text('Unmute');
+      appnet.mute(self.parent().data('userid'), csrf);
+    }
+  });
+
   if (url === '/global/feed') {
     globalFeed.click();
   } else if (url.match(/\/user\/posts/)) {
@@ -71,7 +135,21 @@ define(['jquery', 'appnet'],
     myFeed.click();
   }
 
-  $('#write form').submit(function(ev) {
+  write.find('textarea').focus(function() {
+    var self = $(this);
+
+    self.addClass('on');
+    self.parent().find('button').show();
+  });
+
+  write.find('textarea').blur(function() {
+    var self = $(this);
+
+    self.removeClass('on');
+    self.parent().find('button').hide();
+  });
+
+  write.submit(function(ev) {
     ev.preventDefault();
 
     var self = $(this);

@@ -6,5 +6,8 @@
     "session_cookie": "session_your_cookie_name",
     "redis_db": 10,
     "appnet_consumer_key": "appnet_key",
-    "appnet_consumer_secret": "appnet_secret"
+    "appnet_consumer_secret": "appnet_secret",
+    "redis_dev": 0,
+    "redis_test": 8,
+    "redis_prod": 9
 }
