@@ -238,7 +238,6 @@ button[type="submit"], section.public li a {
     border-radius: 5px;
     color: #fff;
     cursor: pointer;
-    display: none;
     float: right;
     font-family: 'Oswald';
     font-size: 18px;

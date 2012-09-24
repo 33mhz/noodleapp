@@ -135,20 +135,6 @@ define(['jquery', 'appnet'],
     myFeed.click();
   }
 
-  write.find('textarea').focus(function() {
-    var self = $(this);
-
-    self.addClass('on');
-    self.parent().find('button').show();
-  });
-
-  write.find('textarea').blur(function() {
-    var self = $(this);
-
-    self.removeClass('on');
-    self.parent().find('button').hide();
-  });
-
   write.submit(function(ev) {
     ev.preventDefault();
 
