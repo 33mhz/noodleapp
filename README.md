@@ -1,5 +1,7 @@
 # NoodleApp
 
+![NoodleApp](http://f.cl.ly/items/1e1e2f0u0g2W1v3d2V0w/NoodleApp-2.jpg)
+
 An http://app.net web client.
 
 ## Installation instructions
