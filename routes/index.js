@@ -6,18 +6,26 @@ module.exports = function(app) {
   var utils = require('../lib/utils');
 
   app.get('/', function(req, res) {
-    // If we've been browsing another user and we come back to the index
-    // page, just reset it to your personal feed
-    if (req.session.url.match(/\/user\/posts/)) {
-      req.session.url = '/my/feed';
-    }
+    if (req.session.passport.user) {
+      // If we've been browsing another user and we come back to the index
+      // page, just reset it to your personal feed
+      if (req.session.url && req.session.url.match(/\/user\/posts/)) {
+        req.session.url = '/my/feed';
+      }
 
-    res.render('index', {
-      pageType: 'index',
-      session: req.session.passport.user,
-      csrf: req.session._csrf,
-      url: req.session.url || '/my/feed'
-    });
+      res.render('index', {
+        pageType: 'index',
+        session: req.session.passport.user,
+        csrf: req.session._csrf,
+        url: req.session.url || '/my/feed'
+      });
+    } else {
+      res.render('index', {
+        pageType: 'index',
+        url: '',
+        session: false
+      });
+    }
   });
 
   app.get('/user/:username', function(req, res) {
@@ -26,7 +34,13 @@ module.exports = function(app) {
         res.status(500);
         res.json({ 'error': 'could not retrieve user' });
       } else {
-        req.session.url = '/user/posts?id=' + user.id;
+        req.session.url = '/user/posts/' + user.id;
+        var description = '';
+
+        // User descriptions don't always exist
+        if (user.description) {
+          description = user.description.html;
+        }
 
         res.render('profile', {
           pageType: 'profile',
@@ -34,7 +48,8 @@ module.exports = function(app) {
           username: req.params.username,
           session: req.session.passport.user,
           user: user,
-          url: req.session.url || '/my/feed'
+          url: req.session.url || '/my/feed',
+          description: description
         });
       }
     });

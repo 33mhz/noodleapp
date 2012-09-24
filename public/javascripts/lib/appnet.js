@@ -8,7 +8,7 @@ define(['jquery'], function ($) {
   var isFragment = false;
 
   var MESSAGE_LIMIT = 19;
-  var POLL_TIMEOUT = 60000;
+  var POLL_TIMEOUT = 10000;
 
   // Wait 1 minute to get new data
   var pollMessages = function() {
@@ -19,9 +19,9 @@ define(['jquery'], function ($) {
 
   var setMessage = function(url, type) {
     currentFeed = url;
+
     if (!isFragment) {
       messages.html('<li class="loading"><img src="/images/ajax-loader.gif"></li>');
-      sinceId = null;
     }
     $.ajax({
       url: url,
@@ -39,7 +39,8 @@ define(['jquery'], function ($) {
         for (var i = 0; i < data.messages.length; i ++) {
           var message = $('<li><div class="meta">' +
             '<a href="" class="who" title=""><img src=""></a><div class="details">' +
-            '<time></time><ol class="actions"><li class="repost"><span>Repost</span></li>' +
+            '<time></time><ol class="actions"><li class="thread"><span>Thread</span></li>' +
+            '<li class="repost"><span>Repost</span></li>' +
             '<li class="like"><span>Like</span></li><li class="reply"><span>Reply</span>' +
             '</li></ol></div></div><p></p></li>');
           message.find('time').html(data.messages[i].created_at);
@@ -54,8 +55,6 @@ define(['jquery'], function ($) {
 
         messages.find('> li:gt(' + MESSAGE_LIMIT + ')').remove();
         sinceId = data.messages[data.messages.length - 1].id;
-      } else {
-        messages.html('<li><p>No messages found</p></li>')
       }
 
       if (!isFragment) {
@@ -73,26 +72,31 @@ define(['jquery'], function ($) {
   var self = {
     getMyFeed: function() {
       isFragment = false;
+      sinceId = null;
       setMessage('/my/feed', 'GET');
     },
 
     getUserPosts: function() {
       isFragment = false;
+      sinceId = null;
       setMessage('/user/posts/' + messages.data('userid'), 'GET');
     },
 
     getUserMentions: function() {
       isFragment = false;
+      sinceId = null;
       setMessage('/user/mentions/' + messages.data('userid'), 'GET');
     },
 
     getUserStarred: function() {
       isFragment = false;
+      sinceId = null;
       setMessage('/user/starred/' + messages.data('userid'), 'GET');
     },
 
     getGlobalFeed: function() {
       isFragment = false;
+      sinceId = null;
       setMessage('/global/feed', 'GET');
     },
 

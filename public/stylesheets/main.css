@@ -60,12 +60,12 @@ html, body {
 }
 
 body {
-    background-color: #f3f3f3;
+    background-color: #fff;
     font-family: Arial;
 }
 
 header {
-    background: #aaa;
+    background: #111;
     border-bottom: 1px solid #eee;
     color: #eee;
     font-family: 'LeagueGothicRegular';
@@ -77,8 +77,8 @@ header {
 }
 
 header a {
-    background-color: #ccc;
-    color: #fff;
+    background-color: #333;
+    color: #888;
     display: block;
     text-decoration: none;
 }
@@ -103,7 +103,7 @@ header a#logout {
 
 header a:hover {
     background-color: #888;
-    color: #bbb;
+    color: #eee;
 }
 
 #dashboard {
@@ -118,14 +118,75 @@ header a:hover {
     background-color: #f8f8f8;
     border-left: 1px solid #eee;
     border-right: 1px solid #eee;
-    box-shadow: #ddd 0 0 4px;
     float: left;
     position: relative;
     width: 100%;
 }
 
-#write {
+#profile img {
+    float: left;
+    margin-left: 20px;
+    max-height: 180px;
+    width: 180px;
+}
+
+#profile .user-info {
+    float: left;
+    padding: 10px 20px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    width: 340px;
+}
+
+#profile .user-info h2 {
+    color: #888;
+    font-family: 'LeagueGothicRegular';
+    font-size: 40px;
+    margin-bottom: 10px;
+    text-shadow: #fff 0 1px 0, #eee 0 -1px 0;
+    text-transform: uppercase;
+}
+
+#profile .user-info h3 {
+    color: #888;
+    float: left;
+    font-size: 20px;
+    line-height: 30px;
+    margin-bottom: 10px;
+    width: 50%;
+}
+
+#profile .user-info > span {
+    color: #aaa;
+    font-size: 13px;
+}
+
+#profile .user-info p {
+    clear: both;
+    float: left;
+    font-size: 14px;
+    line-height: 18px;
+    margin-top: 15px;
+}
+
+#profile .user-info p a {
+    color: #20c2c0;
+    text-decoration: none;
+}
+
+#profile .user-info ol.actions li {
+    background-color: #ccc;
+    color: #222;
+    float: left;
+    width: 100px;
+}
+
+#write, #profile {
     margin-top: 30px;
+}
+
+#write.profile {
+    margin-top: 0;
 }
 
 #write, section {
@@ -139,11 +200,12 @@ section {
 }
 
 section.public li h1 {
-    color: #22c7e0;
+    color: #888;
     font-size: 30px;
     line-height: 35px;
     margin-top: 50px;
     padding: 20px;
+    text-align: center;
 }
 
 #write {
@@ -161,7 +223,7 @@ section.public li h1 {
 }
 
 button[type="submit"], section.public li a {
-    background-color: #a3d134;
+    background-color: #b7de5b;
     border: 0;
     border-radius: 5px;
     color: #fff;
@@ -175,8 +237,8 @@ button[type="submit"], section.public li a {
 }
 
 button[type="submit"]:hover, section.public li a:hover {
-    background-color: #7b9e28;
-    color: #aad753;
+    background-color: #111;
+    color: #eee;
 }
 
 section.public li a {
@@ -190,31 +252,28 @@ section.public li a {
     width: 150px;
 }
 
-ol.tabs li {
+ol.tabs li, .action-buttons li {
     background-color: #ccc;
-    border-top-left-radius: 8px;
-    border-top-right-radius: 8px;
-    box-shadow: #f1f1f1 2px 1px 2px;
+    border-radius: 5px;
     color: #aaa;
     cursor: pointer;
     float: left;
-    margin: 5px 5px 0 0;
+    margin: 2px 2px 5px;
     font-family: 'LeagueGothicRegular';
-    font-size: 25px;
+    font-size: 22px;
+    line-height: 22px;
     padding: 5px 20px;
     text-transform: uppercase;
 }
 
-ol.tabs li:hover {
-    background-color: #e2e2e2;
-    color: #a7b7b9;
+ol.tabs li:first-child {
+    margin-left: 0;
 }
 
-ol.tabs li.selected {
-    background-color: #fff;
-    color: #22c7e0;
+ol.tabs li:hover, ol.tabs li.selected, .action-buttons li:hover {
+    background-color: #111;
+    color: #eee;
 }
-
 
 ol.messages li.loading img {
     display: block;
@@ -276,7 +335,7 @@ ol.messages > li .meta {
     box-shadow: none;
     border: 0;
     float: left;
-    margin: 14px 12px 0 0;
+    margin: 10px 8px 0 0;
     padding: 0;
 }
 
@@ -294,21 +353,23 @@ ol.messages > li .meta {
 .actions > li {
     background-repeat: no-repeat;
     float: left;
-    height: 21px;
+    height: 24px;
     opacity: 0.3;
     position: relative;
     width: 24px;
 }
 
 .actions > li span {
-    background-color: #fff;
-    border: 1px solid #eee;
+    background-color: #111;
     border-radius: 5px;
     bottom: -30px;
-    color: #111;
+    color: #eee;
     display: none;
-    padding: 3px 6px;
+    font-family: 'LeagueGothicRegular';
+    font-size: 16px;
+    padding: 4px 7px;
     position: absolute;
+    text-transform: uppercase;
     z-index: 2;
 }
 
@@ -318,6 +379,10 @@ ol.messages > li .meta {
 
 .actions > li:hover span {
     display: block;
+}
+
+.actions .thread {
+    background-image: url('/images/thread.png');
 }
 
 .actions .like {
@@ -379,9 +444,13 @@ ol.messages li p audio, ol.messages li p object {
         line-height: 30px;
     }
 
+    #profile .user-info {
+        width: 290px;
+    }
+
     ol.tabs li {
-        font-size: 22px;
-        margin: 5px 2px 0;
+        font-size: 20px;
+        margin: 8px 2px 5px;
         padding: 7px 9px;
     }
 

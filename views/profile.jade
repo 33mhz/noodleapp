@@ -5,7 +5,23 @@ block content
     .dashboard-content
       #profile
         img(src='#{user.avatar_image.url}')
-      #write
+        .user-info
+          h2= user.name
+          h3 Following #{user.counts.following}
+          h3 Followers #{user.counts.followers}
+
+          if user.id !== session.id
+            ol.action-buttons
+              if user.you_follow
+                li Unfollow
+              else
+                li Follow
+              if user.you_muted
+                li Unmute
+              else
+                li Mute
+          p!= description
+      #write.profile
         form(method='post')
           textarea(name='message', placeholder='Write a message to @{username}') @#{username}&#xa0;
           input(type='hidden', name='_csrf', value='#{csrf}')
