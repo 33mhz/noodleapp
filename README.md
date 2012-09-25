@@ -6,6 +6,10 @@ An http://app.net web client.
 
 ## Installation instructions
 
+FIRST. SIGN UP TO !(http://app.net)[app.net]
+
+(or this will all be a waste of time)
+
 Clone the repository
 
 > git clone git://github.com/ednapiranha/noodleapp.git
