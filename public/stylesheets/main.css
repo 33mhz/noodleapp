@@ -77,31 +77,37 @@ header {
 }
 
 header a {
-    background-color: #333;
-    color: #888;
     display: block;
     text-decoration: none;
 }
 
 header a.home {
-    border-radius: 100px;
+    background-color: none;
+    background-image: url('/images/logo.png');
+    background-repeat: no-repeat;
     float: left;
-    font-size: 20px;
-    line-height: 20px;
+    font-size: 0;
+    height: 25px;
     margin-left: 10px;
-    padding: 3px 9px;
-    text-transform: uppercase;
+    text-indent: -9999px;
+    width: 25px;
+}
+
+header a.home:hover {
+    opacity: 0.5;
 }
 
 header a#logout {
+    background-color: #333;
     border-radius: 5px;
+    color: #888;
     float: right;
     font-size: 15px;
     margin: 1px 10px 0;
     padding: 5px 8px;
 }
 
-header a:hover {
+header a#logout:hover {
     background-color: #888;
     color: #eee;
 }
@@ -140,11 +146,16 @@ header a:hover {
 
 #profile .user-info h2 {
     color: #222;
+    display: block;
+    float: left;
     font-family: 'Oswald';
     font-size: 40px;
     margin-bottom: 10px;
+    overflow: hidden;
+    text-overflow: ellipsis;
     text-shadow: #fff 0 1px 0, #eee 0 -1px 0;
     text-transform: uppercase;
+    width: 360px;
 }
 
 #profile .user-info h3 {
@@ -483,6 +494,10 @@ ol.messages li p audio, ol.messages li p object {
 
     #profile .user-info {
         width: 290px;
+    }
+
+    #profile .user-info h2 {
+        width: 280px;
     }
 
     ol.tabs li {
