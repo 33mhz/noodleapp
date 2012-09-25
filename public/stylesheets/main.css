@@ -170,7 +170,7 @@ header a:hover {
     margin-top: 15px;
 }
 
-#profile .user-info p a {
+#profile .user-info p a, .username {
     color: #20c2c0;
     text-decoration: none;
 }
@@ -318,7 +318,7 @@ ol.messages > li .meta {
 }
 
 .meta {
-    margin: 5px 0 10px;
+    margin: 5px 0;
 }
 
 .meta .who {
@@ -337,7 +337,7 @@ ol.messages > li .meta {
 .meta .actions {
     display: block;
     float: left;
-    width: 400px;
+    width: 470px;
 }
 
 .meta .actions > li {
@@ -348,15 +348,29 @@ ol.messages > li .meta {
     padding: 0;
 }
 
-.meta time {
+.username {
     clear: both;
+    color: #111;
+    display: block;
     float: left;
+    font-family: 'Oswald';
+    font-size: 15px;
+    width: 100%;
+}
+
+time {
+    clear: both;
+    color: #ccc;
+    float: left;
+    font-size: 12px;
+    margin-bottom: 4px;
+    width: 100%;
 }
 
 .details {
     float: left;
     margin-left: 20px;
-    width: 400px;
+    width: 470px;
 }
 
 .actions > li {
@@ -416,7 +430,7 @@ ol.messages > li p {
     float: left;
     font-size: 14px;
     line-height: 18px;
-    padding: 10px;
+    padding: 5px 10px;
 }
 
 ol.messages > li p a {
@@ -469,7 +483,7 @@ ol.messages li p audio, ol.messages li p object {
     }
 
     .meta .details, .meta .actions {
-        width: 170px;
+        width: 190px;
     }
 
     #write textarea {

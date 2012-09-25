@@ -15,7 +15,32 @@ define(['jquery'], function ($) {
     setTimeout(function() {
       setMessage(currentFeed, type);
     }, POLL_TIMEOUT);
-  }
+  };
+
+  var dateDisplay = function(time) {
+    var date = new Date((time)
+      .replace(/-/g, '/')
+      .replace(/[TZ]/g, ' '));
+
+    var diff = (((new Date()).getTime() - date.getTime()) / 1000);
+    var dayDiff = Math.floor(diff / 86400);
+
+    if (isNaN(dayDiff) || dayDiff < 0 || dayDiff >= 31 ) {
+      return '?';
+    }
+
+    if (dayDiff === 0) {
+      if (diff < 60) {
+        return '< 1m';
+      } else if (diff < 3600) {
+        return Math.floor(diff / 60) + 'm';
+      } else {
+        return Math.floor(diff / 3600) + 'h';
+      }
+    } else {
+      return dayDiff + 'd';
+    }
+  };
 
   var setMessage = function(url, type) {
     currentFeed = url;
@@ -42,7 +67,6 @@ define(['jquery'], function ($) {
           var isRepost = '';
           var threadAction = '';
           var isStarred = '<li class="star"><span>Star</span></li>';
-          var isRepost = '';
 
           if (!data.messages[i].isSelf) {
             isRepost = '<li class="repost"><span>Repost</span></li>';
@@ -50,7 +74,7 @@ define(['jquery'], function ($) {
             if (data.messages[i].isRepost) {
               isRepost = '<li class="repost on"><span>Unrepost</span></li>';
             }
-          };
+          }
 
           if (data.messages[i].isThread) {
             threadAction = '<li class="thread"><span>Thread</span></li>';
@@ -63,16 +87,19 @@ define(['jquery'], function ($) {
           var message = $('<li class="message-item" data-id="' +
             data.messages[i].id + '" ' + 'data-username="' + data.messages[i].username + '">' +
             '<div class="meta"><a href="" class="who" title=""><img src=""></a>' +
-            '<div class="details"><time></time><ol class="actions">' +
+            '<div class="details"><a href="" class="username"></a><ol class="actions">' +
             threadAction + isStarred +
             '<li class="reply"><span>Reply</span></li>' + isRepost +
             '</ol></div></div><p></p></li>');
-          message.find('time').html(data.messages[i].created_at);
           message.find('a.who')
             .attr('title', data.messages[i].name)
             .attr('href', '/user/' + data.messages[i].username);
+          message.find('a.username')
+            .attr('href', '/user/' + data.messages[i].username)
+            .text(data.messages[i].name);
           message.find('a.who img').attr('src', data.messages[i].user);
-          message.find('p').html(data.messages[i].message);
+          message.find('p').html('<time>' + data.messages[i].created_at + '</time>' +
+          data.messages[i].message);
 
           messages.prepend(message);
         }
