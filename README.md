@@ -6,7 +6,7 @@ An http://app.net web client.
 
 ## Installation instructions
 
-#FIRST. SIGN UP TO [http://app.net](http://app.net) (or this will all be a waste of time)
+#FIRST. SIGN UP TO [http://app.net](http://app.net) WITH A DEVELOPER ACCOUNT (or this will all be a waste of time)
 
 Clone the repository
 
@@ -17,6 +17,10 @@ Install node through the website http://nodejs.org/#download
 > cd noodleapp
 
 > cp local.json-dist local.json
+
+> copy and paste your app.net client id and secret to local.json under 'appnet_consumer_key' and 'appnet_consumer_secret'
+
+> adjust redis databases accordingly on local.json
 
 > npm install
 

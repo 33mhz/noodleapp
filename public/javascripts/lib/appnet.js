@@ -31,6 +31,8 @@ define(['jquery'], function ($) {
       cache: false
 
     }).done(function(data) {
+      // This refreshes the feed entirely but we can figure out ways to make it less
+      // intrusive.
       if (!isFragment) {
         messages.empty();
       }
