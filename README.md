@@ -1,7 +1,6 @@
 # NoodleApp
 
 ![NoodleApp](http://f.cl.ly/items/2L0L2G2i063n073v3x0R/NoodleApp-2.jpg)
-
 ![NoodleApp](http://f.cl.ly/items/3a1H121a2l051y350O0k/NoodleApp-3.jpg)
 
 An http://app.net web client.
