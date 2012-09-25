@@ -18,11 +18,8 @@ define(['jquery'], function ($) {
   };
 
   var dateDisplay = function(time) {
-    var date = new Date((time)
-      .replace(/-/g, '/')
-      .replace(/[TZ]/g, ' '));
-
-    var diff = (((new Date()).getTime() - date.getTime()) / 1000);
+    var date = new Date(time);
+    var diff = (Date.now() - date) / 1000;
     var dayDiff = Math.floor(diff / 86400);
 
     if (isNaN(dayDiff) || dayDiff < 0 || dayDiff >= 31 ) {
@@ -87,19 +84,24 @@ define(['jquery'], function ($) {
           var message = $('<li class="message-item" data-id="' +
             data.messages[i].id + '" ' + 'data-username="' + data.messages[i].username + '">' +
             '<div class="meta"><a href="" class="who" title=""><img src=""></a>' +
-            '<div class="details"><a href="" class="username"></a><ol class="actions">' +
+            '<div class="details"><a href="" class="username"></a><time></time><ol class="actions">' +
             threadAction + isStarred +
             '<li class="reply"><span>Reply</span></li>' + isRepost +
             '</ol></div></div><p></p></li>');
+          // user's profile page
           message.find('a.who')
             .attr('title', data.messages[i].name)
             .attr('href', '/user/' + data.messages[i].username);
+          // user's full name
           message.find('a.username')
             .attr('href', '/user/' + data.messages[i].username)
             .text(data.messages[i].name);
+          // time
+          message.find('time').text(dateDisplay(data.messages[i].created_at));
+          // user's avatar
           message.find('a.who img').attr('src', data.messages[i].user);
-          message.find('p').html('<time>' + data.messages[i].created_at + '</time>' +
-          data.messages[i].message);
+          // user's message
+          message.find('p').html(data.messages[i].message);
 
           messages.prepend(message);
         }

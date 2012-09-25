@@ -319,6 +319,7 @@ ol.messages > li .meta {
 
 .meta {
     margin: 5px 0;
+    position: relative;
 }
 
 .meta .who {
@@ -344,7 +345,7 @@ ol.messages > li .meta {
     box-shadow: none;
     border: 0;
     float: left;
-    margin: 10px 8px 0 0;
+    margin: 7px 8px 0 0;
     padding: 0;
 }
 
@@ -355,16 +356,25 @@ ol.messages > li .meta {
     float: left;
     font-family: 'Oswald';
     font-size: 15px;
-    width: 100%;
+    line-height: 20px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    width: 75%;
+    white-space: nowrap;
 }
 
 time {
-    clear: both;
-    color: #ccc;
-    float: left;
-    font-size: 12px;
-    margin-bottom: 4px;
-    width: 100%;
+    background-color: #d0d0d0;
+    border-radius: 100px;
+    color: #fff;
+    float: right;
+    font-size: 11px;
+    padding: 3px 5px;
+    position: absolute;
+    right: 0;
+    text-align: center;
+    top: -5px;
+    width: 30px;
 }
 
 .details {
