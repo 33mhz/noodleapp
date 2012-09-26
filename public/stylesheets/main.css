@@ -73,7 +73,7 @@ header {
     padding: 3px 0;
     position: fixed;
     width: 100%;
-    z-index: 2;
+    z-index: 3;
 }
 
 header a {
@@ -120,6 +120,77 @@ header a#logout:hover {
     position: relative;
 }
 
+#overlay {
+    background-color: rgba(255, 255, 255, 0.87);
+    display: none;
+    left: 20px;
+    padding: 50px 20px 20px;
+    position: absolute;
+    top: 0;
+    width: 521px;
+    z-index: 2;
+}
+
+#overlay .users li {
+    clear: both;
+    cursor: pointer;
+    float: left;
+    margin-bottom: 5px;
+    padding: 10px 0;
+    width: 100%;
+}
+
+#overlay .users li.close {
+    background-color: #74b908;
+    color: #fff;
+    font-family: 'Oswald';
+    font-size: 25px;
+    text-align: center;
+}
+
+#overlay .users li:hover {
+    background-color: #111;
+}
+
+#overlay .users li:hover span {
+    color: #fff;
+}
+
+#overlay .users li img {
+    display: block;
+    float: left;
+    margin-right: 10px;
+    width: 50px;
+}
+
+#overlay .users li a {
+    display: block;
+    text-decoration: none;
+    width: 100%;
+}
+
+#overlay .users li span {
+    color: #111;
+    display: block;
+    float: left;
+    font-family: 'Oswald';
+    font-size: 18px;
+    line-height: 25px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    width: 430px;
+}
+
+#overlay .users li em {
+    color: #aaa;
+    font-variant: italic;
+}
+
+#overlay .users li:hover em {
+    color: #eee;
+    padding-left: 10px;
+}
+
 .dashboard-content {
     background-color: #f8f8f8;
     border-left: 1px solid #eee;
@@ -146,6 +217,7 @@ header a#logout:hover {
 
 #profile .user-info h2 {
     color: #222;
+    cursor: pointer;
     display: block;
     float: left;
     font-family: 'Oswald';
@@ -156,6 +228,14 @@ header a#logout:hover {
     text-shadow: #fff 0 1px 0, #eee 0 -1px 0;
     text-transform: uppercase;
     width: 360px;
+}
+
+#profile .followers, #profile .following {
+    cursor: pointer;
+}
+
+#profile .followers:hover, #profile .following:hover {
+    color: #20c2c0;
 }
 
 #profile .user-info h3 {
@@ -257,7 +337,7 @@ button[type="submit"], section.public li a {
     text-transform: uppercase;
 }
 
-button[type="submit"]:hover, section.public li a:hover {
+button[type="submit"]:hover, section.public li a:hover, #overlay .users li.close:hover {
     background-color: #111;
     color: #eee;
 }
@@ -487,9 +567,17 @@ ol.messages li p audio, ol.messages li p object {
         width: 320px;
     }
 
+    #overlay {
+        width: 242px;
+    }
+
     section.public li h1 {
         font-size: 25px;
         line-height: 30px;
+    }
+
+    #overlay .users li span {
+        width: 150px;
     }
 
     #profile .user-info {

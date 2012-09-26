@@ -4,6 +4,8 @@ define(['jquery'], function ($) {
   var messages = $('ol.messages');
   var currentFeed = '/my/feed';
   var myFeed = $('.my-feed');
+  var overlay = $('#overlay');
+  var userId = $('.action-buttons').data('userid');
   var sinceId = null;
   var isFragment = false;
 
@@ -37,6 +39,30 @@ define(['jquery'], function ($) {
     } else {
       return dayDiff + 'd';
     }
+  };
+
+  var setFollow = function(url, userId) {
+    $.ajax({
+      url: url,
+      type: 'GET',
+      data: { user_id: userId },
+      dataType: 'json',
+      cache: false
+
+    }).done(function(data) {
+      var userList = $('<ol class="users"></ol>');
+      for (var i = 0; i < data.users.length; i ++) {
+        var user = $('<li><a href=""><img src=""><span class="name"></span></a></li>');
+        user.find('img').attr('src', data.users[i].avatar_image.url);
+        user.find('a')
+          .attr('href', '/user/' + data.users[i].username)
+          .find('span.name').html(data.users[i].name + ' <em>@' + data.users[i].username + '</em>');
+        userList.prepend(user);
+      }
+      userList.append('<li class="close">Close</li>');
+      overlay.html(userList);
+      overlay.slideDown();
+    });
   };
 
   var setMessage = function(url, type) {
@@ -254,6 +280,18 @@ define(['jquery'], function ($) {
         sinceId = null;
         myFeed.click();
       });
+    },
+
+    showFollowers: function() {
+      setFollow('/followers', userId);
+    },
+
+    showFollowing: function() {
+      setFollow('/following', userId);
+    },
+
+    showThread: function() {
+
     }
   };
 

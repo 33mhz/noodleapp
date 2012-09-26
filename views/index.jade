@@ -1,27 +1,25 @@
 extend layout
 
 block content
-  #dashboard
-    a(name='#top')
-    .dashboard-content
-      if session
-        #write(name='#write')
-          form(method='post')
-            textarea(name='message', placeholder='Write your message')
-            input(type='hidden', name='reply_to', value='', id='reply_to')
-            input(type='hidden', name='_csrf', value='#{csrf}')
-            button(type='submit') Post
+  .dashboard-content
+    if session
+      #write(name='#write')
+        form(method='post')
+          textarea(name='message', placeholder='Write your message')
+          input(type='hidden', name='reply_to', value='', id='reply_to')
+          input(type='hidden', name='_csrf', value='#{csrf}')
+          button(type='submit') Post
 
-        section
-          ol.tabs
-            li.my-feed.selected My Feed
-            li.user-mentions Mentions
-            li.global-feed Global Feed
+      section
+        ol.tabs
+          li.my-feed.selected My Feed
+          li.user-mentions Mentions
+          li.global-feed Global Feed
 
-          ol.messages(data-userid='#{session.id}')
-      else
-        section.public
-          ol.messages
-            li
-              h1 You need to sign in with your App.net account to see this glorious noodle.
-              a(href='/auth/appdotnet', id='login') Log in
+        ol.messages(data-userid='#{session.id}')
+    else
+      section.public
+        ol.messages
+          li
+            h1 You need to sign in with your App.net account to see this glorious noodle.
+            a(href='/auth/appdotnet', id='login') Log in

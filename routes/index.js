@@ -78,9 +78,7 @@ module.exports = function(app, client, isLoggedIn) {
         res.json({ 'error': 'error retrieving your posts' });
       } else {
         utils.generateFeed(recentMessages, req.session.passport.user.id, client, function(messages) {
-          res.json({
-            messages: messages
-          });
+          res.json({ messages: messages });
         });
       }
     });
@@ -98,9 +96,7 @@ module.exports = function(app, client, isLoggedIn) {
         res.json({ 'error': 'error retrieving mentions' });
       } else {
         utils.generateFeed(recentMessages, req.session.passport.user.id, client, function(messages) {
-          res.json({
-            messages: messages
-          });
+          res.json({ messages: messages });
         });
       }
     });
@@ -118,9 +114,7 @@ module.exports = function(app, client, isLoggedIn) {
         res.json({ 'error': 'error retrieving starred' });
       } else {
         utils.generateFeed(recentMessages, req.session.passport.user.id, client, function(messages) {
-          res.json({
-            messages: messages
-          });
+          res.json({ messages: messages });
         });
       }
     });
@@ -137,9 +131,7 @@ module.exports = function(app, client, isLoggedIn) {
         res.json({ 'error': 'error retrieving your personal feed' });
       } else {
         utils.generateFeed(recentMessages, req.session.passport.user.id, client, function(messages) {
-          res.json({
-            messages: messages
-          });
+          res.json({ messages: messages });
         });
       }
     });
@@ -154,9 +146,7 @@ module.exports = function(app, client, isLoggedIn) {
         res.json({ 'error': 'error retrieving the global feed' });
       } else {
         utils.generateFeed(recentMessages, req.session.passport.user.id, client, function(messages) {
-          res.json({
-            messages: messages
-          })
+          res.json({ messages: messages })
         });
       }
     });
@@ -168,9 +158,7 @@ module.exports = function(app, client, isLoggedIn) {
         res.status(500);
         res.json({ 'error': 'error posting a new message' });
       } else {
-        res.json({
-          'message': 'posted successfully'
-        });
+        res.json({ 'message': 'posted successfully' });
       }
     });
   });
@@ -181,9 +169,7 @@ module.exports = function(app, client, isLoggedIn) {
         res.status(500);
         res.json({ 'error': 'error starring message' });
       } else {
-        res.json({
-          'message': 'starred successfully'
-        });
+        res.json({ 'message': 'starred successfully' });
       }
     });
   });
@@ -194,9 +180,7 @@ module.exports = function(app, client, isLoggedIn) {
         res.status(500);
         res.json({ 'error': 'error unstarring message' });
       } else {
-        res.json({
-          'message': 'unstarred successfully'
-        });
+        res.json({ 'message': 'unstarred successfully' });
       }
     });
   });
@@ -207,9 +191,7 @@ module.exports = function(app, client, isLoggedIn) {
         res.status(500);
         res.json({ 'error': 'error reposting message' });
       } else {
-        res.json({
-          'message': 'reposted successfully'
-        });
+        res.json({ 'message': 'reposted successfully' });
       }
     });
   });
@@ -220,9 +202,7 @@ module.exports = function(app, client, isLoggedIn) {
         res.status(500);
         res.json({ 'error': 'error reposting message' });
       } else {
-        res.json({
-          'message': 'unreposted successfully'
-        });
+        res.json({ 'message': 'unreposted successfully' });
       }
     });
   });
@@ -233,9 +213,7 @@ module.exports = function(app, client, isLoggedIn) {
         res.status(500);
         res.json({ 'error': 'error following user' });
       } else {
-        res.json({
-          'message': 'followed successfully'
-        });
+        res.json({ 'message': 'followed successfully' });
       }
     });
   });
@@ -246,9 +224,7 @@ module.exports = function(app, client, isLoggedIn) {
         res.status(500);
         res.json({ 'error': 'error unfollowing user' });
       } else {
-        res.json({
-          'message': 'unfollowed successfully'
-        });
+        res.json({ 'message': 'unfollowed successfully' });
       }
     });
   });
@@ -259,22 +235,52 @@ module.exports = function(app, client, isLoggedIn) {
         res.status(500);
         res.json({ 'error': 'error muting user' });
       } else {
-        res.json({
-          'message': 'muted successfully'
-        });
+        res.json({ 'message': 'muted successfully' });
       }
     });
   });
 
   app.delete('/mute', isLoggedIn, function(req, res) {
-    console.log('got here')
     appnet.unmute(req, function(err, user) {
       if (err) {
         res.status(500);
         res.json({ 'error': 'error unmuting user' });
       } else {
-        res.json({
-          'message': 'unmuted successfully'
+        res.json({ 'message': 'unmuted successfully' });
+      }
+    });
+  });
+
+  app.get('/followers', isLoggedIn, function(req, res) {
+    appnet.followers(req, function(err, users) {
+      if (err) {
+        res.status(500);
+        res.json({ 'error': 'error retrieving followers' });
+      } else {
+        res.json({ users: users });
+      }
+    });
+  });
+
+  app.get('/following', isLoggedIn, function(req, res) {
+    appnet.following(req, function(err, users) {
+      if (err) {
+        res.status(500);
+        res.json({ 'error': 'error retrieving following' });
+      } else {
+        res.json({ users: users });
+      }
+    });
+  });
+
+  app.get('/thread', isLoggedIn, function(req, res) {
+    appnet.thread(req, function(err, recentMessages) {
+      if (err) {
+        res.status(500);
+        res.json({ 'error': 'error retrieving thread' });
+      } else {
+        utils.generateFeed(recentMessages, req.session.passport.user.id, client, function(messages) {
+          res.json({ messages: messages })
         });
       }
     });

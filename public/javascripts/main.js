@@ -20,6 +20,7 @@ define(['jquery', 'appnet'],
   var messages = $('ol.messages');
   var write = $('#write form');
   var userInfo = $('.user-info');
+  var overlay = $('#overlay');
   var csrf = write.find('input[name="_csrf"]').val();
   var resetTab = function(self, callback) {
     self.siblings().removeClass('selected');
@@ -120,6 +121,22 @@ define(['jquery', 'appnet'],
       self.text('Unmute');
       appnet.mute(self.parent().data('userid'), csrf);
     }
+  });
+
+  userInfo.on('click', '.followers', function() {
+    var self = $(this);
+    appnet.showFollowers();
+  });
+
+  userInfo.on('click', '.following', function() {
+    var self = $(this);
+    appnet.showFollowing();
+  });
+
+  overlay.on('click', '.close', function() {
+    overlay.slideUp(function() {
+      $(this).html('');
+    });
   });
 
   if (url === '/global/feed') {

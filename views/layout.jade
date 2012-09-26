@@ -18,7 +18,11 @@ html
       if session
         a(href='/logout', id='logout') Log out
 
-    block content
+    #dashboard
+      a(name='#top')
+      #overlay
+      block content
+
     footer
 
     script(src='/javascripts/require.js', data-main='/javascripts/main')
