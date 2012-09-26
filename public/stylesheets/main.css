@@ -654,6 +654,8 @@ ol.messages li p audio, ol.messages li p object {
     }
 
     #write textarea {
+        font-size: 13px;
+        line-height: 16px;
         width: 260px;
     }
 
