@@ -97,6 +97,11 @@ define(['jquery', 'appnet'],
     }
   });
 
+  messages.on('click', '.details .thread', function() {
+    var self = $(this);
+    appnet.showThread(self.closest('.message-item').data('id'));
+  });
+
   userInfo.on('click', '.follow', function() {
     var self = $(this);
     if (self.hasClass('on')) {

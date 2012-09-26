@@ -290,8 +290,47 @@ define(['jquery'], function ($) {
       setFollow('/following', userId);
     },
 
-    showThread: function() {
+    showThread: function(postId) {
+      $.ajax({
+        url: '/thread',
+        type: 'GET',
+        data: { post_id: postId },
+        dataType: 'json',
+        cache: false
 
+      }).done(function(data) {
+        var messageOverlay = $('<ol class="message-summary"></ol>');
+
+        if (data.messages.length > 0) {
+          for (var i = 0; i < data.messages.length; i ++) {
+            var message = $('<li class="message-item" data-id="' +
+              data.messages[i].id + '" ' + 'data-username="' + data.messages[i].username + '">' +
+              '<div class="meta"><a href="" class="who" title=""><img src=""></a>' +
+              '<div class="details"><a href="" class="username"></a><time></time>' +
+              '</ol></div></div><p></p></li>');
+            // user's profile page
+            message.find('a.who')
+              .attr('title', data.messages[i].name)
+              .attr('href', '/user/' + data.messages[i].username);
+            // user's full name
+            message.find('a.username')
+              .attr('href', '/user/' + data.messages[i].username)
+              .text(data.messages[i].name);
+            // time
+            message.find('time').text(dateDisplay(data.messages[i].created_at));
+            // user's avatar
+            message.find('a.who img').attr('src', data.messages[i].user);
+            // user's message
+            message.find('p').html(data.messages[i].message);
+            messageOverlay.append(message);
+          }
+        }
+
+        messageOverlay.append('<li class="close">Close</li>');
+        overlay.html(messageOverlay);
+        document.location.href = '#top';
+        overlay.slideDown();
+      });
     }
   };
 

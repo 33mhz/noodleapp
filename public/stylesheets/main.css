@@ -121,7 +121,7 @@ header a#logout:hover {
 }
 
 #overlay {
-    background-color: rgba(255, 255, 255, 0.87);
+    background-color: rgba(255, 255, 255, 0.95);
     display: none;
     left: 20px;
     padding: 50px 20px 20px;
@@ -131,24 +131,28 @@ header a#logout:hover {
     z-index: 2;
 }
 
-#overlay .users li {
+#overlay li {
     clear: both;
-    cursor: pointer;
     float: left;
     margin-bottom: 5px;
     padding: 10px 0;
     width: 100%;
 }
 
-#overlay .users li.close {
+#overlay .users li {
+    cursor: pointer;
+}
+
+#overlay li.close {
     background-color: #74b908;
     color: #fff;
+    cursor: pointer;
     font-family: 'Oswald';
     font-size: 25px;
     text-align: center;
 }
 
-#overlay .users li:hover {
+#overlay .users li:hover, #overlay li.close:hover {
     background-color: #111;
 }
 
@@ -156,7 +160,7 @@ header a#logout:hover {
     color: #fff;
 }
 
-#overlay .users li img {
+#overlay li .who img {
     display: block;
     float: left;
     margin-right: 10px;
@@ -189,6 +193,34 @@ header a#logout:hover {
 #overlay .users li:hover em {
     color: #eee;
     padding-left: 10px;
+}
+
+#overlay .message-summary li .details, #overlay .message-summary li p {
+    float: left;
+    margin-left: 20px;
+    text-align: left;
+    width: 450px;
+}
+
+#overlay .message-summary li p {
+    font-size: 14px;
+    margin-top: 5px;
+}
+
+#overlay .message-summary li time {
+    padding: 3px 5px;
+}
+
+#overlay li p iframe, #overlay li p video, #overlay li p audio,
+#overlay li p object {
+    height: 225px;
+    margin: 10px 0;
+    width: 400px;
+}
+
+#overlay li p img {
+    margin: 10px 0;
+    max-width: 400px;
 }
 
 .dashboard-content {
@@ -534,7 +566,7 @@ ol.messages > li p {
     padding: 5px 10px;
 }
 
-ol.messages > li p a {
+ol.messages > li p a, #overlay .message-summary li p a {
     color: #20c2c0;
     text-decoration: none;
 }
@@ -571,6 +603,21 @@ ol.messages li p audio, ol.messages li p object {
         width: 242px;
     }
 
+    #overlay .message-summary li .details {
+        margin-left: 10px;
+        width: 130px;
+    }
+
+    #overlay .meta .who > img {
+        margin-left: 0;
+    }
+
+    #overlay .message-summary li p {
+        line-height: 16px;
+        margin: 5px 0;
+        width: 240px;
+    }
+
     section.public li h1 {
         font-size: 25px;
         line-height: 30px;
@@ -578,6 +625,16 @@ ol.messages li p audio, ol.messages li p object {
 
     #overlay .users li span {
         width: 150px;
+    }
+
+    #overlay li p iframe, #overlay li p video, #overlay li p audio,
+    #overlay li p object {
+        height: 135px;
+        width: 240px;
+    }
+
+    #overlay li p img {
+        max-width: 240px;
     }
 
     #profile .user-info {
