@@ -204,6 +204,7 @@ header a#logout:hover {
 
 #overlay .message-summary li p {
     font-size: 14px;
+    line-height: 17px;
     margin-top: 5px;
 }
 
@@ -531,10 +532,6 @@ time {
 
 .actions > li:hover {
     opacity: 1;
-}
-
-.actions > li:hover span {
-    display: block;
 }
 
 .actions .thread {

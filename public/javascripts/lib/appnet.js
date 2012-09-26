@@ -89,30 +89,29 @@ define(['jquery'], function ($) {
         for (var i = 0; i < data.messages.length; i ++) {
           var isRepost = '';
           var threadAction = '';
-          var isStarred = '<li class="star"><span>Star</span></li>';
+          var isStarred = '<li class="star"></li>';
 
           if (!data.messages[i].isSelf) {
-            isRepost = '<li class="repost"><span>Repost</span></li>';
+            isRepost = '<li class="repost"></li>';
 
             if (data.messages[i].isRepost) {
-              isRepost = '<li class="repost on"><span>Unrepost</span></li>';
+              isRepost = '<li class="repost on"></li>';
             }
           }
 
           if (data.messages[i].isThread) {
-            threadAction = '<li class="thread"><span>Thread</span></li>';
+            threadAction = '<li class="thread"></li>';
           }
 
           if (data.messages[i].isStarred) {
-            isStarred = '<li class="star on"><span>Unstar</span></li>';
+            isStarred = '<li class="star on"></li>';
           }
 
           var message = $('<li class="message-item" data-id="' +
             data.messages[i].id + '" ' + 'data-username="' + data.messages[i].username + '">' +
             '<div class="meta"><a href="" class="who" title=""><img src=""></a>' +
             '<div class="details"><a href="" class="username"></a><time></time><ol class="actions">' +
-            threadAction + isStarred +
-            '<li class="reply"><span>Reply</span></li>' + isRepost +
+            threadAction + isStarred + '<li class="reply"></li>' + isRepost +
             '</ol></div></div><p></p></li>');
           // user's profile page
           message.find('a.who')
