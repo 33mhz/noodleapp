@@ -160,7 +160,7 @@ header a#logout:hover {
     color: #fff;
 }
 
-#overlay li .who img {
+#overlay li .who img, #overlay .users li img {
     display: block;
     float: left;
     margin-right: 10px;
