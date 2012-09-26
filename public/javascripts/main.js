@@ -21,6 +21,7 @@ define(['jquery', 'appnet'],
   var write = $('#write form');
   var userInfo = $('.user-info');
   var overlay = $('#overlay');
+  var dashboard = $('.dashboard-content');
   var csrf = write.find('input[name="_csrf"]').val();
   var resetTab = function(self, callback) {
     self.siblings().removeClass('selected');
@@ -100,6 +101,7 @@ define(['jquery', 'appnet'],
   messages.on('click', '.details .thread', function() {
     var self = $(this);
     appnet.showThread(self.closest('.message-item').data('id'));
+    dashboard.addClass('fixed');
   });
 
   userInfo.on('click', '.follow', function() {
@@ -131,16 +133,19 @@ define(['jquery', 'appnet'],
   userInfo.on('click', '.followers', function() {
     var self = $(this);
     appnet.showFollowers();
+    dashboard.addClass('fixed');
   });
 
   userInfo.on('click', '.following', function() {
     var self = $(this);
     appnet.showFollowing();
+    dashboard.addClass('fixed');
   });
 
   overlay.on('click', '.close', function() {
     overlay.slideUp(function() {
       $(this).html('');
+      dashboard.removeClass('fixed');
     });
   });
 

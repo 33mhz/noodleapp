@@ -562,7 +562,9 @@ ol.messages > li p {
     float: left;
     font-size: 14px;
     line-height: 18px;
+    overflow: hidden;
     padding: 5px 10px;
+    width: 520px;
 }
 
 ol.messages > li p a, #overlay .message-summary li p a {
@@ -671,6 +673,7 @@ ol.messages li p audio, ol.messages li p object {
 
     ol.messages > li p {
         padding-top: 5px;
+        width: 240px;
     }
 
     ol.messages > li p img {
