@@ -125,7 +125,6 @@ header a#logout:hover {
     display: none;
     left: 20px;
     padding: 50px 20px 20px;
-    overlay: scroll-y;
     position: absolute;
     top: 0;
     width: 521px;

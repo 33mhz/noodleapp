@@ -22,11 +22,16 @@ define(['jquery', 'appnet'],
   var userInfo = $('.user-info');
   var overlay = $('#overlay');
   var dashboard = $('.dashboard-content');
+  var win = $(window);
   var csrf = write.find('input[name="_csrf"]').val();
   var resetTab = function(self, callback) {
     self.siblings().removeClass('selected');
     self.addClass('selected');
     callback();
+  };
+  var freezeDashboard = function() {
+    dashboard.css({ 'top': '-' + window.pageYOffset + 'px' });
+    dashboard.addClass('fixed');
   };
 
   myFeed.click(function() {
@@ -101,13 +106,13 @@ define(['jquery', 'appnet'],
   messages.on('click', '.details .thread', function() {
     var self = $(this);
     appnet.showThread(self.closest('.message-item').data('id'));
-    dashboard.addClass('fixed');
+    freezeDashboard();
   });
 
   messages.on('click', 'time', function() {
     var self = $(this);
     appnet.showPost(self.closest('.message-item').data('id'));
-    dashboard.addClass('fixed');
+    freezeDashboard();
   });
 
   userInfo.on('click', '.follow', function() {
@@ -139,13 +144,13 @@ define(['jquery', 'appnet'],
   userInfo.on('click', '.followers', function() {
     var self = $(this);
     appnet.showFollowers();
-    dashboard.addClass('fixed');
+    freezeDashboard();
   });
 
   userInfo.on('click', '.following', function() {
     var self = $(this);
     appnet.showFollowing();
-    dashboard.addClass('fixed');
+    freezeDashboard();
   });
 
   overlay.on('click', '.close', function() {
