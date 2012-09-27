@@ -178,6 +178,14 @@ define(['jquery', 'appnet'],
     myFeed.click();
   }
 
+  // Clear the reply_to id if this is empty
+  write.keyup(function() {
+    var self = $(this);
+    if (self.val().trim().length === 0) {
+      write.find('#reply_to').val('');
+    }
+  });
+
   write.submit(function(ev) {
     ev.preventDefault();
 
