@@ -5,12 +5,14 @@ define(['jquery'], function ($) {
   var currentFeed = '/my/feed';
   var myFeed = $('.my-feed');
   var overlay = $('#overlay');
+  var tabs = $('ol.tabs');
   var userId = messages.data('userid');
   var sinceId = null;
+  var beforeId = null;
   var isFragment = false;
 
   var MESSAGE_LIMIT = 19;
-  var POLL_TIMEOUT = 60000;
+  var POLL_TIMEOUT = 5000;
 
   // Wait 1 minute to get new data
   var pollMessages = function() {
@@ -128,7 +130,6 @@ define(['jquery'], function ($) {
   };
 
   var setMessage = function(url, type, paginated) {
-    var beforeId = null;
     currentFeed = url;
 
     if (!isFragment && !paginated) {
@@ -203,19 +204,21 @@ define(['jquery'], function ($) {
           } else {
             messages.prepend(message);
           }
+
+          beforeId = null;
         }
 
         if (paginated) {
           messages.find('#paginated').remove();
         } else {
           messages.find('> li:gt(' + MESSAGE_LIMIT + ')').remove();
+          sinceId = messages.find('> li:first-child').data('id');
         }
 
         if (messages.find('> li').length >= 20) {
           messages.append('<li id="paginated">View Older</li>');
         }
 
-        sinceId = data.messages[data.messages.length - 1].id;
       } else {
         if (paginated) {
           messages.find('#paginated').remove();
@@ -229,7 +232,8 @@ define(['jquery'], function ($) {
       isFragment = true;
 
       pollMessages = setTimeout(function() {
-        setMessage(currentFeed, type);
+        currentFeed = tabs.find('li.selected').data('url');
+        setMessage(currentFeed, type, false);
       }, POLL_TIMEOUT);
     });
   };
@@ -237,31 +241,26 @@ define(['jquery'], function ($) {
   var self = {
     getMyFeed: function() {
       isFragment = false;
-      sinceId = null;
       setMessage('/my/feed', 'GET', false);
     },
 
     getUserPosts: function() {
       isFragment = false;
-      sinceId = null;
       setMessage('/user/posts/' + messages.data('userid'), 'GET', false);
     },
 
     getUserMentions: function() {
       isFragment = false;
-      sinceId = null;
       setMessage('/user/mentions/' + messages.data('userid'), 'GET', false);
     },
 
     getUserStarred: function() {
       isFragment = false;
-      sinceId = null;
       setMessage('/user/starred/' + messages.data('userid'), 'GET', false);
     },
 
     getGlobalFeed: function() {
       isFragment = false;
-      sinceId = null;
       setMessage('/global/feed', 'GET');
     },
 

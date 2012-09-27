@@ -28,8 +28,8 @@ block content
 
   section
     ol.tabs
-      li.user-posts.selected Recent
-      li.user-mentions Mentions
-      li.user-starred Starred
+      li.user-posts.selected(data-url="/user/posts") Recent
+      li.user-mentions(data-url="/user/mentions") Mentions
+      li.user-starred(data-url="/user/starred") Starred
 
     ol.messages(data-userid='#{user.id}')
