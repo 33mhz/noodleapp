@@ -86,7 +86,8 @@ define(['jquery'], function ($) {
           if (showDetails) {
             detailExtras = '<div class="info"><ol>' +
               '<li class="reposts">Reposts: <span></span></li>' +
-              '<li class="stars">Stars: <span></span></li></ol></div>';
+              '<li class="stars">Stars: <span></span></li>' +
+              '<li class="replies">Replies: <span></span></li></ol></div>';
           }
 
           var message = $('<li class="message-item" data-id="' +
@@ -112,6 +113,7 @@ define(['jquery'], function ($) {
           if (showDetails) {
             message.find('.info .reposts span').text(data.messages[i].numReposts);
             message.find('.info .stars span').text(data.messages[i].numStars);
+            message.find('.info .replies span').text(data.messages[i].numReplies);
           }
 
           messageOverlay.append(message);

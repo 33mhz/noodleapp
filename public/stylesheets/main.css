@@ -240,7 +240,7 @@ header a#logout:hover {
     width: 100%;
 }
 
-#overlay .info li.reposts, #overlay .info li.stars {
+#overlay .info li {
     color: #888;
     float: left;
     font-family: 'Oswald';
@@ -248,7 +248,7 @@ header a#logout:hover {
     line-height: 30px;
     padding: 20px 10px 10px;
     text-transform: uppercase;
-    width: 40%;
+    width: 28.5%;
 }
 
 #overlay li .info li span {
@@ -685,6 +685,11 @@ ol.messages li p audio, ol.messages li p object {
 
     #profile .user-info {
         width: 290px;
+    }
+
+    #overlay .info li {
+        clear: both;
+        width: 90%;
     }
 
     #profile .user-info h2 {
