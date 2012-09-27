@@ -120,6 +120,11 @@ define(['jquery', 'appnet'],
     freezeDashboard();
   });
 
+  messages.on('click', '#paginated', function() {
+    var self = $(this);
+    appnet.getOlderPosts(self.prev().data('id'));
+  });
+
   userInfo.on('click', '.follow', function() {
     var self = $(this);
     if (self.hasClass('on')) {

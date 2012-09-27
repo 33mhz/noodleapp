@@ -77,7 +77,9 @@ module.exports = function(app, client, isLoggedIn) {
         res.status(500);
         res.json({ 'error': 'error retrieving your posts' });
       } else {
-        utils.generateFeed(recentMessages, req.session.passport.user.id, client, function(messages) {
+        utils.generateFeed(recentMessages, req.session.passport.user.id,
+          client, false, function(messages) {
+
           res.json({ messages: messages });
         });
       }
@@ -95,7 +97,9 @@ module.exports = function(app, client, isLoggedIn) {
         res.status(500);
         res.json({ 'error': 'error retrieving mentions' });
       } else {
-        utils.generateFeed(recentMessages, req.session.passport.user.id, client, function(messages) {
+        utils.generateFeed(recentMessages, req.session.passport.user.id,
+          client, false, function(messages) {
+
           res.json({ messages: messages });
         });
       }
@@ -113,7 +117,9 @@ module.exports = function(app, client, isLoggedIn) {
         res.status(500);
         res.json({ 'error': 'error retrieving starred' });
       } else {
-        utils.generateFeed(recentMessages, req.session.passport.user.id, client, function(messages) {
+        utils.generateFeed(recentMessages, req.session.passport.user.id,
+          client, false, function(messages) {
+
           res.json({ messages: messages });
         });
       }
@@ -130,7 +136,9 @@ module.exports = function(app, client, isLoggedIn) {
         res.status(500);
         res.json({ 'error': 'error retrieving your personal feed' });
       } else {
-        utils.generateFeed(recentMessages, req.session.passport.user.id, client, function(messages) {
+        utils.generateFeed(recentMessages, req.session.passport.user.id,
+          client, false, function(messages) {
+
           res.json({ messages: messages });
         });
       }
@@ -145,8 +153,25 @@ module.exports = function(app, client, isLoggedIn) {
         res.status(500);
         res.json({ 'error': 'error retrieving the global feed' });
       } else {
-        utils.generateFeed(recentMessages, req.session.passport.user.id, client, function(messages) {
-          res.json({ messages: messages })
+        utils.generateFeed(recentMessages, req.session.passport.user.id,
+          client, false, function(messages) {
+
+          res.json({ messages: messages });
+        });
+      }
+    });
+  });
+
+  app.get('/paginated/feed/:id/:post_id', isLoggedIn, function(req, res) {
+    appnet.paginatedFeed(req, client, function(err, recentMessages) {
+      if (err) {
+        res.status(500);
+        res.json({ 'error': 'error retrieving the paginated feed' });
+      } else {
+        utils.generateFeed(recentMessages, req.session.passport.user.id,
+          client, true, function(messages) {
+
+          res.json({ messages: messages });
         });
       }
     });
@@ -280,7 +305,7 @@ module.exports = function(app, client, isLoggedIn) {
         res.json({ 'error': 'error retrieving thread' });
       } else {
         utils.generateFeed(recentMessages, req.session.passport.user.id, client, function(messages) {
-          res.json({ messages: messages })
+          res.json({ messages: messages });
         });
       }
     });
@@ -293,7 +318,7 @@ module.exports = function(app, client, isLoggedIn) {
         res.json({ 'error': 'error retrieving tagged posts' });
       } else {
         utils.generateFeed(recentMessages, req.session.passport.user.id, client, function(messages) {
-          res.json({ messages: messages })
+          res.json({ messages: messages });
         });
       }
     });
@@ -306,7 +331,7 @@ module.exports = function(app, client, isLoggedIn) {
         res.json({ 'error': 'error retrieving post' });
       } else {
         utils.generateFeed([recentMessage], req.session.passport.user.id, client, function(messages) {
-          res.json({ messages: messages })
+          res.json({ messages: messages });
         });
       }
     });

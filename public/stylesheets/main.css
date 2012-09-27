@@ -153,7 +153,7 @@ header a#logout:hover {
     cursor: pointer;
 }
 
-#overlay li.close {
+#overlay li.close, #paginated {
     background-color: #74b908;
     color: #fff;
     cursor: pointer;
@@ -162,7 +162,16 @@ header a#logout:hover {
     text-align: center;
 }
 
-#overlay .users li:hover, #overlay li.close:hover {
+ol.messages #paginated {
+    background-color: #aaa;
+    opacity: 0.7;
+}
+
+ol.messages #paginated.loading img {
+    padding: 0;
+}
+
+#overlay .users li:hover, #overlay li.close:hover, ol.messages .paginated:hover {
     background-color: #111;
 }
 
@@ -638,6 +647,10 @@ ol.messages li p audio, ol.messages li p object {
 ol.messages li p iframe, ol.messages li p img, ol.messages li p video,
 ol.messages li p audio, ol.messages li p object {
     margin: 5px 0;
+}
+
+ol.messages .paginated {
+    text-align: center;
 }
 
 @media only screen and (max-width: 599px) {

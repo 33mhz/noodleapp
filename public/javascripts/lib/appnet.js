@@ -69,6 +69,7 @@ define(['jquery'], function ($) {
   var setPost = function(data, url, showDetails) {
     overlay.html('<img src="/images/ajax-loader.gif" class="loading">');
     overlay.slideDown();
+
     $.ajax({
       url: url,
       type: 'GET',
@@ -126,16 +127,24 @@ define(['jquery'], function ($) {
     });
   };
 
-  var setMessage = function(url, type) {
+  var setMessage = function(url, type, paginated) {
+    var beforeId = null;
     currentFeed = url;
 
-    if (!isFragment) {
+    if (!isFragment && !paginated) {
       messages.html('<li class="loading"><img src="/images/ajax-loader.gif"></li>');
+    }
+
+    if (paginated) {
+      beforeId = parseInt(url.split('/paginated/feed/')[1].split('/')[1], 10);
+      messages.find('#paginated')
+        .addClass('loading')
+        .html('<img src="/images/ajax-loader-paginated.gif">');
     }
     $.ajax({
       url: url,
       type: type,
-      data: { since_id: sinceId },
+      data: { since_id: sinceId, before_id: beforeId },
       dataType: 'json',
       cache: false
 
@@ -189,11 +198,28 @@ define(['jquery'], function ($) {
           // user's message
           message.find('p').html(data.messages[i].message);
 
-          messages.prepend(message);
+          if (paginated) {
+            messages.append(message);
+          } else {
+            messages.prepend(message);
+          }
         }
 
-        messages.find('> li:gt(' + MESSAGE_LIMIT + ')').remove();
+        if (paginated) {
+          messages.find('#paginated').remove();
+        } else {
+          messages.find('> li:gt(' + MESSAGE_LIMIT + ')').remove();
+        }
+
+        if (messages.find('> li').length >= 20) {
+          messages.append('<li id="paginated">View Older</li>');
+        }
+
         sinceId = data.messages[data.messages.length - 1].id;
+      } else {
+        if (paginated) {
+          messages.find('#paginated').remove();
+        }
       }
 
       if (!isFragment) {
@@ -212,25 +238,25 @@ define(['jquery'], function ($) {
     getMyFeed: function() {
       isFragment = false;
       sinceId = null;
-      setMessage('/my/feed', 'GET');
+      setMessage('/my/feed', 'GET', false);
     },
 
     getUserPosts: function() {
       isFragment = false;
       sinceId = null;
-      setMessage('/user/posts/' + messages.data('userid'), 'GET');
+      setMessage('/user/posts/' + messages.data('userid'), 'GET', false);
     },
 
     getUserMentions: function() {
       isFragment = false;
       sinceId = null;
-      setMessage('/user/mentions/' + messages.data('userid'), 'GET');
+      setMessage('/user/mentions/' + messages.data('userid'), 'GET', false);
     },
 
     getUserStarred: function() {
       isFragment = false;
       sinceId = null;
-      setMessage('/user/starred/' + messages.data('userid'), 'GET');
+      setMessage('/user/starred/' + messages.data('userid'), 'GET', false);
     },
 
     getGlobalFeed: function() {
@@ -360,6 +386,11 @@ define(['jquery'], function ($) {
 
     showPost: function(postId) {
       setPost({ 'post_id': postId }, '/post', true);
+    },
+
+    getOlderPosts: function(postId) {
+      isFragment = true;
+      setMessage('/paginated/feed/' + userId + '/' + postId, 'GET', true);
     }
   };
 
