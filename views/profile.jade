@@ -1,36 +1,35 @@
 extend layout
 
 block content
-  .dashboard-content
-    #profile
-      img(src='#{user.avatar_image.url}')
-      .user-info
-        h2= user.name
-        h3(class='following') Following #{user.counts.following}
-        h3(class='followers') Followers #{user.counts.followers}
+  #profile
+    img(src='#{user.avatar_image.url}')
+    .user-info
+      h2= user.name
+      h3(class='following') Following #{user.counts.following}
+      h3(class='followers') Followers #{user.counts.followers}
 
-        ol.action-buttons(data-userid='#{user.id}')
-          if session && (user.id !== session.id)
-            if user.you_follow
-              li(class='follow on') Unfollow
-            else
-              li(class='follow') Follow
-            if user.you_muted
-              li(class='mute on') Unmute
-            else
-              li(class='mute') Mute
-        p!= description
-    #write.profile
-      form(method='post')
-        textarea(name='message', placeholder='Write a message to @#{username}') @#{username}&#xa0;
-        input(type='hidden', name='reply_to', value='', id='reply_to')
-        input(type='hidden', name='_csrf', value='#{csrf}')
-        button(type='submit') Post
+      ol.action-buttons(data-userid='#{user.id}')
+        if session && (user.id !== session.id)
+          if user.you_follow
+            li(class='follow on') Unfollow
+          else
+            li(class='follow') Follow
+          if user.you_muted
+            li(class='mute on') Unmute
+          else
+            li(class='mute') Mute
+      p!= description
+  #write.profile
+    form(method='post')
+      textarea(name='message', placeholder='Write a message to @#{username}') @#{username}&#xa0;
+      input(type='hidden', name='reply_to', value='', id='reply_to')
+      input(type='hidden', name='_csrf', value='#{csrf}')
+      button(type='submit') Post
 
-    section
-      ol.tabs
-        li.user-posts.selected Recent
-        li.user-mentions Mentions
-        li.user-starred Starred
+  section
+    ol.tabs
+      li.user-posts.selected Recent
+      li.user-mentions Mentions
+      li.user-starred Starred
 
-      ol.messages(data-userid='#{user.id}')
+    ol.messages(data-userid='#{user.id}')

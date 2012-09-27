@@ -113,6 +113,13 @@ define(['jquery', 'appnet'],
     freezeDashboard();
   });
 
+  messages.on('click', 'a.tags', function(ev) {
+    ev.preventDefault();
+    var self = $(this);
+    appnet.showTagged(self.attr('href').split('/tagged/')[1]);
+    freezeDashboard();
+  });
+
   userInfo.on('click', '.follow', function() {
     var self = $(this);
     if (self.hasClass('on')) {

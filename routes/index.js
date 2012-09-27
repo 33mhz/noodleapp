@@ -286,6 +286,19 @@ module.exports = function(app, client, isLoggedIn) {
     });
   });
 
+  app.get('/tags', isLoggedIn, function(req, res) {
+    appnet.getTags(req, function(err, recentMessages) {
+      if (err) {
+        res.status(500);
+        res.json({ 'error': 'error retrieving tagged posts' });
+      } else {
+        utils.generateFeed(recentMessages, req.session.passport.user.id, client, function(messages) {
+          res.json({ messages: messages })
+        });
+      }
+    });
+  });
+
   app.get('/post', isLoggedIn, function(req, res) {
     appnet.getPost(req, function(err, recentMessage) {
       if (err) {

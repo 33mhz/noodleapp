@@ -66,13 +66,13 @@ define(['jquery'], function ($) {
     });
   };
 
-  var setPost = function(postId, url, showDetails) {
+  var setPost = function(data, url, showDetails) {
     overlay.html('<img src="/images/ajax-loader.gif" class="loading">');
     overlay.slideDown();
     $.ajax({
       url: url,
       type: 'GET',
-      data: { post_id: postId },
+      data: data,
       dataType: 'json',
       cache: false
 
@@ -349,11 +349,15 @@ define(['jquery'], function ($) {
     },
 
     showThread: function(postId) {
-      setPost(postId, '/thread', false);
+      setPost({ 'post_id': postId }, '/thread', false);
+    },
+
+    showTagged: function(tag) {
+      setPost({ 'tag': tag }, '/tags', false);
     },
 
     showPost: function(postId) {
-      setPost(postId, '/post', true);
+      setPost({ 'post_id': postId }, '/post', true);
     }
   };
 
