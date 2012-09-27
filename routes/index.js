@@ -177,13 +177,24 @@ module.exports = function(app, client, isLoggedIn) {
     });
   });
 
-  app.post('/add', isLoggedIn, function(req, res) {
+  app.post('/post', isLoggedIn, function(req, res) {
     appnet.addMessage(req, function(err, message) {
       if (err) {
         res.status(500);
         res.json({ 'error': 'error posting a new message' });
       } else {
         res.json({ 'message': 'posted successfully' });
+      }
+    });
+  });
+
+  app.delete('/post', isLoggedIn, function(req, res) {
+    appnet.deleteMessage(req, client, function(err, message) {
+      if (err) {
+        res.status(500);
+        res.json({ 'error': 'error deleting message' });
+      } else {
+        res.json({ 'message': 'deleted successfully' });
       }
     });
   });

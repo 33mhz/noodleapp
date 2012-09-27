@@ -565,6 +565,7 @@ time {
 
 .actions > li {
     background-repeat: no-repeat;
+    cursor: pointer;
     float: left;
     height: 24px;
     opacity: 0.3;
@@ -604,6 +605,10 @@ time {
 
 .actions .repost {
     background-image: url('/images/repost.png');
+}
+
+.actions .delete {
+    background-image: url('/images/delete.png');
 }
 
 .actions .on {

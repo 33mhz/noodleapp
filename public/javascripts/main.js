@@ -101,6 +101,12 @@ define(['jquery', 'appnet'],
     }
   });
 
+  messages.on('click', '.details .delete', function() {
+    var self = $(this);
+    appnet.deleteMessage(self.closest('.message-item').data('id'), csrf);
+    self.closest('li.message-item').fadeOut();
+  });
+
   messages.on('click', '.details .thread', function() {
     var self = $(this);
     appnet.showThread(self.closest('.message-item').data('id'));

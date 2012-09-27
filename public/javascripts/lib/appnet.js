@@ -161,8 +161,11 @@ define(['jquery'], function ($) {
           var isRepost = '';
           var threadAction = '';
           var isStarred = '<li class="star"></li>';
+          var isDeletable = '';
 
-          if (!data.messages[i].isSelf) {
+          if (data.messages[i].isSelf) {
+            isDeletable = '<li class="delete"></li>';
+          } else {
             isRepost = '<li class="repost"></li>';
 
             if (data.messages[i].isRepost) {
@@ -182,7 +185,7 @@ define(['jquery'], function ($) {
             data.messages[i].id + '" ' + 'data-username="' + data.messages[i].username + '">' +
             '<div class="meta"><a href="" class="who" title=""><img src=""></a>' +
             '<div class="details"><a href="" class="username"></a><time></time><ol class="actions">' +
-            threadAction + isStarred + '<li class="reply"></li>' + isRepost +
+            threadAction + isStarred + '<li class="reply"></li>' + isRepost + isDeletable +
             '</ol></div></div><p></p></li>');
           // user's profile page
           message.find('a.who')
@@ -360,7 +363,7 @@ define(['jquery'], function ($) {
     postMessage: function(form) {
       isFragment = true;
       $.ajax({
-        url: '/add',
+        url: '/post',
         type: 'POST',
         data: form.serialize(),
         dataType: 'json',
@@ -369,6 +372,17 @@ define(['jquery'], function ($) {
       }).done(function(data) {
         sinceId = null;
         myFeed.click();
+      });
+    },
+
+    deleteMessage: function(postId, csrf) {
+      isFragment = true;
+      $.ajax({
+        url: '/post',
+        type: 'DELETE',
+        data: { post_id: postId, _csrf: csrf },
+        dataType: 'json',
+        cache: false
       });
     },
 
