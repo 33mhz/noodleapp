@@ -151,6 +151,8 @@ define(['jquery'], function ($) {
 
     }).done(function(data) {
       if (data.messages.length > 0) {
+        messages.find('li.loading').remove();
+
         for (var i = 0; i < data.messages.length; i ++) {
           var isRepost = '';
           var threadAction = '';
@@ -214,6 +216,8 @@ define(['jquery'], function ($) {
 
         if (messages.find('> li').length >= 20) {
           messages.append('<li id="paginated">View Older</li>');
+        } else {
+
         }
 
       } else {
