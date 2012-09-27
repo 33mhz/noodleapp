@@ -22,7 +22,6 @@ define(['jquery', 'appnet'],
   var userInfo = $('.user-info');
   var overlay = $('#overlay');
   var dashboard = $('.dashboard-content');
-  var win = $(window);
   var csrf = write.find('input[name="_csrf"]').val();
   var resetTab = function(self, callback) {
     self.siblings().removeClass('selected');
@@ -30,7 +29,6 @@ define(['jquery', 'appnet'],
     callback();
   };
   var freezeDashboard = function() {
-    dashboard.css({ 'top': '-' + window.pageYOffset + 'px' });
     dashboard.addClass('fixed');
   };
 
