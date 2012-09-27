@@ -304,7 +304,9 @@ module.exports = function(app, client, isLoggedIn) {
         res.status(500);
         res.json({ 'error': 'error retrieving thread' });
       } else {
-        utils.generateFeed(recentMessages, req.session.passport.user.id, client, function(messages) {
+        utils.generateFeed(recentMessages, req.session.passport.user.id,
+          client, false, function(messages) {
+
           res.json({ messages: messages });
         });
       }
@@ -317,7 +319,9 @@ module.exports = function(app, client, isLoggedIn) {
         res.status(500);
         res.json({ 'error': 'error retrieving tagged posts' });
       } else {
-        utils.generateFeed(recentMessages, req.session.passport.user.id, client, function(messages) {
+        utils.generateFeed(recentMessages, req.session.passport.user.id,
+          client, false, function(messages) {
+
           res.json({ messages: messages });
         });
       }
@@ -330,7 +334,9 @@ module.exports = function(app, client, isLoggedIn) {
         res.status(500);
         res.json({ 'error': 'error retrieving post' });
       } else {
-        utils.generateFeed([recentMessage], req.session.passport.user.id, client, function(messages) {
+        utils.generateFeed([recentMessage], req.session.passport.user.id,
+          client, false, function(messages) {
+
           res.json({ messages: messages });
         });
       }
