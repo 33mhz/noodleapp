@@ -1,6 +1,6 @@
 'use strict';
 
-requirejs.config({
+var require = requirejs.config({
   baseUrl: '/javascripts/lib',
   enforceDefine: true,
   paths: {
@@ -8,7 +8,7 @@ requirejs.config({
   }
 });
 
-define(['jquery', 'appnet'],
+require(['jquery', 'appnet'],
   function($, appnet) {
 
   var url = $('body').data('url');
