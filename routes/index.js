@@ -285,4 +285,17 @@ module.exports = function(app, client, isLoggedIn) {
       }
     });
   });
+
+  app.get('/post', isLoggedIn, function(req, res) {
+    appnet.getPost(req, function(err, recentMessage) {
+      if (err) {
+        res.status(500);
+        res.json({ 'error': 'error retrieving post' });
+      } else {
+        utils.generateFeed([recentMessage], req.session.passport.user.id, client, function(messages) {
+          res.json({ messages: messages })
+        });
+      }
+    });
+  });
 };

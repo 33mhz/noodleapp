@@ -125,13 +125,21 @@ header a#logout:hover {
     display: none;
     left: 20px;
     padding: 50px 20px 20px;
+    overlay: scroll-y;
     position: absolute;
     top: 0;
     width: 521px;
     z-index: 2;
 }
 
-#overlay li {
+#overlay img.loading {
+    display: block;
+    margin: 0 auto;
+    opacity: 0.5;
+    width: 66px;
+}
+
+#overlay > ol > li {
     clear: both;
     float: left;
     margin-bottom: 5px;
@@ -224,13 +232,39 @@ header a#logout:hover {
     max-width: 400px;
 }
 
+#overlay .info {
+    clear: both;
+    float: left;
+    width: 100%;
+}
+
+#overlay .info li.reposts, #overlay .info li.stars {
+    color: #888;
+    float: left;
+    font-family: 'Oswald';
+    font-size: 20px;
+    line-height: 30px;
+    padding: 20px 10px 10px;
+    text-transform: uppercase;
+    width: 40%;
+}
+
+#overlay li .info li span {
+    color: #111;
+    font-size: 25px;
+}
+
 .dashboard-content {
     background-color: #f8f8f8;
     border-left: 1px solid #eee;
     border-right: 1px solid #eee;
     float: left;
     position: relative;
-    width: 100%;
+    width: 600px;
+}
+
+.dashboard-content.fixed {
+    position: fixed;
 }
 
 #profile img {
@@ -503,6 +537,15 @@ time {
     width: 30px;
 }
 
+.messages time {
+    cursor: pointer;
+}
+
+.messages time:hover {
+    background-color: #111;
+    color: #eee;
+}
+
 .details {
     float: left;
     margin-left: 20px;
@@ -659,6 +702,10 @@ ol.messages li p audio, ol.messages li p object {
 
     #write textarea {
         width: 260px;
+    }
+
+    .dashboard-content {
+        width: 320px;
     }
 
     ol.messages li p iframe, ol.messages li p video,

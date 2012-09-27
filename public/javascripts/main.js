@@ -104,6 +104,12 @@ define(['jquery', 'appnet'],
     dashboard.addClass('fixed');
   });
 
+  messages.on('click', 'time', function() {
+    var self = $(this);
+    appnet.showPost(self.closest('.message-item').data('id'));
+    dashboard.addClass('fixed');
+  });
+
   userInfo.on('click', '.follow', function() {
     var self = $(this);
     if (self.hasClass('on')) {
@@ -170,5 +176,5 @@ define(['jquery', 'appnet'],
     url = '/my/feed';
     self.find('textarea').val('');
     return false;
-  })
+  });
 });
