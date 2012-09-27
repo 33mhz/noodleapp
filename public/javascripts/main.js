@@ -34,6 +34,7 @@ define(['jquery', 'appnet'],
 
   myFeed.click(function() {
     var self = $(this);
+    messages.empty();
     resetTab(self, function() {
       appnet.getMyFeed();
     });
@@ -41,6 +42,7 @@ define(['jquery', 'appnet'],
 
   globalFeed.click(function() {
     var self = $(this);
+    messages.empty();
     resetTab(self, function() {
       appnet.getGlobalFeed();
     });
@@ -48,6 +50,7 @@ define(['jquery', 'appnet'],
 
   userPosts.click(function() {
     var self = $(this);
+    messages.empty();
     resetTab(self, function() {
       appnet.getUserPosts();
     });
@@ -55,6 +58,7 @@ define(['jquery', 'appnet'],
 
   userMentions.click(function() {
     var self = $(this);
+    messages.empty();
     resetTab(self, function() {
       appnet.getUserMentions();
     });
@@ -62,6 +66,7 @@ define(['jquery', 'appnet'],
 
   userStarred.click(function() {
     var self = $(this);
+    messages.empty();
     resetTab(self, function() {
       appnet.getUserStarred();
     });

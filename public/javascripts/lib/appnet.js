@@ -150,12 +150,6 @@ define(['jquery'], function ($) {
       cache: false
 
     }).done(function(data) {
-      // This refreshes the feed entirely but we can figure out ways to make it less
-      // intrusive.
-      if (!isFragment) {
-        messages.empty();
-      }
-
       if (data.messages.length > 0) {
         for (var i = 0; i < data.messages.length; i ++) {
           var isRepost = '';
@@ -370,8 +364,11 @@ define(['jquery'], function ($) {
         cache: false
 
       }).done(function(data) {
-        sinceId = null;
-        myFeed.click();
+        // for now let's only show the new message if we're on 'my feed'
+        if (tabs.find('.my-feed').hasClass('selected')) {
+          setMessage('/my/feed', 'GET', false);
+          sinceId = data.messages[0].id;
+        }
       });
     },
 

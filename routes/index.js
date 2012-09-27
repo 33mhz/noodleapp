@@ -178,12 +178,16 @@ module.exports = function(app, client, isLoggedIn) {
   });
 
   app.post('/post', isLoggedIn, function(req, res) {
-    appnet.addMessage(req, function(err, message) {
+    appnet.addMessage(req, function(err, recentMessage) {
       if (err) {
         res.status(500);
         res.json({ 'error': 'error posting a new message' });
       } else {
-        res.json({ 'message': 'posted successfully' });
+        utils.generateFeed([recentMessage], req.session.passport.user.id,
+          client, true, function(messages) {
+
+          res.json({ messages: messages });
+        });
       }
     });
   });
