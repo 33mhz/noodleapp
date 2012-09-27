@@ -12,7 +12,7 @@ define(['jquery'], function ($) {
   var isFragment = false;
 
   var MESSAGE_LIMIT = 19;
-  var POLL_TIMEOUT = 5000;
+  var POLL_TIMEOUT = 60000;
 
   // Wait 1 minute to get new data
   var pollMessages = function() {
@@ -241,26 +241,31 @@ define(['jquery'], function ($) {
   var self = {
     getMyFeed: function() {
       isFragment = false;
+      sinceId = null;
       setMessage('/my/feed', 'GET', false);
     },
 
     getUserPosts: function() {
       isFragment = false;
-      setMessage('/user/posts/' + messages.data('userid'), 'GET', false);
+      sinceId = null;
+      setMessage('/user/posts/' + userId, 'GET', false);
     },
 
     getUserMentions: function() {
       isFragment = false;
-      setMessage('/user/mentions/' + messages.data('userid'), 'GET', false);
+      sinceId = null;
+      setMessage('/user/mentions/' + userId, 'GET', false);
     },
 
     getUserStarred: function() {
       isFragment = false;
-      setMessage('/user/starred/' + messages.data('userid'), 'GET', false);
+      sinceId = null;
+      setMessage('/user/starred/' + userId, 'GET', false);
     },
 
     getGlobalFeed: function() {
       isFragment = false;
+      sinceId = null;
       setMessage('/global/feed', 'GET');
     },
 
