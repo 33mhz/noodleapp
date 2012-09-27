@@ -141,6 +141,13 @@ describe('web-remix', function() {
       });
     });
 
+    it('returns the user link followed by \'s', function(done) {
+      webRemix.generate('@borg\'s', function(err, subject) {
+        subject.should.equal('<a href="/user/borg">@borg</a>\'s');
+        done();
+      });
+    });
+
     it('returns a non-user link', function(done) {
       webRemix.generate('@ borg', function(err, subject) {
         subject.should.equal('@ borg');
