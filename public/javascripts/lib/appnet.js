@@ -5,7 +5,7 @@ define(['jquery'], function ($) {
   var currentFeed = '/my/feed';
   var myFeed = $('.my-feed');
   var overlay = $('#overlay');
-  var userId = $('.action-buttons').data('userid');
+  var userId = messages.data('userid');
   var sinceId = null;
   var isFragment = false;
 
