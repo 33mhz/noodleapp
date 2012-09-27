@@ -102,6 +102,13 @@ describe('web-remix', function() {
       });
     });
 
+    it('returns image code for an instagr.am url', function() {
+      webRemix.generate('http://instagram.com/p/QFJJzTw8yS/', function(err, subject) {
+        subject.should.equal('<br><div class="image-wrapper"><a href="http://instagram.com/p/QFJJzTw8yS/">' +
+          '<img src="http://instagr.am/p/QFJJzTw8yS/media/"/></a></div><br>');
+      });
+    });
+
     it('returns a link for an https url', function(done) {
       webRemix.generate('https://example.com', function(err, subject) {
         subject.should.equal('<a href="https://example.com" target="_blank">https://example.com</a>');
