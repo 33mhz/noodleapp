@@ -191,12 +191,14 @@ define(['jquery'], function ($) {
               isStarred = '<li class="star on"></li>';
             }
 
-            var message = $('<li class="message-item" data-id="' +
+            var message = $('<li class="message-item" data-mentions="" data-id="' +
               data.messages[i].id + '" ' + 'data-username="' + data.messages[i].username + '">' +
               '<div class="meta"><a href="" class="who" title=""><img src=""></a>' +
               '<div class="details"><a href="" class="username"></a><time></time><ol class="actions">' +
               threadAction + isStarred + '<li class="reply"></li>' + isRepost + isDeletable +
               '</ol></div></div><p></p></li>');
+            // user mentions in this post
+            message.attr('data-mentions', data.messages[i].mentions);
             // user's profile page
             message.find('a.who')
               .attr('title', data.messages[i].name)
