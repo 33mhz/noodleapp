@@ -23,6 +23,7 @@ require(['jquery', 'appnet'],
   var overlay = $('#overlay');
   var dashboard = $('.dashboard-content');
   var charLimit = $('#count');
+  var body = $('body');
   var csrf = write.find('input[name="_csrf"]').val();
 
   var CHAR_MAX = 256;
@@ -139,7 +140,7 @@ require(['jquery', 'appnet'],
     freezeDashboard();
   });
 
-  messages.on('click', 'a.tags', function(ev) {
+  body.on('click', 'a.tags', function(ev) {
     ev.preventDefault();
     var self = $(this);
     appnet.showTagged(self.attr('href').split('/tagged/')[1]);
@@ -211,9 +212,9 @@ require(['jquery', 'appnet'],
 
   checkCharLimit(write.find('textarea').val());
 
-  write.find('textarea').focus(function() {
+  write.focus(function() {
     charLimit.addClass('on');
-    checkCharLimit(self.val());
+    checkCharLimit(self.find('textarea').val());
   });
 
   write.find('textarea').blur(function() {
