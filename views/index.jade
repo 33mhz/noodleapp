@@ -7,6 +7,7 @@ block content
         textarea(name='message', placeholder='Write your message')
         input(type='hidden', name='reply_to', value='', id='reply_to')
         input(type='hidden', name='_csrf', value='#{csrf}')
+        span#count 256
         button(type='submit') Post
 
     section

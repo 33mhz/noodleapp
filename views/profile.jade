@@ -24,6 +24,7 @@ block content
       textarea(name='message', placeholder='Write a message to @#{username}') @#{username}&#xa0;
       input(type='hidden', name='reply_to', value='', id='reply_to')
       input(type='hidden', name='_csrf', value='#{csrf}')
+      span#count 256
       button(type='submit') Post
 
   section

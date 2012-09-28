@@ -31,13 +31,13 @@ module.exports = function(app, configurations, express) {
     app.use(express.csrf());
     app.use(app.router);
     app.use(function(req, res, next) {
-      res.status(403);
-      res.render('403', { url: req.url, layout: false });
+      res.status(404);
+      res.render('404', { url: req.url, layout: false });
       return;
     });
     app.use(function(req, res, next) {
-      res.status(404);
-      res.render('404', { url: req.url, layout: false });
+      res.status(403);
+      res.render('403', { url: req.url, layout: false });
       return;
     });
     app.use(function(err, req, res, next) {

@@ -22,14 +22,29 @@ require(['jquery', 'appnet'],
   var userInfo = $('.user-info');
   var overlay = $('#overlay');
   var dashboard = $('.dashboard-content');
+  var charLimit = $('#count');
   var csrf = write.find('input[name="_csrf"]').val();
+
+  var CHAR_MAX = 256;
+
   var resetTab = function(self, callback) {
     self.siblings().removeClass('selected');
     self.addClass('selected');
     callback();
   };
+
   var freezeDashboard = function() {
     dashboard.addClass('fixed');
+  };
+
+  var checkCharLimit = function(text) {
+    var textLength = text.length;
+    if (textLength > CHAR_MAX - 1) {
+      write.find('textarea').val(text.substr(0, CHAR_MAX));
+      charLimit.text(0);
+    } else {
+      charLimit.text(CHAR_MAX - textLength);
+    }
   };
 
   myFeed.click(function() {
@@ -194,9 +209,25 @@ require(['jquery', 'appnet'],
     myFeed.click();
   }
 
-  // Clear the reply_to id if this is empty
-  write.keyup(function() {
+  checkCharLimit(write.find('textarea').val());
+
+  write.find('textarea').focus(function() {
     var self = $(this);
+    charLimit.addClass('on');
+    checkCharLimit(self.val());
+    self.height(140);
+  });
+
+  write.find('textarea').blur(function() {
+    var self = $(this);
+    charLimit.removeClass('on');
+    self.height(20);
+  });
+
+  // Clear the reply_to id if this is empty
+  write.find('textarea').keyup(function() {
+    var self = $(this);
+    checkCharLimit(self.val());
     if (self.val().trim().length === 0) {
       write.find('#reply_to').val('');
     }

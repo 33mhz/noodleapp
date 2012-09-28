@@ -387,15 +387,27 @@ section.public li h1 {
     border-radius: 5px;
     color: #888;
     font-family: Arial;
-    font-size: 15px;
+    font-size: 16px;
+    height: 20px;
     line-height: 20px;
     margin-bottom: 10px;
+    overflow: auto;
     padding: 10px;
     width: 540px;
     resize: none;
 }
 
 #write textarea.on {
+    color: #111;
+}
+
+#count {
+    color: #dedede;
+    font-family: 'Oswald';
+    font-size: 28px;
+}
+
+#count.on {
     color: #111;
 }
 
