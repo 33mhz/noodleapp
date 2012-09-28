@@ -68,7 +68,7 @@ define(['jquery'], function ($) {
     });
   };
 
-  var setPost = function(data, url, showDetails) {
+  var setPost = function(data, url, showDetails, isDetailOverlay, callback) {
     overlay.html('<img src="/images/ajax-loader.gif" class="loading">');
     overlay.slideDown();
 
@@ -79,55 +79,66 @@ define(['jquery'], function ($) {
       dataType: 'json',
       cache: false
 
-    }).done(function(data) {
+    }).always(function(data) {
       var messageOverlay = $('<ol class="message-summary"></ol>');
 
       if (data.messages.length > 0) {
         for (var i = 0; i < data.messages.length; i ++) {
-          var detailExtras = '';
+          // Avoid displaying duplicate messages if they are already there
+          if (overlay.find('li.message-item[data-id="' + data.messages[i].id + '"]').length === 0) {
+            var detailExtras = '';
 
-          if (showDetails) {
-            detailExtras = '<div class="info"><ol>' +
-              '<li class="reposts">Reposts: <span></span></li>' +
-              '<li class="stars">Stars: <span></span></li>' +
-              '<li class="replies">Replies: <span></span></li></ol></div>';
+            if (showDetails) {
+              detailExtras = '<div class="info"><ol>' +
+                '<li class="reposts">Reposts: <span></span></li>' +
+                '<li class="stars">Stars: <span></span></li>' +
+                '<li class="replies">Replies: <span></span></li></ol></div>' +
+                '<div id="thread-detail"></div>';
+            }
+
+            var message = $('<li class="message-item" data-id="' +
+              data.messages[i].id + '" ' + 'data-username="' + data.messages[i].username + '">' +
+              '<div class="meta"><a href="" class="who" title=""><img src=""></a>' +
+              '<div class="details"><a href="" class="username"></a><time></time>' +
+              '</ol></div></div><p></p>' + detailExtras + '</li>');
+            // user's profile page
+            message.find('a.who')
+              .attr('title', data.messages[i].name)
+              .attr('href', '/user/' + data.messages[i].username);
+            // user's full name
+            message.find('a.username')
+              .attr('href', '/user/' + data.messages[i].username)
+              .text(data.messages[i].name);
+            // time
+            message.find('time').text(dateDisplay(data.messages[i].created_at));
+            // user's avatar
+            message.find('a.who img').attr('src', data.messages[i].user);
+            // user's message
+            message.find('p').html(data.messages[i].message);
+
+            if (showDetails) {
+              message.find('p').append('<span>Posted from ' + data.messages[i].appSource + '</span>');
+              message.find('.info .reposts span').text(data.messages[i].numReposts);
+              message.find('.info .stars span').text(data.messages[i].numStars);
+              message.find('.info .replies span').text(data.messages[i].numReplies);
+            }
+
+            messageOverlay.append(message);
+
+            if (callback) {
+              callback();
+            }
           }
-
-          var message = $('<li class="message-item" data-id="' +
-            data.messages[i].id + '" ' + 'data-username="' + data.messages[i].username + '">' +
-            '<div class="meta"><a href="" class="who" title=""><img src=""></a>' +
-            '<div class="details"><a href="" class="username"></a><time></time>' +
-            '</ol></div></div><p></p>' + detailExtras + '</li>');
-          // user's profile page
-          message.find('a.who')
-            .attr('title', data.messages[i].name)
-            .attr('href', '/user/' + data.messages[i].username);
-          // user's full name
-          message.find('a.username')
-            .attr('href', '/user/' + data.messages[i].username)
-            .text(data.messages[i].name);
-          // time
-          message.find('time').text(dateDisplay(data.messages[i].created_at));
-          // user's avatar
-          message.find('a.who img').attr('src', data.messages[i].user);
-          // user's message
-          message.find('p')
-            .html(data.messages[i].message)
-            .append('<span>Posted from ' + data.messages[i].appSource + '</span>');
-
-          if (showDetails) {
-            message.find('.info .reposts span').text(data.messages[i].numReposts);
-            message.find('.info .stars span').text(data.messages[i].numStars);
-            message.find('.info .replies span').text(data.messages[i].numReplies);
-          }
-
-          messageOverlay.append(message);
         }
       }
 
-      messageOverlay.append('<li class="close">Close</li>');
-      overlay.html(messageOverlay);
-      overlay.slideDown();
+      if (isDetailOverlay) {
+        overlay.find('#thread-detail').html(messageOverlay);
+      } else {
+        messageOverlay.append('<li class="close">Close</li>');
+        overlay.html(messageOverlay);
+        overlay.slideDown();
+      }
     });
   };
 
@@ -156,57 +167,59 @@ define(['jquery'], function ($) {
         messages.find('li.loading').remove();
 
         for (var i = 0; i < data.messages.length; i ++) {
-          var isRepost = '';
-          var threadAction = '';
-          var isStarred = '<li class="star"></li>';
-          var isDeletable = '';
+          if (messages.find('li.message-item[data-id="' + data.messages[i].id + '"]').length === 0) {
+            var isRepost = '';
+            var threadAction = '';
+            var isStarred = '<li class="star"></li>';
+            var isDeletable = '';
 
-          if (data.messages[i].isSelf) {
-            isDeletable = '<li class="delete"></li>';
-          } else {
-            isRepost = '<li class="repost"></li>';
+            if (data.messages[i].isSelf) {
+              isDeletable = '<li class="delete"></li>';
+            } else {
+              isRepost = '<li class="repost"></li>';
 
-            if (data.messages[i].isRepost) {
-              isRepost = '<li class="repost on"></li>';
+              if (data.messages[i].isRepost) {
+                isRepost = '<li class="repost on"></li>';
+              }
             }
+
+            if (data.messages[i].isThread) {
+              threadAction = '<li class="thread"></li>';
+            }
+
+            if (data.messages[i].isStarred) {
+              isStarred = '<li class="star on"></li>';
+            }
+
+            var message = $('<li class="message-item" data-id="' +
+              data.messages[i].id + '" ' + 'data-username="' + data.messages[i].username + '">' +
+              '<div class="meta"><a href="" class="who" title=""><img src=""></a>' +
+              '<div class="details"><a href="" class="username"></a><time></time><ol class="actions">' +
+              threadAction + isStarred + '<li class="reply"></li>' + isRepost + isDeletable +
+              '</ol></div></div><p></p></li>');
+            // user's profile page
+            message.find('a.who')
+              .attr('title', data.messages[i].name)
+              .attr('href', '/user/' + data.messages[i].username);
+            // user's full name
+            message.find('a.username')
+              .attr('href', '/user/' + data.messages[i].username)
+              .text(data.messages[i].name);
+            // time
+            message.find('time').text(dateDisplay(data.messages[i].created_at));
+            // user's avatar
+            message.find('a.who img').attr('src', data.messages[i].user);
+            // user's message
+            message.find('p').html(data.messages[i].message);
+
+            if (paginated) {
+              messages.append(message);
+            } else {
+              messages.prepend(message);
+            }
+
+            beforeId = null;
           }
-
-          if (data.messages[i].isThread) {
-            threadAction = '<li class="thread"></li>';
-          }
-
-          if (data.messages[i].isStarred) {
-            isStarred = '<li class="star on"></li>';
-          }
-
-          var message = $('<li class="message-item" data-id="' +
-            data.messages[i].id + '" ' + 'data-username="' + data.messages[i].username + '">' +
-            '<div class="meta"><a href="" class="who" title=""><img src=""></a>' +
-            '<div class="details"><a href="" class="username"></a><time></time><ol class="actions">' +
-            threadAction + isStarred + '<li class="reply"></li>' + isRepost + isDeletable +
-            '</ol></div></div><p></p></li>');
-          // user's profile page
-          message.find('a.who')
-            .attr('title', data.messages[i].name)
-            .attr('href', '/user/' + data.messages[i].username);
-          // user's full name
-          message.find('a.username')
-            .attr('href', '/user/' + data.messages[i].username)
-            .text(data.messages[i].name);
-          // time
-          message.find('time').text(dateDisplay(data.messages[i].created_at));
-          // user's avatar
-          message.find('a.who img').attr('src', data.messages[i].user);
-          // user's message
-          message.find('p').html(data.messages[i].message);
-
-          if (paginated) {
-            messages.append(message);
-          } else {
-            messages.prepend(message);
-          }
-
-          beforeId = null;
         }
 
         if (paginated) {
@@ -406,7 +419,9 @@ define(['jquery'], function ($) {
     },
 
     showPost: function(postId) {
-      setPost({ 'post_id': postId }, '/post', true, false);
+      setPost({ 'post_id': postId }, '/post', true, false, function() {
+        setPost({ 'post_id': postId }, '/thread', false, true);
+      });
     },
 
     getOlderPosts: function(postId) {

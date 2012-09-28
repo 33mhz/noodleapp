@@ -141,7 +141,7 @@ header a#logout:hover {
     width: 66px;
 }
 
-#overlay > ol > li {
+#overlay > ol > li, #thread-detail > ol > li {
     clear: both;
     float: left;
     margin-bottom: 5px;
@@ -282,6 +282,12 @@ ol.messages #paginated.loading img {
 
 #overlay li .info li span {
     color: #111;
+}
+
+#thread-detail {
+    display: block;
+    float: left;
+    width: 100%;
 }
 
 .dashboard-content {
