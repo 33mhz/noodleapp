@@ -1,6 +1,6 @@
 'use strict';
 
-var require = requirejs.config({
+requirejs.config({
   baseUrl: '/javascripts/lib',
   enforceDefine: true,
   paths: {
@@ -8,15 +8,16 @@ var require = requirejs.config({
   }
 });
 
-require(['jquery', 'appnet'],
+define(['jquery', 'appnet'],
   function($, appnet) {
 
   var url = $('body').data('url');
-  var userMentions = $('.user-mentions');
-  var globalFeed = $('.global-feed');
-  var userPosts = $('.user-posts');
-  var userStarred = $('.user-starred');
-  var myFeed = $('.my-feed');
+  var tabs = $('ol.tabs');
+  var userMentions = tabs.find('.user-mentions');
+  var globalFeed = tabs.find('.global-feed');
+  var userPosts = tabs.find('.user-posts');
+  var userStarred = tabs.find('.user-starred');
+  var myFeed = tabs.find('.my-feed');
   var messages = $('ol.messages');
   var write = $('#write form');
   var userInfo = $('.user-info');
@@ -47,6 +48,8 @@ require(['jquery', 'appnet'],
       charLimit.text(CHAR_MAX - textLength);
     }
   };
+
+  /* Feed functionality */
 
   myFeed.click(function() {
     var self = $(this);
@@ -87,6 +90,23 @@ require(['jquery', 'appnet'],
       appnet.getUserStarred();
     });
   });
+
+  /* Automatic feed loader */
+
+  if (url === '/global/feed') {
+    globalFeed.click();
+  } else if (url.match(/\/user\/posts/)) {
+    userPosts.click();
+  } else if (url.match(/\/user\/mentions/)) {
+    userMentions.click();
+  } else if (url.match(/\/user\/starred/)) {
+    userStarred.click();
+  } else {
+    // Defaults to first tab
+    tabs.find('.selected').click();
+  }
+
+  /* Message functionality */
 
   messages.on('click', '.details .reply', function() {
     var self = $(this);
@@ -152,6 +172,8 @@ require(['jquery', 'appnet'],
     appnet.getOlderPosts(self.prev().data('id'));
   });
 
+  /* User functionality */
+
   userInfo.on('click', '.follow', function() {
     var self = $(this);
     if (self.hasClass('on')) {
@@ -197,18 +219,7 @@ require(['jquery', 'appnet'],
     });
   });
 
-  if (url === '/global/feed') {
-    globalFeed.click();
-  } else if (url.match(/\/user\/posts/)) {
-    userPosts.click();
-  } else if (url.match(/\/user\/mentions/)) {
-    userMentions.click();
-  } else if (url.match(/\/user\/starred/)) {
-    userStarred.click();
-  } else {
-    // Defaults to my feed
-    myFeed.click();
-  }
+  /* Write functionality */
 
   checkCharLimit(write.find('textarea').val());
 

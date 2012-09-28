@@ -171,6 +171,16 @@ ol.messages #paginated.loading img {
     padding: 0;
 }
 
+.message-summary li p {
+    overflow: hidden;
+}
+
+.message-summary li p .object-wrapper {
+    clear: both;
+    float: left;
+    margin: 5px 0;
+}
+
 #overlay .users li:hover, #overlay li.close:hover, ol.messages .paginated:hover {
     background-color: #111;
 }
@@ -227,7 +237,7 @@ ol.messages #paginated.loading img {
     margin-top: 5px;
 }
 
-#overlay .message-summary li p span {
+#overlay .message-summary li > p > span {
     color: #999;
     display: block;
     font-size: 12px;
@@ -239,8 +249,7 @@ ol.messages #paginated.loading img {
     padding: 3px 5px;
 }
 
-#overlay li p iframe, #overlay li p video, #overlay li p audio,
-#overlay li p object {
+#overlay li p iframe, #overlay li p video, #overlay li p audio, #overlay li p object {
     height: 225px;
     margin: 10px 0;
     width: 400px;
@@ -305,7 +314,6 @@ ol.messages #paginated.loading img {
 
 #profile .user-info h2 {
     color: #222;
-    cursor: pointer;
     display: block;
     float: left;
     font-family: 'Oswald';
@@ -713,8 +721,7 @@ ol.messages .paginated {
         width: 150px;
     }
 
-    #overlay li p iframe, #overlay li p video, #overlay li p audio,
-    #overlay li p object {
+    #overlay li p iframe, #overlay li p video, #overlay li p audio, #overlay li p object {
         height: 135px;
         width: 240px;
     }
