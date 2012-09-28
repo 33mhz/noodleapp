@@ -223,9 +223,10 @@ define(['jquery', 'appnet'],
 
   checkCharLimit(write.find('textarea').val());
 
-  write.focus(function() {
+  write.find('textarea').focus(function() {
+    var self = $(this);
     charLimit.addClass('on');
-    checkCharLimit(self.find('textarea').val());
+    checkCharLimit(self.val());
   });
 
   write.find('textarea').blur(function() {
