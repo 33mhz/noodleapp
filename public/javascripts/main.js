@@ -212,16 +212,12 @@ require(['jquery', 'appnet'],
   checkCharLimit(write.find('textarea').val());
 
   write.find('textarea').focus(function() {
-    var self = $(this);
     charLimit.addClass('on');
     checkCharLimit(self.val());
-    self.height(130);
   });
 
   write.find('textarea').blur(function() {
-    var self = $(this);
     charLimit.removeClass('on');
-    self.height(20);
   });
 
   // Clear the reply_to id if this is empty
