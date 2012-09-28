@@ -111,7 +111,9 @@ define(['jquery'], function ($) {
           // user's avatar
           message.find('a.who img').attr('src', data.messages[i].user);
           // user's message
-          message.find('p').html(data.messages[i].message);
+          message.find('p')
+            .html(data.messages[i].message)
+            .append('<span>Posted from ' + data.messages[i].appSource + '</span>');
 
           if (showDetails) {
             message.find('.info .reposts span').text(data.messages[i].numReposts);
@@ -396,15 +398,15 @@ define(['jquery'], function ($) {
     },
 
     showThread: function(postId) {
-      setPost({ 'post_id': postId }, '/thread', false);
+      setPost({ 'post_id': postId }, '/thread', false, false);
     },
 
     showTagged: function(tag) {
-      setPost({ 'tag': tag }, '/tags', false);
+      setPost({ 'tag': tag }, '/tags', false, false);
     },
 
     showPost: function(postId) {
-      setPost({ 'post_id': postId }, '/post', true);
+      setPost({ 'post_id': postId }, '/post', true, false);
     },
 
     getOlderPosts: function(postId) {

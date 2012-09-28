@@ -215,7 +215,7 @@ require(['jquery', 'appnet'],
     var self = $(this);
     charLimit.addClass('on');
     checkCharLimit(self.val());
-    self.height(140);
+    self.height(130);
   });
 
   write.find('textarea').blur(function() {

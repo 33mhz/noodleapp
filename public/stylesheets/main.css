@@ -227,6 +227,14 @@ ol.messages #paginated.loading img {
     margin-top: 5px;
 }
 
+#overlay .message-summary li p span {
+    color: #999;
+    display: block;
+    font-size: 12px;
+    margin-top: 10px;
+    width: 100%;
+}
+
 #overlay .message-summary li time {
     padding: 3px 5px;
 }
@@ -250,19 +258,21 @@ ol.messages #paginated.loading img {
 }
 
 #overlay .info li {
+    background-color: #eee;
+    border-radius: 5px;
     color: #888;
     float: left;
     font-family: 'Oswald';
     font-size: 20px;
     line-height: 30px;
-    padding: 20px 10px 10px;
+    margin: 15px 2px;
+    padding: 10px 10px 6px 10px;
     text-transform: uppercase;
     width: 28.5%;
 }
 
 #overlay li .info li span {
     color: #111;
-    font-size: 25px;
 }
 
 .dashboard-content {
@@ -717,9 +727,19 @@ ol.messages .paginated {
         width: 290px;
     }
 
+    #overlay .info {
+        margin: 5px 0;
+    }
+
     #overlay .info li {
         clear: both;
-        width: 90%;
+        margin: 2px 0;
+        padding-top: 5px;
+        width: 91%;
+    }
+
+    #overlay .info li, #overlay .info li span {
+        font-size: 18px;
     }
 
     #profile .user-info h2 {

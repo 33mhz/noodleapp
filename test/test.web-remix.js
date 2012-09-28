@@ -58,7 +58,7 @@ describe('web-remix', function() {
       });
     });
 
-    it('returns oembed code for a soundcloud url following tags', function(done) {
+    it('returns oembed code for a soundcloud url following tags', function() {
       var params = {
         format: 'json',
         url: 'http://soundcloud.com/track'
@@ -74,7 +74,6 @@ describe('web-remix', function() {
         subject.should.equal('test <a href="/tagged/tag">#tag</a> <br><iframe width="100%" height="450" scrolling="no" frameborder="no" ' +
           'src="//w.soundcloud.com/player/?url=http%3A%2F%2Fapi.soundcloud.com%2Fplaylists%2F723408&show_artwork=true">' +
           '</iframe><br>');
-        done();
       });
     });
 
