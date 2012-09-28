@@ -249,6 +249,7 @@ define(['jquery', 'appnet'],
     appnet.postMessage(self);
     url = '/my/feed';
     self.find('textarea').val('');
+    charLimit.text(CHAR_MAX);
     return false;
   });
 });
