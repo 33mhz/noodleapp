@@ -584,11 +584,11 @@ time {
     width: 30px;
 }
 
-.messages time {
+time {
     cursor: pointer;
 }
 
-.messages time:hover {
+time:hover {
     background-color: #111;
     color: #eee;
 }

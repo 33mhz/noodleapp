@@ -154,7 +154,7 @@ define(['jquery', 'appnet'],
     freezeDashboard();
   });
 
-  messages.on('click', 'time', function() {
+  body.on('click', 'time', function() {
     var self = $(this);
     appnet.showPost(self.closest('.message-item').data('id'));
     freezeDashboard();
