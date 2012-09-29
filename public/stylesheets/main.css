@@ -251,13 +251,23 @@ ol.messages #paginated.loading img {
 
 #overlay li p iframe, #overlay li p video, #overlay li p audio, #overlay li p object {
     height: 225px;
-    margin: 10px 0;
+    margin: 2px 0;
     width: 400px;
 }
 
 #overlay li p img {
-    margin: 10px 0;
+    margin: 2px 0;
     max-width: 400px;
+}
+
+#overlay li:first-child p iframe, #overlay li:first-child p video,
+#overlay li:first-child p audio, #overlay li:first-child p object, #overlay li:first-child p img {
+    margin: 10px 0 0;
+}
+
+#overlay li p br {
+    display: block;
+    float: left;
 }
 
 #overlay .info {
