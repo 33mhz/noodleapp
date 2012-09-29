@@ -61,14 +61,14 @@ define(['jquery'], function ($) {
         user.find('a')
           .attr('href', '/user/' + data.users[i].username)
           .find('span.name').html(data.users[i].name + ' <em>@' + data.users[i].username + '</em>');
-        userList.prepend(user);
+        userList.append(user);
       }
       userList.append('<li class="close">Close</li>');
       overlay.html(userList);
     });
   };
 
-  var setPost = function(data, url, showDetails, isDetailOverlay, callback) {
+  var setPost = function(data, url, showDetails, isDetailOverlay, ascending, callback) {
     overlay.html('<img src="/images/ajax-loader.gif" class="loading">');
     overlay.slideDown();
 
@@ -123,7 +123,11 @@ define(['jquery'], function ($) {
               message.find('.info .replies span').text(data.messages[i].numReplies);
             }
 
-            messageOverlay.append(message);
+            if (ascending) {
+              messageOverlay.prepend(message);
+            } else {
+              messageOverlay.append(message);
+            }
 
             if (callback) {
               callback();
@@ -413,16 +417,16 @@ define(['jquery'], function ($) {
     },
 
     showThread: function(postId) {
-      setPost({ 'post_id': postId }, '/thread', false, false);
+      setPost({ 'post_id': postId }, '/thread', false, false, false);
     },
 
     showTagged: function(tag) {
-      setPost({ 'tag': tag }, '/tags', false, false);
+      setPost({ 'tag': tag }, '/tags', false, false, true);
     },
 
     showPost: function(postId) {
-      setPost({ 'post_id': postId }, '/post', true, false, function() {
-        setPost({ 'post_id': postId }, '/thread', false, true);
+      setPost({ 'post_id': postId }, '/post', true, false, false, function() {
+        setPost({ 'post_id': postId }, '/thread', false, true, false);
       });
     },
 
