@@ -251,6 +251,7 @@ define(['jquery', 'appnet'],
     url = '/my/feed';
     self.find('textarea').val('');
     charLimit.text(CHAR_MAX);
+    write.find('#reply_to').val('');
     return false;
   });
 });
