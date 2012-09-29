@@ -93,7 +93,7 @@ define(['jquery'], function ($) {
                 '<li class="reposts">Reposts: <span></span></li>' +
                 '<li class="stars">Stars: <span></span></li>' +
                 '<li class="replies">Replies: <span></span></li></ol></div>' +
-                '<div id="thread-detail"></div>';
+                '<div id="avatar-pings"></div><div id="thread-detail"></div>';
             }
 
             var message = $('<li class="message-item" data-id="' +
@@ -260,6 +260,41 @@ define(['jquery'], function ($) {
     });
   };
 
+  var setUsers = function(id, url, type) {
+    $.ajax({
+      url: url,
+      type: type,
+      data: { post_id: id },
+      dataType: 'json',
+      cache: false
+    }).done(function(data) {
+      var users = $('<ol class="avatars"></ol>');
+
+      for (var i = 0; i < data.users.length; i ++) {
+        if (users.find('li[data-avatarid="' + data.users[i].id + '"]').length === 0) {
+          var user = $('<li data-avatarid=""><a href=""><img src="" alt="" title=""></a></li>');
+          user.attr('data-avatarid', data.users[i].id);
+          user.find('a').attr('href', '/user/' + data.users[i].username);
+          user.find('img')
+            .attr('src', data.users[i].avatar_image.url)
+            .attr('alt', data.users[i].name)
+            .attr('title', data.users[i].name);
+          users.append(user);
+        }
+      }
+
+      overlay.find('#avatar-pings').html(users);
+    });
+  };
+
+  var getStarredUsers = function(postId) {
+    setUsers(postId, '/starred_users', 'GET');
+  };
+
+  var getRepostedUsers = function(postId) {
+    setUsers(postId, '/reposted_users', 'GET');
+  };
+
   var self = {
     getMyFeed: function() {
       isFragment = false;
@@ -424,9 +459,11 @@ define(['jquery'], function ($) {
       setPost({ 'tag': tag }, '/tags', false, false, true);
     },
 
-    showPost: function(postId) {
+    showPost: function(postId, userId) {
       setPost({ 'post_id': postId }, '/post', true, false, false, function() {
         setPost({ 'post_id': postId }, '/thread', false, true, false);
+        getStarredUsers(postId);
+        getRepostedUsers(postId);
       });
     },
 

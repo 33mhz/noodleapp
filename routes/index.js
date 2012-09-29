@@ -357,4 +357,26 @@ module.exports = function(app, client, isLoggedIn) {
       }
     });
   });
+
+  app.get('/starred_users', isLoggedIn, function(req, res) {
+    appnet.starredUsers(req, function(err, users) {
+      if (err) {
+        res.status(500);
+        res.json({ 'error': 'error retrieving starring users' });
+      } else {
+        res.json({ users: users });
+      }
+    });
+  });
+
+  app.get('/reposted_users', isLoggedIn, function(req, res) {
+    appnet.repostedUsers(req, function(err, users) {
+      if (err) {
+        res.status(500);
+        res.json({ 'error': 'error retrieving reposting users' });
+      } else {
+        res.json({ users: users });
+      }
+    });
+  });
 };

@@ -272,19 +272,30 @@ ol.messages #paginated.loading img {
     color: #888;
     float: left;
     font-family: 'Oswald';
-    font-size: 20px;
-    line-height: 30px;
+    font-size: 18px;
+    line-height: 20px;
     margin: 15px 2px;
-    padding: 10px 10px 6px 10px;
+    padding: 5px 10px 4px 15px;
     text-transform: uppercase;
-    width: 28.5%;
+    width: 27.5%;
 }
 
 #overlay li .info li span {
     color: #111;
 }
 
-#thread-detail {
+#avatar-pings img {
+    height: 30px;
+    margin: 2px;
+    width: 30px;
+}
+
+#avatar-pings li {
+    float: left;
+    width: 34px;
+}
+
+#thread-detail, #avatar-pings {
     display: block;
     float: left;
     width: 100%;
