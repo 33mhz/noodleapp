@@ -25,6 +25,8 @@ define(['jquery', 'appnet'],
   var dashboard = $('.dashboard-content');
   var charLimit = $('#count');
   var body = $('body');
+  var currentScrollTop = '';
+  var win = $(window);
   var csrf = write.find('input[name="_csrf"]').val();
 
   var CHAR_MAX = 256;
@@ -36,7 +38,7 @@ define(['jquery', 'appnet'],
   };
 
   var freezeDashboard = function() {
-    dashboard.addClass('fixed');
+    body.addClass('fixed');
   };
 
   var checkCharLimit = function(text) {
@@ -216,7 +218,7 @@ define(['jquery', 'appnet'],
   overlay.on('click', '.close', function() {
     overlay.slideUp(function() {
       $(this).html('');
-      dashboard.removeClass('fixed');
+      body.removeClass('fixed');
     });
   });
 

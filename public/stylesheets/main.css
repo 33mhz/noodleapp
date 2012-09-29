@@ -64,6 +64,11 @@ body {
     font-family: Arial;
     position: relative;
     overflow-y: scroll;
+    overflow-x: hidden;
+}
+
+body.fixed {
+    overflow: hidden;
 }
 
 header {
@@ -124,13 +129,16 @@ header a#logout:hover {
 
 #overlay {
     background-color: rgba(255, 255, 255, 0.96);
+    bottom: 0;
     box-shadow: #ccc 0 0 3px;
     display: none;
-    left: 20px;
+    left: 50%;
+    margin-left: -277px;
+    overflow-y: scroll;
     padding: 50px 20px 20px;
-    position: absolute;
+    position: fixed;
     top: 0;
-    width: 521px;
+    width: 530px;
     z-index: 2;
 }
 
@@ -139,6 +147,10 @@ header a#logout:hover {
     margin: 0 auto;
     opacity: 0.5;
     width: 66px;
+}
+
+#overlay .content-wrapper {
+    position: static;
 }
 
 #overlay > ol > li, #thread-detail > ol > li {
@@ -321,7 +333,7 @@ ol.messages #paginated.loading img {
 }
 
 .dashboard-content.fixed {
-    position: fixed;
+    /* position: fixed; */
 }
 
 #profile img {
@@ -721,6 +733,7 @@ ol.messages .paginated {
     }
 
     #overlay {
+        margin-left: -138px;
         width: 242px;
     }
 
