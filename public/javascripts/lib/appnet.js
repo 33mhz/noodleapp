@@ -229,7 +229,7 @@ define(['jquery'], function ($) {
             // user's avatar
             message.find('a.who img').attr('src', data.messages[i].user);
             // user's message
-            message.find('p').html(data.messages[i].message);
+            message.find('p').html(data.messages[i].message.replace(/\n/gm, '<br>'));
 
             if (paginated) {
               messages.append(message);

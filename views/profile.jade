@@ -18,7 +18,7 @@ block content
             li(class='mute on') Unmute
           else
             li(class='mute') Mute
-      p!= description
+      p!= description.replace(/\n/gm, '<br>')
   #write.profile
     form(method='post')
       textarea(name='message', placeholder='Write a message to @#{username}') @#{username}&#xa0;
