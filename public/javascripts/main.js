@@ -37,10 +37,6 @@ define(['jquery', 'appnet'],
     callback();
   };
 
-  var freezeDashboard = function() {
-    body.addClass('fixed');
-  };
-
   var checkCharLimit = function(text) {
     var textLength = text.length;
     if (textLength > CHAR_MAX - 1) {
@@ -154,20 +150,17 @@ define(['jquery', 'appnet'],
   messages.on('click', '.details .thread', function() {
     var self = $(this);
     appnet.showThread(self.closest('.message-item').data('id'));
-    freezeDashboard();
   });
 
   body.on('click', 'time', function() {
     var self = $(this);
     appnet.showPost(self.closest('.message-item').data('id'));
-    freezeDashboard();
   });
 
   body.on('click', 'a.tags', function(ev) {
     ev.preventDefault();
     var self = $(this);
     appnet.showTagged(self.attr('href').split('/tagged/')[1]);
-    freezeDashboard();
   });
 
   messages.on('click', '#paginated', function() {
@@ -206,19 +199,16 @@ define(['jquery', 'appnet'],
   userInfo.on('click', '.followers', function() {
     var self = $(this);
     appnet.showFollowers();
-    freezeDashboard();
   });
 
   userInfo.on('click', '.following', function() {
     var self = $(this);
     appnet.showFollowing();
-    freezeDashboard();
   });
 
   overlay.on('click', '.close', function() {
     overlay.slideUp(function() {
       $(this).html('');
-      body.removeClass('fixed');
     });
   });
 

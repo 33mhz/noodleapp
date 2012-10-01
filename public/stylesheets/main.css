@@ -67,10 +67,6 @@ body {
     overflow-x: hidden;
 }
 
-body.fixed {
-    overflow: hidden;
-}
-
 header {
     background: #888;
     border-bottom: 1px solid #eee;
