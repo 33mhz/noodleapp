@@ -150,17 +150,20 @@ define(['jquery', 'appnet'],
   messages.on('click', '.details .thread', function() {
     var self = $(this);
     appnet.showThread(self.closest('.message-item').data('id'));
+    body.addClass('fixed');
   });
 
   body.on('click', 'time', function() {
     var self = $(this);
     appnet.showPost(self.closest('.message-item').data('id'));
+    body.addClass('fixed');
   });
 
   body.on('click', 'a.tags', function(ev) {
     ev.preventDefault();
     var self = $(this);
     appnet.showTagged(self.attr('href').split('/tagged/')[1]);
+    body.addClass('fixed');
   });
 
   messages.on('click', '#paginated', function() {
@@ -209,6 +212,7 @@ define(['jquery', 'appnet'],
   overlay.on('click', '.close', function() {
     overlay.slideUp(function() {
       $(this).html('');
+      body.removeClass('fixed');
     });
   });
 
