@@ -1,3 +1,6 @@
+/*global describe:true it:true */
+'use strict';
+
 var webRemix = require('../lib/web-remix');
 var nock = require('nock');
 var should = require('should');

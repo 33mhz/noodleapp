@@ -1,3 +1,4 @@
+/*global document:true, requirejs:true */
 'use strict';
 
 requirejs.config({
