@@ -21,6 +21,15 @@ define(['jquery'], function ($) {
     }, POLL_TIMEOUT);
   };
 
+  var updateTime = function() {
+    messages.find('time').each(function(idx, item) {
+      var self = $(item);
+      var oldTime = new Date(self.data('created'));
+      var newTime = new Date(oldTime.getTime() + POLL_TIMEOUT);
+      self.text(dateDisplay(newTime));
+    });
+  };
+
   var dateDisplay = function(time) {
     var date = new Date(time);
     var diff = (Date.now() - date) / 1000;
@@ -99,7 +108,7 @@ define(['jquery'], function ($) {
             var message = $('<li class="message-item" data-id="' +
               data.messages[i].id + '" ' + 'data-username="' + data.messages[i].username + '">' +
               '<div class="meta"><a href="" class="who" title=""><img src=""></a>' +
-              '<div class="details"><a href="" class="username"></a><time></time>' +
+              '<div class="details"><a href="" class="username"></a><time data-created=""></time>' +
               '</ol></div></div><p></p>' + detailExtras + '</li>');
             // user's profile page
             message.find('a.who')
@@ -110,7 +119,9 @@ define(['jquery'], function ($) {
               .attr('href', '/user/' + data.messages[i].username)
               .text(data.messages[i].name);
             // time
-            message.find('time').text(dateDisplay(data.messages[i].created_at));
+            message.find('time')
+              .text(dateDisplay(data.messages[i].created_at))
+              .attr('data-created', data.messages[i].created_at);
             // user's avatar
             message.find('a.who img').attr('src', data.messages[i].user);
             // user's message
@@ -198,9 +209,9 @@ define(['jquery'], function ($) {
             var message = $('<li class="message-item" data-mentions="" data-id="' +
               data.messages[i].id + '" ' + 'data-username="' + data.messages[i].username + '">' +
               '<div class="meta"><a href="" class="who" title=""><img src=""></a>' +
-              '<div class="details"><a href="" class="username"></a><time></time><ol class="actions">' +
-              threadAction + isStarred + '<li class="reply"></li>' + isRepost + isDeletable +
-              '</ol></div></div><p></p></li>');
+              '<div class="details"><a href="" class="username"></a><time data-created=""></time>' +
+              '<ol class="actions">' + threadAction + isStarred + '<li class="reply"></li>' +
+              isRepost + isDeletable + '</ol></div></div><p></p></li>');
             // user mentions in this post
             message.attr('data-mentions', data.messages[i].mentions);
             // user's profile page
@@ -212,7 +223,9 @@ define(['jquery'], function ($) {
               .attr('href', '/user/' + data.messages[i].username)
               .text(data.messages[i].name);
             // time
-            message.find('time').text(dateDisplay(data.messages[i].created_at));
+            message.find('time')
+              .text(dateDisplay(data.messages[i].created_at))
+              .attr('data-created', data.messages[i].created_at);
             // user's avatar
             message.find('a.who img').attr('src', data.messages[i].user);
             // user's message
@@ -256,6 +269,7 @@ define(['jquery'], function ($) {
       pollMessages = setTimeout(function() {
         currentFeed = tabs.find('li.selected').data('url');
         setMessage(currentFeed, type, false);
+        updateTime();
       }, POLL_TIMEOUT);
     });
   };
