@@ -1,0 +1,31 @@
+CACHE MANIFEST
+# 27m1349128383
+
+CACHE:
+/fonts/Oswald-Regular-webfont.woff
+/images/ajax-loader-paginated.gif
+/images/ajax-loader.gif
+/images/delete.png
+/images/logo-114.png
+/images/logo-128.png
+/images/logo-72.png
+/images/logo.png
+/images/reply.png
+/images/repost.png
+/images/star.png
+/images/thread.png
+/javascripts/lib/appnet.js
+/javascripts/main.js
+/javascripts/require.js
+/stylesheets/main.css
+
+# catch-all for anything else
+NETWORK:
+*
+http://*
+https://*
+
+# FALLBACK:
+# /main.py /static.html
+# images/large/ images/offline.jpg
+# *.html /offline.html
