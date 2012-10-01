@@ -108,8 +108,8 @@ define(['jquery', 'appnet'],
 
   messages.on('click', '.details .reply', function() {
     var self = $(this);
-    write.find('textarea').val('@' + self.closest('.message-item').data('username') +
-      ' ' + self.closest('.message-item').data('mentions'));
+    var mentions = (self.closest('.message-item').data('mentions') !== '') ? self.closest('.message-item').data('mentions') + ' ' : '';
+    write.find('textarea').val('@' + self.closest('.message-item').data('username') + ' ' + mentions);
     write.find('#reply_to').val(self.closest('.message-item').data('id'));
     document.location.href = '#top';
     write.find('textarea').focus();
