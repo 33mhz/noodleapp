@@ -277,11 +277,6 @@ ol.messages #paginated.loading img {
     margin: 10px 0 0;
 }
 
-#overlay li p br {
-    display: block;
-    float: left;
-}
-
 #overlay .info {
     clear: both;
     float: left;
