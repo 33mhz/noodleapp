@@ -1,6 +1,6 @@
 'use strict';
 
-define(['jquery', 'version-timeout'],
+define(['jquery', 'version-timeout', 'jquery.autocomplete'],
   function ($, versionTimeout) {
 
   var messages = $('ol.messages');
@@ -506,6 +506,17 @@ define(['jquery', 'version-timeout'],
     getOlderPosts: function(postId) {
       isFragment = true;
       setMessage('/paginated/feed/' + userId + '/' + postId, 'GET', true);
+    },
+
+    getBFFs: function(callback) {
+      $.ajax({
+        url: '/my/bffs',
+        type: 'GET',
+        dataType: 'json',
+        cache: false
+      }).done(function(data) {
+        callback(data.usernames);
+      });
     }
   };
 

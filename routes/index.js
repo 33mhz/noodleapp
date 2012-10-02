@@ -4,6 +4,7 @@ module.exports = function(app, client, isLoggedIn, io, noodle) {
   var appnet = require('../lib/appnet');
   var webremix = require('../lib/web-remix');
   var utils = require('../lib/utils');
+  var userDb = require('../lib/user');
 
   app.get('/', function(req, res) {
     res.header('Cache-Control', 'no-cache, private, no-store, must-revalidate, max-stale=0, post-check=0, pre-check=0');
@@ -162,7 +163,7 @@ module.exports = function(app, client, isLoggedIn, io, noodle) {
   });
 
   app.post('/post', isLoggedIn, function(req, res) {
-    appnet.addMessage(req, function(err, recentMessage) {
+    appnet.addMessage(req, client, function(err, recentMessage) {
       if (err) {
         res.status(500);
         res.json({ 'error': 'error posting a new message' });
@@ -360,6 +361,18 @@ module.exports = function(app, client, isLoggedIn, io, noodle) {
   app.get('/version', function(req, res) {
     res.json({
       'version': noodle.version
+    });
+  });
+
+  app.get('/my/bffs', isLoggedIn, function(req, res) {
+    var userId = utils.getUser(req).id;
+    userDb.bffs(userId, client, function(err, usernames) {
+      if (err) {
+        res.status(500);
+        res.json({ 'error': 'error retrieving bffs' });
+      } else {
+        res.json({ usernames: usernames });
+      }
     });
   });
 };

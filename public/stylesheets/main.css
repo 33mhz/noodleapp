@@ -1003,3 +1003,35 @@ img.hush {
         max-width: 250px;
     }
 }
+
+.autocomplete-w1 {
+    left: 0px;
+    position: absolute;
+    top: 0px;
+}
+
+.autocomplete {
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-shadow: 2px 3px 3px 0 rgba(0, 0, 0, 0.2);
+    background: #fff;
+    cursor: default; 
+    max-height: 350px;
+    overflow: auto;
+    text-align: left;
+}
+
+.autocomplete .selected {
+    background: #f0f0f0;
+}
+
+.autocomplete div {
+    overflow: hidden;
+    padding: 10px;
+    white-space: nowrap;
+}
+
+.autocomplete strong {
+    color: #3399ff;
+    font-weight: normal;
+}

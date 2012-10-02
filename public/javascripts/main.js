@@ -29,6 +29,7 @@ define(['jquery', 'appnet'],
   var currentScrollTop = '';
   var win = $(window);
   var csrf = write.find('input[name="_csrf"]').val();
+  var messageboxes = write.find('textarea');
 
   var CHAR_MAX = 256;
 
@@ -250,4 +251,30 @@ define(['jquery', 'appnet'],
     write.find('#reply_to').val('');
     return false;
   });
+
+  /* @username autocomplete
+   * Note: This pulls all your BFFs once and never again. We might want
+   * change that later.
+   */
+  if (messageboxes.length > 0) {
+    appnet.getBFFs(function(usernames) {
+        // prepend '@' to every username
+        for(var i = 0, l = usernames.length; i < l; i ++) {
+          usernames[i] = '@' + usernames[i];
+        }
+
+        // set up the automplete plugin
+        messageboxes.each(function() {
+          var textarea = $(this);
+
+          textarea.autocomplete({
+            delimiter: /\s+/,
+            onSelect: function() {
+              textarea.focus();
+            },
+            lookup: usernames
+          });
+        });
+      });
+    }
 });
