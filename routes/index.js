@@ -4,11 +4,6 @@ module.exports = function(app, client, isLoggedIn) {
   var appnet = require('../lib/appnet');
   var webremix = require('../lib/web-remix');
   var utils = require('../lib/utils');
-  var manifest = '';
-
-  if (process.env.NODE_ENV === 'prod') {
-    manifest = '/manifest.appcache';
-  }
 
   app.get('/', function(req, res) {
     if (req.session.passport.user) {
@@ -22,15 +17,13 @@ module.exports = function(app, client, isLoggedIn) {
         pageType: 'index',
         session: req.session.passport.user,
         csrf: req.session._csrf,
-        url: req.session.url || '/my/feed',
-        manifest: manifest
+        url: req.session.url || '/my/feed'
       });
     } else {
       res.render('index', {
         pageType: 'index',
         url: '',
-        session: false,
-        manifest: manifest
+        session: false
       });
     }
   });
@@ -58,8 +51,7 @@ module.exports = function(app, client, isLoggedIn) {
             session: req.session.passport.user,
             user: user,
             url: req.session.url || '/my/feed',
-            description: description,
-            manifest: manifest
+            description: description
           });
         } else {
           res.render('profile', {
@@ -67,8 +59,7 @@ module.exports = function(app, client, isLoggedIn) {
             username: req.params.username,
             user: user,
             url: null,
-            description: description,
-            manifest: manifest
+            description: description
           });
         }
       }
