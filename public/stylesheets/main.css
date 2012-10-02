@@ -738,7 +738,7 @@ ol.messages .paginated {
     text-align: center;
 }
 
-@media screen and (-webkit-min-device-pixel-ratio: 2), screen and (min--moz-device-pixel-ratio: 2) {
+@media screen and (-webkit-min-device-pixel-ratio: 2), screen and (min--moz-device-pixel-ratio: 2), (min-resolution: 2dppx) {
     header a.home {
         background-image: url('/images/logo2x.png');
     }
