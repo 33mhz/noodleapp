@@ -133,20 +133,26 @@ header a#logout:hover {
     box-shadow: #ccc 0 0 3px;
     display: none;
     left: 50%;
-    margin-left: -279px;
+    margin-left: -305px;
     overflow-y: scroll;
     padding: 50px 20px 20px;
     position: fixed;
     top: 0;
-    width: 530px;
+    width: 570px;
     z-index: 2;
 }
 
-#overlay img.loading {
+#overlay .loading {
+    background-image: url('/images/ajax-loader.gif');
+    background-position: center;
+    background-repeat: no-repeat;
+    border: 0;
+    box-shadow: none;
     display: block;
+    height: 33px;
     margin: 0 auto;
     opacity: 0.5;
-    width: 66px;
+    width: 100%;
 }
 
 #overlay .content-wrapper {
@@ -177,10 +183,17 @@ header a#logout:hover {
 ol.messages #paginated {
     background-color: #aaa;
     opacity: 0.7;
+    text-indent: none;
 }
 
-ol.messages #paginated.loading img {
-    padding: 0;
+ol.messages #paginated.loading {
+    background-image: url('/images/ajax-loader-paginated.gif');
+    background-position: center;
+    background-repeat: no-repeat;
+    height: 33px;
+    padding: 10px 0;
+    text-indent: -9999px;
+    width: 100%;
 }
 
 .message-summary li p {
@@ -204,6 +217,7 @@ ol.messages #paginated.loading img {
 #overlay li .who img, #overlay .users li img {
     display: block;
     float: left;
+    height: 50px;
     margin-right: 10px;
     width: 50px;
 }
@@ -516,12 +530,18 @@ ol.tabs li:hover, ol.tabs li.selected, .action-buttons li:hover {
     color: #eee;
 }
 
-ol.messages li.loading img {
+ol.messages {
     display: block;
-    height: 66px;
-    margin: 0 auto;
-    padding: 40px 0;
-    width: 66px;
+    float: left;
+    width: 100%;
+}
+
+ol.messages > li.loading {
+    background-image: url('/images/ajax-loader.gif');
+    background-position: center;
+    background-repeat: no-repeat;
+    display: block;
+    height: 33px;
 }
 
 ol.messages > li {
@@ -718,14 +738,28 @@ ol.messages .paginated {
     text-align: center;
 }
 
+@media screen and (-webkit-min-device-pixel-ratio: 2), screen and (min--moz-device-pixel-ratio: 2) {
+    header a.home {
+        background-image: url('/images/logo2x.png');
+    }
+
+    ol.messages li.loading {
+        background-image: url('/images/ajax-loader2x.gif');
+    }
+
+    ol.messages #paginated.loading {
+        background-image: url('/images/ajax-loader-paginated2x.gif');
+    }
+}
+
 @media only screen and (max-width: 599px) {
     #dashboard {
         width: 320px;
     }
 
     #overlay {
-        margin-left: -139px;
-        width: 242px;
+        margin-left: -161px;
+        width: 282px;
     }
 
     #overlay .message-summary li .details {

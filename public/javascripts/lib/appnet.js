@@ -53,7 +53,7 @@ define(['jquery'], function ($) {
   };
 
   var setFollow = function(url, userId) {
-    overlay.html('<img src="/images/ajax-loader.gif" class="loading">');
+    overlay.html('<ol class="messages"><li class="message-item loading"></li></ol>');
     overlay.slideDown();
     $.ajax({
       url: url,
@@ -78,7 +78,7 @@ define(['jquery'], function ($) {
   };
 
   var setPost = function(data, url, showDetails, isDetailOverlay, ascending, callback) {
-    overlay.html('<img src="/images/ajax-loader.gif" class="loading">');
+    overlay.html('<ol class="messages"><li class="message-item loading"></li></ol>');
     overlay.slideDown();
 
     $.ajax({
@@ -161,14 +161,13 @@ define(['jquery'], function ($) {
     currentFeed = url;
 
     if (!isFragment && !paginated) {
-      messages.html('<li class="loading"><img src="/images/ajax-loader.gif"></li>');
+      messages.html('<li class="message-item loading"></li>');
     }
 
     if (paginated) {
       beforeId = parseInt(url.split('/paginated/feed/')[1].split('/')[1], 10);
       messages.find('#paginated')
-        .addClass('loading')
-        .html('<img src="/images/ajax-loader-paginated.gif">');
+        .addClass('loading');
     }
     $.ajax({
       url: url,
@@ -242,7 +241,7 @@ define(['jquery'], function ($) {
         }
 
         if (paginated) {
-          messages.find('#paginated').remove();
+          messages.find('#paginated').removeClass('loading');
         } else {
           messages.find('> li:gt(' + MESSAGE_LIMIT + ')').remove();
           sinceId = messages.find('> li:first-child').data('id');
