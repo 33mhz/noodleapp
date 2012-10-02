@@ -741,14 +741,17 @@ ol.messages .paginated {
 @media screen and (-webkit-min-device-pixel-ratio: 2), screen and (min--moz-device-pixel-ratio: 2), (min-resolution: 2dppx) {
     header a.home {
         background-image: url('/images/logo2x.png');
+        background-size: auto 25px;
     }
 
     ol.messages li.loading {
         background-image: url('/images/ajax-loader2x.gif');
+        background-size: auto 33px;
     }
 
     ol.messages #paginated.loading {
         background-image: url('/images/ajax-loader-paginated2x.gif');
+        background-size: auto 33px;
     }
 }
 
