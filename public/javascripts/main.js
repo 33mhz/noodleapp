@@ -39,12 +39,14 @@ define(['jquery', 'appnet'],
   };
 
   var checkCharLimit = function(text) {
-    var textLength = text.length;
-    if (textLength > CHAR_MAX - 1) {
-      write.find('textarea').val(text.substr(0, CHAR_MAX));
-      charLimit.text(0);
-    } else {
-      charLimit.text(CHAR_MAX - textLength);
+    if (text) {
+      var textLength = text.length;
+      if (textLength > CHAR_MAX - 1) {
+        write.find('textarea').val(text.substr(0, CHAR_MAX));
+        charLimit.text(0);
+      } else {
+        charLimit.text(CHAR_MAX - textLength);
+      }
     }
   };
 

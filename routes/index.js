@@ -6,12 +6,9 @@ module.exports = function(app, client, isLoggedIn) {
   var utils = require('../lib/utils');
 
   app.get('/', function(req, res) {
+    res.header('Cache-Control', 'no-cache, private, no-store, must-revalidate, max-stale=0, post-check=0, pre-check=0');
     if (req.session.passport.user) {
-      // If we've been browsing another user and we come back to the index
-      // page, just reset it to your personal feed
-      if (req.session.url && req.session.url.match(/\/user\/posts/)) {
-        req.session.url = '/my/feed';
-      }
+      req.session.url = '/my/feed';
 
       res.render('index', {
         pageType: 'index',
@@ -49,7 +46,7 @@ module.exports = function(app, client, isLoggedIn) {
             csrf: req.session._csrf,
             username: req.params.username,
             session: req.session.passport.user,
-            user: user,
+            user: user.data,
             url: req.session.url || '/my/feed',
             description: description
           });
@@ -95,7 +92,7 @@ module.exports = function(app, client, isLoggedIn) {
         res.status(500);
         res.json({ 'error': 'error retrieving mentions' });
       } else {
-        utils.generateFeed(req, recentMessages, client, false, function(messages) {
+        utils.generateFeed(req, recentMessages.data, client, false, function(messages) {
           res.json({ messages: messages });
         });
       }
@@ -113,7 +110,7 @@ module.exports = function(app, client, isLoggedIn) {
         res.status(500);
         res.json({ 'error': 'error retrieving starred' });
       } else {
-        utils.generateFeed(req, recentMessages, client, false, function(messages) {
+        utils.generateFeed(req, recentMessages.data, client, false, function(messages) {
           res.json({ messages: messages });
         });
       }
@@ -130,7 +127,7 @@ module.exports = function(app, client, isLoggedIn) {
         res.status(500);
         res.json({ 'error': 'error retrieving your personal feed' });
       } else {
-        utils.generateFeed(req, recentMessages, client, false, function(messages) {
+        utils.generateFeed(req, recentMessages.data, client, false, function(messages) {
           res.json({ messages: messages });
         });
       }
@@ -145,7 +142,7 @@ module.exports = function(app, client, isLoggedIn) {
         res.status(500);
         res.json({ 'error': 'error retrieving the global feed' });
       } else {
-        utils.generateFeed(req, recentMessages, client, false, function(messages) {
+        utils.generateFeed(req, recentMessages.data, client, false, function(messages) {
           res.json({ messages: messages });
         });
       }
@@ -171,7 +168,7 @@ module.exports = function(app, client, isLoggedIn) {
         res.status(500);
         res.json({ 'error': 'error posting a new message' });
       } else {
-        utils.generateFeed(req, [recentMessage], client, true, function(messages) {
+        utils.generateFeed(req, [recentMessage.data], client, true, function(messages) {
           res.json({ messages: messages });
         });
       }
@@ -283,7 +280,7 @@ module.exports = function(app, client, isLoggedIn) {
         res.status(500);
         res.json({ 'error': 'error retrieving followers' });
       } else {
-        res.json({ users: users });
+        res.json({ users: users.data });
       }
     });
   });
@@ -294,7 +291,7 @@ module.exports = function(app, client, isLoggedIn) {
         res.status(500);
         res.json({ 'error': 'error retrieving following' });
       } else {
-        res.json({ users: users });
+        res.json({ users: users.data });
       }
     });
   });
@@ -305,7 +302,7 @@ module.exports = function(app, client, isLoggedIn) {
         res.status(500);
         res.json({ 'error': 'error retrieving thread' });
       } else {
-        utils.generateFeed(req, recentMessages, client, false, function(messages) {
+        utils.generateFeed(req, recentMessages.data, client, false, function(messages) {
           res.json({ messages: messages });
         });
       }
@@ -318,7 +315,7 @@ module.exports = function(app, client, isLoggedIn) {
         res.status(500);
         res.json({ 'error': 'error retrieving tagged posts' });
       } else {
-        utils.generateFeed(req, recentMessages, client, false, function(messages) {
+        utils.generateFeed(req, recentMessages.data, client, false, function(messages) {
           res.json({ messages: messages });
         });
       }
@@ -344,7 +341,7 @@ module.exports = function(app, client, isLoggedIn) {
         res.status(500);
         res.json({ 'error': 'error retrieving starring users' });
       } else {
-        res.json({ users: users });
+        res.json({ users: users.data });
       }
     });
   });
@@ -355,7 +352,7 @@ module.exports = function(app, client, isLoggedIn) {
         res.status(500);
         res.json({ 'error': 'error retrieving reposting users' });
       } else {
-        res.json({ users: users });
+        res.json({ users: users.data });
       }
     });
   });

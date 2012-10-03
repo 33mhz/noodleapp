@@ -284,14 +284,15 @@ define(['jquery'], function ($) {
       var users = $('<ol class="avatars"></ol>');
 
       for (var i = 0; i < data.users.length; i ++) {
-        if (users.find('li[data-avatarid="' + data.users[i].id + '"]').length === 0) {
+        var userItem = data.users[i];
+        if (users.find('li[data-avatarid="' + userItem.id + '"]').length === 0) {
           var user = $('<li data-avatarid=""><a href=""><img src="" alt="" title=""></a></li>');
-          user.attr('data-avatarid', data.users[i].id);
-          user.find('a').attr('href', '/user/' + data.users[i].username);
+          user.attr('data-avatarid', userItem.id);
+          user.find('a').attr('href', '/user/' + userItem.username);
           user.find('img')
-            .attr('src', data.users[i].avatar_image.url)
-            .attr('alt', data.users[i].name)
-            .attr('title', data.users[i].name);
+            .attr('src', userItem.avatar_image.url)
+            .attr('alt', userItem.name)
+            .attr('title', userItem.name);
           users.append(user);
         }
       }
