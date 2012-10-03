@@ -28,8 +28,8 @@ module.exports = function(app, client, isLoggedIn) {
   app.get('/user/:username', isLoggedIn, function(req, res) {
     appnet.getUser(req, function(err, user) {
       if (err) {
-        res.status(500);
-        res.json({ 'error': 'could not retrieve user' });
+        res.status(404);
+        res.redirect('/404');
       } else {
         var description = '';
 
@@ -142,7 +142,7 @@ module.exports = function(app, client, isLoggedIn) {
         res.status(500);
         res.json({ 'error': 'error retrieving the global feed' });
       } else {
-        utils.generateFeed(req, recentMessages.data, client, false, function(messages) {
+        utils.generateFeed(req, recentMessages, client, false, function(messages) {
           res.json({ messages: messages });
         });
       }

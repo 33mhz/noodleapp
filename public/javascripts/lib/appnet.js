@@ -6,6 +6,7 @@ define(['jquery'], function ($) {
   var myFeed = $('.my-feed');
   var overlay = $('#overlay');
   var tabs = $('ol.tabs');
+  var userListMeta = $('<ol class="avatars"></ol>');
   var userId = messages.data('userid');
   var sinceId = null;
   var beforeId = null;
@@ -281,11 +282,10 @@ define(['jquery'], function ($) {
       dataType: 'json',
       cache: false
     }).done(function(data) {
-      var users = $('<ol class="avatars"></ol>');
-
       for (var i = 0; i < data.users.length; i ++) {
         var userItem = data.users[i];
-        if (users.find('li[data-avatarid="' + userItem.id + '"]').length === 0) {
+
+        if (userListMeta.find('li[data-avatarid="' + userItem.id + '"]').length === 0) {
           var user = $('<li data-avatarid=""><a href=""><img src="" alt="" title=""></a></li>');
           user.attr('data-avatarid', userItem.id);
           user.find('a').attr('href', '/user/' + userItem.username);
@@ -293,11 +293,11 @@ define(['jquery'], function ($) {
             .attr('src', userItem.avatar_image.url)
             .attr('alt', userItem.name)
             .attr('title', userItem.name);
-          users.append(user);
+          userListMeta.append(user);
         }
       }
 
-      overlay.find('#avatar-pings').html(users);
+      overlay.find('#avatar-pings').html(userListMeta);
     });
   };
 
