@@ -200,7 +200,7 @@ ol.messages #paginated.loading {
     overflow: hidden;
 }
 
-.message-summary li p .object-wrapper {
+.message-summary li p .object-wrapper, .message-summary li p .image-wrapper {
     clear: both;
     float: left;
     margin: 5px 0;
