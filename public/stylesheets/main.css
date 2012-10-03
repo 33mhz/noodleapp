@@ -387,6 +387,13 @@ ol.messages #paginated.loading {
     width: 50%;
 }
 
+#profile .user-info h3.small {
+    color: #888;
+    font-size: 15px;
+    margin-bottom: 0;
+    width: 100%;
+}
+
 #profile .user-info > span {
     color: #aaa;
     font-size: 13px;

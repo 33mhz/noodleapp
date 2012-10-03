@@ -5,6 +5,12 @@ block content
     img(src='#{user.avatar_image.url}')
     .user-info
       h2= user.name
+      if session && (user.id !== session.id)
+        h3.small
+          if user.follows_you
+            = 'Follows you'
+          else
+            = 'Does not follow you'
       h3(class='following') Following #{user.counts.following}
       h3(class='followers') Followers #{user.counts.followers}
 
@@ -18,6 +24,7 @@ block content
             li(class='mute on') Unmute
           else
             li(class='mute') Mute
+
       p!= description.replace(/\n/gm, '<br>')
   #write.profile
     form(method='post')
