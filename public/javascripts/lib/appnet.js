@@ -275,6 +275,7 @@ define(['jquery'], function ($) {
   };
 
   var setUsers = function(id, url, type) {
+    userListMeta.empty();
     $.ajax({
       url: url,
       type: type,
