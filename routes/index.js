@@ -42,8 +42,6 @@ module.exports = function(app, client, isLoggedIn, io, noodle) {
           description = user.description.html;
         }
 
-        console.log(user)
-
         if (req.session) {
           req.session.url = '/user/posts/' + user.id;
 
