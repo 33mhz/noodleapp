@@ -132,6 +132,12 @@ describe('web-remix', function() {
       });
     });
 
+    it('returns a regular link', function() {
+      webRemix.generate('http://3.bp.blogspot.com/Riley+the+smiling+dog.jpg/test', function(err, subject) {
+        subject.should.equal('<a href="http://3.bp.blogspot.com/Riley+the+smiling+dog.jpg/test" target="_blank">http://3.bp.blogspot.com/Riley+the+smiling+dog.jpg/test</a>');
+      });
+    });
+
     it('returns image code for an instagr.am url', function() {
       webRemix.generate('http://instagram.com/p/QFJJzTw8yS/', function(err, subject) {
         subject.should.equal('<div class="image-wrapper"><a href="http://instagram.com/p/QFJJzTw8yS/">' +
