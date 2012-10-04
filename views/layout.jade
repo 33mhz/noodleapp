@@ -12,6 +12,8 @@ html
     link(rel='stylesheet', href='/stylesheets/main.css')
 
   body(data-url='#{url}')
+    #hush
+
     header
       a.home(href='/') NoodleApp
 
@@ -26,4 +28,5 @@ html
 
     footer
 
+    script(src='/socket.io/socket.io.js')
     script(src='/javascripts/require.js', data-main='/javascripts/main')

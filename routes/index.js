@@ -1,6 +1,6 @@
 'use strict';
 
-module.exports = function(app, client, isLoggedIn) {
+module.exports = function(app, client, isLoggedIn, io, noodle) {
   var appnet = require('../lib/appnet');
   var webremix = require('../lib/web-remix');
   var utils = require('../lib/utils');
@@ -354,6 +354,13 @@ module.exports = function(app, client, isLoggedIn) {
       } else {
         res.json({ users: users.data });
       }
+    });
+  });
+
+  // Request the current version number
+  app.get('/version', function(req, res) {
+    res.json({
+      'version': noodle.version
     });
   });
 };

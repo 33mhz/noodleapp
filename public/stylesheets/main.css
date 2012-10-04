@@ -761,6 +761,31 @@ ol.messages .paginated {
     text-align: center;
 }
 
+#hush {
+    width:100%;
+    height: 100%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    background-color: #000;
+    z-index: 24;
+    opacity: 0.8;
+    display: none;
+}
+
+img.hush {
+    cursor: pointer;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    width: 0px;
+    height: 0px;
+    z-index: 25;
+    margin-left: 0px;
+    margin-top: 0px;
+    border: 6px solid white;
+}
+
 @media screen and (-webkit-min-device-pixel-ratio: 2), screen and (min--moz-device-pixel-ratio: 2), (min-resolution: 2dppx) {
     header a.home {
         background-image: url('/images/logo2x.png');

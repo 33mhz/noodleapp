@@ -9,8 +9,21 @@ var passport = require('passport');
 var redis = require('redis');
 var client = redis.createClient();
 var AppDotNetStrategy = require('passport-appdotnet').Strategy;
+var noodle = require('./package');
 
 nconf.argv().env().file({ file: 'local.json' });
+
+/* Websocket setup */
+
+var io = require('socket.io').listen(app);
+
+io.configure(function() {
+  io.set('transports', ['xhr-polling']);
+  io.set('polling duration', 30);
+  io.set('log level', 1);
+});
+
+/* Passport OAuth setup */
 
 passport.serializeUser(function(user, done) {
   done(null, user);
@@ -34,6 +47,8 @@ passport.use(new AppDotNetStrategy({
   }
 ));
 
+/* Filters for routes */
+
 var isLoggedIn = function(req, res, next) {
   if (req.session.passport.user) {
     next();
@@ -42,8 +57,9 @@ var isLoggedIn = function(req, res, next) {
   }
 };
 
-// routes
-require('./routes')(app, client, isLoggedIn);
+/* Routing setup */
+
+require('./routes')(app, client, isLoggedIn, io, noodle);
 require('./routes/auth')(app, passport);
 
 app.get('/404', function(req, res, next){

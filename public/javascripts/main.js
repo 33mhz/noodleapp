@@ -50,44 +50,41 @@ define(['jquery', 'appnet'],
     }
   };
 
+  var updateFeed = function(self, callback) {
+    messages.empty();
+    resetTab(self, function() {
+      callback();
+    });
+  };
+
   /* Feed functionality */
 
   myFeed.click(function() {
-    var self = $(this);
-    messages.empty();
-    resetTab(self, function() {
+    updateFeed($(this), function() {
       appnet.getMyFeed();
     });
   });
 
   globalFeed.click(function() {
-    var self = $(this);
-    messages.empty();
-    resetTab(self, function() {
+    updateFeed($(this), function() {
       appnet.getGlobalFeed();
     });
   });
 
   userPosts.click(function() {
-    var self = $(this);
-    messages.empty();
-    resetTab(self, function() {
+    updateFeed($(this), function() {
       appnet.getUserPosts();
     });
   });
 
   userMentions.click(function() {
-    var self = $(this);
-    messages.empty();
-    resetTab(self, function() {
+    updateFeed($(this), function() {
       appnet.getUserMentions();
     });
   });
 
   userStarred.click(function() {
-    var self = $(this);
-    messages.empty();
-    resetTab(self, function() {
+    updateFeed($(this), function() {
       appnet.getUserStarred();
     });
   });

@@ -16,6 +16,7 @@
     "passport-appdotnet": ">= 0.1.0",
     "connect-redis": ">= 1.4.4",
     "express-messages": ">= 0.0.2",
+    "socket.io": "git://github.com/LearnBoost/socket.io.git",
     "hiredis": "0.1.14",
     "redis": "0.7.2"
   },

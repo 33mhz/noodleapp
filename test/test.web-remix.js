@@ -187,7 +187,7 @@ describe('web-remix', function() {
 
     it('returns a non-user link', function(done) {
       webRemix.generate('@ borg', function(err, subject) {
-        subject.should.equal('@ borg');
+        subject.should.equal('@   borg');
         done();
       });
     });

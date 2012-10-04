@@ -1,6 +1,8 @@
 'use strict';
 
-define(['jquery'], function ($) {
+define(['jquery', 'version-timeout'],
+  function ($, versionTimeout) {
+
   var messages = $('ol.messages');
   var currentFeed = '/my/feed';
   var myFeed = $('.my-feed');
@@ -13,7 +15,7 @@ define(['jquery'], function ($) {
   var isFragment = false;
 
   var MESSAGE_LIMIT = 19;
-  var POLL_TIMEOUT = 60000;
+  var POLL_TIMEOUT = 10000;
 
   // Wait 1 minute to get new data
   var pollMessages = function() {
@@ -267,6 +269,7 @@ define(['jquery'], function ($) {
       isFragment = true;
 
       pollMessages = setTimeout(function() {
+        versionTimeout.checkVersion();
         currentFeed = tabs.find('li.selected').data('url');
         setMessage(currentFeed, type, false);
         updateTime();
