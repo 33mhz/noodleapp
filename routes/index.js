@@ -32,12 +32,17 @@ module.exports = function(app, client, isLoggedIn, io, noodle) {
         res.status(404);
         res.redirect('/404');
       } else {
+        if (user.data) {
+          user = user.data;
+        }
         var description = '';
 
         // User descriptions don't always exist
         if (user.description) {
           description = user.description.html;
         }
+
+        console.log(user)
 
         if (req.session) {
           req.session.url = '/user/posts/' + user.id;
@@ -47,7 +52,7 @@ module.exports = function(app, client, isLoggedIn, io, noodle) {
             csrf: req.session._csrf,
             username: req.params.username,
             session: utils.getUser(req),
-            user: user.data,
+            user: user,
             url: req.session.url || '/my/feed',
             description: description
           });
