@@ -171,6 +171,14 @@ describe('web-remix', function() {
       });
     });
 
+    it('returns a regular link', function(done) {
+      var audio = 'http://blog.szynalski.com/2009/07/05/blind-testing-mp3-compression/';
+      webRemix.generate(audio, function(err, subject) {
+        subject.should.equal('<a href="http://blog.szynalski.com/2009/07/05/blind-testing-mp3-compression/" target="_blank">http://blog.szynalski.com/2009/07/05/blind-testing-mp3-compression/</a>');
+        done();
+      });
+    });
+
     it('returns the user link', function(done) {
       webRemix.generate('@borg', function(err, subject) {
         subject.should.equal('<a href="/user/borg">@borg</a>');
