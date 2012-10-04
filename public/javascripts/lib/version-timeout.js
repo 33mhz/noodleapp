@@ -10,6 +10,7 @@ define(['jquery'],
 
   var localVersion;
   var hushLock = 0;
+  var hushItem = $('#hush');
 
   // Methods to disable scrolling wheel/key input:
   var scrollKeys = [37, 38, 39, 40];
@@ -52,11 +53,11 @@ define(['jquery'],
 
       setTimeout(function() {
         setTimeout(function() {
-          var newElement = jQuery(content);
+          var newElement = $(content);
           newElement.attr('id', contentID);
           newElement.attr('class', 'hush');
           $('body').append(newElement);
-          $('#' + contentID).animate({
+          newElement.animate({
             'width': '440px',
             'height': '338px',
             'margin-left': '-220px',
@@ -64,25 +65,9 @@ define(['jquery'],
           }, timeToAppear, function() {});
         }, timeToAppear);
 
-        $('#hush').fadeIn();
+        hushItem.fadeIn();
       }, timeToFadeIn);
     }
-  };
-
-  var unHush = function(contentID, timeToFadeOut, timeToDisappear) {
-    setTimeout(function() {
-      setTimeout(function() {
-        $('#hush').fadeOut();
-        hushLock = 0;
-      }, timeToFadeOut);
-
-      $('#' + contentID).animate({
-        'width': 0,
-        'height': 0,
-        'margin-left': 0,
-        'margin-top': 0
-      }, timeToDisappear, function() {});
-    }, timeToDisappear);
   };
 
   var self = {

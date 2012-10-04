@@ -19,7 +19,7 @@ var io = require('socket.io').listen(app);
 
 io.configure(function() {
   io.set('transports', ['xhr-polling']);
-  io.set('polling duration', 30);
+  io.set('polling duration', 60);
   io.set('log level', 1);
 });
 
