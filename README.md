@@ -4,9 +4,15 @@
 
 An http://app.net web client.
 
-## Installation instructions
+## To use the client
 
-#FIRST. SIGN UP TO [http://app.net](http://app.net) WITH A DEVELOPER ACCOUNT (or this will all be a waste of time)
+Go here and sign in: http://app.noodletalk.org
+
+Ignore everything below.
+
+## Installation instructions (if you want to hack on the code)
+
+# SIGN UP TO [http://app.net](http://app.net) WITH A DEVELOPER ACCOUNT
 
 Create the app.net app
 
