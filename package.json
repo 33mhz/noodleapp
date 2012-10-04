@@ -13,7 +13,7 @@
     "request": "git://github.com/mikeal/request.git",
     "nconf": "git://github.com/flatiron/nconf.git",
     "passport": ">= 0.1.12",
-    "passport-appdotnet": ">= 0.1.0",
+    "passport-appdotnet": "git://github.com/ednapiranha/passport-appdotnet.git",
     "connect-redis": ">= 1.4.4",
     "express-messages": ">= 0.0.2",
     "socket.io": "git://github.com/LearnBoost/socket.io.git",

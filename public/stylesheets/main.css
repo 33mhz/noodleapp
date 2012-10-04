@@ -786,6 +786,26 @@ img.hush {
     border: 6px solid white;
 }
 
+#flash-message {
+    background-color: #111;
+    border-bottom-left-radius: 5px;
+    border-bottom-right-radius: 5px;
+    display: none;
+    color: #fff;
+    font-family: 'Oswald';
+    font-size: 25px;
+    left: 50%;
+    margin-left: -115px;
+    margin-top: 32px;
+    opacity: 0.8;
+    padding: 20px 10px;
+    position: fixed;
+    text-align: center;
+    text-transform: uppercase;
+    width: 200px;
+    z-index:3;
+}
+
 @media screen and (-webkit-min-device-pixel-ratio: 2), screen and (min--moz-device-pixel-ratio: 2), (min-resolution: 2dppx) {
     header a.home {
         background-image: url('/images/logo2x.png');

@@ -10,6 +10,7 @@ var redis = require('redis');
 var client = redis.createClient();
 var AppDotNetStrategy = require('passport-appdotnet').Strategy;
 var noodle = require('./package');
+var utils = require('./lib/utils');
 
 nconf.argv().env().file({ file: 'local.json' });
 
@@ -41,7 +42,11 @@ passport.use(new AppDotNetStrategy({
   },
   function(accessToken, refreshToken, profile, done) {
     process.nextTick(function (err) {
-      profile.access_token = accessToken;
+      if (profile.access_token) {
+        profile.access_token = accessToken;
+      } else {
+        profile.access_token = accessToken;
+      }
       return done(err, profile);
     });
   }
@@ -50,7 +55,7 @@ passport.use(new AppDotNetStrategy({
 /* Filters for routes */
 
 var isLoggedIn = function(req, res, next) {
-  if (req.session.passport.user) {
+  if (utils.getUser(req)) {
     next();
   } else {
     res.redirect('/');

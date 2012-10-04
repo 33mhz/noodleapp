@@ -13,6 +13,7 @@ define(['jquery', 'version-timeout'],
   var sinceId = null;
   var beforeId = null;
   var isFragment = false;
+  var flashMsg = $('#flash-message');
 
   var MESSAGE_LIMIT = 19;
   var POLL_TIMEOUT = 60000;
@@ -313,6 +314,13 @@ define(['jquery', 'version-timeout'],
     setUsers(postId, '/reposted_users', 'GET');
   };
 
+  var flashMessage = function(message) {
+    flashMsg.text(message);
+    flashMsg.fadeIn(200, function() {
+      $(this).fadeOut(2500);
+    });
+  };
+
   var self = {
     getMyFeed: function() {
       isFragment = false;
@@ -374,6 +382,8 @@ define(['jquery', 'version-timeout'],
         data: { post_id: id, _csrf: csrf },
         dataType: 'json',
         cache: false
+      }).done(function() {
+        flashMessage('Reposted!');
       });
     },
 
@@ -396,6 +406,8 @@ define(['jquery', 'version-timeout'],
         data: { user_id: id, _csrf: csrf },
         dataType: 'json',
         cache: false
+      }).done(function() {
+        flashMessage('Followed!');
       });
     },
 
@@ -407,6 +419,8 @@ define(['jquery', 'version-timeout'],
         data: { user_id: id, _csrf: csrf },
         dataType: 'json',
         cache: false
+      }).done(function() {
+        flashMessage('Unfollowed');
       });
     },
 
@@ -418,6 +432,8 @@ define(['jquery', 'version-timeout'],
         data: { user_id: id, _csrf: csrf },
         dataType: 'json',
         cache: false
+      }).done(function() {
+        flashMessage('Muted!');
       });
     },
 
@@ -429,6 +445,8 @@ define(['jquery', 'version-timeout'],
         data: { user_id: id, _csrf: csrf },
         dataType: 'json',
         cache: false
+      }).done(function() {
+        flashMessage('Unmuted!');
       });
     },
 

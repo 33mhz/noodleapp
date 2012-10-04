@@ -7,12 +7,13 @@ module.exports = function(app, client, isLoggedIn, io, noodle) {
 
   app.get('/', function(req, res) {
     res.header('Cache-Control', 'no-cache, private, no-store, must-revalidate, max-stale=0, post-check=0, pre-check=0');
+
     if (req.session.passport.user) {
       req.session.url = '/my/feed';
 
       res.render('index', {
         pageType: 'index',
-        session: req.session.passport.user,
+        session: utils.getUser(req),
         csrf: req.session._csrf,
         url: req.session.url || '/my/feed'
       });
@@ -45,7 +46,7 @@ module.exports = function(app, client, isLoggedIn, io, noodle) {
             pageType: 'profile',
             csrf: req.session._csrf,
             username: req.params.username,
-            session: req.session.passport.user,
+            session: utils.getUser(req),
             user: user.data,
             url: req.session.url || '/my/feed',
             description: description
@@ -64,8 +65,7 @@ module.exports = function(app, client, isLoggedIn, io, noodle) {
   });
 
   app.get('/user/posts/:id', isLoggedIn, function(req, res) {
-    var newMessages = [];
-    var userId = req.params.id || req.session.passport.user.id;
+    var userId = req.params.id || utils.getUserById(req);
 
     req.session.url = '/user/posts/' + parseInt(userId, 10);
 
@@ -82,8 +82,7 @@ module.exports = function(app, client, isLoggedIn, io, noodle) {
   });
 
   app.get('/user/mentions/:id', isLoggedIn, function(req, res) {
-    var newMessages = [];
-    var userId = req.params.id || req.session.passport.user.id;
+    var userId = req.params.id || utils.getUserById(req);
 
     req.session.url = '/user/mentions/' + parseInt(userId, 10);
 
@@ -100,8 +99,7 @@ module.exports = function(app, client, isLoggedIn, io, noodle) {
   });
 
   app.get('/user/starred/:id', isLoggedIn, function(req, res) {
-    var newMessages = [];
-    var userId = req.params.id || req.session.passport.user.id;
+    var userId = req.params.id || utils.getUserById(req);
 
     req.session.url = '/user/starred/' + parseInt(userId, 10);
 
@@ -118,8 +116,6 @@ module.exports = function(app, client, isLoggedIn, io, noodle) {
   });
 
   app.get('/my/feed', isLoggedIn, function(req, res) {
-    var newMessages = [];
-
     req.session.url = '/my/feed';
 
     appnet.myFeed(req, function(err, recentMessages) {
