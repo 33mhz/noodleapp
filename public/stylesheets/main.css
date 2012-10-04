@@ -204,6 +204,7 @@ ol.messages #paginated.loading {
     clear: both;
     float: left;
     margin: 5px 0;
+    width: 100%;
 }
 
 #overlay .users li:hover, #overlay li.close:hover, ol.messages .paginated:hover {
