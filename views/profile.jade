@@ -1,7 +1,7 @@
 extend layout
 
 block content
-  #profile
+  #profile(style='background-image: url(#{user.cover_image.url});')
     img(src='#{user.avatar_image.url}')
     .user-info
       h2= user.name
