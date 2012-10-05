@@ -14,7 +14,7 @@ Ignore everything below.
 
 # SIGN UP TO [http://app.net](http://app.net) WITH A DEVELOPER ACCOUNT
 
-Create the app.net app
+### Create the app.net app
 
 > go to [https://alpha.app.net/developer/apps/](https://alpha.app.net/developer/apps/)
 
@@ -28,11 +28,15 @@ Create the app.net app
 
 > click "Create", you will need the client id and client secret below
 
-Edit /etc/hosts
+> Ensure you have selected "Current" API for all migrations:
+
+![AppNetSettings](http://i.pau.lk/Jwgz/Screen%20Shot%202012-10-05%20at%202.33.17%20PM.png)
+
+### Edit /etc/hosts
 
 > Add the following: 127.0.0.1 dev.noodletalk.org
 
-Clone the repository
+### Clone the repository
 
 > git clone git://github.com/ednapiranha/noodleapp.git
 
@@ -50,7 +54,7 @@ Install node through the website http://nodejs.org/#download
 
 > npm install
 
-Run the site
+### Run the site
 
 > node app.js
 
