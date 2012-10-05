@@ -355,6 +355,9 @@ ol.messages #paginated.loading {
 }
 
 #profile {
+    background-color: #111;
+    background-repeat: no-repeat;
+    background-size: 100%;
     float: left;
     width: 100%;
 }
@@ -921,10 +924,10 @@ img.hush {
     }
 
     ol.tabs li {
-        font-size: 16px;
-        line-height: 16px;
-        margin: 8px 2px 5px;
-        padding: 4px 10px;
+        font-size: 17px;
+        line-height: 17px;
+        margin: 8px 1px 0;
+        padding: 5px 10px;
     }
 
     .meta .details, .meta .actions {
