@@ -851,6 +851,31 @@ img.hush {
         background-image: url('/images/ajax-loader-paginated2x.gif');
         background-size: auto 33px;
     }
+
+    .actions .thread {
+        background-image: url('/images/thread2x.png');
+        background-size: auto 25px;
+    }
+
+    .actions .star {
+        background-image: url('/images/star2x.png');
+        background-size: auto 25px;
+    }
+
+    .actions .reply {
+        background-image: url('/images/reply2x.png');
+        background-size: auto 25px;
+    }
+
+    .actions .repost {
+        background-image: url('/images/repost2x.png');
+        background-size: auto 25px;
+    }
+
+    .actions .delete {
+        background-image: url('/images/delete2x.png');
+        background-size: auto 25px;
+    }
 }
 
 @media only screen and (max-width: 599px) {
