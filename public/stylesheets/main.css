@@ -201,10 +201,13 @@ ol.messages #paginated.loading {
 }
 
 .message-summary li p .object-wrapper, .message-summary li p .image-wrapper {
-    clear: both;
-    float: left;
-    margin: 5px 0;
+    display: inline-block;
+    margin-bottom: 5px;
     width: 100%;
+}
+
+.message-summary li p .object-wrapper:first-child, .message-summary li p .image-wrapper:first-child {
+    margin: 5px 0;
 }
 
 #overlay .users li:hover, #overlay li.close:hover, ol.messages .paginated:hover {
@@ -736,10 +739,14 @@ ol.messages > li p a, #overlay .message-summary li p a {
     white-space: nowrap;
 }
 
-ol.messages > li p .image-wrapper {
-    clear: both;
-    float: left;
+ol.messages > li p .image-wrapper, ol.messages > li p .object-wrapper {
+    display: inline-block;
+    margin: 0 0 5px;
     width: 100%;
+}
+
+ol.messages > li p .image-wrapper:first-child, ol.messages > li p .object-wrapper:first-child {
+    margin: 5px 0;
 }
 
 ol.messages > li p img {
