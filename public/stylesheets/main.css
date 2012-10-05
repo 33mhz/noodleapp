@@ -61,6 +61,7 @@ html, body {
 
 body {
     background-color: #fff;
+    background-image: url('/images/background.png');
     font-family: Arial;
     position: relative;
     overflow-y: scroll;
@@ -105,18 +106,17 @@ header a.home:hover {
 }
 
 header a#logout {
-    background-color: #333;
-    border-radius: 5px;
-    color: #888;
+    background-image: url('/images/logout.png');
     float: right;
-    font-size: 15px;
-    margin: 1px 10px 0;
-    padding: 5px 8px;
+    font-size: 1px;
+    height: 25px;
+    margin-right: 10px;
+    text-indent: -9999px;
+    width: 25px;
 }
 
 header a#logout:hover {
-    background-color: #888;
-    color: #eee;
+    opacity: 0.4;
 }
 
 #dashboard {
@@ -169,6 +169,8 @@ header a#logout:hover {
 
 #overlay .users li {
     cursor: pointer;
+    margin-bottom: 2px;
+    padding: 5px 0;
 }
 
 #overlay li.close, #paginated {
@@ -221,9 +223,9 @@ ol.messages #paginated.loading {
 #overlay li .who img, #overlay .users li img {
     display: block;
     float: left;
-    height: 50px;
+    height: 40px;
     margin-right: 10px;
-    width: 50px;
+    width: 40px;
 }
 
 #overlay .users li a {
@@ -238,7 +240,7 @@ ol.messages #paginated.loading {
     float: left;
     font-family: 'Oswald';
     font-size: 18px;
-    line-height: 25px;
+    line-height: 35px;
     overflow: hidden;
     text-overflow: ellipsis;
     width: 430px;
@@ -252,6 +254,10 @@ ol.messages #paginated.loading {
 #overlay .users li:hover em {
     color: #eee;
     padding-left: 10px;
+}
+
+#overlay #thread-detail .message-summary li {
+    border-top: 1px dotted #eee;
 }
 
 #overlay .message-summary li .details, #overlay .message-summary li p {
@@ -337,7 +343,7 @@ ol.messages #paginated.loading {
 }
 
 .dashboard-content {
-    background-color: #f8f8f8;
+    background-color: #f9f9f9;
     border-left: 1px solid #eee;
     border-right: 1px solid #eee;
     float: left;
@@ -594,12 +600,12 @@ ol.messages > li.loading {
 
 ol.messages > li {
     background-color: #fff;
+    border-bottom: 1px dotted #eee;
     box-shadow: #f1f1f1 3px 1px 2px;
     display: block;
     float: left;
     font-size: 13px;
     line-height: 16px;
-    margin-bottom: 1px;
     overflow: hidden;
     padding: 10px 5px;
     width: 550px;
@@ -837,6 +843,11 @@ img.hush {
 }
 
 @media screen and (-webkit-min-device-pixel-ratio: 2), screen and (min--moz-device-pixel-ratio: 2), (min-resolution: 2dppx) {
+    body {
+        background-image: url('/images/background2x.png');
+        background-size: auto 8px;
+    }
+
     header a.home {
         background-image: url('/images/logo2x.png');
         background-size: auto 25px;
@@ -874,6 +885,11 @@ img.hush {
 
     .actions .delete {
         background-image: url('/images/delete2x.png');
+        background-size: auto 25px;
+    }
+
+    header a#logout {
+        background-image: url('/images/logout2x.png');
         background-size: auto 25px;
     }
 }
