@@ -3,6 +3,7 @@
 var express = require('express');
 var configurations = module.exports;
 var app = express();
+var server = require('http').createServer(app);
 var nconf = require('nconf');
 var settings = require('./settings')(app, configurations, express);
 var passport = require('passport');
@@ -16,7 +17,7 @@ nconf.argv().env().file({ file: 'local.json' });
 
 /* Websocket setup */
 
-var io = require('socket.io').listen(app);
+var io = require('socket.io').listen(server);
 
 io.configure(function() {
   io.set('transports', ['xhr-polling']);
@@ -80,4 +81,4 @@ app.get('/500', function(req, res, next){
   next(new Error('something went wrong!'));
 });
 
-app.listen(process.env.PORT || nconf.get('port'));
+server.listen(process.env.PORT || nconf.get('port'));
