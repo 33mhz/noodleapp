@@ -733,6 +733,7 @@ ol.messages > li p {
 ol.messages > li p a, #overlay .message-summary li p a {
     color: #20c2c0;
     text-decoration: none;
+    white-space: nowrap;
 }
 
 ol.messages > li p .image-wrapper {
