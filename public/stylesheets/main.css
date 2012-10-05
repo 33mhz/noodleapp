@@ -1011,18 +1011,17 @@ img.hush {
 }
 
 .autocomplete {
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    box-shadow: 2px 3px 3px 0 rgba(0, 0, 0, 0.2);
+    border: 1px solid #eee;
     background: #fff;
-    cursor: default; 
+    cursor: default;
     max-height: 350px;
-    overflow: auto;
+    opacity: 0.8;
+    overflow: hidden;
     text-align: left;
 }
 
 .autocomplete .selected {
-    background: #f0f0f0;
+    background: #eee;
 }
 
 .autocomplete div {
@@ -1032,6 +1031,6 @@ img.hush {
 }
 
 .autocomplete strong {
-    color: #3399ff;
+    color: #888;
     font-weight: normal;
 }

@@ -235,29 +235,19 @@ define(['jquery', 'appnet'],
   write.find('textarea').keyup(function() {
     var self = $(this);
     checkCharLimit(self.val());
+    checkBFFs(self.val());
     if (self.val().trim().length === 0) {
       write.find('#reply_to').val('');
     }
-  });
-
-  write.submit(function(ev) {
-    ev.preventDefault();
-
-    var self = $(this);
-    appnet.postMessage(self);
-    url = '/my/feed';
-    self.find('textarea').val('');
-    charLimit.text(CHAR_MAX);
-    write.find('#reply_to').val('');
-    return false;
   });
 
   /* @username autocomplete
    * Note: This pulls all your BFFs once and never again. We might want
    * change that later.
    */
-  if (messageboxes.length > 0) {
-    appnet.getBFFs(function(usernames) {
+  var checkBFFs = function(content) {
+    if (messageboxes.length > 0) {
+      appnet.getBFFs(function(usernames) {
         // prepend '@' to every username
         for(var i = 0, l = usernames.length; i < l; i ++) {
           usernames[i] = '@' + usernames[i];
@@ -277,4 +267,18 @@ define(['jquery', 'appnet'],
         });
       });
     }
+  };
+
+  write.submit(function(ev) {
+    ev.preventDefault();
+
+    var self = $(this);
+    appnet.postMessage(self);
+    url = '/my/feed';
+    self.find('textarea').val('');
+    charLimit.text(CHAR_MAX);
+    write.find('#reply_to').val('');
+    return false;
+  });
+
 });
