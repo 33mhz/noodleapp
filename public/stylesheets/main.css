@@ -455,6 +455,12 @@ ol.messages #paginated.loading {
     width: 100px;
 }
 
+#write {
+    display: block;
+    float: left;
+    position: relative;
+}
+
 #write, #profile {
     margin-top: 32px;
 }
@@ -842,6 +848,30 @@ img.hush {
     z-index:3;
 }
 
+#suggestions {
+    top: 108px;
+    left: 20px;
+    position: absolute;
+    width: 250px;
+    z-index: 4;
+}
+
+#suggestions li {
+    border: 1px solid #eee;
+    background: #fff;
+    color: #333;
+    cursor: pointer;
+    font-size: 15px;
+    max-height: 300px;
+    overflow: hidden;
+    padding: 6px 8px;
+    text-align: left;
+}
+
+#suggestions li:hover {
+    background: #eee;
+}
+
 @media screen and (-webkit-min-device-pixel-ratio: 2), screen and (min--moz-device-pixel-ratio: 2), (min-resolution: 2dppx) {
     body {
         background-image: url('/images/background2x.png');
@@ -1002,35 +1032,8 @@ img.hush {
     ol.messages > li p img {
         max-width: 250px;
     }
-}
 
-.autocomplete-w1 {
-    left: 0px;
-    position: absolute;
-    top: 0px;
-}
-
-.autocomplete {
-    border: 1px solid #eee;
-    background: #fff;
-    cursor: default;
-    max-height: 350px;
-    opacity: 0.8;
-    overflow: hidden;
-    text-align: left;
-}
-
-.autocomplete .selected {
-    background: #eee;
-}
-
-.autocomplete div {
-    overflow: hidden;
-    padding: 10px;
-    white-space: nowrap;
-}
-
-.autocomplete strong {
-    color: #888;
-    font-weight: normal;
+    #suggestions {
+        top: 203px;
+    }
 }

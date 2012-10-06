@@ -2,13 +2,7 @@ extend layout
 
 block content
   if session
-    #write(name='#write')
-      form(method='post')
-        textarea(name='message', placeholder='Write your message')
-        input(type='hidden', name='reply_to', value='', id='reply_to')
-        input(type='hidden', name='_csrf', value='#{csrf}')
-        span#count 256
-        button(type='submit') Post
+    mixin messageForm('', 'Write your message', '')
 
     section
       ol.tabs

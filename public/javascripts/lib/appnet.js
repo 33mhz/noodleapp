@@ -1,7 +1,7 @@
 'use strict';
 
-define(['jquery', 'version-timeout', 'jquery.autocomplete'],
-  function ($, versionTimeout) {
+define(['jquery', 'version-timeout', 'friends'],
+  function ($, versionTimeout, friends) {
 
   var messages = $('ol.messages');
   var currentFeed = '/my/feed';
@@ -14,6 +14,7 @@ define(['jquery', 'version-timeout', 'jquery.autocomplete'],
   var beforeId = null;
   var isFragment = false;
   var flashMsg = $('#flash-message');
+  var loggedIn = false;
 
   var MESSAGE_LIMIT = 19;
   var POLL_TIMEOUT = 60000;
@@ -163,6 +164,11 @@ define(['jquery', 'version-timeout', 'jquery.autocomplete'],
 
   var setMessage = function(url, type, paginated) {
     currentFeed = url;
+
+    if (!loggedIn) {
+      friends.setBFFs();
+      loggedIn = true;
+    }
 
     if (!isFragment && !paginated) {
       messages.html('<li class="message-item loading"></li>');
@@ -398,12 +404,12 @@ define(['jquery', 'version-timeout', 'jquery.autocomplete'],
       });
     },
 
-    follow: function(id, csrf) {
+    follow: function(id, username, csrf) {
       isFragment = true;
       $.ajax({
         url: '/follow',
         type: 'POST',
-        data: { user_id: id, _csrf: csrf },
+        data: { user_id: id, username: username, _csrf: csrf },
         dataType: 'json',
         cache: false
       }).done(function() {
@@ -411,12 +417,12 @@ define(['jquery', 'version-timeout', 'jquery.autocomplete'],
       });
     },
 
-    unfollow: function(id, csrf) {
+    unfollow: function(id, username, csrf) {
       isFragment = true;
       $.ajax({
         url: '/follow',
         type: 'DELETE',
-        data: { user_id: id, _csrf: csrf },
+        data: { user_id: id, username: username, _csrf: csrf },
         dataType: 'json',
         cache: false
       }).done(function() {
@@ -429,7 +435,7 @@ define(['jquery', 'version-timeout', 'jquery.autocomplete'],
       $.ajax({
         url: '/mute',
         type: 'POST',
-        data: { user_id: id, _csrf: csrf },
+        data: { user_id: id, username: username, _csrf: csrf },
         dataType: 'json',
         cache: false
       }).done(function() {
@@ -442,7 +448,7 @@ define(['jquery', 'version-timeout', 'jquery.autocomplete'],
       $.ajax({
         url: '/mute',
         type: 'DELETE',
-        data: { user_id: id, _csrf: csrf },
+        data: { user_id: id, username: username, _csrf: csrf },
         dataType: 'json',
         cache: false
       }).done(function() {
@@ -506,17 +512,6 @@ define(['jquery', 'version-timeout', 'jquery.autocomplete'],
     getOlderPosts: function(postId) {
       isFragment = true;
       setMessage('/paginated/feed/' + userId + '/' + postId, 'GET', true);
-    },
-
-    getBFFs: function(callback) {
-      $.ajax({
-        url: '/my/bffs',
-        type: 'GET',
-        dataType: 'json',
-        cache: false
-      }).done(function(data) {
-        callback(data.usernames);
-      });
     }
   };
 

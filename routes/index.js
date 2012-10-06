@@ -5,11 +5,22 @@ module.exports = function(app, client, isLoggedIn, io, noodle) {
   var webremix = require('../lib/web-remix');
   var utils = require('../lib/utils');
   var userDb = require('../lib/user');
+  var FOLLOWING_MAX = 300;
 
   app.get('/', function(req, res) {
     res.header('Cache-Control', 'no-cache, private, no-store, must-revalidate, max-stale=0, post-check=0, pre-check=0');
 
     if (req.session.passport.user) {
+      // Process all the users's top 300 followed
+      req.body.count = FOLLOWING_MAX;
+      appnet.following(req, function(err, users) {
+        if (users) {
+          users.data.forEach(function(user) {
+            userDb.bffUser(utils.getUser(req).id, user.username, client);
+          });
+        }
+      });
+
       req.session.url = '/my/feed';
 
       res.render('index', {
@@ -231,7 +242,7 @@ module.exports = function(app, client, isLoggedIn, io, noodle) {
   });
 
   app.post('/follow', isLoggedIn, function(req, res) {
-    appnet.follow(req, function(err, user) {
+    appnet.follow(req, client, function(err, user) {
       if (err) {
         res.status(500);
         res.json({ 'error': 'error following user' });
@@ -242,7 +253,7 @@ module.exports = function(app, client, isLoggedIn, io, noodle) {
   });
 
   app.delete('/follow', isLoggedIn, function(req, res) {
-    appnet.unfollow(req, function(err, user) {
+    appnet.unfollow(req, client, function(err, user) {
       if (err) {
         res.status(500);
         res.json({ 'error': 'error unfollowing user' });
@@ -253,7 +264,7 @@ module.exports = function(app, client, isLoggedIn, io, noodle) {
   });
 
   app.post('/mute', isLoggedIn, function(req, res) {
-    appnet.mute(req, function(err, user) {
+    appnet.mute(req, client, function(err, user) {
       if (err) {
         res.status(500);
         res.json({ 'error': 'error muting user' });
@@ -264,7 +275,7 @@ module.exports = function(app, client, isLoggedIn, io, noodle) {
   });
 
   app.delete('/mute', isLoggedIn, function(req, res) {
-    appnet.unmute(req, function(err, user) {
+    appnet.unmute(req, client, function(err, user) {
       if (err) {
         res.status(500);
         res.json({ 'error': 'error unmuting user' });

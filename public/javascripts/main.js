@@ -9,8 +9,8 @@ requirejs.config({
   }
 });
 
-define(['jquery', 'appnet'],
-  function($, appnet) {
+define(['jquery', 'appnet', 'friends'],
+  function($, appnet, friends) {
 
   var url = $('body').data('url');
   var tabs = $('ol.tabs');
@@ -29,9 +29,9 @@ define(['jquery', 'appnet'],
   var currentScrollTop = '';
   var win = $(window);
   var csrf = write.find('input[name="_csrf"]').val();
-  var messageboxes = write.find('textarea');
 
   var CHAR_MAX = 256;
+  var TAB_KEYCODE = 9;
 
   var resetTab = function(self, callback) {
     self.siblings().removeClass('selected');
@@ -179,11 +179,11 @@ define(['jquery', 'appnet'],
     if (self.hasClass('on')) {
       self.removeClass('on');
       self.text('Follow');
-      appnet.unfollow(self.parent().data('userid'), csrf);
+      appnet.unfollow(self.parent().data('userid'), self.parent().data('username'), csrf);
     } else {
       self.addClass('on');
       self.text('Unfollow');
-      appnet.follow(self.parent().data('userid'), csrf);
+      appnet.follow(self.parent().data('userid'), self.parent().data('username'), csrf);
     }
   });
 
@@ -192,11 +192,11 @@ define(['jquery', 'appnet'],
     if (self.hasClass('on')) {
       self.removeClass('on');
       self.text('Mute');
-      appnet.unmute(self.parent().data('userid'), csrf);
+      appnet.unmute(self.parent().data('userid'), self.parent().data('username'), csrf);
     } else {
       self.addClass('on');
       self.text('Unmute');
-      appnet.mute(self.parent().data('userid'), csrf);
+      appnet.mute(self.parent().data('userid'), self.parent().data('username'), csrf);
     }
   });
 
@@ -235,39 +235,11 @@ define(['jquery', 'appnet'],
   write.find('textarea').keyup(function() {
     var self = $(this);
     checkCharLimit(self.val());
-    checkBFFs(self.val());
+    friends.getBFFs(self.val().trim().toLowerCase());
     if (self.val().trim().length === 0) {
       write.find('#reply_to').val('');
     }
   });
-
-  /* @username autocomplete
-   * Note: This pulls all your BFFs once and never again. We might want
-   * change that later.
-   */
-  var checkBFFs = function(content) {
-    if (messageboxes.length > 0) {
-      appnet.getBFFs(function(usernames) {
-        // prepend '@' to every username
-        for(var i = 0, l = usernames.length; i < l; i ++) {
-          usernames[i] = '@' + usernames[i];
-        }
-
-        // set up the automplete plugin
-        messageboxes.each(function() {
-          var textarea = $(this);
-
-          textarea.autocomplete({
-            delimiter: /\s+/,
-            onSelect: function() {
-              textarea.focus();
-            },
-            lookup: usernames
-          });
-        });
-      });
-    }
-  };
 
   write.submit(function(ev) {
     ev.preventDefault();
@@ -281,4 +253,8 @@ define(['jquery', 'appnet'],
     return false;
   });
 
+  write.on('click', '#suggestions li', function() {
+    var self = $(this);
+    friends.setUser(self);
+  });
 });
