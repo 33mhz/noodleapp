@@ -4,7 +4,8 @@
     "authPort": 3000,
     "session_secret": "secret",
     "session_cookie": "session_your_cookie_name",
-    "redis_db": 10,
+    "redis_db": 8,
     "appnet_consumer_key": "appnet_key",
-    "appnet_consumer_secret": "appnet_secret"
+    "appnet_consumer_secret": "appnet_secret",
+    "redis_test": 8
 }

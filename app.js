@@ -43,9 +43,7 @@ passport.use(new AppDotNetStrategy({
   },
   function(accessToken, refreshToken, profile, done) {
     process.nextTick(function (err) {
-      if (profile.access_token) {
-        profile.access_token = accessToken;
-      } else {
+      if (!profile.access_token) {
         profile.access_token = accessToken;
       }
       return done(err, profile);
