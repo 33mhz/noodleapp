@@ -193,7 +193,7 @@ describe('appnet', function() {
 
     it('returns user starred', function(done) {
       var scope = nock(APPNET_URL)
-        .get('/stream/0/users/1/stars?access_token=1&before_id=1')
+        .get('/stream/0/users/1/stars?access_token=1&before_id=1&include_deleted=0')
         .reply(200, POST_JSON);
       appnet.userStarred(req, client, function(err, resp) {
         resp.data[0].id.should.equal('1')
@@ -247,7 +247,7 @@ describe('appnet', function() {
     it('returns paginated user starred posts', function(done) {
       req.session.url = '/user/starred';
       var scope = nock(APPNET_URL)
-        .get('/stream/0/users/1/stars?access_token=1&before_id=1')
+        .get('/stream/0/users/1/stars?access_token=1&before_id=1&include_deleted=0')
         .reply(200, POST_JSON);
       appnet.paginatedFeed(req, client, function(err, resp) {
         resp.data[0].id.should.equal('1')
