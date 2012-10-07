@@ -766,6 +766,10 @@ ol.messages > li p {
     width: 520px;
 }
 
+ol.message-summary > li {
+    border-bottom: 1px dotted #eee;
+}
+
 ol.messages > li p a, #overlay .message-summary li p a {
     color: #20c2c0;
     text-decoration: none;
@@ -849,17 +853,17 @@ img.hush {
 }
 
 #suggestions {
-    top: 108px;
     left: 20px;
     position: absolute;
+    top: 106px;
     width: 250px;
     z-index: 4;
 }
 
 #suggestions li {
-    border: 1px solid #eee;
-    background: #fff;
-    color: #333;
+    border-bottom: 1px solid #7be8e9;
+    background: #90f8f9;
+    color: #111;
     cursor: pointer;
     font-size: 15px;
     max-height: 300px;
@@ -868,8 +872,13 @@ img.hush {
     text-align: left;
 }
 
+#suggestions li:last-child {
+    border-bottom: 0;
+}
+
 #suggestions li:hover {
-    background: #eee;
+    background: #111;
+    color: #eee;
 }
 
 @media screen and (-webkit-min-device-pixel-ratio: 2), screen and (min--moz-device-pixel-ratio: 2), (min-resolution: 2dppx) {

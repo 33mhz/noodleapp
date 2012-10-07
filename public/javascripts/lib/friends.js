@@ -33,7 +33,7 @@ define(['jquery'],
 
         // Add a username if it has a wildcard match
         for (var i = 0; i < usernamesArr.length; i ++) {
-          if (usernamesArr[i].indexOf(lastUser) > -1) {
+          if (usernamesArr[i].indexOf(lastUser) === 0) {
             selectedUsers[usernamesArr[i]] = usernamesArr[i];
           } else {
             delete selectedUsers[usernamesArr[i]];
