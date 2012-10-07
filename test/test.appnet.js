@@ -193,7 +193,7 @@ describe('appnet', function() {
 
     it('returns user starred', function(done) {
       var scope = nock(APPNET_URL)
-        .get('/stream/0/users/1/stars?access_token=1&since_id=1&before_id=1&include_deleted=0')
+        .get('/stream/0/users/1/stars?access_token=1&before_id=1')
         .reply(200, POST_JSON);
       appnet.userStarred(req, client, function(err, resp) {
         resp.data[0].id.should.equal('1')
@@ -239,7 +239,7 @@ describe('appnet', function() {
         .get('/stream/0/users/1/mentions?access_token=1&since_id=&before_id=1&include_deleted=0')
         .reply(200, POST_JSON);
       appnet.paginatedFeed(req, client, function(err, resp) {
-        resp[0].id.should.equal('1')
+        resp.data[0].id.should.equal('1')
         done();
       });
     });
@@ -247,10 +247,10 @@ describe('appnet', function() {
     it('returns paginated user starred posts', function(done) {
       req.session.url = '/user/starred';
       var scope = nock(APPNET_URL)
-        .get('/stream/0/users/1/stars?access_token=1&since_id=&before_id=1&include_deleted=0')
+        .get('/stream/0/users/1/stars?access_token=1&before_id=1')
         .reply(200, POST_JSON);
       appnet.paginatedFeed(req, client, function(err, resp) {
-        resp[0].id.should.equal('1')
+        resp.data[0].id.should.equal('1')
         done();
       });
     });
@@ -261,7 +261,7 @@ describe('appnet', function() {
         .get('/stream/0/posts/stream?access_token=1&since_id=&before_id=1&include_deleted=0')
         .reply(200, POST_JSON);
       appnet.paginatedFeed(req, client, function(err, resp) {
-        resp[0].id.should.equal('1')
+        resp.data[0].id.should.equal('1')
         done();
       });
     });

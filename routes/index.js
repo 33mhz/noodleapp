@@ -106,7 +106,7 @@ module.exports = function(app, client, isLoggedIn, io, noodle) {
         res.status(500);
         res.json({ 'error': 'error retrieving mentions' });
       } else {
-        utils.generateFeed(req, recentMessages.data, client, false, function(messages) {
+        utils.generateFeed(req, recentMessages, client, false, function(messages) {
           res.json({ messages: messages });
         });
       }
@@ -123,7 +123,7 @@ module.exports = function(app, client, isLoggedIn, io, noodle) {
         res.status(500);
         res.json({ 'error': 'error retrieving starred' });
       } else {
-        utils.generateFeed(req, recentMessages.data, client, false, function(messages) {
+        utils.generateFeed(req, recentMessages, client, false, function(messages) {
           res.json({ messages: messages });
         });
       }
@@ -138,7 +138,7 @@ module.exports = function(app, client, isLoggedIn, io, noodle) {
         res.status(500);
         res.json({ 'error': 'error retrieving your personal feed' });
       } else {
-        utils.generateFeed(req, recentMessages.data, client, false, function(messages) {
+        utils.generateFeed(req, recentMessages, client, false, function(messages) {
           res.json({ messages: messages });
         });
       }
@@ -313,7 +313,7 @@ module.exports = function(app, client, isLoggedIn, io, noodle) {
         res.status(500);
         res.json({ 'error': 'error retrieving thread' });
       } else {
-        utils.generateFeed(req, recentMessages.data, client, false, function(messages) {
+        utils.generateFeed(req, recentMessages, client, false, function(messages) {
           res.json({ messages: messages });
         });
       }
@@ -326,7 +326,7 @@ module.exports = function(app, client, isLoggedIn, io, noodle) {
         res.status(500);
         res.json({ 'error': 'error retrieving tagged posts' });
       } else {
-        utils.generateFeed(req, recentMessages.data, client, false, function(messages) {
+        utils.generateFeed(req, recentMessages, client, false, function(messages) {
           res.json({ messages: messages });
         });
       }

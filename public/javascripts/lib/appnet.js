@@ -4,10 +4,10 @@ define(['jquery', 'version-timeout', 'friends'],
   function ($, versionTimeout, friends) {
 
   var messages = $('ol.messages');
-  var currentFeed = '/my/feed';
   var myFeed = $('.my-feed');
   var overlay = $('#overlay');
   var tabs = $('ol.tabs');
+  var currentFeed = tabs.find('li.selected').data('url');
   var userListMeta = $('<ol class="avatars"></ol>');
   var userId = messages.data('userid');
   var sinceId = null;
@@ -40,11 +40,11 @@ define(['jquery', 'version-timeout', 'friends'],
     var diff = (Date.now() - date) / 1000;
     var dayDiff = Math.floor(diff / 86400);
 
-    if (isNaN(dayDiff) || dayDiff < 0) {
+    if (isNaN(dayDiff)) {
       return '?';
     }
 
-    if (dayDiff === 0) {
+    if (dayDiff <= 0) {
       if (diff < 60) {
         return '< 1m';
       } else if (diff < 3600) {
@@ -55,6 +55,20 @@ define(['jquery', 'version-timeout', 'friends'],
     } else {
       return dayDiff + 'd';
     }
+  };
+
+  var serverRequest = function(url, type, data, callback) {
+    $.ajax({
+      url: url,
+      type: type,
+      data: data,
+      dataType: 'json',
+      cache: false
+    }).always(function(data) {
+      if (callback) {
+        callback();
+      }
+    });
   };
 
   var setFollow = function(url, userId) {
@@ -80,6 +94,40 @@ define(['jquery', 'version-timeout', 'friends'],
       userList.append('<li class="close">Close</li>');
       overlay.html(userList);
     });
+  };
+
+  var generatePostItem = function(message, threadAction, isStarred, isRepost, isDeletable, detailExtras) {
+    var actions = '';
+    if (threadAction.length > 0 || isStarred.length > 0 || isRepost.length > 0 || isDeletable.length > 0) {
+      actions = '<ol class="actions">' + threadAction + isStarred + '<li class="reply"></li>' +
+      isRepost + isDeletable + '</ol>';
+    }
+    return $('<li class="message-item" data-mentions="" data-id="' +
+      message.id + '" ' + 'data-username="' + message.username + '" data-minid="' + message.min_id + '">' +
+      '<div class="meta"><a href="" class="who" title=""><img src=""></a>' +
+      '<div class="details"><a href="" class="username"></a><time data-created=""></time>' +
+      actions + '</div></div><p></p>' + detailExtras + '</li>');
+  };
+
+  var setMessageMetadata = function(messageItem, message) {
+    // user's profile page
+    message.find('a.who')
+      .attr('title', messageItem.name)
+      .attr('href', '/user/' + messageItem.username);
+    // user's full name
+    message.find('a.username')
+      .attr('href', '/user/' + messageItem.username)
+      .text(messageItem.name);
+    // time
+    message.find('time')
+      .text(dateDisplay(messageItem.created_at))
+      .attr('data-created', messageItem.created_at);
+    // user's avatar
+    message.find('a.who img').attr('src', messageItem.user);
+    // user's message
+    message.find('p').html(messageItem.message.replace(/\n/gm, '<br>'));
+
+    return message;
   };
 
   var setPost = function(data, url, showDetails, isDetailOverlay, ascending, callback) {
@@ -110,27 +158,8 @@ define(['jquery', 'version-timeout', 'friends'],
                 '<div id="avatar-pings"></div><div id="thread-detail"></div>';
             }
 
-            var message = $('<li class="message-item" data-id="' +
-              data.messages[i].id + '" ' + 'data-username="' + data.messages[i].username + '">' +
-              '<div class="meta"><a href="" class="who" title=""><img src=""></a>' +
-              '<div class="details"><a href="" class="username"></a><time data-created=""></time>' +
-              '</ol></div></div><p></p>' + detailExtras + '</li>');
-            // user's profile page
-            message.find('a.who')
-              .attr('title', data.messages[i].name)
-              .attr('href', '/user/' + data.messages[i].username);
-            // user's full name
-            message.find('a.username')
-              .attr('href', '/user/' + data.messages[i].username)
-              .text(data.messages[i].name);
-            // time
-            message.find('time')
-              .text(dateDisplay(data.messages[i].created_at))
-              .attr('data-created', data.messages[i].created_at);
-            // user's avatar
-            message.find('a.who img').attr('src', data.messages[i].user);
-            // user's message
-            message.find('p').html(data.messages[i].message);
+            var message = generatePostItem(data.messages[i], '', '', '', '', detailExtras);
+            message = setMessageMetadata(data.messages[i], message);
 
             if (showDetails) {
               message.find('p').append('<span>Posted from ' + data.messages[i].appSource + '</span>');
@@ -162,7 +191,7 @@ define(['jquery', 'version-timeout', 'friends'],
     });
   };
 
-  var setMessage = function(url, type, paginated) {
+  var setMessage = function(url, type, paginated, isStarredFeed) {
     currentFeed = url;
 
     if (!loggedIn) {
@@ -175,7 +204,11 @@ define(['jquery', 'version-timeout', 'friends'],
     }
 
     if (paginated) {
-      beforeId = parseInt(url.split('/paginated/feed/')[1].split('/')[1], 10);
+      if (isStarredFeed) {
+        beforeId = parseInt(messages.find('li.message-item').last().data('minid'), 10);
+      } else {
+        beforeId = parseInt(url.split('/paginated/feed/')[1].split('/')[1], 10);
+      }
       messages.find('#paginated')
         .addClass('loading');
     }
@@ -215,30 +248,12 @@ define(['jquery', 'version-timeout', 'friends'],
               isStarred = '<li class="star on"></li>';
             }
 
-            var message = $('<li class="message-item" data-mentions="" data-id="' +
-              data.messages[i].id + '" ' + 'data-username="' + data.messages[i].username + '">' +
-              '<div class="meta"><a href="" class="who" title=""><img src=""></a>' +
-              '<div class="details"><a href="" class="username"></a><time data-created=""></time>' +
-              '<ol class="actions">' + threadAction + isStarred + '<li class="reply"></li>' +
-              isRepost + isDeletable + '</ol></div></div><p></p></li>');
+            var message = generatePostItem(data.messages[i], threadAction, isStarred,
+              isRepost, isDeletable, '');
+
             // user mentions in this post
             message.attr('data-mentions', data.messages[i].mentions);
-            // user's profile page
-            message.find('a.who')
-              .attr('title', data.messages[i].name)
-              .attr('href', '/user/' + data.messages[i].username);
-            // user's full name
-            message.find('a.username')
-              .attr('href', '/user/' + data.messages[i].username)
-              .text(data.messages[i].name);
-            // time
-            message.find('time')
-              .text(dateDisplay(data.messages[i].created_at))
-              .attr('data-created', data.messages[i].created_at);
-            // user's avatar
-            message.find('a.who img').attr('src', data.messages[i].user);
-            // user's message
-            message.find('p').html(data.messages[i].message.replace(/\n/gm, '<br>'));
+            message = setMessageMetadata(data.messages[i], message);
 
             if (paginated) {
               messages.append(message);
@@ -275,10 +290,10 @@ define(['jquery', 'version-timeout', 'friends'],
 
       isFragment = true;
 
-      pollMessages = setTimeout(function() {
+      pollMessages = setTimeout(function(currentFeed, type) {
         versionTimeout.checkVersion();
         currentFeed = tabs.find('li.selected').data('url');
-        setMessage(currentFeed, type, false);
+        setMessage(currentFeed, type, false, isStarredFeed);
         updateTime();
       }, POLL_TIMEOUT);
     });
@@ -331,144 +346,89 @@ define(['jquery', 'version-timeout', 'friends'],
     getMyFeed: function() {
       isFragment = false;
       sinceId = null;
-      setMessage('/my/feed', 'GET', false);
+      setMessage('/my/feed', 'GET', false, false);
     },
 
     getUserPosts: function() {
       isFragment = false;
       sinceId = null;
-      setMessage('/user/posts/' + userId, 'GET', false);
+      setMessage('/user/posts/' + userId, 'GET', false, false);
     },
 
     getUserMentions: function() {
       isFragment = false;
       sinceId = null;
-      setMessage('/user/mentions/' + userId, 'GET', false);
+      setMessage('/user/mentions/' + userId, 'GET', false, false);
     },
 
     getUserStarred: function() {
       isFragment = false;
       sinceId = null;
-      setMessage('/user/starred/' + userId, 'GET', false);
+      setMessage('/user/starred/' + userId, 'GET', false, true);
     },
 
     getGlobalFeed: function() {
       isFragment = false;
       sinceId = null;
-      setMessage('/global/feed', 'GET');
+      setMessage('/global/feed', 'GET', false, false);
     },
 
     starMessage: function(id, csrf) {
       isFragment = true;
-      $.ajax({
-        url: '/star',
-        type: 'POST',
-        data: { post_id: id, _csrf: csrf },
-        dataType: 'json',
-        cache: false
-      });
+      serverRequest('/star', 'POST', { post_id: id, _csrf: csrf });
     },
 
     unstarMessage: function(id, csrf) {
       isFragment = true;
-      $.ajax({
-        url: '/star',
-        type: 'DELETE',
-        data: { post_id: id, _csrf: csrf },
-        dataType: 'json',
-        cache: false
-      });
+      serverRequest('/star', 'DELETE', { post_id: id, _csrf: csrf });
     },
 
     repostMessage: function(id, csrf) {
       isFragment = true;
-      $.ajax({
-        url: '/repost',
-        type: 'POST',
-        data: { post_id: id, _csrf: csrf },
-        dataType: 'json',
-        cache: false
-      }).done(function() {
+      serverRequest('/repost', 'POST', { post_id: id, _csrf: csrf }, function() {
         flashMessage('Reposted!');
       });
     },
 
     unrepostMessage: function(id, csrf) {
       isFragment = true;
-      $.ajax({
-        url: '/repost',
-        type: 'DELETE',
-        data: { post_id: id, _csrf: csrf },
-        dataType: 'json',
-        cache: false
-      });
+      serverRequest('/repost', 'DELETE', { post_id: id, _csrf: csrf });
     },
 
     follow: function(id, username, csrf) {
       isFragment = true;
-      $.ajax({
-        url: '/follow',
-        type: 'POST',
-        data: { user_id: id, username: username, _csrf: csrf },
-        dataType: 'json',
-        cache: false
-      }).done(function() {
+      serverRequest('/follow', 'POST', { user_id: id, username: username, _csrf: csrf }, function() {
         flashMessage('Followed!');
       });
     },
 
     unfollow: function(id, username, csrf) {
       isFragment = true;
-      $.ajax({
-        url: '/follow',
-        type: 'DELETE',
-        data: { user_id: id, username: username, _csrf: csrf },
-        dataType: 'json',
-        cache: false
-      }).done(function() {
+      serverRequest('/follow', 'DELETE', { user_id: id, username: username, _csrf: csrf }, function() {
         flashMessage('Unfollowed');
       });
     },
 
-    mute: function(id, csrf) {
+    mute: function(id, username, csrf) {
       isFragment = true;
-      $.ajax({
-        url: '/mute',
-        type: 'POST',
-        data: { user_id: id, username: username, _csrf: csrf },
-        dataType: 'json',
-        cache: false
-      }).done(function() {
+      serverRequest('/mute', 'POST', { user_id: id, username: username, _csrf: csrf }, function() {
         flashMessage('Muted!');
       });
     },
 
-    unmute: function(id, csrf) {
+    unmute: function(id, username, csrf) {
       isFragment = true;
-      $.ajax({
-        url: '/mute',
-        type: 'DELETE',
-        data: { user_id: id, username: username, _csrf: csrf },
-        dataType: 'json',
-        cache: false
-      }).done(function() {
+      serverRequest('/mute', 'DELETE', { user_id: id, username: username, _csrf: csrf }, function() {
         flashMessage('Unmuted!');
       });
     },
 
     postMessage: function(form) {
       isFragment = true;
-      $.ajax({
-        url: '/post',
-        type: 'POST',
-        data: form.serialize(),
-        dataType: 'json',
-        cache: false
-
-      }).done(function(data) {
+      serverRequest('/post', 'POST', form.serialize(), function() {
         // for now let's only show the new message if we're on 'my feed'
         if (tabs.find('.my-feed').hasClass('selected')) {
-          setMessage('/my/feed', 'GET', false);
+          setMessage('/my/feed', 'GET', false, false);
           sinceId = data.messages[0].id;
         }
       });
@@ -476,13 +436,7 @@ define(['jquery', 'version-timeout', 'friends'],
 
     deleteMessage: function(postId, csrf) {
       isFragment = true;
-      $.ajax({
-        url: '/post',
-        type: 'DELETE',
-        data: { post_id: postId, _csrf: csrf },
-        dataType: 'json',
-        cache: false
-      });
+      serverRequest('/post', 'DELETE', { post_id: postId, _csrf: csrf });
     },
 
     showFollowers: function() {
@@ -511,7 +465,11 @@ define(['jquery', 'version-timeout', 'friends'],
 
     getOlderPosts: function(postId) {
       isFragment = true;
-      setMessage('/paginated/feed/' + userId + '/' + postId, 'GET', true);
+      var isStarredFeed = false;
+      if (tabs.find('.selected').hasClass('user-starred')) {
+        isStarredFeed = true;
+      }
+      setMessage('/paginated/feed/' + userId + '/' + postId, 'GET', true, isStarredFeed);
     }
   };
 

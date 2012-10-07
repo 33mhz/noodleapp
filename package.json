@@ -1,6 +1,6 @@
 {
   "name": "noodleapp",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "private": true,
   "engines": {
     "node": ">= 0.8.19",
@@ -10,12 +10,11 @@
     "connect": ">= 2.4.5",
     "express": ">= 2.5.11",
     "jade": ">= 0.27.2",
-    "request": "git://github.com/mikeal/request.git",
+    "request": ">= 2.11.5",
     "nconf": "git://github.com/flatiron/nconf.git",
     "passport": ">= 0.1.12",
-    "passport-appdotnet": "git://github.com/ednapiranha/passport-appdotnet.git",
+    "passport-appdotnet": ">= 0.1.1",
     "connect-redis": ">= 1.4.4",
-    "express-messages": ">= 0.0.2",
     "socket.io": "git://github.com/LearnBoost/socket.io.git",
     "hiredis": "0.1.14",
     "redis": "0.7.2"

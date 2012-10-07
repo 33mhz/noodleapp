@@ -32,6 +32,6 @@ block content
     ol.tabs
       li.user-posts.selected(data-url="/user/posts") Recent
       li.user-mentions(data-url="/user/mentions/#{user.id}") Mentions
-      li.user-starred(data-url="/user/starred") Starred
+      li.user-starred(data-url="/user/starred/#{user.id}") Starred
 
     ol.messages(data-userid='#{user.id}')
