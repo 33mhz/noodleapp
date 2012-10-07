@@ -8,12 +8,6 @@ define(['jquery'],
   var selectedUsers = {};
   var write = $('#write');
 
-  /* Only return 10 results - we don't want to return unnecessary
-   * content back if it will just be filtered as more characters
-   * are typed
-   */
-  var SEARCH_MAX = 10;
-
   var self = {
     setBFFs: function() {
       $.ajax({
@@ -38,7 +32,7 @@ define(['jquery'],
         lastUser = lastUser.split('@')[1];
 
         // Add a username if it has a wildcard match
-        for (var i = 0; i < SEARCH_MAX; i ++) {
+        for (var i = 0; i < usernamesArr.length; i ++) {
           if (usernamesArr[i].indexOf(lastUser) > -1) {
             selectedUsers[usernamesArr[i]] = usernamesArr[i];
           } else {
