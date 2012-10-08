@@ -5,6 +5,7 @@ module.exports = function(app, configurations, express) {
   var RedisStore = require('connect-redis')(express);
   var nconf = require('nconf');
   var passport = require('passport');
+  var requirejs = require('requirejs');
 
   nconf.argv().env().file({ file: 'local.json' });
 
@@ -16,9 +17,11 @@ module.exports = function(app, configurations, express) {
     app.set('view options', { layout: false });
     app.use(express.bodyParser());
     app.use(express.methodOverride());
-    app.use(express.static(__dirname + '/public'));
     if (!process.env.NODE_ENV) {
       app.use(express.logger('dev'));
+      app.use(express.static(__dirname + '/public'));
+    } else {
+      app.use(express.static(__dirname + '/public_build'));
     }
     app.use(express.cookieParser());
     app.use(express.session({
@@ -46,7 +49,8 @@ module.exports = function(app, configurations, express) {
     });
   });
 
-  app.configure('development, test', function(){
+  app.configure('development, test', function() {
+    app.use(express.static(__dirname + '/public'));
     app.use(express.errorHandler({ dumpExceptions: true, showStack: true }));
   });
 
@@ -58,9 +62,23 @@ module.exports = function(app, configurations, express) {
     app.set('redisnoodleapp', nconf.get('redis_test'));
   });
 
-  app.configure('production', function(){
+  app.configure('prod', function(){
     app.use(express.errorHandler());
     app.set('redisnoodleapp', nconf.get('redis_prod'));
+
+    requirejs.optimize({
+      appDir: 'public/',
+      baseUrl: 'javascripts/',
+      enforceDefine: true,
+      dir: "public_build",
+      modules: [
+        {
+          name: 'main'
+        }
+      ]
+    }, function() {
+      console.log('Successfully optimized javascript');
+    });
   });
 
   return app;

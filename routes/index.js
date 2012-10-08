@@ -27,13 +27,15 @@ module.exports = function(app, client, isLoggedIn, io, noodle) {
         pageType: 'index',
         session: utils.getUser(req),
         csrf: req.session._csrf,
-        url: req.session.url || '/my/feed'
+        url: req.session.url || '/my/feed',
+        env: process.env.NODE_ENV
       });
     } else {
       res.render('index', {
         pageType: 'index',
         url: '',
-        session: false
+        session: false,
+        env: process.env.NODE_ENV
       });
     }
   });
@@ -68,7 +70,8 @@ module.exports = function(app, client, isLoggedIn, io, noodle) {
               session: utils.getUser(req),
               user: user,
               url: req.session.url || '/my/feed',
-              description: description
+              description: description,
+              env: process.env.NODE_ENV
             });
           } else {
             res.render('profile', {
@@ -76,7 +79,8 @@ module.exports = function(app, client, isLoggedIn, io, noodle) {
               username: req.params.username,
               user: user,
               url: null,
-              description: description
+              description: description,
+              env: process.env.NODE_ENV
             });
           }
         }
