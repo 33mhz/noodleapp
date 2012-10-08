@@ -112,7 +112,7 @@ define(['jquery', 'version-timeout', 'friends'],
   var setMessageMetadata = function(messageItem, message) {
     // user's profile page
     message.find('a.who')
-      .attr('title', messageItem.name)
+      .attr('title', messageItem.name + ' @' + messageItem.username)
       .attr('href', '/user/' + messageItem.username);
     // user's full name
     message.find('a.username')

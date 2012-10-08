@@ -29,6 +29,7 @@ html
 
       if session
         a(href='/logout', id='logout', title='Sign out') Log out
+        a(href='/user/#{session.username}', id='profile-link', title='Your profile') Profile
 
     #dashboard
       a(name='#top')

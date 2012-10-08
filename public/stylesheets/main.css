@@ -73,8 +73,9 @@ body.fixed {
 }
 
 header {
-    background: #eee;
-    border-bottom: 1px solid #eee;
+    background: #f9f9f9;
+    border-bottom: 1px solid #fff;
+    box-shadow: #999 -2px 0 3px;
     color: #eee;
     font-family: 'Oswald';
     opacity: 0.8;
@@ -101,12 +102,7 @@ header a.home {
     width: 25px;
 }
 
-header a.home:hover {
-    opacity: 0.5;
-}
-
-header a#logout {
-    background-image: url('/images/logout.png');
+header a#logout, header a#profile-link {
     float: right;
     font-size: 1px;
     height: 25px;
@@ -115,7 +111,15 @@ header a#logout {
     width: 25px;
 }
 
-header a#logout:hover {
+header a#logout {
+    background-image: url('/images/logout.png');
+}
+
+header a#profile-link {
+    background-image: url('/images/profile.png');
+}
+
+header a:hover {
     opacity: 0.4;
 }
 
@@ -162,7 +166,6 @@ header a#logout:hover {
 #overlay > ol > li, #thread-detail > ol > li {
     clear: both;
     float: left;
-    margin-bottom: 5px;
     padding: 10px 0;
     width: 100%;
 }
@@ -184,6 +187,7 @@ header a#logout:hover {
 
 ol.messages #paginated {
     background-color: #aaa;
+    border: 0;
     opacity: 0.7;
     text-indent: none;
 }
@@ -256,7 +260,7 @@ ol.messages #paginated.loading {
     padding-left: 10px;
 }
 
-#overlay #thread-detail .message-summary li {
+#overlay .message-summary li.message-item {
     border-top: 1px dotted #eee;
 }
 
@@ -318,7 +322,7 @@ ol.messages #paginated.loading {
     margin: 15px 2px;
     padding: 5px 10px 4px 15px;
     text-transform: uppercase;
-    width: 27.5%;
+    width: 27.65%;
 }
 
 #overlay li .info li span {
@@ -343,7 +347,7 @@ ol.messages #paginated.loading {
 }
 
 .dashboard-content {
-    background-color: #f9f9f9;
+    background-color: #f7f7f7;
     border-left: 1px solid #eee;
     border-right: 1px solid #eee;
     float: left;
@@ -556,10 +560,10 @@ section.public li a {
 }
 
 ol.tabs li {
-    background-color: #ccc;
+    background-color: #ddd;
     border-top-left-radius: 5px;
     border-top-right-radius: 5px;
-    color: #aaa;
+    color: #bbb;
     padding: 6px 12px 5px;
 }
 
@@ -585,7 +589,12 @@ ol.tabs li:first-child {
     margin-left: 0;
 }
 
-ol.tabs li:hover, ol.tabs li.selected, .action-buttons li:hover {
+ol.tabs li.selected, ol.tabs li.selected:hover {
+    background-color: #fff;
+    color: #888;
+}
+
+ol.tabs li:hover, .action-buttons li:hover {
     background-color: #111;
     color: #eee;
 }
@@ -607,7 +616,7 @@ ol.messages > li.loading {
 ol.messages > li {
     background-color: #fff;
     border-bottom: 1px dotted #eee;
-    box-shadow: #f1f1f1 3px 1px 2px;
+    box-shadow: #f1f1f1 3px 3px 2px;
     display: block;
     float: left;
     font-size: 13px;
@@ -766,10 +775,6 @@ ol.messages > li p {
     width: 520px;
 }
 
-ol.message-summary > li {
-    border-bottom: 1px dotted #eee;
-}
-
 ol.messages > li p a, #overlay .message-summary li p a {
     color: #20c2c0;
     text-decoration: none;
@@ -854,6 +859,7 @@ img.hush {
 
 #suggestions {
     left: 20px;
+    list-style-type: none;
     position: absolute;
     top: 106px;
     width: 250px;
@@ -861,12 +867,13 @@ img.hush {
 }
 
 #suggestions li {
-    border-bottom: 1px solid #7be8e9;
     background: #90f8f9;
     color: #111;
     cursor: pointer;
     font-size: 15px;
     max-height: 300px;
+    margin-bottom: 1px;
+    opacity: 0.95;
     overflow: hidden;
     padding: 6px 8px;
     text-align: left;
@@ -931,6 +938,12 @@ img.hush {
         background-image: url('/images/logout2x.png');
         background-size: auto 25px;
     }
+
+    header a#profile-link {
+        background-image: url('/images/profile2x.png');
+        background-size: auto 25px;
+    }
+}
 }
 
 @media only screen and (max-width: 599px) {

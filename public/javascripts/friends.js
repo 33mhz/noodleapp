@@ -26,7 +26,7 @@ define(['jquery'],
       var tokenized = usernameClip.split(/\s/);
       var lastUser = tokenized[tokenized.length - 1];
 
-      if (lastUser.length < 1) {
+      if (lastUser.length < 2) {
         userList.empty();
       } else if(lastUser.match(/@[A-Za-z0-9_-]+/gi)) {
         lastUser = lastUser.split('@')[1];

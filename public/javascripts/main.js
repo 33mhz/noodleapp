@@ -25,6 +25,7 @@ define(['jquery', 'appnet', 'friends'],
   var overlay = $('#overlay');
   var dashboard = $('.dashboard-content');
   var charLimit = $('#count');
+  var suggestions = $('#suggestions');
   var body = $('body');
   var currentScrollTop = '';
   var win = $(window);
@@ -229,6 +230,7 @@ define(['jquery', 'appnet', 'friends'],
 
   write.find('textarea').blur(function() {
     charLimit.removeClass('on');
+    suggestions.empty();
   });
 
   // Clear the reply_to id if this is empty
