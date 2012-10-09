@@ -268,7 +268,7 @@ ol.messages #paginated.loading {
     float: left;
     margin-left: 20px;
     text-align: left;
-    width: 400px;
+    width: 440px;
 }
 
 #overlay .message-summary li p {
@@ -956,8 +956,8 @@ img.hush {
     }
 
     #overlay .message-summary li .details {
-        margin-left: 10px;
-        width: 130px;
+        margin-left: 0;
+        width: 160px;
     }
 
     #overlay .meta .who > img {
