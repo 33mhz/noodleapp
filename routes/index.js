@@ -28,14 +28,14 @@ module.exports = function(app, client, isLoggedIn, io, noodle) {
         session: utils.getUser(req),
         csrf: req.session._csrf,
         url: req.session.url || '/my/feed',
-        env: process.env.NODE_ENV
+        username: utils.getUser(req).username
       });
     } else {
       res.render('index', {
         pageType: 'index',
         url: '',
         session: false,
-        env: process.env.NODE_ENV
+        username: ''
       });
     }
   });

@@ -146,15 +146,8 @@ describe('web-remix', function() {
     });
 
     it('returns a link for an https url', function(done) {
-      webRemix.generate('https://example.com', function(err, subject) {
-        subject.should.equal('<a href="https://example.com" target="_blank">https://example.com</a>');
-        done();
-      });
-    });
-
-    it('returns a link for an http url', function(done) {
-      webRemix.generate('http://example.com', function(err, subject) {
-        subject.should.equal('<a href="http://example.com" target="_blank">http://example.com</a>');
+      webRemix.generate('https://example.com/123/123/123/123', function(err, subject) {
+        subject.should.equal('<a href="https://example.com/123/123/123/123" target="_blank">https://example.com/123/123/123/123</a>');
         done();
       });
     });

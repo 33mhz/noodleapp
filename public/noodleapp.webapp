@@ -1,0 +1,16 @@
+{
+  "version": "0.5",
+  "name": "Noodleapp",
+  "default_locale": "en-US",
+  "icons": {
+    "72": "/images/logo-72.png",
+    "114": "/images/logo-114.png",
+    "128": "/images/logo-128.png"
+  },
+  "description": "A web client for app.net",
+  "launch_path": "/",
+  "developer": {
+    "url": "http://noodelapp.net",
+    "name": "Edna Piranha and friends"
+  }
+}
