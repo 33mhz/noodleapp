@@ -12,6 +12,7 @@ requirejs.config({
 define(['jquery', 'appnet', 'friends'],
   function($, appnet, friends) {
 
+  var body = $('body');
   var url = $('body').data('url');
   var tabs = $('ol.tabs');
   var userMentions = tabs.find('.user-mentions');
@@ -26,7 +27,6 @@ define(['jquery', 'appnet', 'friends'],
   var dashboard = $('.dashboard-content');
   var charLimit = $('#count');
   var suggestions = $('#suggestions');
-  var body = $('body');
   var currentScrollTop = '';
   var win = $(window);
   var csrf = write.find('input[name="_csrf"]').val();
@@ -230,7 +230,12 @@ define(['jquery', 'appnet', 'friends'],
 
   write.find('textarea').blur(function() {
     charLimit.removeClass('on');
-    suggestions.empty();
+  });
+
+  body.on('click', function(ev) {
+    if (!$(ev.target).hasClass('writeable')) {
+      suggestions.empty();
+    }
   });
 
   // Clear the reply_to id if this is empty

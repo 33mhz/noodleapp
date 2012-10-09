@@ -1,15 +1,29 @@
 /*global describe:true it:true */
 'use strict';
 
+var express = require('express');
+var configurations = module.exports;
+var app = express();
+var server = require('http').createServer(app);
 var webRemix = require('../lib/web-remix');
 var nock = require('nock');
 var should = require('should');
+var redis = require('redis');
+var client = redis.createClient();
 var qs = require('querystring');
 
+client.select(app.set('redisnoodleapp'), function(errDb, res) {
+  console.log('TEST database connection status: ', res);
+});
+
 describe('web-remix', function() {
+  after(function() {
+    client.flushdb();
+    console.log('cleared test database');
+  });
   describe('.generate',  function() {
     it('returns embed code for a youtu.be short url', function(done) {
-      webRemix.generate('http://youtu.be/5cazkHAHiPU', function(err, subject) {
+      webRemix.generate('http://youtu.be/5cazkHAHiPU', client, function(err, subject) {
         subject.should.equal('<div class="object-wrapper"><iframe width="530" height="298" src="//www.youtube.com/embed/5cazkHAHiPU?wmode=transparent" ' +
         'frameborder="0" allowfullscreen></iframe></div>');
         done();
@@ -17,7 +31,7 @@ describe('web-remix', function() {
     });
 
     it('returns embed code for a youtube normal url', function(done) {
-      webRemix.generate('http://www.youtube.com/watch?v=5cazkHAHiPU', function(err, subject) {
+      webRemix.generate('http://www.youtube.com/watch?v=5cazkHAHiPU', client, function(err, subject) {
         subject.should.equal('<div class="object-wrapper"><iframe width="530" height="298" src="//www.youtube.com/embed/5cazkHAHiPU?wmode=transparent" ' +
           'frameborder="0" allowfullscreen></iframe></div>');
         done();
@@ -25,7 +39,7 @@ describe('web-remix', function() {
     });
 
     it('returns embed code for a vimeo video url', function(done) {
-      webRemix.generate('http://vimeo.com/37872583', function(err, subject) {
+      webRemix.generate('http://vimeo.com/37872583', client, function(err, subject) {
         subject.should.equal('<div class="object-wrapper"><iframe src="//player.vimeo.com/video/37872583" width="530" height="298" ' +
           'frameborder="0" webkitAllowFullScreen mozallowfullscreen allowFullScreen></iframe></div>');
         done();
@@ -52,7 +66,7 @@ describe('web-remix', function() {
           '?utm_source=widget&amp;utm_medium=web&amp;utm_campaign=base_links&amp;utm_term=homepage_link" ' +
           'target="_blank" style="color:#02a0c7; font-weight:bold;"> Mixcloud</a></p><div style="clear:both; ' +
           'height:3px;"></div></div>' });
-      webRemix.generate('http://mixcloud.com/LuckyMe/25-jamie-vexd-sunday-walkman-mix/', function(err, subject) {
+      webRemix.generate('http://mixcloud.com/LuckyMe/25-jamie-vexd-sunday-walkman-mix/', client, function(err, subject) {
         subject.should.equal('<div class="object-wrapper"><div class="object-wrapper"><div><object width="300" height="300"><param name="movie" ' +
           'value="//www.mixcloud.com/media/swf/player/mixcloudLoader.swf?feed=http%3A%2F%2Fwww.mixcloud.com%2F' +
           'lazykiki%2Fode-to-concrete%2F&amp;embed_uuid=2a3c7546-7bd1-482b-809c-0a0fa0f39095&amp;stylecolor=&amp;' +
@@ -82,7 +96,7 @@ describe('web-remix', function() {
           'scrolling="no" width="100%"></iframe><a class="media-link" target="_blank"' +
           'href="http://soundcloud.com/skeptical/sets/tracks-576/">http://soundcloud.com/skeptical/sets' +
           '/tracks-576/</a>' });
-      webRemix.generate('http://soundcloud.com/skeptical/sets/tracks-576/', function(err, subject) {
+      webRemix.generate('http://soundcloud.com/skeptical/sets/tracks-576/', client, function(err, subject) {
         subject.should.equal('<div class="object-wrapper"><iframe width="100%" height="450" scrolling="no" frameborder="no" ' +
           'src="//w.soundcloud.com/player/?url=http%3A%2F%2Fapi.soundcloud.com%2Fplaylists%2F723408&show_artwork=true">' +
           '</iframe></div>');
@@ -101,7 +115,7 @@ describe('web-remix', function() {
           'scrolling="no" width="100%"></iframe><a class="media-link" target="_blank"' +
           'href="http://soundcloud.com/skeptical/sets/tracks-576/">http://soundcloud.com/skeptical/sets' +
           '/tracks-576/</a> test' });
-      webRemix.generate('http://soundcloud.com/skeptical/sets/tracks-576/ test #tag', function(err, subject) {
+      webRemix.generate('http://soundcloud.com/skeptical/sets/tracks-576/ test #tag', client, function(err, subject) {
         subject.should.equal('test <a href="/tagged/tag">#tag</a> <div class="object-wrapper"><iframe width="100%" height="450" scrolling="no" frameborder="no" ' +
           'src="//w.soundcloud.com/player/?url=http%3A%2F%2Fapi.soundcloud.com%2Fplaylists%2F723408&show_artwork=true">' +
           '</iframe></div>');
@@ -109,7 +123,7 @@ describe('web-remix', function() {
     });
 
     it('returns embed code for a rd.io short url', function(done) {
-      webRemix.generate('http://rd.io/i/QVME9DdeW1GL', function(err, subject) {
+      webRemix.generate('http://rd.io/i/QVME9DdeW1GL', client, function(err, subject) {
         subject.should.equal('<div class="object-wrapper"><iframe class="rdio" width="450" height="80" ' +
           'src="//rd.io/i/QVME9DdeW1GL" frameborder="0"></iframe></div>');
         done();
@@ -117,7 +131,7 @@ describe('web-remix', function() {
     });
 
     it('returns embed code for a rdio normal url', function(done) {
-      webRemix.generate('http://rdio.com/x/QVME9DdeW1GL', function(err, subject) {
+      webRemix.generate('http://rdio.com/x/QVME9DdeW1GL', client, function(err, subject) {
         subject.should.equal('<div class="object-wrapper"><iframe class="rdio" width="450" height="80" ' +
           'src="//rd.io/i/QVME9DdeW1GL" frameborder="0"></iframe></div>');
         done();
@@ -126,27 +140,27 @@ describe('web-remix', function() {
 
     it('returns image code for an img url', function() {
       webRemix.generate('http://3.bp.blogspot.com/_K_1LxF4TvhU/S7UUE6PYKiI/AAAAAAAADto/XfpdX2CIxqY/' +
-        's400/Riley+the+smiling+dog.jpg', function(err, subject) {
+        's400/Riley+the+smiling+dog.jpg', client, function(err, subject) {
         subject.should.equal('<div class="image-wrapper"><img src="http://3.bp.blogspot.com/_K_1LxF4TvhU/S7UUE6PYKiI/AAAAAAAADto/XfpdX2CIxqY/' +
           's400/Riley+the+smiling+dog.jpg"></div>');
       });
     });
 
     it('returns a regular link', function() {
-      webRemix.generate('http://3.bp.blogspot.com/Riley+the+smiling+dog.jpg/test', function(err, subject) {
+      webRemix.generate('http://3.bp.blogspot.com/Riley+the+smiling+dog.jpg/test', client, function(err, subject) {
         subject.should.equal('<a href="http://3.bp.blogspot.com/Riley+the+smiling+dog.jpg/test" target="_blank">http://3.bp.blogspot.com/Riley+the+smiling+dog.jpg/test</a>');
       });
     });
 
     it('returns image code for an instagr.am url', function() {
-      webRemix.generate('http://instagram.com/p/QFJJzTw8yS/', function(err, subject) {
+      webRemix.generate('http://instagram.com/p/QFJJzTw8yS/', client, function(err, subject) {
         subject.should.equal('<div class="image-wrapper"><a href="http://instagram.com/p/QFJJzTw8yS/">' +
           '<img src="http://instagr.am/p/QFJJzTw8yS/media/"/></a></div>');
       });
     });
 
     it('returns a link for an https url', function(done) {
-      webRemix.generate('https://example.com/123/123/123/123', function(err, subject) {
+      webRemix.generate('https://example.com/123/123/123/123', client, function(err, subject) {
         subject.should.equal('<a href="https://example.com/123/123/123/123" target="_blank">https://example.com/123/123/123/123</a>');
         done();
       });
@@ -154,7 +168,7 @@ describe('web-remix', function() {
 
     it('returns video for a video link', function(done) {
       var video = 'http://blah.com/video.ogv';
-      webRemix.generate(video, function(err, subject) {
+      webRemix.generate(video, client, function(err, subject) {
         subject.should.equal('<div class="object-wrapper"><video controls="controls" preload="none" autobuffer><source src="' + video +
           '" type="video/ogg; codecs="vp8, vorbis" /></video></div>');
         done();
@@ -163,7 +177,7 @@ describe('web-remix', function() {
 
     it('returns audio for an audio link', function(done) {
       var audio = 'http://blah.com/audio.ogg';
-      webRemix.generate(audio, function(err, subject) {
+      webRemix.generate(audio, client, function(err, subject) {
         subject.should.equal('<div class="object-wrapper"><audio controls="controls" preload="none" autobuffer><source src="' + audio +
           '" type="audio/ogg" /></audio></div>');
         done();
@@ -171,36 +185,48 @@ describe('web-remix', function() {
     });
 
     it('returns a regular link', function(done) {
-      var audio = 'http://blog.szynalski.com/2009/07/05/blind-testing-mp3-compression/';
-      webRemix.generate(audio, function(err, subject) {
+      var link = 'http://blog.szynalski.com/2009/07/05/blind-testing-mp3-compression/';
+      webRemix.generate(link, client, function(err, subject) {
         subject.should.equal('<a href="http://blog.szynalski.com/2009/07/05/blind-testing-mp3-compression/" target="_blank">http://blog.szynalski.com/2009/07/05/blind-testing-mp3-compression/</a>');
         done();
       });
     });
 
+    it('returns a short url as a long url', function(done) {
+      var link = 'bit.ly/123';
+      var scope = nock('bit.ly').get('/123').reply(200,
+          { html: 'http://somelongurl.com/123' });
+      webRemix.generate(link, client, function(err, subject) {
+        client.get('shorturl:http://bit.ly/123', function(err, resp) {
+          resp.should.equal('http://somelongurl.com/123');
+          done();
+        });
+      });
+    });
+
     it('returns the user link', function(done) {
-      webRemix.generate('@borg', function(err, subject) {
+      webRemix.generate('@borg', client, function(err, subject) {
         subject.should.equal('<a href="/user/borg">@borg</a>');
         done();
       });
     });
 
     it('returns the user link followed by \'s', function(done) {
-      webRemix.generate('@borg\'s', function(err, subject) {
+      webRemix.generate('@borg\'s', client, function(err, subject) {
         subject.should.equal('<a href="/user/borg">@borg</a>\'s');
         done();
       });
     });
 
     it('returns a non-user link', function(done) {
-      webRemix.generate('@ borg', function(err, subject) {
+      webRemix.generate('@ borg', client, function(err, subject) {
         subject.should.equal('@   borg');
         done();
       });
     });
 
     it('returns the plain text for anything else', function(done) {
-      webRemix.generate('foo', function(err, subject) {
+      webRemix.generate('foo', client, function(err, subject) {
         subject.should.equal('foo');
         done();
       });
