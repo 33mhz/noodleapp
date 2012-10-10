@@ -403,6 +403,11 @@ ol.messages #paginated.loading {
     width: 156px;
 }
 
+#overlay .suggestions {
+    left: 0;
+    top: 86px;
+}
+
 #overlay li .info li span {
     color: #111;
 }
@@ -947,7 +952,7 @@ img.hush {
     z-index:3;
 }
 
-#suggestions {
+.suggestions {
     left: 20px;
     list-style-type: none;
     position: absolute;
@@ -956,7 +961,7 @@ img.hush {
     z-index: 4;
 }
 
-#suggestions li {
+.suggestions li {
     background: #90f8f9;
     color: #111;
     cursor: pointer;
@@ -969,11 +974,11 @@ img.hush {
     text-align: left;
 }
 
-#suggestions li:last-child {
+.suggestions li:last-child {
     border-bottom: 0;
 }
 
-#suggestions li:hover {
+.suggestions li:hover {
     background: #111;
     color: #eee;
 }
@@ -1105,6 +1110,11 @@ img.hush {
         width: 280px;
     }
 
+    #overlay .suggestions {
+        left: 0;
+        top: 182px;
+    }
+
     ol.tabs li {
         font-size: 17px;
         line-height: 17px;
@@ -1170,7 +1180,7 @@ img.hush {
         width: 270px;
     }
 
-    #suggestions {
+    .suggestions {
         top: 203px;
     }
 }

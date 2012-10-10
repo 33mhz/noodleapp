@@ -26,7 +26,7 @@ define(['jquery', 'appnet', 'friends'],
   var overlay = $('#overlay');
   var dashboard = $('.dashboard-content');
   var charLimit = $('#count');
-  var suggestions = $('#suggestions');
+  var suggestions = $('ol.suggestions');
   var notifications = $('#notifications-preview');
   var currentScrollTop = '';
   var win = $(window);
@@ -271,7 +271,7 @@ define(['jquery', 'appnet', 'friends'],
   write.find('textarea').keyup(function() {
     var self = $(this);
     checkCharLimit(self.val());
-    friends.getBFFs(self.val().trim().toLowerCase());
+    friends.getBFFs(self, self.val().trim().toLowerCase());
     if (self.val().trim().length === 0) {
       write.find('.reply_to').val('');
     }
@@ -289,7 +289,7 @@ define(['jquery', 'appnet', 'friends'],
     return false;
   });
 
-  write.on('click', '#suggestions li', function() {
+  suggestions.on('click', 'li', function() {
     var self = $(this);
     friends.setUser(self);
   });

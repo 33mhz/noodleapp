@@ -6,7 +6,7 @@ mixin messageForm(cssName, placeholder, message)
       input(type='hidden', name='_csrf', value='#{csrf}')
       span#count 256
       button(type='submit') Post
-      #suggestions(class='writeable')
+      ol.suggestions(class='writeable')
 
 !!! 5
 html

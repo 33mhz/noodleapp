@@ -3,10 +3,10 @@
 define(['jquery'],
   function ($) {
 
-  var userList = $('#suggestions');
+  var userLists = $('ol.suggestions');
   var usernamesArr = [];
   var selectedUsers = {};
-  var write = $('#write');
+  var write = $('.write');
 
   var self = {
     setBFFs: function() {
@@ -22,9 +22,10 @@ define(['jquery'],
       });
     },
 
-    getBFFs: function(usernameClip) {
+    getBFFs: function(self, usernameClip) {
       var tokenized = usernameClip.split(/\s/);
       var lastUser = tokenized[tokenized.length - 1];
+      var userList = self.closest('.write').find('ol.suggestions');
 
       if (lastUser.length < 2) {
         userList.empty();
@@ -57,7 +58,7 @@ define(['jquery'],
 
       textarea.focus();
       textarea.val(textarea.val().substring(0, textarea.val().length - lastChars) + item.text() + ' ');
-      userList.empty();
+      item.closest('write').find('.suggestions').empty();
     }
   };
 

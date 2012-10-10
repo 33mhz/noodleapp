@@ -17,12 +17,11 @@ define(['jquery', 'version-timeout', 'friends'],
   var loggedIn = false;
   var notifications = $('#notifications');
   var notificationsPreview = $('#notifications-preview');
-  var currentMentionPostId = '';
-  var notificationSet = false;
+  var currentMentionPostId = false;
   var loggedInId = $('body').data('sessionid');
 
   var MESSAGE_LIMIT = 19;
-  var POLL_TIMEOUT = 60000;
+  var POLL_TIMEOUT = 10000;
 
   // Wait 1 minute to get new data
   var pollMessages = function() {
@@ -307,37 +306,58 @@ define(['jquery', 'version-timeout', 'friends'],
   };
 
   var setNotification = function() {
-    $.ajax({
-      url: '/user/mentions/' + loggedInId,
-      data: { since_id: parseInt(sinceId, 10) - 1, paginated: 1 },
-      type: 'GET',
-      dataType: 'json',
-      cache: false
-    }).done(function(data) {
-      if (data.messages.length > 0) {
-        for (var i = 0; i < data.messages.length; i ++) {
-          if (notificationsPreview.find('li a[data-postid="' + data.messages[i].id + '"]').length === 0) {
-            var messageItem = $('<li><a class="notification-item" href="#" data-postid="">' +
-              '<h2></h2><p></p></a></li>');
-            messageItem.find('a').attr('data-postid', data.messages[i].id);
-            messageItem.find('h2').text(data.messages[i].username);
-            messageItem.find('p').html(data.messages[i].text);
-            notificationsPreview.prepend(messageItem);
-            notificationsPreview.find('> li:gt(' + (MESSAGE_LIMIT - 10) + ')').remove();
+    // If we are currently on your mentions feed, do not grab any notifications
+    if (tabs.find('.selected').hasClass('user-mentions') && parseInt(userId, 10) === parseInt(loggedInId, 10)) {
+      currentMentionPostId = false;
+      console.log('notification feed ignored');
 
-            var unread = parseInt(notifications.text(), 10) + data.messages.length;
+    // If we are not on your mentions feed and the currentMentionPostId has not been set, get the latest
+    // post id and set it
+    } else if (!currentMentionPostId) {
+      $.ajax({
+        url: '/user/mentions/' + loggedInId,
+        data: { count: 1 },
+        type: 'GET',
+        dataType: 'json',
+        cache: false
+      }).done(function(data) {
+        currentMentionPostId = data.messages[0].id;
+        console.log('notification initially set to: ', currentMentionPostId);
+      });
 
-            document.title = '[' + unread + '] ' + document.title;
-            notifications.text(unread);
-            notifications.addClass('on');
+    // We have a currentMentionPostId set but we need to check for new mentions and update it accordingly
+    } else {
+      $.ajax({
+        url: '/user/mentions/' + loggedInId,
+        data: { since_id: parseInt(currentMentionPostId, 10), paginated: 1 },
+        type: 'GET',
+        dataType: 'json',
+        cache: false
+      }).done(function(data) {
+        if (data.messages.length > 0) {
+          for (var i = 0; i < data.messages.length; i ++) {
+            if (notificationsPreview.find('li a[data-postid="' + data.messages[i].id + '"]').length === 0) {
+              var messageItem = $('<li><a class="notification-item" href="#" data-postid="">' +
+                '<h2></h2><p></p></a></li>');
+              messageItem.find('a').attr('data-postid', data.messages[i].id);
+              messageItem.find('h2').text(data.messages[i].username);
+              messageItem.find('p').html(data.messages[i].text);
+              notificationsPreview.prepend(messageItem);
+              notificationsPreview.find('> li:gt(' + (MESSAGE_LIMIT - 10) + ')').remove();
+
+              var unread = parseInt(notifications.text(), 10) + data.messages.length;
+
+              document.title = '[' + unread + '] ' + document.title;
+              notifications.text(unread);
+              notifications.addClass('on');
+            }
           }
+
+          currentMentionPostId = data.messages[data.messages.length - 1].id;
+          console.log('notification subsequently set to: ', currentMentionPostId);
         }
-
-        sinceId = messages.find('> li:first-child').data('id');
-      }
-    });
-
-    notificationSet = true;
+      });
+    }
   };
 
   var setUsers = function(id, url, type) {
@@ -470,7 +490,7 @@ define(['jquery', 'version-timeout', 'friends'],
         // for now let's only show the new message if we're on 'my feed'
         if (tabs.find('.my-feed').hasClass('selected')) {
           setMessage('/my/feed', 'GET', false, false);
-          sinceId = data.messages[0].id;
+          sinceId = messages.find('> li:first-child').data('id');
         }
 
         flashMessage('Posted!');
