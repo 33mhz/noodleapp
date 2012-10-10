@@ -22,7 +22,7 @@ define(['jquery', 'version-timeout', 'friends'],
   var loggedInId = $('body').data('sessionid');
 
   var MESSAGE_LIMIT = 19;
-  var POLL_TIMEOUT = 10000;
+  var POLL_TIMEOUT = 60000;
 
   // Wait 1 minute to get new data
   var pollMessages = function() {
