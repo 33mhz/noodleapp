@@ -21,7 +21,7 @@ define(['jquery', 'version-timeout', 'friends'],
   var loggedInId = $('body').data('sessionid');
 
   var MESSAGE_LIMIT = 19;
-  var POLL_TIMEOUT = 10000;
+  var POLL_TIMEOUT = 30000;
 
   // Wait 1 minute to get new data
   var pollMessages = function() {
@@ -126,7 +126,8 @@ define(['jquery', 'version-timeout', 'friends'],
     // time
     message.find('time')
       .text(dateDisplay(messageItem.created_at))
-      .attr('data-created', messageItem.created_at);
+      .attr('data-created', messageItem.created_at)
+      .attr('data-username', messageItem.username);
     // user's avatar
     message.find('a.who img').attr('src', messageItem.user);
     // user's message
@@ -309,7 +310,6 @@ define(['jquery', 'version-timeout', 'friends'],
     // If we are currently on your mentions feed, do not grab any notifications
     if (tabs.find('.selected').hasClass('user-mentions') && parseInt(userId, 10) === parseInt(loggedInId, 10)) {
       currentMentionPostId = false;
-      console.log('notification feed ignored');
 
     // If we are not on your mentions feed and the currentMentionPostId has not been set, get the latest
     // post id and set it
@@ -322,7 +322,6 @@ define(['jquery', 'version-timeout', 'friends'],
         cache: false
       }).done(function(data) {
         currentMentionPostId = data.messages[0].id;
-        console.log('notification initially set to: ', currentMentionPostId);
       });
 
     // We have a currentMentionPostId set but we need to check for new mentions and update it accordingly
@@ -337,9 +336,11 @@ define(['jquery', 'version-timeout', 'friends'],
         if (data.messages.length > 0) {
           for (var i = 0; i < data.messages.length; i ++) {
             if (notificationsPreview.find('li a[data-postid="' + data.messages[i].id + '"]').length === 0) {
-              var messageItem = $('<li><a class="notification-item" href="#" data-postid="">' +
+              var messageItem = $('<li><a class="notification-item" href="#" data-postid="" data-username="">' +
                 '<h2></h2><p></p></a></li>');
-              messageItem.find('a').attr('data-postid', data.messages[i].id);
+              messageItem.find('a')
+                .attr('data-postid', data.messages[i].id)
+                .attr('data-username', data.messages[i].username);
               messageItem.find('h2').text(data.messages[i].username);
               messageItem.find('p').html(data.messages[i].text);
               notificationsPreview.prepend(messageItem);
@@ -354,7 +355,6 @@ define(['jquery', 'version-timeout', 'friends'],
           }
 
           currentMentionPostId = data.messages[data.messages.length - 1].id;
-          console.log('notification subsequently set to: ', currentMentionPostId);
         }
       });
     }
@@ -522,9 +522,10 @@ define(['jquery', 'version-timeout', 'friends'],
       setPost({ 'tag': tag }, '/tags', false, false, true);
     },
 
-    showPost: function(postId, userId) {
+    showPost: function(postId, username) {
       overlay.find('.write').show();
       overlay.find('.reply_to').val(postId);
+      overlay.find('.write textarea').val('@' + username + ' ');
       setPost({ 'post_id': postId }, '/post', true, false, false, function() {
         setPost({ 'post_id': postId }, '/thread', false, true, false);
         getStarredUsers(postId);

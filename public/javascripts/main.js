@@ -158,7 +158,7 @@ define(['jquery', 'appnet', 'friends'],
 
   body.on('click', 'time', function() {
     var self = $(this);
-    appnet.showPost(self.closest('.message-item').data('id'));
+    appnet.showPost(self.closest('.message-item').data('id'), self.closest('.message-item').data('username'));
     body.addClass('fixed');
   });
 
@@ -183,9 +183,8 @@ define(['jquery', 'appnet', 'friends'],
   body.on('click', 'a.notification-item', function(ev) {
     ev.preventDefault();
     var self = $(this);
-    self.remove();
     notifications.slideUp();
-    appnet.showPost(self.data('postid'));
+    appnet.showPost(self.data('postid'), self.data('username'));
     body.addClass('fixed');
   });
 
