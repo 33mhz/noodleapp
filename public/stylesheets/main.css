@@ -119,8 +119,75 @@ header a#profile-link {
     background-image: url('/images/profile.png');
 }
 
+header a#notifications {
+    background-color: #ccc;
+    border-radius: 100px;
+    color: #fff;
+    float: right;
+    font-family: Arial;
+    font-weight: bold;
+    height: 18px;
+    font-size: 12px;
+    letter-spacing: 0.04em;
+    line-height: 19px;
+    margin-right: 10px;
+    padding: 3px;
+    text-align: center;
+    min-width: 18px;
+}
+
 header a:hover {
     opacity: 0.4;
+}
+
+header a#notifications.on {
+    background-color: #f00;
+}
+
+header a#notifications.on:hover {
+    background-color: #111;
+    opacity: 1.0;
+}
+
+#notifications-preview {
+    background-color: #111;
+    border-bottom-left-radius: 5px;
+    border-bottom-right-radius: 5px;
+    display: none;
+    opacity: 0.9;
+    padding: 6px;
+    position: fixed;
+    right: 10px;
+    top: 32px;
+    width: 260px;
+    z-index: 5;
+}
+
+#notifications-preview li a.notification-item {
+    background-color: #222;
+    border-radius: 3px;
+    color: #eee;
+    display: block;
+    font-family: Arial;
+    font-size: 13px;
+    line-height: 16px;
+    margin: 0 0 3px 0;
+    padding: 5px 0 7px;
+    text-decoration: none;
+    text-shadow: #111 1px 1px 3px;
+}
+
+#notifications-preview li a:hover {
+    background-color: #000;
+}
+
+#notifications-preview li h2 {
+    margin-bottom: 3px;
+    padding: 3px 5px;
+}
+
+#notifications-preview li a span {
+    overflow: hidden;
 }
 
 #dashboard {
@@ -171,7 +238,9 @@ header a:hover {
 }
 
 #overlay .users li {
+    clear: both;
     cursor: pointer;
+    float: left;
     margin-bottom: 2px;
     padding: 5px 0;
 }
@@ -183,6 +252,11 @@ header a:hover {
     font-family: 'Oswald';
     font-size: 25px;
     text-align: center;
+}
+
+#overlay li.close {
+    float: right;
+    padding: 5px 10px;
 }
 
 ol.messages #paginated {
@@ -247,7 +321,7 @@ ol.messages #paginated.loading {
     line-height: 35px;
     overflow: hidden;
     text-overflow: ellipsis;
-    width: 430px;
+    width: 505px;
 }
 
 #overlay .users li em {
@@ -260,18 +334,22 @@ ol.messages #paginated.loading {
     padding-left: 10px;
 }
 
-#overlay .message-summary li.message-item {
+#overlay .inner-overlay .message-summary li.message-item {
     border-top: 1px dotted #eee;
+    clear: both;
+    float: left;
+    padding: 5px 0;
+    width: 100%;
 }
 
-#overlay .message-summary li .details, #overlay .message-summary li p {
+#overlay .inner-overlay .message-summary li .details, #overlay .inner-overlay .message-summary li p {
     float: left;
     margin-left: 20px;
     text-align: left;
     width: 440px;
 }
 
-#overlay .message-summary li p {
+#overlay .inner-overlay .message-summary li p {
     font-size: 14px;
     line-height: 17px;
     margin-top: 5px;
@@ -322,7 +400,7 @@ ol.messages #paginated.loading {
     margin: 15px 2px;
     padding: 5px 10px 4px 15px;
     text-transform: uppercase;
-    width: 27.65%;
+    width: 156px;
 }
 
 #overlay li .info li span {
@@ -404,6 +482,8 @@ ol.messages #paginated.loading {
 
 #profile .followers, #profile .following {
     cursor: pointer;
+    display: block;
+    float: left;
 }
 
 #profile .followers:hover, #profile .following:hover {
@@ -459,21 +539,21 @@ ol.messages #paginated.loading {
     width: 100px;
 }
 
-#write {
+.write {
     display: block;
     float: left;
     position: relative;
 }
 
-#write, #profile {
+.write, #profile {
     margin-top: 32px;
 }
 
-#write.profile {
+.write.profile {
     margin-top: 0;
 }
 
-#write, section {
+.write, section {
     clear: both;
     float: left;
     padding: 20px;
@@ -492,11 +572,11 @@ section.public li h1 {
     text-align: center;
 }
 
-#write {
+.write {
     padding-bottom: 5px;
 }
 
-#write textarea {
+.write textarea {
     border: 0;
     border-radius: 5px;
     color: #888;
@@ -511,7 +591,17 @@ section.public li h1 {
     resize: none;
 }
 
-#write textarea.on {
+#overlay .write {
+    margin-top: 0;
+    padding: 0;
+}
+
+#overlay .write textarea {
+    background-color: #eee;
+    width: 535px;
+}
+
+.write textarea.on {
     color: #111;
 }
 
@@ -976,7 +1066,7 @@ img.hush {
     }
 
     #overlay .users li span {
-        width: 150px;
+        width: 215px;
     }
 
     #overlay li p iframe, #overlay li p video, #overlay li p audio, #overlay li p object {
@@ -1026,13 +1116,35 @@ img.hush {
         width: 190px;
     }
 
-    #write textarea {
+    .write textarea {
         height: 160px;
+        width: 260px;
+    }
+
+    .username {
+        width: 85%;
+    }
+
+    #overlay .write textarea, ol.messages > li.message-item p {
+        width: 250px;
+    }
+
+    #overlay .inner-overlay .message-summary li .details {
+        margin-left: 0;
+        width: 190px;
+    }
+
+    #overlay .inner-overlay .message-summary li p {
+        margin-left: 0;
         width: 260px;
     }
 
     .dashboard-content {
         width: 320px;
+    }
+
+    ol.messages > li.message-item {
+        width: 270px;
     }
 
     ol.messages li p iframe, ol.messages li p video,
@@ -1041,17 +1153,21 @@ img.hush {
         width: 250px;
     }
 
-    ol.messages > li {
+    ol.messages .inner-overlay ol > li {
         width: 270px;
     }
 
-    ol.messages > li p {
+    ol.messages .inner-overlay ol > li p {
         padding-top: 5px;
         width: 240px;
     }
 
-    ol.messages > li p img {
+    ol.messages .inner-overlay ol > li p img, ol.messages > li p img {
         max-width: 250px;
+    }
+
+    #paginated {
+        width: 270px;
     }
 
     #suggestions {

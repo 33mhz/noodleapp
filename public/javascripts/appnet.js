@@ -15,14 +15,20 @@ define(['jquery', 'version-timeout', 'friends'],
   var isFragment = false;
   var flashMsg = $('#flash-message');
   var loggedIn = false;
+  var notifications = $('#notifications');
+  var notificationsPreview = $('#notifications-preview');
+  var currentMentionPostId = '';
+  var notificationSet = false;
+  var loggedInId = $('body').data('sessionid');
 
   var MESSAGE_LIMIT = 19;
-  var POLL_TIMEOUT = 60000;
+  var POLL_TIMEOUT = 10000;
 
   // Wait 1 minute to get new data
   var pollMessages = function() {
     setTimeout(function() {
       setMessage(currentFeed, type);
+      setNotification();
     }, POLL_TIMEOUT);
   };
 
@@ -72,7 +78,7 @@ define(['jquery', 'version-timeout', 'friends'],
   };
 
   var setFollow = function(url, userId) {
-    overlay.html('<ol class="messages"><li class="message-item loading"></li></ol>');
+    overlay.find('.inner-overlay').html('<ol class="messages"><li class="message-item loading"></li></ol>');
     overlay.slideDown();
     $.ajax({
       url: url,
@@ -92,7 +98,7 @@ define(['jquery', 'version-timeout', 'friends'],
         userList.append(user);
       }
       userList.append('<li class="close">Close</li>');
-      overlay.html(userList);
+      overlay.find('.inner-overlay').html(userList);
     });
   };
 
@@ -131,7 +137,7 @@ define(['jquery', 'version-timeout', 'friends'],
   };
 
   var setPost = function(data, url, showDetails, isDetailOverlay, ascending, callback) {
-    overlay.html('<ol class="messages"><li class="message-item loading"></li></ol>');
+    overlay.find('.inner-overlay').html('<ol class="messages"><li class="message-item loading"></li></ol>');
     overlay.slideDown();
 
     $.ajax({
@@ -185,7 +191,7 @@ define(['jquery', 'version-timeout', 'friends'],
         overlay.find('#thread-detail').html(messageOverlay);
       } else {
         messageOverlay.append('<li class="close">Close</li>');
-        overlay.html(messageOverlay);
+        overlay.find('.inner-overlay').html(messageOverlay);
         overlay.slideDown();
       }
     });
@@ -294,9 +300,44 @@ define(['jquery', 'version-timeout', 'friends'],
         versionTimeout.checkVersion();
         currentFeed = tabs.find('li.selected').data('url');
         setMessage(currentFeed, type, false, isStarredFeed);
+        setNotification();
         updateTime();
       }, POLL_TIMEOUT);
     });
+  };
+
+  var setNotification = function() {
+    $.ajax({
+      url: '/user/mentions/' + loggedInId,
+      data: { since_id: parseInt(sinceId, 10) - 1, paginated: 1 },
+      type: 'GET',
+      dataType: 'json',
+      cache: false
+    }).done(function(data) {
+      if (data.messages.length > 0) {
+        for (var i = 0; i < data.messages.length; i ++) {
+          if (notificationsPreview.find('li a[data-postid="' + data.messages[i].id + '"]').length === 0) {
+            var messageItem = $('<li><a class="notification-item" href="#" data-postid="">' +
+              '<h2></h2><p></p></a></li>');
+            messageItem.find('a').attr('data-postid', data.messages[i].id);
+            messageItem.find('h2').text(data.messages[i].username);
+            messageItem.find('p').html(data.messages[i].text);
+            notificationsPreview.prepend(messageItem);
+            notificationsPreview.find('> li:gt(' + (MESSAGE_LIMIT - 10) + ')').remove();
+
+            var unread = parseInt(notifications.text(), 10) + data.messages.length;
+
+            document.title = '[' + unread + '] ' + document.title;
+            notifications.text(unread);
+            notifications.addClass('on');
+          }
+        }
+
+        sinceId = messages.find('> li:first-child').data('id');
+      }
+    });
+
+    notificationSet = true;
   };
 
   var setUsers = function(id, url, type) {
@@ -431,6 +472,8 @@ define(['jquery', 'version-timeout', 'friends'],
           setMessage('/my/feed', 'GET', false, false);
           sinceId = data.messages[0].id;
         }
+
+        flashMessage('Posted!');
       });
     },
 
@@ -440,22 +483,28 @@ define(['jquery', 'version-timeout', 'friends'],
     },
 
     showFollowers: function() {
+      overlay.find('.write').hide();
       setFollow('/followers', userId);
     },
 
     showFollowing: function() {
+      overlay.find('.write').hide();
       setFollow('/following', userId);
     },
 
     showThread: function(postId) {
+      overlay.find('.write').hide();
       setPost({ 'post_id': postId }, '/thread', false, false, false);
     },
 
     showTagged: function(tag) {
+      overlay.find('.write').hide();
       setPost({ 'tag': tag }, '/tags', false, false, true);
     },
 
     showPost: function(postId, userId) {
+      overlay.find('.write').show();
+      overlay.find('.reply_to').val(postId);
       setPost({ 'post_id': postId }, '/post', true, false, false, function() {
         setPost({ 'post_id': postId }, '/thread', false, true, false);
         getStarredUsers(postId);

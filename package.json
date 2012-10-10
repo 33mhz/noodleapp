@@ -1,6 +1,6 @@
 {
   "name": "noodleapp",
-  "version": "0.0.5",
+  "version": "0.0.6",
   "private": true,
   "engines": {
     "node": ">= 0.8.19",
@@ -15,7 +15,6 @@
     "passport": ">= 0.1.12",
     "passport-appdotnet": ">= 0.1.1",
     "connect-redis": ">= 1.4.4",
-    "socket.io": "git://github.com/LearnBoost/socket.io.git",
     "hiredis": "0.1.14",
     "redis": "0.7.2",
     "requirejs": "<= 2.1.0"

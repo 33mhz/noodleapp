@@ -21,12 +21,13 @@ define(['jquery', 'appnet', 'friends'],
   var userStarred = tabs.find('.user-starred');
   var myFeed = tabs.find('.my-feed');
   var messages = $('ol.messages');
-  var write = $('#write form');
+  var write = $('.write form');
   var userInfo = $('.user-info');
   var overlay = $('#overlay');
   var dashboard = $('.dashboard-content');
   var charLimit = $('#count');
   var suggestions = $('#suggestions');
+  var notifications = $('#notifications-preview');
   var currentScrollTop = '';
   var win = $(window);
   var csrf = write.find('input[name="_csrf"]').val();
@@ -113,7 +114,7 @@ define(['jquery', 'appnet', 'friends'],
     var mentions = (self.closest('.message-item').data('mentions') !== '') ? self.closest('.message-item').data('mentions') + ' ' : '';
     write.find('textarea').focus();
     write.find('textarea').val('@' + self.closest('.message-item').data('username') + ' ' + mentions);
-    write.find('#reply_to').val(self.closest('.message-item').data('id'));
+    write.find('.reply_to').val(self.closest('.message-item').data('id'));
     document.location.href = '#top';
   });
 
@@ -158,6 +159,33 @@ define(['jquery', 'appnet', 'friends'],
   body.on('click', 'time', function() {
     var self = $(this);
     appnet.showPost(self.closest('.message-item').data('id'));
+    body.addClass('fixed');
+  });
+
+  var notificationsDisplay = false;
+
+  body.on('click', '#notifications', function(ev) {
+    ev.preventDefault();
+    var self = $(this);
+    self
+      .removeClass('on')
+      .text(0);
+    document.title = 'NoodleApp';
+    if (!notificationsDisplay) {
+      notifications.slideDown();
+      notificationsDisplay = true;
+    } else {
+      notifications.slideUp();
+      notificationsDisplay = false;
+    }
+  });
+
+  body.on('click', 'a.notification-item', function(ev) {
+    ev.preventDefault();
+    var self = $(this);
+    self.remove();
+    notifications.slideUp();
+    appnet.showPost(self.data('postid'));
     body.addClass('fixed');
   });
 
@@ -212,8 +240,9 @@ define(['jquery', 'appnet', 'friends'],
   });
 
   overlay.on('click', '.close', function() {
+    overlay.find('.inner-overlay').html('');
+    overlay.find('textarea').val('');
     overlay.slideUp(function() {
-      $(this).html('');
       body.removeClass('fixed');
     });
   });
@@ -244,7 +273,7 @@ define(['jquery', 'appnet', 'friends'],
     checkCharLimit(self.val());
     friends.getBFFs(self.val().trim().toLowerCase());
     if (self.val().trim().length === 0) {
-      write.find('#reply_to').val('');
+      write.find('.reply_to').val('');
     }
   });
 
@@ -256,7 +285,7 @@ define(['jquery', 'appnet', 'friends'],
     url = '/my/feed';
     self.find('textarea').val('');
     charLimit.text(CHAR_MAX);
-    write.find('#reply_to').val('');
+    write.find('.reply_to').val('');
     return false;
   });
 

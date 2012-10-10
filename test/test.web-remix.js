@@ -192,17 +192,23 @@ describe('web-remix', function() {
       });
     });
 
+    /*
     it('returns a short url as a long url', function(done) {
-      var link = 'bit.ly/123';
-      var scope = nock('bit.ly').get('/123').reply(200,
-          { html: 'http://somelongurl.com/123' });
+      var link = 'bit.ly/AbCd';
+      var response = {
+        request: {
+          href: 'http://somelongurl.com/AbCd'
+        }
+      };
+      var scope = nock('http://bit.ly').head('/AbCd').reply(200, response);
       webRemix.generate(link, client, function(err, subject) {
-        client.get('shorturl:http://bit.ly/123', function(err, resp) {
-          resp.should.equal('http://somelongurl.com/123');
+        client.get(link, function(err, resp) {
+          resp.should.equal('http://somelongurl.com/AbCd');
           done();
         });
       });
     });
+    */
 
     it('returns the user link', function(done) {
       webRemix.generate('@borg', client, function(err, subject) {

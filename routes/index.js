@@ -28,6 +28,7 @@ module.exports = function(app, client, isLoggedIn, io, noodle) {
         session: utils.getUser(req),
         csrf: req.session._csrf,
         url: req.session.url || '/my/feed',
+        loggedInId: utils.getUserById(req),
         username: utils.getUser(req).username
       });
     } else {
@@ -35,6 +36,7 @@ module.exports = function(app, client, isLoggedIn, io, noodle) {
         pageType: 'index',
         url: '',
         session: false,
+        loggedInId: '',
         username: ''
       });
     }
@@ -71,6 +73,7 @@ module.exports = function(app, client, isLoggedIn, io, noodle) {
               user: user,
               url: req.session.url || '/my/feed',
               description: description,
+              loggedInId: utils.getUserById(req),
               env: process.env.NODE_ENV
             });
           } else {
@@ -80,6 +83,7 @@ module.exports = function(app, client, isLoggedIn, io, noodle) {
               user: user,
               url: null,
               description: description,
+              loggedInId: '',
               env: process.env.NODE_ENV
             });
           }
@@ -108,7 +112,9 @@ module.exports = function(app, client, isLoggedIn, io, noodle) {
   app.get('/user/mentions/:id', isLoggedIn, function(req, res) {
     var userId = req.params.id || utils.getUserById(req);
 
-    req.session.url = '/user/mentions/' + parseInt(userId, 10);
+    if (!req.query.paginated) {
+      req.session.url = '/user/mentions/' + parseInt(userId, 10);
+    }
 
     appnet.userMentions(req, function(err, recentMessages) {
       if (err) {

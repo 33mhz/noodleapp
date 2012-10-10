@@ -1,8 +1,8 @@
 mixin messageForm(cssName, placeholder, message)
-  #write(name='#write', class='#{cssName}')
+  .write(name='#write', class='#{cssName}')
     form(method='post')
       textarea(name='text', class='writeable', placeholder='#{placeholder}')= message
-      input(type='hidden', name='reply_to', value='', id='reply_to')
+      input(type='hidden', name='reply_to', value='', class='reply_to')
       input(type='hidden', name='_csrf', value='#{csrf}')
       span#count 256
       button(type='submit') Post
@@ -21,7 +21,7 @@ html
     link(rel='apple-touch-icon', sizes='128x128', href='/images/logo-128.png')
     link(rel='stylesheet', href='/stylesheets/main.css')
 
-  body(data-url='#{url}')
+  body(data-url='#{url}', data-sessionid='#{loggedInId}')
     #hush
 
     header
@@ -30,15 +30,21 @@ html
       if session
         a(href='/logout', id='logout', title='Sign out') Log out
         a(href='/user/#{session.username}', id='profile-link', title='Your profile') Profile
+        a(href='#', id='notifications', title='Notifications', class='') 0
+
+    if session
+      ol#notifications-preview
+        li
 
     #dashboard
       a(name='#top')
       #overlay
+        mixin messageForm('overlay-write', 'Reply', '')
+        .inner-overlay
       #flash-message
       .dashboard-content
         block content
 
     footer
 
-    script(src='/socket.io/socket.io.js')
     script(src='/javascripts/require.js', data-main='/javascripts/main')
