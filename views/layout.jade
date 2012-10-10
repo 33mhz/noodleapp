@@ -38,9 +38,10 @@ html
 
     #dashboard
       a(name='#top')
-      #overlay
-        mixin messageForm('overlay-write', 'Reply', '')
-        .inner-overlay
+      if session
+        #overlay
+          mixin messageForm('overlay-write', 'Reply', '')
+          .inner-overlay
       #flash-message
       .dashboard-content
         block content
