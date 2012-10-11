@@ -206,6 +206,7 @@ header a#notifications.on:hover {
     left: 50%;
     margin-left: -305px;
     overflow-y: scroll;
+    -webkit-overflow-scrolling: touch;
     padding: 50px 20px 20px;
     position: fixed;
     top: 0;
