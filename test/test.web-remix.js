@@ -192,27 +192,33 @@ describe('web-remix', function() {
       });
     });
 
-    /*
-    it('returns a short url as a long url', function(done) {
-      var link = 'bit.ly/AbCd';
-      var response = {
-        request: {
-          href: 'http://somelongurl.com/AbCd'
-        }
-      };
-      var scope = nock('http://bit.ly').head('/AbCd').reply(200, response);
-      webRemix.generate(link, client, function(err, subject) {
-        client.get(link, function(err, resp) {
-          resp.should.equal('http://somelongurl.com/AbCd');
-          done();
-        });
-      });
-    });
-    */
-
     it('returns the user link', function(done) {
       webRemix.generate('@borg', client, function(err, subject) {
         subject.should.equal('<a href="/user/borg">@borg</a>');
+        done();
+      });
+    });
+
+    it('return a <link> as a regular link', function(done) {
+      var link = '<http://example.com/?blah,test=&>';
+      webRemix.generate(link, client, function(err, subject) {
+        subject.should.equal('<a href="http://example.com/?blah,test=&" target="_blank">http://example.com/?blah,test=&</a>');
+        done();
+      });
+    });
+
+    it('return a protocol-less link as a regular link', function(done) {
+      var link = 'bla.de';
+      webRemix.generate(link, client, function(err, subject) {
+        subject.should.equal('<a href="http://bla.de" target="_blank">http://bla.de</a>');
+        done();
+      });
+    });
+
+    it('return a www link as a regular link', function(done) {
+      var link = 'www.bla.de';
+      webRemix.generate(link, client, function(err, subject) {
+        subject.should.equal('<a href="http://www.bla.de" target="_blank">http://www.bla.de</a>');
         done();
       });
     });

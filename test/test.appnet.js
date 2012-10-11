@@ -183,7 +183,7 @@ describe('appnet', function() {
 
     it('returns user mentions', function(done) {
       var scope = nock(APPNET_URL)
-        .get('/stream/0/users/1/mentions?access_token=1&since_id=1&before_id=1&include_deleted=0')
+        .get('/stream/0/users/1/mentions?access_token=1&since_id=1&before_id=1&include_deleted=0&count=')
         .reply(200, POST_JSON);
       appnet.userMentions(req, function(err, resp) {
         resp.data[0].id.should.equal('1')
@@ -236,7 +236,7 @@ describe('appnet', function() {
     it('returns paginated user mentions', function(done) {
       req.session.url = '/user/mentions';
       var scope = nock(APPNET_URL)
-        .get('/stream/0/users/1/mentions?access_token=1&since_id=&before_id=1&include_deleted=0')
+        .get('/stream/0/users/1/mentions?access_token=1&since_id=&before_id=1&include_deleted=0&count=')
         .reply(200, POST_JSON);
       appnet.paginatedFeed(req, client, function(err, resp) {
         resp.data[0].id.should.equal('1')
