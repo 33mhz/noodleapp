@@ -352,9 +352,13 @@ define(['jquery', 'version-timeout', 'friends'],
               notificationsPreview.prepend(messageItem);
               notificationsPreview.find('> li:gt(' + (MESSAGE_LIMIT - 10) + ')').remove();
 
-              var unread = parseInt(notifications.text(), 10) + data.messages.length;
+              var unread = notificationsPreview.find('li').length;
+              var title = document.title;
 
-              document.title = '[' + unread + '] ' + document.title;
+              if (title.indexOf('] ') > -1) {
+                title = title.split('] ')[1];
+              }
+              document.title = '[' + unread + '] ' + title;
               notifications.text(unread);
               notifications.addClass('on');
             }
