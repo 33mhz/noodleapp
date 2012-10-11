@@ -4,7 +4,7 @@ mixin messageForm(cssName, placeholder, message)
       textarea(name='text', class='writeable', placeholder='#{placeholder}')= message
       input(type='hidden', name='reply_to', value='', class='reply_to')
       input(type='hidden', name='_csrf', value='#{csrf}')
-      span#count 256
+      span.counter 256
       button(type='submit') Post
       ol.suggestions(class='writeable')
 

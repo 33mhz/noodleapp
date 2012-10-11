@@ -19,6 +19,11 @@ define(['jquery', 'version-timeout', 'friends'],
   var notificationsPreview = $('#notifications-preview');
   var currentMentionPostId = false;
   var loggedInId = $('body').data('sessionid');
+  var noTouch = '';
+
+  if (!('ontouchstart' in document.documentElement)) {
+    noTouch = 'no-touch';
+  }
 
   var MESSAGE_LIMIT = 19;
   var POLL_TIMEOUT = 30000;
@@ -104,7 +109,8 @@ define(['jquery', 'version-timeout', 'friends'],
   var generatePostItem = function(message, threadAction, isStarred, isRepost, isDeletable, detailExtras) {
     var actions = '';
     if (threadAction.length > 0 || isStarred.length > 0 || isRepost.length > 0 || isDeletable.length > 0) {
-      actions = '<ol class="actions">' + threadAction + isStarred + '<li class="reply"></li>' +
+      actions = '<ol class="actions ' + noTouch + '">' + threadAction + isStarred +
+        '<li class="reply"><span>Reply</span></li>' +
       isRepost + isDeletable + '</ol>';
     }
     return $('<li class="message-item" data-mentions="" data-id="' +
@@ -233,25 +239,25 @@ define(['jquery', 'version-timeout', 'friends'],
           if (messages.find('li.message-item[data-id="' + data.messages[i].id + '"]').length === 0) {
             var isRepost = '';
             var threadAction = '';
-            var isStarred = '<li class="star"></li>';
+            var isStarred = '<li class="star"><span>Star</span></li>';
             var isDeletable = '';
 
             if (data.messages[i].isSelf) {
-              isDeletable = '<li class="delete"></li>';
+              isDeletable = '<li class="delete"><span>Delete</a></li>';
             } else {
-              isRepost = '<li class="repost"></li>';
+              isRepost = '<li class="repost"><span>Repost</a></li>';
 
               if (data.messages[i].isRepost) {
-                isRepost = '<li class="repost on"></li>';
+                isRepost = '<li class="repost on"><span>Unrepost</span></li>';
               }
             }
 
             if (data.messages[i].isThread) {
-              threadAction = '<li class="thread"></li>';
+              threadAction = '<li class="thread"><span>Thread</span></li>';
             }
 
             if (data.messages[i].isStarred) {
-              isStarred = '<li class="star on"></li>';
+              isStarred = '<li class="star on"><span>Unstar</span></li>';
             }
 
             var message = generatePostItem(data.messages[i], threadAction, isStarred,

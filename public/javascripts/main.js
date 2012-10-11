@@ -25,7 +25,7 @@ define(['jquery', 'appnet', 'friends'],
   var userInfo = $('.user-info');
   var overlay = $('#overlay');
   var dashboard = $('.dashboard-content');
-  var charLimit = $('#count');
+  var charLimit = $('.counter');
   var suggestions = $('ol.suggestions');
   var notifications = $('#notifications-preview');
   var currentScrollTop = '';

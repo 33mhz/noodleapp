@@ -610,13 +610,13 @@ section.public li h1 {
     color: #111;
 }
 
-#count {
+.counter {
     color: #dedede;
     font-family: 'Oswald';
     font-size: 28px;
 }
 
-#count.on {
+.counter.on {
     color: #111;
 }
 
@@ -762,6 +762,19 @@ ol.messages > li .meta {
     float: left;
     margin: 7px 8px 0 0;
     padding: 0;
+    position: relative;
+}
+
+.meta .actions > li span {
+    display: none;
+    font-size: 12px;
+    left: 0;
+    position: absolute;
+    z-index: 4;
+}
+
+.meta .actions.no-touch > li:hover span {
+    display: block;
 }
 
 .username {
