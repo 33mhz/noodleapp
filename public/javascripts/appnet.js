@@ -339,6 +339,7 @@ define(['jquery', 'version-timeout', 'friends'],
         dataType: 'json',
         cache: false
       }).done(function(data) {
+        var newCount = 0;
         if (data.messages.length > 0) {
           for (var i = 0; i < data.messages.length; i ++) {
             if (notificationsPreview.find('li a[data-postid="' + data.messages[i].id + '"]').length === 0) {
@@ -351,17 +352,19 @@ define(['jquery', 'version-timeout', 'friends'],
               messageItem.find('p').html(data.messages[i].text);
               notificationsPreview.prepend(messageItem);
               notificationsPreview.find('> li:gt(' + (MESSAGE_LIMIT - 10) + ')').remove();
-
-              var unread = notificationsPreview.find('li').length;
-              var title = document.title;
-
-              if (title.indexOf('] ') > -1) {
-                title = title.split('] ')[1];
-              }
-              document.title = '[' + unread + '] ' + title;
               notifications.text(unread);
               notifications.addClass('on');
+              newCount ++;
             }
+          }
+
+          if (newCount > 0) {
+            var title = document.title;
+
+            if (title.indexOf('] ') > -1) {
+              title = title.split('] ')[1];
+            }
+            document.title = '[' + newCount + '] ' + title;
           }
 
           currentMentionPostId = data.messages[data.messages.length - 1].id;
