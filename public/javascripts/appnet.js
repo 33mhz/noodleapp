@@ -20,6 +20,7 @@ define(['jquery', 'version-timeout', 'friends'],
   var currentMentionPostId = false;
   var loggedInId = $('body').data('sessionid');
   var noTouch = '';
+  var newCount = 0;
 
   if (!('ontouchstart' in document.documentElement)) {
     noTouch = 'no-touch';
@@ -339,7 +340,6 @@ define(['jquery', 'version-timeout', 'friends'],
         dataType: 'json',
         cache: false
       }).done(function(data) {
-        var newCount = 0;
         if (data.messages.length > 0) {
           for (var i = 0; i < data.messages.length; i ++) {
             if (notificationsPreview.find('li a[data-postid="' + data.messages[i].id + '"]').length === 0) {
@@ -353,7 +353,6 @@ define(['jquery', 'version-timeout', 'friends'],
               notificationsPreview.prepend(messageItem);
               notificationsPreview.find('> li:gt(' + (MESSAGE_LIMIT - 10) + ')').remove();
               notifications.text(unread);
-              notifications.addClass('on');
               newCount ++;
             }
           }
@@ -365,6 +364,7 @@ define(['jquery', 'version-timeout', 'friends'],
               title = title.split('] ')[1];
             }
             document.title = '[' + newCount + '] ' + title;
+            notifications.addClass('on');
           }
 
           currentMentionPostId = data.messages[data.messages.length - 1].id;
@@ -539,6 +539,7 @@ define(['jquery', 'version-timeout', 'friends'],
       overlay.find('.write').show();
       overlay.find('.reply_to').val(postId);
       overlay.find('.write textarea').val('@' + username + ' ');
+      newCount = 0;
       setPost({ 'post_id': postId }, '/post', true, false, false, function() {
         setPost({ 'post_id': postId }, '/thread', false, true, false);
         getStarredUsers(postId);
