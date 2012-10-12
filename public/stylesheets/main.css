@@ -1167,7 +1167,7 @@ img.hush {
         width: 320px;
     }
 
-    ol.messages > li.message-item {
+    ol.messages > li.message-item, .public ol.messages > li {
         width: 270px;
     }
 
