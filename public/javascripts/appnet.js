@@ -547,6 +547,10 @@ define(['jquery', 'version-timeout', 'friends'],
       });
     },
 
+    resetUnread: function() {
+      newCount = 0;
+    },
+
     getOlderPosts: function(postId) {
       isFragment = true;
       var isStarredFeed = false;

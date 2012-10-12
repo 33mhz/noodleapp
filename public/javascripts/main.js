@@ -171,6 +171,7 @@ define(['jquery', 'appnet', 'friends'],
       .removeClass('on')
       .text(0);
     document.title = 'NoodleApp';
+    appnet.resetUnread();
     if (!notificationsDisplay) {
       notifications.slideDown();
       notificationsDisplay = true;
