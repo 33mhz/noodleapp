@@ -314,13 +314,8 @@ define(['jquery', 'version-timeout', 'friends'],
   };
 
   var setNotification = function() {
-    // If we are currently on your mentions feed, do not grab any notifications
-    if (tabs.find('.selected').hasClass('user-mentions') && parseInt(userId, 10) === parseInt(loggedInId, 10)) {
-      currentMentionPostId = false;
-
-    // If we are not on your mentions feed and the currentMentionPostId has not been set, get the latest
-    // post id and set it
-    } else if (!currentMentionPostId) {
+    // If the currentMentionPostId has not been set, get the latest post id and set it
+    if (!currentMentionPostId) {
       $.ajax({
         url: '/user/mentions/' + loggedInId,
         data: { count: 1 },

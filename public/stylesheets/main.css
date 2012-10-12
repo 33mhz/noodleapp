@@ -1054,7 +1054,7 @@ img.hush {
     }
 }
 
-@media only screen and (max-width: 599px) {
+@media only screen and (max-width: 599px) and (orientation:portrait) {
     #dashboard {
         width: 320px;
     }
