@@ -51,9 +51,9 @@ define(['jquery'],
       }
     },
 
-    setUser: function(item) {
-      var textarea = write.find('textarea');
-      var tokenized = write.find('textarea').val().split(/\s/);
+    setUser: function(item, currWrite) {
+      var textarea = currWrite.find('textarea');
+      var tokenized = textarea.val().split(/\s/);
       var lastChars = tokenized[tokenized.length - 1].length;
 
       textarea.focus();

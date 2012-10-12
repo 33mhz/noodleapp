@@ -291,6 +291,6 @@ define(['jquery', 'appnet', 'friends'],
 
   suggestions.on('click', 'li', function() {
     var self = $(this);
-    friends.setUser(self);
+    friends.setUser(self, self.closest('.write'));
   });
 });
