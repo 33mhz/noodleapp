@@ -202,7 +202,7 @@ describe('web-remix', function() {
     it('return a <link> as a regular link', function(done) {
       var link = '<http://example.com/?blah,test=&>';
       webRemix.generate(link, client, function(err, subject) {
-        subject.should.equal('<a href="http://example.com/?blah,test=&" target="_blank">http://example.com/?blah,test=&</a>');
+        subject.should.equal('<a href="http://example.com/?blah,test=&" target="_blank">&lt;http://example.com/?blah,test=&&gt;</a>');
         done();
       });
     });
