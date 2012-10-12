@@ -27,7 +27,7 @@ define(['jquery', 'version-timeout', 'friends'],
   }
 
   var MESSAGE_LIMIT = 19;
-  var POLL_TIMEOUT = 30000;
+  var POLL_TIMEOUT = 40000;
 
   // Wait 1 minute to get new data
   var pollMessages = function() {
@@ -352,7 +352,6 @@ define(['jquery', 'version-timeout', 'friends'],
               messageItem.find('p').html(data.messages[i].text);
               notificationsPreview.prepend(messageItem);
               notificationsPreview.find('> li:gt(' + (MESSAGE_LIMIT - 10) + ')').remove();
-              notifications.text(unread);
               newCount ++;
             }
           }
@@ -364,6 +363,7 @@ define(['jquery', 'version-timeout', 'friends'],
               title = title.split('] ')[1];
             }
             document.title = '[' + newCount + '] ' + title;
+            notifications.text(newCount);
             notifications.addClass('on');
           }
 
