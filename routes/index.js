@@ -21,15 +21,28 @@ module.exports = function(app, client, isLoggedIn, io, noodle) {
         }
       });
 
-      req.session.url = '/my/feed';
+      var mediaOn = '';
 
-      res.render('index', {
-        pageType: 'index',
-        session: utils.getUser(req),
-        csrf: req.session._csrf,
-        url: req.session.url || '/my/feed',
-        loggedInId: utils.getUserById(req),
-        username: utils.getUser(req).username
+      userDb.getSettings(req, client, function(err, userItems) {
+        if (err) {
+          res.status(500);
+          res.redirect('/500');
+        } else {
+          if (userItems.mediaOn === 'false') {
+            mediaOn = 'media-disable';
+          }
+
+          req.session.url = '/my/feed';
+          res.render('index', {
+            pageType: 'index',
+            session: utils.getUser(req),
+            csrf: req.session._csrf,
+            url: req.session.url || '/my/feed',
+            loggedInId: utils.getUserById(req),
+            username: utils.getUser(req).username,
+            mediaOn: mediaOn
+          });
+        }
       });
     } else {
       res.render('index', {
@@ -37,7 +50,8 @@ module.exports = function(app, client, isLoggedIn, io, noodle) {
         url: '',
         session: false,
         loggedInId: '',
-        username: ''
+        username: '',
+        mediaOn: ''
       });
     }
   });
@@ -62,7 +76,18 @@ module.exports = function(app, client, isLoggedIn, io, noodle) {
             description = user.description.html;
           }
 
-          if (req.session) {
+          var mediaOn = '';
+
+          userDb.getSettings(req, client, function(err, userItems) {
+            if (err) {
+              res.status(500);
+              res.redirect('/500');
+            } else {
+              if (userItems.mediaOn === 'false') {
+                mediaOn = 'media-disable';
+              }
+            }
+
             req.session.url = '/user/posts/' + user.id;
 
             res.render('profile', {
@@ -74,20 +99,32 @@ module.exports = function(app, client, isLoggedIn, io, noodle) {
               url: req.session.url || '/my/feed',
               description: description,
               loggedInId: utils.getUserById(req),
-              env: process.env.NODE_ENV
+              mediaOn: mediaOn
             });
-          } else {
-            res.render('profile', {
-              pageType: 'profile',
-              username: req.params.username,
-              user: user,
-              url: null,
-              description: description,
-              loggedInId: '',
-              env: process.env.NODE_ENV
-            });
-          }
+          });
         }
+      }
+    });
+  });
+
+  app.get('/settings', isLoggedIn, function(req, res) {
+    userDb.getSettings(req, client, function(err, settings) {
+      if (err) {
+        res.status(500);
+        res.json({ 'error': 'error retrieving your settings' });
+      } else {
+        res.json({ settings: settings });
+      }
+    });
+  });
+
+  app.post('/settings', isLoggedIn, function(req, res) {
+    userDb.saveSettings(req, client, function(err, settings) {
+      if (err) {
+        res.status(500);
+        res.json({ 'error': 'error retrieving your settings' });
+      } else {
+        res.json({ settings: settings });
       }
     });
   });
@@ -148,7 +185,7 @@ module.exports = function(app, client, isLoggedIn, io, noodle) {
   app.get('/my/feed', isLoggedIn, function(req, res) {
     req.session.url = '/my/feed';
 
-    appnet.myFeed(req, function(err, recentMessages) {
+    appnet.myFeed(req, client, function(err, recentMessages) {
       if (err) {
         res.status(500);
         res.json({ 'error': 'error retrieving your personal feed' });

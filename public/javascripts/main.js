@@ -9,12 +9,13 @@ requirejs.config({
   }
 });
 
-define(['jquery', 'appnet', 'friends'],
-  function($, appnet, friends) {
+define(['jquery', 'appnet', 'friends', 'user'],
+  function($, appnet, friends, user) {
 
   var body = $('body');
   var url = $('body').data('url');
   var tabs = $('ol.tabs');
+  var settings = $('#settings-link');
   var userMentions = tabs.find('.user-mentions');
   var globalFeed = tabs.find('.global-feed');
   var userPosts = tabs.find('.user-posts');
@@ -292,5 +293,33 @@ define(['jquery', 'appnet', 'friends'],
   suggestions.on('click', 'li', function() {
     var self = $(this);
     friends.setUser(self, self.closest('.write'));
+  });
+
+  body.on('click', '#settings-link', function(ev) {
+    ev.preventDefault();
+
+    user.getSettings();
+  });
+
+  body.on('click', '#directed-feed, #media-on', function() {
+    var self = $(this);
+    var directedFeed = false;
+    var mediaOn = false;
+
+    if (self.hasClass('on')) {
+      self.removeClass('on');
+    } else {
+      self.addClass('on');
+    }
+
+    if (overlay.find('#directed-feed').hasClass('on')) {
+      directedFeed = true;
+    }
+
+    if (overlay.find('#media-on').hasClass('on')) {
+      mediaOn = true;
+    }
+
+    user.saveSettings(directedFeed, mediaOn, write.find('input[name="_csrf"]').val());
   });
 });

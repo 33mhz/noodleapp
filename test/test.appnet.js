@@ -173,9 +173,9 @@ describe('appnet', function() {
 
     it('returns my feed', function(done) {
       var scope = nock(APPNET_URL)
-        .get('/stream/0/posts/stream?access_token=1&since_id=1&before_id=1&include_deleted=0')
+        .get('/stream/0/posts/stream?access_token=1&since_id=1&before_id=1&include_deleted=0&include_directed_posts=0')
         .reply(200, POST_JSON);
-      appnet.myFeed(req, function(err, resp) {
+      appnet.myFeed(req, client, function(err, resp) {
         resp.data[0].id.should.equal('1')
         done();
       });
@@ -258,7 +258,7 @@ describe('appnet', function() {
     it('returns paginated my feed', function(done) {
       req.session.url = '';
       var scope = nock(APPNET_URL)
-        .get('/stream/0/posts/stream?access_token=1&since_id=&before_id=1&include_deleted=0')
+        .get('/stream/0/posts/stream?access_token=1&since_id=&before_id=1&include_deleted=0&include_directed_posts=0')
         .reply(200, POST_JSON);
       appnet.paginatedFeed(req, client, function(err, resp) {
         resp.data[0].id.should.equal('1')

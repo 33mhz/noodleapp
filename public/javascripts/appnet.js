@@ -303,7 +303,7 @@ define(['jquery', 'version-timeout', 'friends'],
 
       isFragment = true;
 
-      pollMessages = setTimeout(function(currentFeed, type) {
+      pollMessages = setTimeout(function() {
         versionTimeout.checkVersion();
         currentFeed = tabs.find('li.selected').data('url');
         setMessage(currentFeed, type, false, isStarredFeed);

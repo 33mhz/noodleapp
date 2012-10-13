@@ -12,6 +12,7 @@ var client = redis.createClient();
 var AppDotNetStrategy = require('passport-appdotnet').Strategy;
 var noodle = require('./package');
 var utils = require('./lib/utils');
+var userDb = require('./lib/user');
 
 nconf.argv().env().file({ file: 'local.json' });
 
@@ -54,7 +55,7 @@ passport.use(new AppDotNetStrategy({
 /* Filters for routes */
 
 var isLoggedIn = function(req, res, next) {
-  if (utils.getUser(req)) {
+  if (req.session.passport.user) {
     next();
   } else {
     res.redirect('/');

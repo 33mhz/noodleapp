@@ -13,6 +13,8 @@ block content
       ol.messages(data-userid='#{session.id}')
   else
     section.public
+      ol.tabs
+        li.global-feed(data-url="/global/feed") Global Feed
       ol.messages
         li
           h1 You need to sign in with your App.net account to see this glorious noodle.

@@ -25,7 +25,7 @@ describe('web-remix', function() {
     it('returns embed code for a youtu.be short url', function(done) {
       webRemix.generate('http://youtu.be/5cazkHAHiPU', client, function(err, subject) {
         subject.should.equal('<div class="object-wrapper"><iframe width="530" height="298" src="//www.youtube.com/embed/5cazkHAHiPU?wmode=transparent" ' +
-        'frameborder="0" allowfullscreen></iframe></div>');
+        'frameborder="0" allowfullscreen></iframe></div><a href="http://youtu.be/5cazkHAHiPU" target="_blank" class="media-off">http://youtu.be/5cazkHAHiPU</a>');
         done();
       });
     });
@@ -33,7 +33,7 @@ describe('web-remix', function() {
     it('returns embed code for a youtube normal url', function(done) {
       webRemix.generate('http://www.youtube.com/watch?v=5cazkHAHiPU', client, function(err, subject) {
         subject.should.equal('<div class="object-wrapper"><iframe width="530" height="298" src="//www.youtube.com/embed/5cazkHAHiPU?wmode=transparent" ' +
-          'frameborder="0" allowfullscreen></iframe></div>');
+          'frameborder="0" allowfullscreen></iframe></div><a href="http://www.youtube.com/watch?v=5cazkHAHiPU" target="_blank" class="media-off">http://www.youtube.com/watch?v=5cazkHAHiPU</a>');
         done();
       });
     });
@@ -41,7 +41,7 @@ describe('web-remix', function() {
     it('returns embed code for a vimeo video url', function(done) {
       webRemix.generate('http://vimeo.com/37872583', client, function(err, subject) {
         subject.should.equal('<div class="object-wrapper"><iframe src="//player.vimeo.com/video/37872583" width="530" height="298" ' +
-          'frameborder="0" webkitAllowFullScreen mozallowfullscreen allowFullScreen></iframe></div>');
+          'frameborder="0" webkitAllowFullScreen mozallowfullscreen allowFullScreen></iframe></div><a href="http://vimeo.com/37872583" target="_blank" class="media-off">http://vimeo.com/37872583</a>');
         done();
       });
     });
@@ -65,7 +65,8 @@ describe('web-remix', function() {
           'color:#02a0c7; font-weight:bold;">Lazy Kiki</a><span> on </span><a href="http://www.mixcloud.com/' +
           '?utm_source=widget&amp;utm_medium=web&amp;utm_campaign=base_links&amp;utm_term=homepage_link" ' +
           'target="_blank" style="color:#02a0c7; font-weight:bold;"> Mixcloud</a></p><div style="clear:both; ' +
-          'height:3px;"></div></div>' });
+          'height:3px;"></div></div><a href="http://mixcloud.com/LuckyMe/25-jamie-vexd-sunday-walkman-mix/" target="_blank" class="media-off" ' +
+          '>http://mixcloud.com/LuckyMe/25-jamie-vexd-sunday-walkman-mix/</a>' });
       webRemix.generate('http://mixcloud.com/LuckyMe/25-jamie-vexd-sunday-walkman-mix/', client, function(err, subject) {
         subject.should.equal('<div class="object-wrapper"><div class="object-wrapper"><div><object width="300" height="300"><param name="movie" ' +
           'value="//www.mixcloud.com/media/swf/player/mixcloudLoader.swf?feed=http%3A%2F%2Fwww.mixcloud.com%2F' +
@@ -85,7 +86,8 @@ describe('web-remix', function() {
           'font-weight:bold;">Lazy Kiki</a><span> on </span><a href="http://www.mixcloud.com/?utm_source=' +
           'widget&amp;utm_medium=web&amp;utm_campaign=base_links&amp;utm_term=homepage_link" target="_blank" ' +
           'style="color:#02a0c7; font-weight:bold;"> Mixcloud</a></p><div style="clear:both; height:3px;">' +
-          '</div></div></div></div>');
+          '</div></div></div></div><a href="http://mixcloud.com/LuckyMe/25-jamie-vexd-sunday-walkman-mix/" target="_blank" class="media-off" ' +
+          '>http://mixcloud.com/LuckyMe/25-jamie-vexd-sunday-walkman-mix/</a>');
       });
     });
 
@@ -95,11 +97,13 @@ describe('web-remix', function() {
           '%2F%2Fapi.soundcloud.com%2Fplaylists%2F723408&amp;show_artwork=true" frameborder="no" height="450" ' +
           'scrolling="no" width="100%"></iframe><a class="media-link" target="_blank"' +
           'href="http://soundcloud.com/skeptical/sets/tracks-576/">http://soundcloud.com/skeptical/sets' +
-          '/tracks-576/</a>' });
+          '/tracks-576/</a><a href="http://soundcloud.com/skeptical/sets/tracks-576/" target="_blank" class="media-off" ' +
+          '>http://soundcloud.com/skeptical/sets/tracks-576/</a>' });
       webRemix.generate('http://soundcloud.com/skeptical/sets/tracks-576/', client, function(err, subject) {
         subject.should.equal('<div class="object-wrapper"><iframe width="100%" height="450" scrolling="no" frameborder="no" ' +
           'src="//w.soundcloud.com/player/?url=http%3A%2F%2Fapi.soundcloud.com%2Fplaylists%2F723408&show_artwork=true">' +
-          '</iframe></div>');
+          '</iframe></div><a href="http://soundcloud.com/skeptical/sets/tracks-576/" target="_blank" class="media-off" ' +
+          '>http://soundcloud.com/skeptical/sets/tracks-576/</a>');
       });
     });
 
@@ -114,18 +118,20 @@ describe('web-remix', function() {
           '%2F%2Fapi.soundcloud.com%2Fplaylists%2F723408&amp;show_artwork=true" frameborder="no" height="450" ' +
           'scrolling="no" width="100%"></iframe><a class="media-link" target="_blank"' +
           'href="http://soundcloud.com/skeptical/sets/tracks-576/">http://soundcloud.com/skeptical/sets' +
-          '/tracks-576/</a> test' });
+          '/tracks-576/</a><a href="http://soundcloud.com/skeptical/sets/tracks-576/" target="_blank" class="media-off" ' +
+          '>http://soundcloud.com/skeptical/sets/tracks-576/</a> test' });
       webRemix.generate('http://soundcloud.com/skeptical/sets/tracks-576/ test #tag', client, function(err, subject) {
         subject.should.equal('test <a href="/tagged/tag">#tag</a> <div class="object-wrapper"><iframe width="100%" height="450" scrolling="no" frameborder="no" ' +
           'src="//w.soundcloud.com/player/?url=http%3A%2F%2Fapi.soundcloud.com%2Fplaylists%2F723408&show_artwork=true">' +
-          '</iframe></div>');
+          '</iframe></div><a href="http://soundcloud.com/skeptical/sets/tracks-576/" target="_blank" class="media-off" ' +
+          '>http://soundcloud.com/skeptical/sets/tracks-576/</a>');
       });
     });
 
     it('returns embed code for a rd.io short url', function(done) {
       webRemix.generate('http://rd.io/i/QVME9DdeW1GL', client, function(err, subject) {
         subject.should.equal('<div class="object-wrapper"><iframe class="rdio" width="450" height="80" ' +
-          'src="//rd.io/i/QVME9DdeW1GL" frameborder="0"></iframe></div>');
+          'src="//rd.io/i/QVME9DdeW1GL" frameborder="0"></iframe></div><a href="http://rd.io/i/QVME9DdeW1GL" target="_blank" class="media-off">http://rd.io/i/QVME9DdeW1GL</a>');
         done();
       });
     });
@@ -133,7 +139,7 @@ describe('web-remix', function() {
     it('returns embed code for a rdio normal url', function(done) {
       webRemix.generate('http://rdio.com/x/QVME9DdeW1GL', client, function(err, subject) {
         subject.should.equal('<div class="object-wrapper"><iframe class="rdio" width="450" height="80" ' +
-          'src="//rd.io/i/QVME9DdeW1GL" frameborder="0"></iframe></div>');
+          'src="//rd.io/i/QVME9DdeW1GL" frameborder="0"></iframe></div><a href="http://rdio.com/x/QVME9DdeW1GL" target="_blank" class="media-off">http://rdio.com/x/QVME9DdeW1GL</a>');
         done();
       });
     });
@@ -142,7 +148,9 @@ describe('web-remix', function() {
       webRemix.generate('http://3.bp.blogspot.com/_K_1LxF4TvhU/S7UUE6PYKiI/AAAAAAAADto/XfpdX2CIxqY/' +
         's400/Riley+the+smiling+dog.jpg', client, function(err, subject) {
         subject.should.equal('<div class="image-wrapper"><img src="http://3.bp.blogspot.com/_K_1LxF4TvhU/S7UUE6PYKiI/AAAAAAAADto/XfpdX2CIxqY/' +
-          's400/Riley+the+smiling+dog.jpg"></div>');
+          's400/Riley+the+smiling+dog.jpg"></div><a href="http://3.bp.blogspot.com/_K_1LxF4TvhU/S7UUE6PYKiI/AAAAAAAADto/XfpdX2CIxqY/' +
+        's400/Riley+the+smiling+dog.jpg" target="_blank" class="media-off">http://3.bp.blogspot.com/_K_1LxF4TvhU/S7UUE6PYKiI/AAAAAAAADto/XfpdX2CIxqY/' +
+        's400/Riley+the+smiling+dog.jpg</a>');
       });
     });
 
@@ -155,7 +163,7 @@ describe('web-remix', function() {
     it('returns image code for an instagr.am url', function() {
       webRemix.generate('http://instagram.com/p/QFJJzTw8yS/', client, function(err, subject) {
         subject.should.equal('<div class="image-wrapper"><a href="http://instagram.com/p/QFJJzTw8yS/">' +
-          '<img src="http://instagr.am/p/QFJJzTw8yS/media/"/></a></div>');
+          '<img src="http://instagr.am/p/QFJJzTw8yS/media/"/></a></div><a href="http://instagram.com/p/QFJJzTw8yS/" target="_blank" class="media-off">http://instagram.com/p/QFJJzTw8yS/</a>');
       });
     });
 
@@ -170,7 +178,7 @@ describe('web-remix', function() {
       var video = 'http://blah.com/video.ogv';
       webRemix.generate(video, client, function(err, subject) {
         subject.should.equal('<div class="object-wrapper"><video controls="controls" preload="none" autobuffer><source src="' + video +
-          '" type="video/ogg; codecs="vp8, vorbis" /></video></div>');
+          '" type="video/ogg; codecs="vp8, vorbis" /></video></div><a href="http://blah.com/video.ogv" target="_blank" class="media-off">http://blah.com/video.ogv</a>');
         done();
       });
     });
@@ -179,7 +187,7 @@ describe('web-remix', function() {
       var audio = 'http://blah.com/audio.ogg';
       webRemix.generate(audio, client, function(err, subject) {
         subject.should.equal('<div class="object-wrapper"><audio controls="controls" preload="none" autobuffer><source src="' + audio +
-          '" type="audio/ogg" /></audio></div>');
+          '" type="audio/ogg" /></audio></div><a href="http://blah.com/audio.ogg" target="_blank" class="media-off">http://blah.com/audio.ogg</a>');
         done();
       });
     });
@@ -187,7 +195,8 @@ describe('web-remix', function() {
     it('returns a regular link', function(done) {
       var link = 'http://blog.szynalski.com/2009/07/05/blind-testing-mp3-compression/';
       webRemix.generate(link, client, function(err, subject) {
-        subject.should.equal('<a href="http://blog.szynalski.com/2009/07/05/blind-testing-mp3-compression/" target="_blank">http://blog.szynalski.com/2009/07/05/blind-testing-mp3-compression/</a>');
+        subject.should.equal('<a href="http://blog.szynalski.com/2009/07/05/blind-testing-mp3-compression/" target="_blank">' +
+          'http://blog.szynalski.com/2009/07/05/blind-testing-mp3-compression/</a>');
         done();
       });
     });

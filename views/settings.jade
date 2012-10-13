@@ -1,0 +1,13 @@
+extend layout
+
+block content
+  #profile
+    img(src='#{user.avatar_image.url}')
+    .user-info
+      h2 Settings
+
+  section
+    ol.tabs
+      li.user-feed-preferences.selected Feed
+
+    ol.messages

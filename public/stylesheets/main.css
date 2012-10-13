@@ -68,6 +68,15 @@ body {
     overflow-x: hidden;
 }
 
+a.media-off, body.media-disable ol.messages > li p .image-wrapper,
+body.media-disable ol.messages > li p .object-wrapper {
+    display: none;
+}
+
+body.media-disable a.media-off {
+    display: inline;
+}
+
 body.fixed {
     overflow: hidden;
 }
@@ -102,11 +111,12 @@ header a.home {
     width: 25px;
 }
 
-header a#logout, header a#profile-link {
+header a#logout, header a#profile-link, header a#settings-link {
     float: right;
     font-size: 1px;
     height: 25px;
     margin-right: 10px;
+    outline: hidden;
     text-indent: -9999px;
     width: 25px;
 }
@@ -117,6 +127,10 @@ header a#logout {
 
 header a#profile-link {
     background-image: url('/images/profile.png');
+}
+
+header a#settings-link {
+    background-image: url('/images/settings.png');
 }
 
 header a#notifications {
@@ -333,6 +347,60 @@ ol.messages #paginated.loading {
 #overlay .users li:hover em {
     color: #eee;
     padding-left: 10px;
+}
+
+#overlay .inner-overlay h1 {
+    font-family: 'Oswald';
+    font-size: 30px;
+    margin-bottom: 10px;
+    text-transform: uppercase;
+}
+
+#overlay .inner-overlay .settings-details ul li span {
+    background-repeat: no-repeat;
+    cursor: pointer;
+    display: block;
+    float: left;
+    height: 25px;
+    width: 25px;
+}
+
+#overlay .inner-overlay .settings-details ul li span:hover {
+    opacity: 0.4;
+}
+
+#overlay .inner-overlay .settings-details li ul {
+    margin: 0;
+}
+
+
+#overlay .inner-overlay .settings-details li ul li {
+    border-top: 1px dotted #eee;
+    clear: both;
+    float: left;
+    margin: 10px 0 0;
+    padding: 10px 0 5px;
+    width: 100%;
+}
+
+#overlay .inner-overlay .settings-details ul li p {
+    float: left;
+}
+
+#directed-feed {
+    background-image: url('/images/settings-off.png');
+}
+
+#media-on {
+    background-image: url('/images/settings-off.png');
+}
+
+#directed-feed.on {
+    background-image: url('/images/settings-on.png');
+}
+
+#media-on.on {
+    background-image: url('/images/settings-on.png');
 }
 
 #overlay .inner-overlay .message-summary li.message-item {
@@ -955,14 +1023,14 @@ img.hush {
     font-family: 'Oswald';
     font-size: 25px;
     left: 50%;
-    margin-left: -115px;
+    margin-left: -135px;
     margin-top: 32px;
     opacity: 0.8;
-    padding: 20px 10px;
+    padding: 20px 5px;
     position: fixed;
     text-align: center;
     text-transform: uppercase;
-    width: 200px;
+    width: 245px;
     z-index:3;
 }
 
@@ -1051,6 +1119,10 @@ img.hush {
     header a#profile-link {
         background-image: url('/images/profile2x.png');
         background-size: auto 25px;
+    }
+
+    header a#settings-link {
+        background-image: url('/images/settings2x.png');
     }
 }
 
@@ -1192,5 +1264,10 @@ img.hush {
 
     .suggestions {
         top: 203px;
+    }
+
+    #overlay .inner-overlay .settings-details ul li p {
+        margin-left: 10px;
+        width: 200px;
     }
 }
