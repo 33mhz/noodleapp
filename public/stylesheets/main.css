@@ -1123,6 +1123,7 @@ img.hush {
 
     header a#settings-link {
         background-image: url('/images/settings2x.png');
+        background-size: auto 25px;
     }
 }
 
