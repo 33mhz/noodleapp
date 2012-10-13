@@ -28,6 +28,7 @@ module.exports = function(app, client, isLoggedIn, io, noodle) {
           res.status(500);
           res.redirect('/500');
         } else {
+
           if (userItems.mediaOn === 'false') {
             mediaOn = 'media-disable';
           }
