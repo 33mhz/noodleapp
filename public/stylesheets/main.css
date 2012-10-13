@@ -1145,10 +1145,6 @@ img.hush {
         width: 260px;
     }
 
-    .username {
-        width: 85%;
-    }
-
     #overlay .write textarea, ol.messages > li.message-item p {
         width: 250px;
     }
