@@ -38,10 +38,26 @@ describe('web-remix', function() {
       });
     });
 
+    it('returns embed code for a youtube normal url with square brackets', function(done) {
+      webRemix.generate('[http://www.youtube.com/watch?v=5cazkHAHiPU]', client, function(err, subject) {
+        subject.should.equal('<div class="object-wrapper"><iframe width="530" height="298" src="//www.youtube.com/embed/5cazkHAHiPU?wmode=transparent" ' +
+          'frameborder="0" allowfullscreen></iframe></div><a href="http://www.youtube.com/watch?v=5cazkHAHiPU" target="_blank" class="media-off">[http://www.youtube.com/watch?v=5cazkHAHiPU]</a>');
+        done();
+      });
+    });
+
     it('returns embed code for a vimeo video url', function(done) {
       webRemix.generate('http://vimeo.com/37872583', client, function(err, subject) {
         subject.should.equal('<div class="object-wrapper"><iframe src="//player.vimeo.com/video/37872583" width="530" height="298" ' +
           'frameborder="0" webkitAllowFullScreen mozallowfullscreen allowFullScreen></iframe></div><a href="http://vimeo.com/37872583" target="_blank" class="media-off">http://vimeo.com/37872583</a>');
+        done();
+      });
+    });
+
+    it('returns embed code for a vimeo video url with < and >', function(done) {
+      webRemix.generate('<http://vimeo.com/37872583>', client, function(err, subject) {
+        subject.should.equal('<div class="object-wrapper"><iframe src="//player.vimeo.com/video/37872583" width="530" height="298" ' +
+          'frameborder="0" webkitAllowFullScreen mozallowfullscreen allowFullScreen></iframe></div><a href="http://vimeo.com/37872583" target="_blank" class="media-off">&lt;http://vimeo.com/37872583&gt;</a>');
         done();
       });
     });
@@ -144,6 +160,15 @@ describe('web-remix', function() {
       });
     });
 
+    it('returns an rdio url with parentheses', function(done) {
+      var link = '(http://rdio.com/x/QVME9DdeW1GL)';
+      webRemix.generate(link, client, function(err, subject) {
+        subject.should.equal('<div class="object-wrapper"><iframe class="rdio" width="450" height="80" ' +
+          'src="//rd.io/i/QVME9DdeW1GL" frameborder="0"></iframe></div><a href="http://rdio.com/x/QVME9DdeW1GL" target="_blank" class="media-off">(http://rdio.com/x/QVME9DdeW1GL)</a>');
+        done();
+      });
+    });
+
     it('returns image code for an img url', function() {
       webRemix.generate('http://3.bp.blogspot.com/_K_1LxF4TvhU/S7UUE6PYKiI/AAAAAAAADto/XfpdX2CIxqY/' +
         's400/Riley+the+smiling+dog.jpg', client, function(err, subject) {
@@ -219,6 +244,24 @@ describe('web-remix', function() {
       });
     });
 
+    it('returns a regular link with square brackets', function(done) {
+      var link = '[http://blog.szynalski.com/2009/07/05/blind-testing-mp3-compression/]';
+      webRemix.generate(link, client, function(err, subject) {
+        subject.should.equal('<a href="http://blog.szynalski.com/2009/07/05/blind-testing-mp3-compression/" target="_blank">' +
+          '[http://blog.szynalski.com/2009/07/05/blind-testing-mp3-compression/]</a>');
+        done();
+      });
+    });
+
+    it('returns a regular link with parentheses', function(done) {
+      var link = '(http://blog.szynalski.com/2009/07/05/blind-testing-mp3-compression/)';
+      webRemix.generate(link, client, function(err, subject) {
+        subject.should.equal('<a href="http://blog.szynalski.com/2009/07/05/blind-testing-mp3-compression/" target="_blank">' +
+          '(http://blog.szynalski.com/2009/07/05/blind-testing-mp3-compression/)</a>');
+        done();
+      });
+    });
+
     it('returns the user link', function(done) {
       webRemix.generate('@borg', client, function(err, subject) {
         subject.should.equal('<a href="/user/borg">@borg</a>');
@@ -237,7 +280,7 @@ describe('web-remix', function() {
     it('return a protocol-less link as a regular link', function(done) {
       var link = 'bla.de';
       webRemix.generate(link, client, function(err, subject) {
-        subject.should.equal('<a href="http://bla.de" target="_blank">http://bla.de</a>');
+        subject.should.equal('<a href="http://bla.de" target="_blank">bla.de</a>');
         done();
       });
     });
@@ -245,7 +288,7 @@ describe('web-remix', function() {
     it('return a www link as a regular link', function(done) {
       var link = 'www.bla.de';
       webRemix.generate(link, client, function(err, subject) {
-        subject.should.equal('<a href="http://www.bla.de" target="_blank">http://www.bla.de</a>');
+        subject.should.equal('<a href="http://www.bla.de" target="_blank">www.bla.de</a>');
         done();
       });
     });
