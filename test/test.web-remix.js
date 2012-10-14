@@ -192,11 +192,29 @@ describe('web-remix', function() {
       });
     });
 
+    it('returns audio for an audio link with smart quotes', function(done) {
+      var audio = '“http://blah2.com/audio.ogg”';
+      webRemix.generate(audio, client, function(err, subject) {
+        subject.should.equal('<div class="object-wrapper"><audio controls="controls" preload="none" autobuffer><source src="http://blah2.com/audio.ogg' +
+          '" type="audio/ogg" /></audio></div><a href="http://blah2.com/audio.ogg" target="_blank" class="media-off">“http://blah2.com/audio.ogg”</a>');
+        done();
+      });
+    });
+
     it('returns a regular link', function(done) {
       var link = 'http://blog.szynalski.com/2009/07/05/blind-testing-mp3-compression/';
       webRemix.generate(link, client, function(err, subject) {
         subject.should.equal('<a href="http://blog.szynalski.com/2009/07/05/blind-testing-mp3-compression/" target="_blank">' +
           'http://blog.szynalski.com/2009/07/05/blind-testing-mp3-compression/</a>');
+        done();
+      });
+    });
+
+    it('returns a regular link with quotes', function(done) {
+      var link = '"http://blog.szynalski.com/2009/07/05/blind-testing-mp3-compression/"';
+      webRemix.generate(link, client, function(err, subject) {
+        subject.should.equal('<a href="http://blog.szynalski.com/2009/07/05/blind-testing-mp3-compression/" target="_blank">' +
+          '&quot;http://blog.szynalski.com/2009/07/05/blind-testing-mp3-compression/&quot;</a>');
         done();
       });
     });
