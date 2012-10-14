@@ -21,13 +21,14 @@ define(['jquery', 'version-timeout', 'friends'],
   var loggedInId = $('body').data('sessionid');
   var noTouch = '';
   var newCount = 0;
+  var paginationLock = false;
 
   if (!('ontouchstart' in document.documentElement)) {
     noTouch = 'no-touch';
   }
 
   var MESSAGE_LIMIT = 19;
-  var POLL_TIMEOUT = 40000;
+  var POLL_TIMEOUT = 30000;
 
   // Wait 1 minute to get new data
   var pollMessages = function() {
@@ -278,17 +279,17 @@ define(['jquery', 'version-timeout', 'friends'],
           }
         }
 
-        if (paginated) {
+        if (paginated && paginationLock) {
           messages.find('#paginated').removeClass('loading');
         } else {
-          messages.find('> li:gt(' + MESSAGE_LIMIT + ')').remove();
+          if (!paginationLock) {
+            messages.find('> li:gt(' + MESSAGE_LIMIT + ')').remove();
+          }
           sinceId = messages.find('> li:first-child').data('id');
         }
 
-        if (messages.find('> li').length >= 20) {
+        if (messages.find('> li').length >= 20 && messages.find('#paginated').length === 0) {
           messages.append('<li id="paginated">View Older</li>');
-        } else {
-
         }
 
       } else {
@@ -414,30 +415,35 @@ define(['jquery', 'version-timeout', 'friends'],
   var self = {
     getMyFeed: function() {
       isFragment = false;
+      paginationLock = false;
       sinceId = null;
       setMessage('/my/feed', 'GET', false, false);
     },
 
     getUserPosts: function() {
       isFragment = false;
+      paginationLock = false;
       sinceId = null;
       setMessage('/user/posts/' + userId, 'GET', false, false);
     },
 
     getUserMentions: function() {
       isFragment = false;
+      paginationLock = false;
       sinceId = null;
       setMessage('/user/mentions/' + userId, 'GET', false, false);
     },
 
     getUserStarred: function() {
       isFragment = false;
+      paginationLock = false;
       sinceId = null;
       setMessage('/user/starred/' + userId, 'GET', false, true);
     },
 
     getGlobalFeed: function() {
       isFragment = false;
+      paginationLock = false;
       sinceId = null;
       setMessage('/global/feed', 'GET', false, false);
     },
@@ -548,6 +554,7 @@ define(['jquery', 'version-timeout', 'friends'],
 
     getOlderPosts: function(postId) {
       isFragment = true;
+      paginationLock = true;
       var isStarredFeed = false;
       if (tabs.find('.selected').hasClass('user-starred')) {
         isStarredFeed = true;
