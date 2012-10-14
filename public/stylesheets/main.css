@@ -1120,10 +1120,12 @@ img.hush {
 
     #directed-feed, #media-on {
         background-image: url('/images/settings-off2x.png');
+        background-size: auto 25px;
     }
 
     #directed-feed.on, #media-on.on {
         background-image: url('/images/settings-on2x.png');
+        background-size: auto 25px;
     }
 }
 
