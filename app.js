@@ -16,16 +16,6 @@ var userDb = require('./lib/user');
 
 nconf.argv().env().file({ file: 'local.json' });
 
-/* Websocket setup */
-
-var io = require('socket.io').listen(server);
-
-io.configure(function() {
-  io.set('transports', ['xhr-polling']);
-  io.set('polling duration', 30);
-  io.set('log level', 1);
-});
-
 /* Passport OAuth setup */
 
 passport.serializeUser(function(user, done) {
@@ -64,7 +54,7 @@ var isLoggedIn = function(req, res, next) {
 
 /* Routing setup */
 
-require('./routes')(app, client, isLoggedIn, io, noodle);
+require('./routes')(app, client, isLoggedIn, noodle);
 require('./routes/auth')(app, passport);
 
 app.get('/404', function(req, res, next){

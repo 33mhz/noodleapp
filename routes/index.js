@@ -1,6 +1,6 @@
 'use strict';
 
-module.exports = function(app, client, isLoggedIn, io, noodle) {
+module.exports = function(app, client, isLoggedIn, noodle) {
   var appnet = require('../lib/appnet');
   var webremix = require('../lib/web-remix');
   var utils = require('../lib/utils');
