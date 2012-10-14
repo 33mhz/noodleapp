@@ -387,19 +387,11 @@ ol.messages #paginated.loading {
     float: left;
 }
 
-#directed-feed {
+#directed-feed, #media-on {
     background-image: url('/images/settings-off.png');
 }
 
-#media-on {
-    background-image: url('/images/settings-off.png');
-}
-
-#directed-feed.on {
-    background-image: url('/images/settings-on.png');
-}
-
-#media-on.on {
+#directed-feed.on, #media-on.on {
     background-image: url('/images/settings-on.png');
 }
 
@@ -1124,6 +1116,14 @@ img.hush {
     header a#settings-link {
         background-image: url('/images/settings2x.png');
         background-size: auto 25px;
+    }
+
+    #directed-feed, #media-on {
+        background-image: url('/images/settings-off2x.png');
+    }
+
+    #directed-feed.on, #media-on.on {
+        background-image: url('/images/settings-on2x.png');
     }
 }
 
