@@ -23,5 +23,8 @@
     "mocha": ">= 1.4.2",
     "nock": ">= 0.13.4",
     "should": ">= 1.1.1"
+  },
+  "scripts": {
+    "test": "make test"
   }
 }
