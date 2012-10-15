@@ -269,12 +269,22 @@ define(['jquery', 'appnet', 'friends', 'user'],
   });
 
   // Clear the reply_to id if this is empty
-  write.find('textarea').keyup(function() {
+  write.find('textarea').keyup(function(evt) {
     var self = $(this);
     checkCharLimit(self.val());
-    friends.getBFFs(self, self.val().trim().toLowerCase());
+    friends.getBFFs(self, self.val().toLowerCase());
     if (self.val().trim().length === 0) {
       write.find('.reply_to').val('');
+    }
+  }).keydown(function(evt) {
+    if(evt.keyCode === 9) {
+      // Pressing TAB autocompletes to the first user listed.
+      var userLi = suggestions.find('li:first');
+      if(userLi.length) {
+        friends.setUser(userLi, userLi.closest('.write'));
+        suggestions.empty();
+        return false;
+      }
     }
   });
 
