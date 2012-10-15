@@ -64,8 +64,6 @@ body {
     background-image: url('/images/background.png');
     font-family: Arial;
     position: relative;
-    overflow-y: scroll;
-    overflow-x: hidden;
 }
 
 a.media-off, body.media-disable ol.messages > li p .image-wrapper,
