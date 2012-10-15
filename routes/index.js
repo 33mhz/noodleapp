@@ -64,8 +64,7 @@ module.exports = function(app, client, isLoggedIn, noodle) {
         res.redirect('/500');
       } else {
         if (user.meta.code === 404) {
-          res.status(404);
-          res.redirect('/404');
+          res.render('404');
         } else {
           if (user.data) {
             user = user.data;

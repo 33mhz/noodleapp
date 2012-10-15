@@ -115,7 +115,7 @@ define(['jquery', 'version-timeout', 'friends'],
         '<li class="reply"><span>Reply</span></li>' +
       isRepost + '<li class="quote"><span>Quote</span></li>' + isDeletable + '</ol>';
     }
-    return $('<li class="message-item" data-mentions="" data-original="" data-id="' +
+    return $('<li class="message-item" data-mentions="" data-replyto="" data-original="" data-id="' +
       message.id + '" ' + 'data-username="' + message.username + '" data-minid="' + message.min_id + '">' +
       '<div class="meta"><a href="" class="who" title=""><img src=""></a>' +
       '<div class="details"><a href="" class="username"></a><time data-created=""></time>' +
@@ -123,6 +123,8 @@ define(['jquery', 'version-timeout', 'friends'],
   };
 
   var setMessageMetadata = function(messageItem, message) {
+    // reply to id
+    message.attr('data-replyto', messageItem.reply_to);
     // plain text
     message.attr('data-original', messageItem.text);
     // user's profile page
@@ -251,7 +253,7 @@ define(['jquery', 'version-timeout', 'friends'],
             } else {
               isRepost = '<li class="repost"><span>Repost</a></li>';
 
-              if (data.messages[i].isRepost) {
+            if (data.messages[i].isRepost) {
                 isRepost = '<li class="repost on"><span>Unrepost</span></li>';
               }
             }

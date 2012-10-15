@@ -168,7 +168,10 @@ header a#notifications.on:hover {
     border-bottom-left-radius: 5px;
     border-bottom-right-radius: 5px;
     display: none;
+    height: 300px;
     opacity: 0.9;
+    overflow-y: scroll;
+    -webkit-overflow-scrolling: touch;
     padding: 6px;
     position: fixed;
     right: 10px;

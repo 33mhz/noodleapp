@@ -112,10 +112,15 @@ define(['jquery', 'appnet', 'friends', 'user'],
 
   messages.on('click', '.details .reply', function() {
     var self = $(this);
-    var mentions = (self.closest('.message-item').data('mentions') !== '') ? self.closest('.message-item').data('mentions') + ' ' : '';
+    var messageItem = self.closest('.message-item');
+    var mentions = (messageItem.data('mentions') !== '') ? messageItem.data('mentions') + ' ' : '';
     write.find('textarea').focus();
-    write.find('textarea').val('@' + self.closest('.message-item').data('username') + ' ' + mentions);
-    write.find('.reply_to').val(self.closest('.message-item').data('id'));
+    write.find('textarea').val('@' + messageItem.data('username') + ' ' + mentions);
+    if (parseInt(messageItem.data('replyto'), 10) > 0) {
+      write.find('.reply_to').val(messageItem.data('replyto'));
+    } else {
+      write.find('.reply_to').val(messageItem.data('id'));
+    }
     document.location.href = '#top';
   });
 
