@@ -113,9 +113,9 @@ define(['jquery', 'version-timeout', 'friends'],
     if (threadAction.length > 0 || isStarred.length > 0 || isRepost.length > 0 || isDeletable.length > 0) {
       actions = '<ol class="actions ' + noTouch + '">' + threadAction + isStarred +
         '<li class="reply"><span>Reply</span></li>' +
-      isRepost + isDeletable + '</ol>';
+      isRepost + '<li class="quote"><span>Quote</span></li>' + isDeletable + '</ol>';
     }
-    return $('<li class="message-item" data-mentions="" data-id="' +
+    return $('<li class="message-item" data-mentions="" data-original="" data-id="' +
       message.id + '" ' + 'data-username="' + message.username + '" data-minid="' + message.min_id + '">' +
       '<div class="meta"><a href="" class="who" title=""><img src=""></a>' +
       '<div class="details"><a href="" class="username"></a><time data-created=""></time>' +
@@ -123,6 +123,8 @@ define(['jquery', 'version-timeout', 'friends'],
   };
 
   var setMessageMetadata = function(messageItem, message) {
+    // plain text
+    message.attr('data-original', messageItem.text);
     // user's profile page
     message.find('a.who')
       .attr('title', messageItem.name + ' @' + messageItem.username)

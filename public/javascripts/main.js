@@ -145,6 +145,13 @@ define(['jquery', 'appnet', 'friends', 'user'],
     }
   });
 
+  messages.on('click', '.details .quote', function() {
+    var self = $(this);
+
+    write.find('textarea').focus();
+    write.find('textarea').val('"' + self.closest('.message-item').data('original') + '"');
+  });
+
   messages.on('click', '.details .delete', function() {
     var self = $(this);
     appnet.deleteMessage(self.closest('.message-item').data('id'), csrf);
