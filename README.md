@@ -1,5 +1,11 @@
 # NoodleApp
 
+## Support us by donating!
+
+<a href='http://www.pledgie.com/campaigns/18407'><img alt='Click here to lend your support to: NoodleApp - an app.net web client and make a donation at www.pledgie.com !' src='http://www.pledgie.com/campaigns/18407.png?skin_name=chrome' border='0' /></a>
+
+Donating enables us to continually add new awesome features and keep the server running fast like bunnies!
+
 ![NoodleApp](http://f.cl.ly/items/2i062B0R2T1t302T423y/NoodleApp-4.jpg)
 
 An http://app.net web client.

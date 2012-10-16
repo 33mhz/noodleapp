@@ -168,6 +168,7 @@ header a#notifications.on:hover {
     height: 300px;
     opacity: 0.9;
     overflow-y: scroll;
+    overflow-x: hidden;
     -webkit-overflow-scrolling: touch;
     padding: 6px;
     position: fixed;
@@ -186,7 +187,7 @@ header a#notifications.on:hover {
     font-size: 13px;
     line-height: 16px;
     margin: 0 0 3px 0;
-    padding: 5px 0 7px;
+    padding: 5px;
     text-decoration: none;
     text-shadow: #111 1px 1px 3px;
 }
@@ -197,7 +198,7 @@ header a#notifications.on:hover {
 
 #notifications-preview li h2 {
     margin-bottom: 3px;
-    padding: 3px 5px;
+    padding: 0;
 }
 
 #notifications-preview li a span {
