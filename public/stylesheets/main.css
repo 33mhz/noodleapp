@@ -87,7 +87,7 @@ header {
     font-family: 'Oswald';
     opacity: 0.8;
     padding: 3px 0;
-    position: fixed;
+    /* position: fixed; */
     width: 100%;
     z-index: 3;
 }
