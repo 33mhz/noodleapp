@@ -47,11 +47,6 @@ table {
     border-spacing: 0;
 }
 
-html, body {
-    height: 100%;
-    position: relative;
-}
-
 @font-face {
     font-family: 'Oswald';
     src: url('../fonts/Oswald-Regular-webfont.woff') format('woff');
@@ -87,7 +82,7 @@ header {
     font-family: 'Oswald';
     opacity: 0.8;
     padding: 3px 0;
-    /* position: fixed; */
+    position: fixed;
     width: 100%;
     z-index: 3;
 }
