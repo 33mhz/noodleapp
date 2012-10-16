@@ -437,6 +437,7 @@ ol.messages #paginated.loading {
 
 #overlay li p img {
     margin: 2px 0;
+    max-height: 400px;
     max-width: 400px;
 }
 
@@ -966,6 +967,7 @@ ol.messages > li p .image-wrapper:first-child, ol.messages > li p .object-wrappe
 }
 
 ol.messages > li p img {
+    max-height: 535px;
     max-width: 535px;
 }
 
@@ -1179,6 +1181,7 @@ img.hush {
     }
 
     #overlay li p img {
+        max-height: 240px;
         max-width: 240px;
     }
 
@@ -1268,6 +1271,7 @@ img.hush {
     }
 
     ol.messages .inner-overlay ol > li p img, ol.messages > li p img {
+        max-height: 250px;
         max-width: 250px;
     }
 
