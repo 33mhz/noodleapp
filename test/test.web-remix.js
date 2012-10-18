@@ -264,7 +264,7 @@ describe('web-remix', function() {
 
     it('returns the user link', function(done) {
       webRemix.generate('@borg', client, function(err, subject) {
-        subject.should.equal('<a href="/user/borg">@borg</a>');
+        subject.should.equal('<a href="/user/borg/">@borg</a>');
         done();
       });
     });
@@ -295,7 +295,7 @@ describe('web-remix', function() {
 
     it('returns the user link followed by \'s', function(done) {
       webRemix.generate('@borg\'s', client, function(err, subject) {
-        subject.should.equal('<a href="/user/borg">@borg</a>\'s');
+        subject.should.equal('<a href="/user/borg/">@borg</a>\'s');
         done();
       });
     });
