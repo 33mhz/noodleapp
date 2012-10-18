@@ -182,7 +182,7 @@ define(['jquery', 'appnet', 'friends', 'user'],
 
   body.on('click', 'time', function() {
     var self = $(this);
-    document.location.href = '#/post/' + self.closest('.message-item').data('id') +
+    document.location.href = '/#/post/' + self.closest('.message-item').data('id') +
       '/' + self.closest('.message-item').data('username');
   });
 
