@@ -31,7 +31,7 @@ html
       if session
         a(href='/logout', id='logout', title='Sign out') Log out
         a(href='#', id='settings-link', title='Settings') Settings
-        a(href='/user/#{session.username}', id='profile-link', title='Profile') Profile
+        a(href='/user/#{session.username}/', id='profile-link', title='Profile') Profile
         a(href='#', id='notifications', title='Notifications', class='') 0
 
     if session
