@@ -1,4 +1,4 @@
-mixin messageForm(cssName, placeholder, message)
+mixin messageForm(cssName, placeholder, message, buttonText)
   if session
     .write(name='#write', class='#{cssName}')
       form(method='post')
@@ -6,7 +6,7 @@ mixin messageForm(cssName, placeholder, message)
         input(type='hidden', name='reply_to', value='', class='reply_to')
         input(type='hidden', name='_csrf', value='#{csrf}')
         span.counter 256
-        button(type='submit') Post
+        button(type='submit')= buttonText
         ol.suggestions(class='writeable')
 
 !!! 5
@@ -42,7 +42,7 @@ html
       a(name='#top')
       if session
         #overlay
-          mixin messageForm('overlay-write', 'Reply', '')
+          mixin messageForm('overlay-write', 'Reply', '', 'Reply')
           .inner-overlay
       #flash-message
       .dashboard-content

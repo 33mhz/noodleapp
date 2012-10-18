@@ -26,7 +26,7 @@ block content
             li(class='mute') Mute
 
       p!= description.replace(/\n/gm, '<br>')
-  mixin messageForm('profile', 'Write a message to @' + username, '@' + username + ' ')
+  mixin messageForm('profile', 'Write a message to @' + username, '@' + username + ' ', 'Post')
 
   section
     ol.tabs
