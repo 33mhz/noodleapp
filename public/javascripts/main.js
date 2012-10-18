@@ -42,6 +42,17 @@ define(['jquery', 'appnet', 'friends', 'user'],
     callback();
   };
 
+  var checkUrl = function() {
+    if (document.location.href.indexOf('/#/post/') > -1) {
+      var postArray = document.location.href.split('/#/post/')[1].split('/');
+      var postId = postArray[0];
+      var usernameId = postArray[1];
+
+      appnet.showPost(postId, usernameId);
+      body.addClass('fixed');
+    }
+  };
+
   var checkCharLimit = function(text) {
     if (text) {
       var textLength = text.length;
@@ -171,8 +182,14 @@ define(['jquery', 'appnet', 'friends', 'user'],
 
   body.on('click', 'time', function() {
     var self = $(this);
-    appnet.showPost(self.closest('.message-item').data('id'), self.closest('.message-item').data('username'));
-    body.addClass('fixed');
+    document.location.href = '#/post/' + self.closest('.message-item').data('id') +
+      '/' + self.closest('.message-item').data('username');
+  });
+
+  checkUrl();
+
+  $(window).bind('hashchange', function() {
+    checkUrl();
   });
 
   var notificationsDisplay = false;
