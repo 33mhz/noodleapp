@@ -99,7 +99,7 @@ define(['jquery', 'version-timeout', 'friends'],
         var user = $('<li><a href=""><img src=""><span class="name"></span></a></li>');
         user.find('img').attr('src', data.users[i].avatar_image.url);
         user.find('a')
-          .attr('href', '/user/' + data.users[i].username)
+          .attr('href', '/user/' + data.users[i].username + '/')
           .find('span.name').html(data.users[i].name + ' <em>@' + data.users[i].username + '</em>');
         userList.append(user);
       }
@@ -130,10 +130,10 @@ define(['jquery', 'version-timeout', 'friends'],
     // user's profile page
     message.find('a.who')
       .attr('title', messageItem.name + ' @' + messageItem.username)
-      .attr('href', '/user/' + messageItem.username);
+      .attr('href', '/user/' + messageItem.username + '/');
     // user's full name
     message.find('a.username')
-      .attr('href', '/user/' + messageItem.username)
+      .attr('href', '/user/' + messageItem.username + '/')
       .text(messageItem.name);
     // time
     message.find('time')
@@ -322,7 +322,7 @@ define(['jquery', 'version-timeout', 'friends'],
     // If the currentMentionPostId has not been set, get the latest post id and set it
     if (!currentMentionPostId) {
       $.ajax({
-        url: '/user/mentions/' + loggedInId,
+        url: '/user/mentions/' + loggedInId + '/',
         data: { count: 1 },
         type: 'GET',
         dataType: 'json',
@@ -334,7 +334,7 @@ define(['jquery', 'version-timeout', 'friends'],
     // We have a currentMentionPostId set but we need to check for new mentions and update it accordingly
     } else {
       $.ajax({
-        url: '/user/mentions/' + loggedInId,
+        url: '/user/mentions/' + loggedInId + '/',
         data: { since_id: parseInt(currentMentionPostId, 10), paginated: 1 },
         type: 'GET',
         dataType: 'json',
@@ -388,7 +388,7 @@ define(['jquery', 'version-timeout', 'friends'],
         if (userListMeta.find('li[data-avatarid="' + userItem.id + '"]').length === 0) {
           var user = $('<li data-avatarid=""><a href=""><img src="" alt="" title=""></a></li>');
           user.attr('data-avatarid', userItem.id);
-          user.find('a').attr('href', '/user/' + userItem.username);
+          user.find('a').attr('href', '/user/' + userItem.username + '/');
           user.find('img')
             .attr('src', userItem.avatar_image.url)
             .attr('alt', userItem.name)

@@ -47,7 +47,6 @@ define(['jquery', 'appnet', 'friends', 'user'],
       var postArray = document.location.href.split('/#/post/')[1].split('/');
       var postId = postArray[0];
       var usernameId = postArray[1];
-
       appnet.showPost(postId, usernameId);
       body.addClass('fixed');
     }
@@ -182,7 +181,7 @@ define(['jquery', 'appnet', 'friends', 'user'],
 
   body.on('click', 'time', function() {
     var self = $(this);
-    document.location.href = '/#/post/' + self.closest('.message-item').data('id') +
+    document.location.href = '#/post/' + self.closest('.message-item').data('id') +
       '/' + self.closest('.message-item').data('username');
   });
 
