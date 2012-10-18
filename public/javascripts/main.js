@@ -269,6 +269,7 @@ define(['jquery', 'appnet', 'friends', 'user'],
   });
 
   overlay.on('click', '.close', function() {
+    window.history.pushState('', '', document.location.href.split('#')[0]);
     overlay.find('.inner-overlay').html('');
     overlay.find('textarea').val('');
     overlay.slideUp(function() {
