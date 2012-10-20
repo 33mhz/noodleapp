@@ -300,6 +300,13 @@ describe('web-remix', function() {
       });
     });
 
+    it('returns the user link preceded and followed by \"s', function(done) {
+      webRemix.generate('"@borg"', client, function(err, subject) {
+        subject.should.equal('&quot;<a href="/user/borg/">@borg</a>&quot;');
+        done();
+      });
+    });
+
     it('returns a non-user link', function(done) {
       webRemix.generate('@ borg', client, function(err, subject) {
         subject.should.equal('@   borg');
