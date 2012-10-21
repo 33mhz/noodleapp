@@ -9,7 +9,7 @@ requirejs.config({
   }
 });
 
-define(['jquery', 'appnet', 'friends', 'user'],
+define(['jquery', 'appnet', 'friends', 'user', 'jquery.caret'],
   function($, appnet, friends, user) {
 
   var body = $('body');
@@ -303,16 +303,17 @@ define(['jquery', 'appnet', 'friends', 'user'],
   write.find('textarea').keyup(function(evt) {
     var self = $(this);
     checkCharLimit(self.val());
-    friends.getBFFs(self, self.val().toLowerCase());
+    friends.getBFFs(self, self.getCursorPosition());
     if (self.val().trim().length === 0) {
       write.find('.reply_to').val('');
     }
   }).keydown(function(evt) {
-    if(evt.keyCode === 9) {
-      // Pressing TAB autocompletes to the first user listed.
+    var self = $(this);
+    if(evt.keyCode === 9 || evt.keyCode === 32) {
+      // Pressing TAB/space autocompletes to the first user listed.
       var userLi = suggestions.find('li:first');
-      if(userLi.length) {
-        friends.setUser(userLi, userLi.closest('.write'));
+      if (userLi.length) {
+        friends.setUser(userLi, self, self.getCursorPosition());
         suggestions.empty();
         return false;
       }
@@ -333,7 +334,8 @@ define(['jquery', 'appnet', 'friends', 'user'],
 
   suggestions.on('click', 'li', function() {
     var self = $(this);
-    friends.setUser(self, self.closest('.write'));
+    var textarea = self.closest('form').find('textarea');
+    friends.setUser(self, textarea, textarea.getCursorPosition());
   });
 
   body.on('click', '#settings-link', function(ev) {

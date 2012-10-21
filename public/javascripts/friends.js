@@ -22,15 +22,26 @@ define(['jquery'],
       });
     },
 
-    getBFFs: function(self, usernameClip) {
-      var tokenized = usernameClip.split(/\s/);
-      var lastUser = tokenized[tokenized.length - 1];
+    getBFFs: function(self, cursorPosition) {
+      var usernameClip = '';
+      console.log(usernameClip)
       var userList = self.closest('.write').find('ol.suggestions');
 
-      if (lastUser.length < 2) {
+      for (var i = cursorPosition - 1; i > -1; i --) {
+        if (self.val()[i] !== '@') {
+          usernameClip += self.val()[i];
+        } else {
+          usernameClip += '@';
+          break;
+        }
+      }
+
+      usernameClip = usernameClip.split('').reverse().join('');
+
+      if (!usernameClip.match(/^@/)) {
         userList.empty();
-      } else if(lastUser.match(/@[A-Za-z0-9_-]+/gi)) {
-        lastUser = lastUser.split('@')[1];
+      } else if(usernameClip.match(/@[A-Za-z0-9_-]+/gi)) {
+        var lastUser = usernameClip.split('@')[1];
 
         // Add a username if it has a wildcard match
         for (var i = 0; i < usernamesArr.length; i ++) {
@@ -51,13 +62,24 @@ define(['jquery'],
       }
     },
 
-    setUser: function(item, currWrite) {
-      var textarea = currWrite.find('textarea');
-      var tokenized = textarea.val().split(/\s/);
-      var lastChars = tokenized[tokenized.length - 1].length;
+    setUser: function(item, textarea, cursorPosition) {
+      var textCount = 0;
+      var fullLength = textarea.val().length;
+
+      for (var i = cursorPosition - 1; i > -1; i --) {
+        if (textarea.val()[i] !== '@') {
+          textCount ++;
+        } else {
+          break;
+        }
+      }
+
+      var fullText = textarea.val().substring(0, cursorPosition - textCount - 1) +
+        item.text() + ' ' + textarea.val().substring(cursorPosition,
+        fullLength + item.text().length + 1);
 
       textarea.focus();
-      textarea.val(textarea.val().substring(0, textarea.val().length - lastChars) + item.text() + ' ');
+      textarea.val(fullText);
       item.closest('write').find('.suggestions').empty();
     }
   };
