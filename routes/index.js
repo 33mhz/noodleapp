@@ -37,6 +37,8 @@ module.exports = function(app, client, isLoggedIn, noodle) {
 
           if (userItems.charLimit === 'true') {
             charLimit = 140;
+          } else {
+            charLimit = 256;
           }
 
           req.session.url = '/my/feed';
@@ -97,6 +99,8 @@ module.exports = function(app, client, isLoggedIn, noodle) {
 
               if (userItems.charLimit === 'true') {
                 charLimit = 140;
+              } else {
+                charLimit = 256;
               }
             }
 
