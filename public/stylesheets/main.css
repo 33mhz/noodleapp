@@ -388,11 +388,11 @@ ol.messages #paginated.loading {
     float: left;
 }
 
-#directed-feed, #media-on {
+#directed-feed, #media-on, #charlimit {
     background-image: url('/images/settings-off.png');
 }
 
-#directed-feed.on, #media-on.on {
+#directed-feed.on, #media-on.on, #charlimit.on {
     background-image: url('/images/settings-on.png');
 }
 

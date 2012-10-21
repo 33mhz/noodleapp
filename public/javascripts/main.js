@@ -33,7 +33,7 @@ define(['jquery', 'appnet', 'friends', 'user'],
   var win = $(window);
   var csrf = write.find('input[name="_csrf"]').val();
 
-  var CHAR_MAX = 256;
+  var CHAR_MAX = parseInt(body.data('charlimit'), 10);
   var TAB_KEYCODE = 9;
 
   var resetTab = function(self, callback) {
@@ -61,6 +61,8 @@ define(['jquery', 'appnet', 'friends', 'user'],
       } else {
         charLimit.text(CHAR_MAX - textLength);
       }
+    } else {
+      charLimit.text(CHAR_MAX);
     }
   };
 
@@ -340,10 +342,11 @@ define(['jquery', 'appnet', 'friends', 'user'],
     user.getSettings();
   });
 
-  body.on('click', '#directed-feed, #media-on', function() {
+  body.on('click', '#directed-feed, #media-on, #charlimit', function() {
     var self = $(this);
     var directedFeed = false;
     var mediaOn = false;
+    var charLimit = false;
 
     if (self.hasClass('on')) {
       self.removeClass('on');
@@ -359,6 +362,10 @@ define(['jquery', 'appnet', 'friends', 'user'],
       mediaOn = true;
     }
 
-    user.saveSettings(directedFeed, mediaOn, write.find('input[name="_csrf"]').val());
+    if (overlay.find('#charlimit').hasClass('on')) {
+      charLimit = true;
+    }
+
+    user.saveSettings(directedFeed, mediaOn, charLimit, write.find('input[name="_csrf"]').val());
   });
 });

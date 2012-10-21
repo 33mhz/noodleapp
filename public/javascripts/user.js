@@ -7,6 +7,7 @@ define(['jquery'],
   var flashMsg = $('#flash-message');
   var directedFeed = false;
   var mediaOn = false;
+  var charLimit = false;
 
   var self = {
     getSettings: function() {
@@ -22,7 +23,9 @@ define(['jquery'],
       }).done(function(data) {
         var settingsList = $('<h1>Settings</h1><ol class="message-summary settings-details"><li><ul><li>' +
           '<span id="directed-feed"></span> <p>Include posts directed to users I don\'t follow</p></li>' +
-          '<li><span id="media-on"></span> <p>Auto-embed media</p></li></ul></li><li class="close">Close</li></ol>');
+          '<li><span id="media-on"></span> <p>Auto-embed media</p></li>' +
+          '<li><span id="charlimit"></span> <p>Limit to 140 characters</p></li>' +
+          '</ul></li><li class="close">Close</li></ol>');
 
         if (data.settings.directedFeed === 'true') {
           settingsList.find('#directed-feed').addClass('on');
@@ -33,15 +36,26 @@ define(['jquery'],
           settingsList.find('#media-on').addClass('on');
           mediaOn = true;
         }
+
+        if (data.settings.charLimit === 'true') {
+          settingsList.find('#charlimit').addClass('on');
+          charLimit = true;
+        }
+
         overlay.find('.inner-overlay').html(settingsList);
       });
     },
 
-    saveSettings: function(directedFeed, mediaOn, csrf) {
+    saveSettings: function(directedFeed, mediaOn, charLimit, csrf) {
       $.ajax({
         url: '/settings',
         type: 'POST',
-        data: { directed_feed: directedFeed, media_on: mediaOn, _csrf: csrf },
+        data: {
+          directed_feed: directedFeed,
+          media_on: mediaOn,
+          char_limit: charLimit,
+          _csrf: csrf
+        },
         dataType: 'json',
         cache: false
 

@@ -5,6 +5,8 @@ module.exports = function(app, client, isLoggedIn, noodle) {
   var webremix = require('../lib/web-remix');
   var utils = require('../lib/utils');
   var userDb = require('../lib/user');
+  var charLimit = 256;
+
   var FOLLOWING_MAX = 300;
 
   app.get('/', function(req, res) {
@@ -33,6 +35,10 @@ module.exports = function(app, client, isLoggedIn, noodle) {
             mediaOn = 'media-disable';
           }
 
+          if (userItems.charLimit === 'true') {
+            charLimit = 140;
+          }
+
           req.session.url = '/my/feed';
           res.render('index', {
             pageType: 'index',
@@ -41,7 +47,8 @@ module.exports = function(app, client, isLoggedIn, noodle) {
             url: req.session.url || '/my/feed',
             loggedInId: utils.getUserById(req),
             username: utils.getUser(req).username,
-            mediaOn: mediaOn
+            mediaOn: mediaOn,
+            charLimit: charLimit
           });
         }
       });
@@ -52,7 +59,8 @@ module.exports = function(app, client, isLoggedIn, noodle) {
         session: false,
         loggedInId: '',
         username: '',
-        mediaOn: ''
+        mediaOn: '',
+        charLimit: charLimit
       });
     }
   });
@@ -86,6 +94,10 @@ module.exports = function(app, client, isLoggedIn, noodle) {
               if (userItems.mediaOn === 'false') {
                 mediaOn = 'media-disable';
               }
+
+              if (userItems.charLimit === 'true') {
+                charLimit = 140;
+              }
             }
 
             req.session.url = '/user/posts/' + user.id;
@@ -99,7 +111,8 @@ module.exports = function(app, client, isLoggedIn, noodle) {
               url: req.session.url || '/my/feed',
               description: description,
               loggedInId: utils.getUserById(req),
-              mediaOn: mediaOn
+              mediaOn: mediaOn,
+              charLimit: charLimit
             });
           });
         }
