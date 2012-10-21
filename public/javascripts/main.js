@@ -285,12 +285,19 @@ define(['jquery', 'appnet', 'friends', 'user', 'jquery.caret'],
 
   write.find('textarea').focus(function() {
     var self = $(this);
+    self.addClass('on');
     charLimit.addClass('on');
     checkCharLimit(self.val());
   });
 
   write.find('textarea').blur(function() {
+    var self = $(this);
+
     charLimit.removeClass('on');
+
+    if (self.val().replace(/\s/, '').length < 1) {
+      self.removeClass('on');
+    }
   });
 
   body.on('click', function(ev) {

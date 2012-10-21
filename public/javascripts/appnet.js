@@ -511,6 +511,8 @@ define(['jquery', 'version-timeout', 'friends'],
           sinceId = messages.find('> li:first-child').data('id');
         }
 
+        form.find('textarea').removeClass('on');
+
         flashMessage('Posted!');
       });
     },

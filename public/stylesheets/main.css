@@ -650,13 +650,17 @@ section.public li h1 {
     color: #888;
     font-family: Arial;
     font-size: 15px;
-    height: 65px;
+    height: 25px;
     line-height: 20px;
     margin-bottom: 10px;
     overflow: auto;
     padding: 10px;
     width: 540px;
     resize: none;
+}
+
+.write textarea.on {
+    height: 65px;
 }
 
 #overlay .write {
@@ -1229,8 +1233,11 @@ img.hush {
     }
 
     .write textarea {
-        height: 160px;
         width: 260px;
+    }
+
+    .write textarea.on {
+        height: 160px;
     }
 
     #overlay .write textarea, ol.messages > li.message-item p {
