@@ -547,6 +547,7 @@ define(['jquery', 'version-timeout', 'friends'],
       overlay.find('.reply_to').val(postId);
       overlay.find('.write textarea').val('@' + username + ' ');
       newCount = 0;
+
       setPost({ 'post_id': postId }, '/post', true, false, false, function() {
         setPost({ 'post_id': postId }, '/thread', false, true, false);
         getStarredUsers(postId);

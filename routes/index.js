@@ -408,6 +408,7 @@ module.exports = function(app, client, isLoggedIn, noodle) {
         res.status(500);
         res.json({ 'error': 'error retrieving post' });
       } else {
+
         utils.generateFeed(req, [recentMessage], client, false, function(messages) {
           res.json({ messages: messages });
         });
