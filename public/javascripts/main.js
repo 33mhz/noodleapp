@@ -169,6 +169,13 @@ define(['jquery', 'appnet', 'friends', 'user', 'jquery.caret'],
     write.find('textarea').val('"' + self.closest('.message-item').data('original') + '"');
   });
 
+  overlay.on('click', '.quote', function() {
+    var self = $(this);
+
+    overlay.find('textarea').focus();
+    overlay.find('textarea').val('"' + self.closest('.message-item').data('original') + '"');
+  });
+
   messages.on('click', '.details .delete', function() {
     var self = $(this);
     appnet.deleteMessage(self.closest('.message-item').data('id'), csrf);

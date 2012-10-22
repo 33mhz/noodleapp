@@ -184,8 +184,8 @@ define(['jquery', 'version-timeout', 'friends'],
                 isStarred = '<li class="star on"><span>Unstar</span></li>';
               }
 
-
-              detailExtras = '<ul class="actions">' + isStarred + isRepost + '</ul><div class="info"><ol>' +
+              detailExtras = '<ul class="actions">' + isStarred + isRepost +
+                '<li class="quote"><span>Quote</span></li></ul><div class="info"><ol>' +
                 '<li class="reposts">Reposts: <span></span></li>' +
                 '<li class="stars">Stars: <span></span></li>' +
                 '<li class="replies">Replies: <span></span></li></ol></div>' +
