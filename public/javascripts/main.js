@@ -136,7 +136,7 @@ define(['jquery', 'appnet', 'friends', 'user', 'jquery.caret'],
     document.location.href = '#top';
   });
 
-  messages.on('click', '.details .star', function() {
+  body.on('click', '.star', function() {
     var self = $(this);
     if (self.hasClass('on')) {
       self.removeClass('on');
@@ -149,7 +149,7 @@ define(['jquery', 'appnet', 'friends', 'user', 'jquery.caret'],
     }
   });
 
-  messages.on('click', '.details .repost', function() {
+  body.on('click', '.repost', function() {
     var self = $(this);
     if (self.hasClass('on')) {
       self.removeClass('on');

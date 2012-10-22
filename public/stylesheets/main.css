@@ -475,6 +475,16 @@ ol.messages #paginated.loading {
     color: #111;
 }
 
+#overlay .actions {
+    float: right;
+    height: 55px;
+    width: 30px;
+}
+
+#overlay .actions li {
+    margin-top: 5px;
+}
+
 #avatar-pings img {
     height: 30px;
     margin: 2px 2px 0;
@@ -1251,7 +1261,7 @@ img.hush {
 
     #overlay .inner-overlay .message-summary li p {
         margin-left: 0;
-        width: 260px;
+        width: 230px;
     }
 
     .dashboard-content {

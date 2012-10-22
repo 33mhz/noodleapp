@@ -169,7 +169,23 @@ define(['jquery', 'version-timeout', 'friends'],
             var detailExtras = '';
 
             if (showDetails) {
-              detailExtras = '<div class="info"><ol>' +
+              var isRepost = '';
+              var isStarred = '<li class="star"><span>Star</span></li>';
+
+              if (!data.messages[i].isSelf) {
+                if (data.messages[i].isRepost) {
+                  isRepost = '<li class="repost on"><span>Unrepost</span></li>';
+                } else {
+                  isRepost = '<li class="repost"><span>Repost</a></li>';
+                }
+              }
+
+              if (data.messages[i].isStarred) {
+                isStarred = '<li class="star on"><span>Unstar</span></li>';
+              }
+
+
+              detailExtras = '<ul class="actions">' + isStarred + isRepost + '</ul><div class="info"><ol>' +
                 '<li class="reposts">Reposts: <span></span></li>' +
                 '<li class="stars">Stars: <span></span></li>' +
                 '<li class="replies">Replies: <span></span></li></ol></div>' +
