@@ -1238,6 +1238,12 @@ img.hush {
         padding: 5px 10px;
     }
 
+    #overlay .meta {
+        display: block;
+        float: left;
+        width: 270px;
+    }
+
     .meta .details, .meta .actions {
         width: 190px;
     }
