@@ -477,7 +477,7 @@ ol.messages #paginated.loading {
 
 #overlay .actions {
     float: right;
-    height: 55px;
+    height: 90px;
     width: 30px;
 }
 
@@ -798,6 +798,10 @@ ol.messages > li {
     width: 550px;
 }
 
+ol.messages > li.notify {
+    background-color: #f4fcfe;
+}
+
 ol.messages > li:first-child {
     border-top: none;
     padding-top: 15px;
@@ -852,6 +856,16 @@ ol.messages > li .meta {
 
 .meta .actions.no-touch > li:hover span {
     display: block;
+}
+
+.clear {
+    display: block;
+    float: left;
+    width: 100%;
+}
+
+br {
+    display:block;
 }
 
 .username {

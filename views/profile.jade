@@ -24,6 +24,7 @@ block content
             li(class='mute on') Unmute
           else
             li(class='mute') Mute
+      p= 'Posts: ' + user.counts.posts
 
       p!= description.replace(/\n/gm, '<br>')
   mixin messageForm('profile', 'Write a message to @' + username, '@' + username + ' ', 'Post')

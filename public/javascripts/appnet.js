@@ -19,9 +19,11 @@ define(['jquery', 'version-timeout', 'friends'],
   var notificationsPreview = $('#notifications-preview');
   var currentMentionPostId = false;
   var loggedInId = $('body').data('sessionid');
+  var loggedInUsername = $('body').data('username');
   var noTouch = '';
   var newCount = 0;
   var paginationLock = false;
+  var moodArray = ['happy', 'sad', 'tired', 'angry', 'calm', 'omg'];
 
   if (!('ontouchstart' in document.documentElement)) {
     noTouch = 'no-touch';
@@ -110,12 +112,17 @@ define(['jquery', 'version-timeout', 'friends'],
 
   var generatePostItem = function(message, threadAction, isStarred, isRepost, isDeletable, detailExtras) {
     var actions = '';
+    var notify = '';
     if (threadAction.length > 0 || isStarred.length > 0 || isRepost.length > 0 || isDeletable.length > 0) {
       actions = '<ol class="actions ' + noTouch + '">' + threadAction + isStarred +
         '<li class="reply"><span>Reply</span></li>' +
       isRepost + '<li class="quote"><span>Quote</span></li>' + isDeletable + '</ol>';
     }
-    return $('<li class="message-item" data-mentions="" data-replyto="" data-original="" data-id="' +
+
+    if (message.message.indexOf(loggedInUsername) > -1) {
+      notify = 'notify';
+    }
+    return $('<li class="message-item ' + notify + '" data-mentions="" data-replyto="" data-original="" data-id="' +
       message.id + '" ' + 'data-username="' + message.username + '" data-minid="' + message.min_id + '">' +
       '<div class="meta"><a href="" class="who" title=""><img src=""></a>' +
       '<div class="details"><a href="" class="username"></a><time data-created=""></time>' +
@@ -147,9 +154,15 @@ define(['jquery', 'version-timeout', 'friends'],
     message.find('p').html(messageItem.message.replace(/\n/gm, '<br>'));
     if (messageItem.moods.length > 0) {
       for(var i = 0; i < messageItem.moods.length; i ++) {
-        var mood = $('<img src="" class="mood">');
-        mood.attr('src', '/images/emoticons/' + messageItem.moods[i] + '.png');
-        message.find('p').html(mood);
+        var moodItem = messageItem.moods[i];
+        if (moodArray.indexOf(moodItem) > -1) {
+          var mood = $('<img src="" class="mood" alt="" title="">');
+          mood
+            .attr('src', '/images/emoticons/' + moodItem + '.png')
+            .attr('alt', moodItem)
+            .attr('title', moodItem);
+          message.find('p').html(mood);
+        }
       }
     }
 

@@ -50,7 +50,8 @@ module.exports = function(app, client, isLoggedIn, noodle) {
             loggedInId: utils.getUserById(req),
             username: utils.getUser(req).username,
             mediaOn: mediaOn,
-            charLimit: charLimit
+            charLimit: charLimit,
+            loggedUsername: utils.getUser(req).username
           });
         }
       });
@@ -62,7 +63,8 @@ module.exports = function(app, client, isLoggedIn, noodle) {
         loggedInId: '',
         username: '',
         mediaOn: '',
-        charLimit: charLimit
+        charLimit: charLimit,
+        loggedUsername: ''
       });
     }
   });
@@ -116,7 +118,8 @@ module.exports = function(app, client, isLoggedIn, noodle) {
               description: description,
               loggedInId: utils.getUserById(req),
               mediaOn: mediaOn,
-              charLimit: charLimit
+              charLimit: charLimit,
+              loggedUsername: utils.getUser(req).username
             });
           });
         }
