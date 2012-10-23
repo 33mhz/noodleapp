@@ -119,7 +119,7 @@ define(['jquery', 'version-timeout', 'friends'],
       isRepost + '<li class="quote"><span>Quote</span></li>' + isDeletable + '</ol>';
     }
 
-    if (message.message.indexOf(loggedInUsername) > -1) {
+    if (message.message.indexOf('@' + loggedInUsername) > -1) {
       notify = 'notify';
     }
     return $('<li class="message-item ' + notify + '" data-mentions="" data-replyto="" data-original="" data-id="' +
