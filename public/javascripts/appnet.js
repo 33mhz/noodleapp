@@ -143,7 +143,15 @@ define(['jquery', 'version-timeout', 'friends'],
     // user's avatar
     message.find('a.who img').attr('src', messageItem.user);
     // user's message
+
     message.find('p').html(messageItem.message.replace(/\n/gm, '<br>'));
+    if (messageItem.moods.length > 0) {
+      for(var i = 0; i < messageItem.moods.length; i ++) {
+        var mood = $('<img src="" class="mood">');
+        mood.attr('src', '/images/emoticons/' + messageItem.moods[i] + '.png');
+        message.find('p').html(mood);
+      }
+    }
 
     return message;
   };
@@ -162,7 +170,7 @@ define(['jquery', 'version-timeout', 'friends'],
     }).always(function(data) {
       var messageOverlay = $('<ol class="message-summary"></ol>');
 
-      if (data.messages.length > 0) {
+      if (data.messages && data.messages.length > 0) {
         for (var i = 0; i < data.messages.length; i ++) {
           // Avoid displaying duplicate messages if they are already there
           if (overlay.find('li.message-item[data-id="' + data.messages[i].id + '"]').length === 0) {
@@ -254,7 +262,7 @@ define(['jquery', 'version-timeout', 'friends'],
       cache: false
 
     }).done(function(data) {
-      if (data.messages.length > 0) {
+      if (data.messages && data.messages.length > 0) {
         messages.find('li.loading').remove();
 
         for (var i = 0; i < data.messages.length; i ++) {
@@ -313,6 +321,8 @@ define(['jquery', 'version-timeout', 'friends'],
         }
 
       } else {
+        messages.find('li.loading').remove();
+
         if (paginated) {
           messages.find('#paginated').remove();
         }
@@ -356,7 +366,7 @@ define(['jquery', 'version-timeout', 'friends'],
         dataType: 'json',
         cache: false
       }).done(function(data) {
-        if (data.messages.length > 0) {
+        if (data.messages && data.messages.length > 0) {
           for (var i = 0; i < data.messages.length; i ++) {
             if (notificationsPreview.find('li a[data-postid="' + data.messages[i].id + '"]').length === 0) {
               var messageItem = $('<li><a class="notification-item" href="#" data-postid="" data-username="">' +
