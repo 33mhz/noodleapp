@@ -38,6 +38,13 @@ describe('web-remix', function() {
       });
     });
 
+    it('returns a link for a non-video youtube url', function(done) {
+      webRemix.generate('http://www.youtube.com/some/page', client, function(err, subject) {
+        subject.should.equal('<a href="http://www.youtube.com/some/page" target="_blank">http://www.youtube.com/some/page</a>');
+        done();
+      });
+    });
+
     it('returns embed code for a youtube normal url with square brackets', function(done) {
       webRemix.generate('[http://www.youtube.com/watch?v=5cazkHAHiPU]', client, function(err, subject) {
         subject.should.equal('<div class="object-wrapper"><iframe width="530" height="298" src="//www.youtube.com/embed/5cazkHAHiPU?wmode=transparent" ' +
