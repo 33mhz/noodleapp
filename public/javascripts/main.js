@@ -122,7 +122,7 @@ define(['jquery', 'appnet', 'friends', 'user', 'jquery.caret'],
 
   /* Message functionality */
 
-  messages.on('click', '.reply', function() {
+  body.on('click', '.reply', function() {
     var self = $(this);
     var messageItem = self.closest('.message-item');
     var mentions = (messageItem.data('mentions') !== '') ? messageItem.data('mentions') + ' ' : '';
@@ -182,7 +182,7 @@ define(['jquery', 'appnet', 'friends', 'user', 'jquery.caret'],
     self.closest('li.message-item').fadeOut();
   });
 
-  messages.on('click', '.thread', function() {
+  body.on('click', '.thread', function() {
     var self = $(this);
     appnet.showThread(self.closest('.message-item').data('id'));
     body.addClass('fixed');

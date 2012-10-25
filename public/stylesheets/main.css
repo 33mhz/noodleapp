@@ -214,7 +214,7 @@ header a#notifications.on:hover {
 }
 
 #overlay {
-    background-color: rgba(255, 255, 255, 0.96);
+    background-color: rgba(255, 255, 255, 0.98);
     bottom: 0;
     box-shadow: #ccc 0 0 3px;
     display: none;
@@ -284,6 +284,7 @@ header a#notifications.on:hover {
 ol.messages #paginated {
     background-color: #aaa;
     border: 0;
+    margin-bottom: 20px;
     opacity: 0.7;
     text-indent: none;
     width: 560px;
@@ -421,14 +422,13 @@ ol.messages #paginated.loading {
     font-size: 14px;
     line-height: 17px;
     margin-top: 5px;
-    width: 520px;
+    width: 545px;
 }
 
 #overlay .message-summary li span.source {
     color: #999;
     display: block;
     font-size: 12px;
-    margin-top: 10px;
     width: 100%;
 }
 
@@ -437,15 +437,15 @@ ol.messages #paginated.loading {
 }
 
 #overlay li p iframe, #overlay li p video, #overlay li p audio, #overlay li p object {
-    height: 225px;
+    height: 306px;
     margin: 2px 0;
-    width: 400px;
+    width: 545px;
 }
 
 #overlay li p img {
     margin: 2px 0;
-    max-height: 400px;
-    max-width: 400px;
+    max-height: 750px;
+    max-width: 545px;
 }
 
 #overlay li:first-child p iframe, #overlay li:first-child p video,
@@ -485,7 +485,11 @@ ol.messages #paginated.loading {
 }
 
 #overlay .actions li {
-    margin: 20px 5px 0 5px;
+    margin: 5px 5px 0 5px;
+}
+
+#overlay .actions li span {
+    padding: 5px 5px 1px 5px;
 }
 
 #avatar-pings img {
@@ -639,7 +643,7 @@ ol.messages #paginated.loading {
 .write, section {
     clear: both;
     float: left;
-    padding: 20px;
+    padding: 20px 20px 0 20px;
 }
 
 section {
@@ -653,10 +657,6 @@ section.public li h1 {
     margin-top: 50px;
     padding: 20px;
     text-align: center;
-}
-
-.write {
-    padding-bottom: 5px;
 }
 
 .write textarea {
@@ -821,6 +821,10 @@ ol.messages > li.notify .post-wrapper {
     border-left: 3px solid #76e4f1;
 }
 
+ol.messages > li:hover .post-wrapper {
+    border-left: 3px solid #d8fd2b;
+}
+
 ol.messages > li .meta {
     clear: both;
     color: #ccc;
@@ -932,10 +936,10 @@ time:hover {
     background-repeat: no-repeat;
     cursor: pointer;
     float: left;
-    height: 24px;
+    height: 23px;
     opacity: 0.1;
     position: relative;
-    width: 24px;
+    width: 23px;
 }
 
 ol.messages > li:hover .actions.no-touch > li, #overlay .actions.no-touch > li:hover {
@@ -944,13 +948,13 @@ ol.messages > li:hover .actions.no-touch > li, #overlay .actions.no-touch > li:h
 
 .actions > li span {
     background-color: #111;
-    border-radius: 5px;
-    bottom: -30px;
+    border-radius: 3px;
+    bottom: -28px;
     color: #eee;
     display: none;
     font-family: 'Oswald';
-    font-size: 16px;
-    padding: 4px 7px;
+    font-size: 12px;
+    padding: 2px 5px;
     position: absolute;
     text-transform: uppercase;
     z-index: 2;
@@ -958,26 +962,32 @@ ol.messages > li:hover .actions.no-touch > li, #overlay .actions.no-touch > li:h
 
 .actions .thread {
     background-image: url('/images/thread.png');
+    background-size: 22px;
 }
 
 .actions .star {
     background-image: url('/images/star.png');
+    background-size: 22px;
 }
 
 .actions .reply {
     background-image: url('/images/reply.png');
+    background-size: 22px;
 }
 
 .actions .repost {
     background-image: url('/images/repost.png');
+    background-size: 22px;
 }
 
 .actions .delete {
     background-image: url('/images/delete.png');
+    background-size: 22px;
 }
 
 .actions .quote {
     background-image: url('/images/quote.png');
+    background-size: 22px;
 }
 
 .actions .on {
