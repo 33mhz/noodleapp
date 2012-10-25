@@ -190,7 +190,13 @@ define(['jquery', 'appnet', 'friends', 'user', 'jquery.caret'],
 
   body.on('click', 'time', function() {
     var self = $(this);
-    document.location.href = '#/post/' + self.closest('.message-item').data('id') +
+    var currentLink = document.location.href;
+
+    // Patch to add a slash if it is missing
+    if (currentLink.substr(currentLink.length - 1) !== '/') {
+      currentLink = currentLink + '/';
+    }
+    document.location.href = currentLink + '#/post/' + self.closest('.message-item').data('id') +
       '/' + self.closest('.message-item').data('username');
   });
 

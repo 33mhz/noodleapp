@@ -6,7 +6,6 @@ module.exports = function(app, configurations, express) {
   var nconf = require('nconf');
   var passport = require('passport');
   var requirejs = require('requirejs');
-  var slashes = require('connect-slashes');
 
   nconf.argv().env().file({ file: 'local.json' });
 
