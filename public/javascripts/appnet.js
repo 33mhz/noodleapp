@@ -306,7 +306,7 @@ define(['jquery', 'version-timeout', 'friends'],
                 isRepost + '<li class="quote"><span>Quote</span></li>' + isDeletable + '</ol>');
             }
 
-            message.append(actions);
+            message.find('.post-wrapper').append(actions);
 
             // user mentions in this post
             message.attr('data-mentions', data.messages[i].mentions);

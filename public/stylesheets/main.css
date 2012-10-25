@@ -799,7 +799,7 @@ ol.messages > li {
     float: left;
     font-size: 13px;
     line-height: 16px;
-    padding-bottom: 13px;
+    padding-bottom: 5px;
     overflow: hidden;
     position: relative;
     width: 570px;
@@ -937,7 +937,7 @@ time:hover {
     width: 24px;
 }
 
-ol.messages > li:hover .actions.no-touch > li, #overlay .actions.no-touch > li {
+ol.messages > li:hover .actions.no-touch > li, #overlay .actions.no-touch > li:hover {
     opacity: 1.0;
 }
 
