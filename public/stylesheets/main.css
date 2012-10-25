@@ -799,7 +799,7 @@ ol.messages > li {
     float: left;
     font-size: 13px;
     line-height: 16px;
-    padding-bottom: 12px;
+    padding-bottom: 13px;
     overflow: hidden;
     position: relative;
     width: 570px;
@@ -862,8 +862,8 @@ ol.messages > li .meta {
 
 .actions > li span {
     display: none;
-    font-size: 12px;
-    height: 17px;
+    font-size: 11px;
+    height: 16px;
     right: -5px;
     position: absolute;
     top: -27px;
@@ -937,6 +937,10 @@ time:hover {
     width: 24px;
 }
 
+ol.messages > li:hover .actions.no-touch > li {
+    opacity: 1.0;
+}
+
 .actions > li span {
     background-color: #111;
     border-radius: 5px;
@@ -949,10 +953,6 @@ time:hover {
     position: absolute;
     text-transform: uppercase;
     z-index: 2;
-}
-
-.actions > li:hover {
-    opacity: 1;
 }
 
 .actions .thread {
