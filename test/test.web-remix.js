@@ -246,8 +246,8 @@ describe('web-remix', function() {
     it('returns a regular link with quotes', function(done) {
       var link = '"http://blog.szynalski.com/2009/07/05/blind-testing-mp3-compression/"';
       webRemix.generate(link, client, function(err, subject) {
-        subject.should.equal('<a href="http://blog.szynalski.com/2009/07/05/blind-testing-mp3-compression/" target="_blank">' +
-          '&quot;http://blog.szynalski.com/2009/07/05/blind-testing-mp3-compression/&quot;</a>');
+        subject.should.equal('&quot;<a href="http://blog.szynalski.com/2009/07/05/blind-testing-mp3-compression/" target="_blank">' +
+          'http://blog.szynalski.com/2009/07/05/blind-testing-mp3-compression/</a>&quot;');
         done();
       });
     });
@@ -255,8 +255,8 @@ describe('web-remix', function() {
     it('returns a regular link with square brackets', function(done) {
       var link = '[http://blog.szynalski.com/2009/07/05/blind-testing-mp3-compression/]';
       webRemix.generate(link, client, function(err, subject) {
-        subject.should.equal('<a href="http://blog.szynalski.com/2009/07/05/blind-testing-mp3-compression/" target="_blank">' +
-          '[http://blog.szynalski.com/2009/07/05/blind-testing-mp3-compression/]</a>');
+        subject.should.equal('[<a href="http://blog.szynalski.com/2009/07/05/blind-testing-mp3-compression/" target="_blank">' +
+          'http://blog.szynalski.com/2009/07/05/blind-testing-mp3-compression/</a>]');
         done();
       });
     });
@@ -264,8 +264,8 @@ describe('web-remix', function() {
     it('returns a regular link with parentheses', function(done) {
       var link = '(http://blog.szynalski.com/2009/07/05/blind-testing-mp3-compression/)';
       webRemix.generate(link, client, function(err, subject) {
-        subject.should.equal('<a href="http://blog.szynalski.com/2009/07/05/blind-testing-mp3-compression/" target="_blank">' +
-          '(http://blog.szynalski.com/2009/07/05/blind-testing-mp3-compression/)</a>');
+        subject.should.equal('(<a href="http://blog.szynalski.com/2009/07/05/blind-testing-mp3-compression/" target="_blank">' +
+          'http://blog.szynalski.com/2009/07/05/blind-testing-mp3-compression/</a>)');
         done();
       });
     });
@@ -277,18 +277,35 @@ describe('web-remix', function() {
       });
     });
 
-    it('return a <link> as a regular link', function(done) {
+    it('returns a <link> as a regular link', function(done) {
       var link = '<http://example.com/?blah,test=&>';
       webRemix.generate(link, client, function(err, subject) {
-        subject.should.equal('<a href="http://example.com/?blah,test=&" target="_blank">&lt;http://example.com/?blah,test=&&gt;</a>');
+        subject.should.equal('&lt;<a href="http://example.com/?blah,test=&" target="_blank">' +
+          'http://example.com/?blah,test=&</a>&gt;');
         done();
       });
     });
 
-    it('return a protocol-less link as a regular link', function(done) {
+    it('returns a protocol-less link as a regular link', function(done) {
       var link = 'bla.de';
       webRemix.generate(link, client, function(err, subject) {
         subject.should.equal('<a href="http://bla.de" target="_blank">bla.de</a>');
+        done();
+      });
+    });
+
+    it('returns text with periods as text', function(done) {
+      var link = 'e.g.';
+      webRemix.generate(link, client, function(err, subject) {
+        subject.should.equal('e.g.');
+        done();
+      });
+    });
+
+    it('returns text with periods as text', function(done) {
+      var link = 'e.g';
+      webRemix.generate(link, client, function(err, subject) {
+        subject.should.equal('e.g');
         done();
       });
     });
