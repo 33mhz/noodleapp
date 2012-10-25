@@ -277,6 +277,7 @@ header a#notifications.on:hover {
 #overlay li.close {
     border-radius: 5px;
     float: right;
+    margin-bottom: 10px;
     padding: 5px 10px;
 }
 
