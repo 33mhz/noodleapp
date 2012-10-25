@@ -122,7 +122,7 @@ define(['jquery', 'appnet', 'friends', 'user', 'jquery.caret'],
 
   /* Message functionality */
 
-  messages.on('click', '.details .reply', function() {
+  messages.on('click', '.reply', function() {
     var self = $(this);
     var messageItem = self.closest('.message-item');
     var mentions = (messageItem.data('mentions') !== '') ? messageItem.data('mentions') + ' ' : '';
@@ -162,7 +162,7 @@ define(['jquery', 'appnet', 'friends', 'user', 'jquery.caret'],
     }
   });
 
-  messages.on('click', '.details .quote', function() {
+  messages.on('click', '.quote', function() {
     var self = $(this);
 
     write.find('textarea').focus();
@@ -176,13 +176,13 @@ define(['jquery', 'appnet', 'friends', 'user', 'jquery.caret'],
     overlay.find('textarea').val('"' + self.closest('.message-item').data('original') + '"');
   });
 
-  messages.on('click', '.details .delete', function() {
+  messages.on('click', '.delete', function() {
     var self = $(this);
     appnet.deleteMessage(self.closest('.message-item').data('id'), csrf);
     self.closest('li.message-item').fadeOut();
   });
 
-  messages.on('click', '.details .thread', function() {
+  messages.on('click', '.thread', function() {
     var self = $(this);
     appnet.showThread(self.closest('.message-item').data('id'));
     body.addClass('fixed');

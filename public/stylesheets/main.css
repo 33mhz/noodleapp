@@ -262,15 +262,20 @@ header a#notifications.on:hover {
 }
 
 #overlay li.close, #paginated {
-    background-color: #74b908;
+    background-color: #aaa;
+    border-radius: 3px;
     color: #fff;
     cursor: pointer;
     font-family: 'Oswald';
-    font-size: 25px;
+    font-size: 18px;
+    line-height: 20px;
+    padding-top: 7px;
     text-align: center;
+    text-transform: uppercase;
 }
 
 #overlay li.close {
+    border-radius: 5px;
     float: right;
     padding: 5px 10px;
 }
@@ -280,6 +285,7 @@ ol.messages #paginated {
     border: 0;
     opacity: 0.7;
     text-indent: none;
+    width: 560px;
 }
 
 ol.messages #paginated.loading {
@@ -289,7 +295,6 @@ ol.messages #paginated.loading {
     height: 33px;
     padding: 10px 0;
     text-indent: -9999px;
-    width: 100%;
 }
 
 .message-summary li p {
@@ -406,18 +411,19 @@ ol.messages #paginated.loading {
 
 #overlay .inner-overlay .message-summary li .details, #overlay .inner-overlay .message-summary li p {
     float: left;
-    margin-left: 20px;
+    margin-left: 10px;
     text-align: left;
-    width: 440px;
+    width: 450px;
 }
 
 #overlay .inner-overlay .message-summary li p {
     font-size: 14px;
     line-height: 17px;
     margin-top: 5px;
+    width: 520px;
 }
 
-#overlay .message-summary li > p > span {
+#overlay .message-summary li span.source {
     color: #999;
     display: block;
     font-size: 12px;
@@ -458,10 +464,12 @@ ol.messages #paginated.loading {
     color: #888;
     float: left;
     font-family: 'Oswald';
-    font-size: 18px;
+    font-size: 16px;
     line-height: 20px;
-    margin: 15px 2px;
+    margin: 10px 2px;
+    overflow: hidden;
     padding: 5px 10px 4px 15px;
+    text-overflow: ellipsis;
     text-transform: uppercase;
     width: 156px;
 }
@@ -475,19 +483,14 @@ ol.messages #paginated.loading {
     color: #111;
 }
 
-#overlay .actions {
-    float: right;
-    height: 90px;
-    width: 30px;
-}
-
 #overlay .actions li {
-    margin-top: 5px;
+    margin: 20px 5px 0 5px;
 }
 
 #avatar-pings img {
+    border-radius: 3px;
     height: 30px;
-    margin: 2px 2px 0;
+    margin: 2px 2px 6px;
     width: 30px;
 }
 
@@ -529,6 +532,7 @@ ol.messages #paginated.loading {
 }
 
 #profile img {
+    border-bottom-left-radius: 5px;
     float: left;
     margin-left: 20px;
     max-height: 180px;
@@ -731,10 +735,15 @@ section.public li a {
     width: 150px;
 }
 
+ol.tabs {
+    display: block;
+    float: left;
+    margin-bottom: 5px;
+}
+
 ol.tabs li {
     background-color: #ddd;
-    border-top-left-radius: 5px;
-    border-top-right-radius: 5px;
+    border-radius: 5px;
     color: #bbb;
     padding: 6px 12px 5px;
 }
@@ -744,7 +753,7 @@ ol.tabs li, .action-buttons li {
     float: left;
     margin: 2px 2px 0;
     font-family: 'Oswald';
-    font-size: 20px;
+    font-size: 16px;
     line-height: 20px;
     text-transform: uppercase;
 }
@@ -786,25 +795,29 @@ ol.messages > li.loading {
 }
 
 ol.messages > li {
-    background-color: #fff;
-    border-bottom: 1px dotted #eee;
-    box-shadow: #f1f1f1 3px 3px 2px;
     display: block;
     float: left;
     font-size: 13px;
     line-height: 16px;
+    padding-bottom: 12px;
     overflow: hidden;
+    position: relative;
+    width: 570px;
+}
+
+ol.messages > li .post-wrapper {
+    background-color: #fff;
+    border-left: 3px solid #fff;
+    border-radius: 5px;
+    box-shadow: #f1f1f1 3px 3px 2px;
+    display: block;
+    float: left;
     padding: 10px 5px;
-    width: 550px;
+    width: 547px;
 }
 
-ol.messages > li.notify {
-    background-color: #f4fcfe;
-}
-
-ol.messages > li:first-child {
-    border-top: none;
-    padding-top: 15px;
+ol.messages > li.notify .post-wrapper {
+    border-left: 3px solid #76e4f1;
 }
 
 ol.messages > li .meta {
@@ -826,18 +839,19 @@ ol.messages > li .meta {
 }
 
 .meta .who img {
+    border-radius: 3px;
     float: left;
     margin: 0 5px 0 10px;
-    width: 50px;
+    width: 40px;
 }
 
-.meta .actions {
+.actions {
     display: block;
-    float: left;
-    width: 470px;
+    float: right;
+    margin: -2px 3px 0;
 }
 
-.meta .actions > li {
+.actions > li {
     box-shadow: none;
     border: 0;
     float: left;
@@ -846,15 +860,17 @@ ol.messages > li .meta {
     position: relative;
 }
 
-.meta .actions > li span {
+.actions > li span {
     display: none;
     font-size: 12px;
-    left: 0;
+    height: 17px;
+    right: -5px;
     position: absolute;
+    top: -27px;
     z-index: 4;
 }
 
-.meta .actions.no-touch > li:hover span {
+.actions.no-touch > li:hover span {
     display: block;
 }
 
@@ -907,8 +923,8 @@ time:hover {
 
 .details {
     float: left;
-    margin-left: 20px;
-    width: 470px;
+    margin-left: 10px;
+    width: 480px;
 }
 
 .actions > li {
@@ -916,7 +932,7 @@ time:hover {
     cursor: pointer;
     float: left;
     height: 24px;
-    opacity: 0.3;
+    opacity: 0.1;
     position: relative;
     width: 24px;
 }
@@ -1186,6 +1202,10 @@ img.hush {
         width: 282px;
     }
 
+    #overlay .actions {
+        margin: 0 0 5px 0;
+    }
+
     #overlay .message-summary li .details {
         margin-left: 0;
         width: 160px;
@@ -1233,14 +1253,13 @@ img.hush {
     }
 
     #overlay .info li {
-        clear: both;
-        margin: 2px 0;
+        margin: 2px;
         padding-top: 5px;
-        width: 91%;
+        width: 60px;
     }
 
     #overlay .info li, #overlay .info li span {
-        font-size: 18px;
+        font-size: 13px;
     }
 
     #profile .user-info h2 {
@@ -1253,10 +1272,10 @@ img.hush {
     }
 
     ol.tabs li {
-        font-size: 17px;
-        line-height: 17px;
-        margin: 8px 1px 0;
-        padding: 5px 10px;
+        font-size: 16px;
+        line-height: 16px;
+        margin: 8px 2px 0;
+        padding: 7px 8px;
     }
 
     #overlay .meta {
@@ -1296,6 +1315,10 @@ img.hush {
     }
 
     ol.messages > li.message-item, .public ol.messages > li {
+        width: 285px;
+    }
+
+    ol.messages > li .post-wrapper {
         width: 270px;
     }
 
@@ -1319,8 +1342,8 @@ img.hush {
         max-width: 250px;
     }
 
-    #paginated {
-        width: 270px;
+    ol.messages #paginated {
+        width: 285px;
     }
 
     .suggestions {

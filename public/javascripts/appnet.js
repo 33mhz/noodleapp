@@ -110,23 +110,17 @@ define(['jquery', 'version-timeout', 'friends'],
     });
   };
 
-  var generatePostItem = function(message, threadAction, isStarred, isRepost, isDeletable, detailExtras) {
-    var actions = '';
+  var generatePostItem = function(message, detailExtras) {
     var notify = '';
-    if (threadAction.length > 0 || isStarred.length > 0 || isRepost.length > 0 || isDeletable.length > 0) {
-      actions = '<ol class="actions ' + noTouch + '">' + threadAction + isStarred +
-        '<li class="reply"><span>Reply</span></li>' +
-      isRepost + '<li class="quote"><span>Quote</span></li>' + isDeletable + '</ol>';
-    }
 
     if (message.message.indexOf('@' + loggedInUsername) > -1) {
       notify = 'notify';
     }
     return $('<li class="message-item ' + notify + '" data-mentions="" data-replyto="" data-original="" data-id="' +
       message.id + '" ' + 'data-username="' + message.username + '" data-minid="' + message.min_id + '">' +
-      '<div class="meta"><a href="" class="who" title=""><img src=""></a>' +
+      '<div class="post-wrapper"><div class="meta"><a href="" class="who" title=""><img src=""></a>' +
       '<div class="details"><a href="" class="username"></a><time data-created=""></time>' +
-      actions + '</div></div><p></p>' + detailExtras + '</li>');
+      '</div></div><p></p>' + detailExtras + '</div></li>');
   };
 
   var setMessageMetadata = function(messageItem, message) {
@@ -205,7 +199,7 @@ define(['jquery', 'version-timeout', 'friends'],
                 isStarred = '<li class="star on"><span>Unstar</span></li>';
               }
 
-              detailExtras = '<ul class="actions">' + isStarred + isRepost +
+              detailExtras = '<ul class="actions ' + noTouch + '">' + isStarred + isRepost +
                 '<li class="quote"><span>Quote</span></li></ul><div class="info"><ol>' +
                 '<li class="reposts">Reposts: <span></span></li>' +
                 '<li class="stars">Stars: <span></span></li>' +
@@ -213,11 +207,11 @@ define(['jquery', 'version-timeout', 'friends'],
                 '<div id="avatar-pings"></div><div id="thread-detail"></div>';
             }
 
-            var message = generatePostItem(data.messages[i], '', '', '', '', detailExtras);
+            var message = generatePostItem(data.messages[i], detailExtras);
             message = setMessageMetadata(data.messages[i], message);
 
             if (showDetails) {
-              message.find('p').append('<span>Posted from ' + data.messages[i].appSource + '</span>');
+              message.find('p').append('<span class="source">Posted from ' + data.messages[i].appSource + '</span>');
               message.find('.info .reposts span').text(data.messages[i].numReposts);
               message.find('.info .stars span').text(data.messages[i].numStars);
               message.find('.info .replies span').text(data.messages[i].numReplies);
@@ -284,6 +278,7 @@ define(['jquery', 'version-timeout', 'friends'],
             var threadAction = '';
             var isStarred = '<li class="star"><span>Star</span></li>';
             var isDeletable = '';
+            var actions = '';
 
             if (data.messages[i].isSelf) {
               isDeletable = '<li class="delete"><span>Delete</a></li>';
@@ -303,8 +298,15 @@ define(['jquery', 'version-timeout', 'friends'],
               isStarred = '<li class="star on"><span>Unstar</span></li>';
             }
 
-            var message = generatePostItem(data.messages[i], threadAction, isStarred,
-              isRepost, isDeletable, '');
+            var message = generatePostItem(data.messages[i], '');
+
+            if (threadAction.length > 0 || isStarred.length > 0 || isRepost.length > 0 || isDeletable.length > 0) {
+              actions = $('<ol class="actions ' + noTouch + '">' + threadAction + isStarred +
+                '<li class="reply"><span>Reply</span></li>' +
+                isRepost + '<li class="quote"><span>Quote</span></li>' + isDeletable + '</ol>');
+            }
+
+            message.append(actions);
 
             // user mentions in this post
             message.attr('data-mentions', data.messages[i].mentions);
