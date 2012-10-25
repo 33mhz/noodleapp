@@ -6,6 +6,7 @@ module.exports = function(app, configurations, express) {
   var nconf = require('nconf');
   var passport = require('passport');
   var requirejs = require('requirejs');
+  var slashes = require('connect-slashes');
 
   nconf.argv().env().file({ file: 'local.json' });
 
@@ -32,6 +33,7 @@ module.exports = function(app, configurations, express) {
     app.use(passport.initialize());
     app.use(passport.session());
     app.use(express.csrf());
+    app.use(slashes());
     app.use(app.router);
     app.use(function(req, res, next) {
       res.status(404);

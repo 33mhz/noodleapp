@@ -925,7 +925,7 @@ time:hover {
 .details {
     float: left;
     margin-left: 10px;
-    width: 480px;
+    width: 475px;
 }
 
 .actions > li {
@@ -1012,8 +1012,8 @@ ol.messages > li p .image-wrapper:first-child, ol.messages > li p .object-wrappe
 }
 
 ol.messages > li p img {
-    max-height: 535px;
-    max-width: 535px;
+    max-height: 635px;
+    max-width: 525px;
 }
 
 ol.messages > li,
@@ -1232,13 +1232,13 @@ img.hush {
     }
 
     #overlay li p iframe, #overlay li p video, #overlay li p audio, #overlay li p object {
-        height: 135px;
-        width: 240px;
+        height: 151px;
+        width: 270px;
     }
 
     #overlay li p img {
-        max-height: 240px;
-        max-width: 240px;
+        max-height: 370px;
+        max-width: 270px;
     }
 
     #profile .user-info {
@@ -1286,7 +1286,7 @@ img.hush {
     }
 
     .meta .details, .meta .actions {
-        width: 190px;
+        width: 200px;
     }
 
     .write textarea {
@@ -1308,7 +1308,7 @@ img.hush {
 
     #overlay .inner-overlay .message-summary li p {
         margin-left: 0;
-        width: 230px;
+        width: 270px;
     }
 
     .dashboard-content {
@@ -1339,7 +1339,7 @@ img.hush {
     }
 
     ol.messages .inner-overlay ol > li p img, ol.messages > li p img {
-        max-height: 250px;
+        max-height: 350px;
         max-width: 250px;
     }
 
