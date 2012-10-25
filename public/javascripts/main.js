@@ -43,8 +43,8 @@ define(['jquery', 'appnet', 'friends', 'user', 'jquery.caret'],
   };
 
   var checkUrl = function() {
-    if (document.location.href.indexOf('/#/post/') > -1) {
-      var postArray = document.location.href.split('/#/post/')[1].split('/');
+    if (document.location.hash.indexOf('/post/') > -1) {
+      var postArray = document.location.hash.split('/post/')[1].split('/');
       var postId = postArray[0];
       var usernameId = postArray[1];
       appnet.showPost(postId, usernameId);
@@ -196,7 +196,7 @@ define(['jquery', 'appnet', 'friends', 'user', 'jquery.caret'],
     if (currentLink.substr(currentLink.length - 1) !== '/') {
       currentLink = currentLink + '/';
     }
-    document.location.href = currentLink + '#/post/' + self.closest('.message-item').data('id') +
+    document.location.hash = '/post/' + self.closest('.message-item').data('id') +
       '/' + self.closest('.message-item').data('username');
   });
 
