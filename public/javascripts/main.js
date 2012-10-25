@@ -308,8 +308,16 @@ define(['jquery', 'appnet', 'friends', 'user', 'jquery.caret'],
   });
 
   body.on('click', function(ev) {
-    if (!$(ev.target).hasClass('writeable')) {
+    var target = $(ev.target);
+    if (!target.hasClass('writeable')) {
       suggestions.empty();
+    }
+    if (notificationsDisplay &&
+        !(target.is('#notifications-preview') ||
+          target.is('#notifications') ||
+          target.closest('#notifications-preview').length)) {
+      notifications.slideUp();
+      notificationsDisplay = false;
     }
   });
 
