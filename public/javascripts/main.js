@@ -323,7 +323,7 @@ define(['jquery', 'appnet', 'friends', 'user', 'jquery.caret'],
     }
   }).keydown(function(evt) {
     var self = $(this);
-    if(evt.keyCode === 9 || evt.keyCode === 32) {
+    if (evt.keyCode === 9 || evt.keyCode === 32) {
       // Pressing TAB/space autocompletes to the first user listed.
       var userLi = suggestions.find('li:first');
       if (userLi.length) {
@@ -331,6 +331,8 @@ define(['jquery', 'appnet', 'friends', 'user', 'jquery.caret'],
         suggestions.empty();
         return false;
       }
+    } else if (evt.keyCode === 13 && (evt.ctrlKey || evt.metaKey)) {
+      write.submit();
     }
   });
 
