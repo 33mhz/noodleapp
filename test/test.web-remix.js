@@ -24,7 +24,7 @@ describe('web-remix', function() {
   describe('.generate',  function() {
     it('returns embed code for a youtu.be short url', function(done) {
       webRemix.generate('http://youtu.be/5cazkHAHiPU', client, function(err, subject) {
-        subject.should.equal('<div class="object-wrapper"><iframe width="530" height="298" src="//www.youtube.com/embed/5cazkHAHiPU?wmode=transparent" ' +
+        subject.should.equal('<div class="object-wrapper"><iframe width="525" height="295" src="//www.youtube.com/embed/5cazkHAHiPU?wmode=transparent" ' +
         'frameborder="0" allowfullscreen></iframe></div><a href="http://youtu.be/5cazkHAHiPU" target="_blank" class="media-off">http://youtu.be/5cazkHAHiPU</a>');
         done();
       });
@@ -32,7 +32,7 @@ describe('web-remix', function() {
 
     it('returns embed code for a youtube normal url', function(done) {
       webRemix.generate('http://www.youtube.com/watch?v=5cazkHAHiPU', client, function(err, subject) {
-        subject.should.equal('<div class="object-wrapper"><iframe width="530" height="298" src="//www.youtube.com/embed/5cazkHAHiPU?wmode=transparent" ' +
+        subject.should.equal('<div class="object-wrapper"><iframe width="525" height="295" src="//www.youtube.com/embed/5cazkHAHiPU?wmode=transparent" ' +
           'frameborder="0" allowfullscreen></iframe></div><a href="http://www.youtube.com/watch?v=5cazkHAHiPU" target="_blank" class="media-off">http://www.youtube.com/watch?v=5cazkHAHiPU</a>');
         done();
       });
@@ -47,7 +47,7 @@ describe('web-remix', function() {
 
     it('returns embed code for a youtube normal url with square brackets', function(done) {
       webRemix.generate('[http://www.youtube.com/watch?v=5cazkHAHiPU]', client, function(err, subject) {
-        subject.should.equal('<div class="object-wrapper"><iframe width="530" height="298" src="//www.youtube.com/embed/5cazkHAHiPU?wmode=transparent" ' +
+        subject.should.equal('<div class="object-wrapper"><iframe width="525" height="295" src="//www.youtube.com/embed/5cazkHAHiPU?wmode=transparent" ' +
           'frameborder="0" allowfullscreen></iframe></div><a href="http://www.youtube.com/watch?v=5cazkHAHiPU" target="_blank" class="media-off">[http://www.youtube.com/watch?v=5cazkHAHiPU]</a>');
         done();
       });
@@ -55,7 +55,7 @@ describe('web-remix', function() {
 
     it('returns embed code for a vimeo video url', function(done) {
       webRemix.generate('http://vimeo.com/37872583', client, function(err, subject) {
-        subject.should.equal('<div class="object-wrapper"><iframe src="//player.vimeo.com/video/37872583" width="530" height="298" ' +
+        subject.should.equal('<div class="object-wrapper"><iframe src="//player.vimeo.com/video/37872583" width="525" height="295" ' +
           'frameborder="0" webkitAllowFullScreen mozallowfullscreen allowFullScreen></iframe></div><a href="http://vimeo.com/37872583" target="_blank" class="media-off">http://vimeo.com/37872583</a>');
         done();
       });
@@ -63,7 +63,7 @@ describe('web-remix', function() {
 
     it('returns embed code for a vimeo video url with < and >', function(done) {
       webRemix.generate('<http://vimeo.com/37872583>', client, function(err, subject) {
-        subject.should.equal('<div class="object-wrapper"><iframe src="//player.vimeo.com/video/37872583" width="530" height="298" ' +
+        subject.should.equal('<div class="object-wrapper"><iframe src="//player.vimeo.com/video/37872583" width="525" height="295" ' +
           'frameborder="0" webkitAllowFullScreen mozallowfullscreen allowFullScreen></iframe></div><a href="http://vimeo.com/37872583" target="_blank" class="media-off">&lt;http://vimeo.com/37872583&gt;</a>');
         done();
       });
