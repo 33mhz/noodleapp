@@ -937,7 +937,7 @@ time:hover {
     width: 24px;
 }
 
-ol.messages > li:hover .actions.no-touch > li {
+ol.messages > li:hover .actions.no-touch > li, #overlay .actions.no-touch > li {
     opacity: 1.0;
 }
 
