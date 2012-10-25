@@ -33,7 +33,6 @@ module.exports = function(app, configurations, express) {
     app.use(passport.initialize());
     app.use(passport.session());
     app.use(express.csrf());
-    app.use(slashes());
     app.use(app.router);
     app.use(function(req, res, next) {
       res.status(404);
