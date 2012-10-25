@@ -340,7 +340,7 @@ define(['jquery', 'appnet', 'friends', 'user', 'jquery.caret'],
         return false;
       }
     } else if (evt.keyCode === 13 && (evt.ctrlKey || evt.metaKey)) {
-      write.submit();
+      self.submit();
     }
   });
 
