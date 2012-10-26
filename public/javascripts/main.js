@@ -29,12 +29,15 @@ define(['jquery', 'appnet', 'friends', 'user', 'jquery.caret'],
   var charLimit = $('.counter');
   var suggestions = $('ol.suggestions');
   var notifications = $('#notifications-preview');
+  var unreadMessages = $('#unread-messages');
   var currentScrollTop = '';
   var win = $(window);
   var csrf = write.find('input[name="_csrf"]').val();
+  var postLoad = false;
 
   var CHAR_MAX = parseInt(body.data('charlimit'), 10);
   var TAB_KEYCODE = 9;
+  var MESSAGE_LIMIT = 49;
 
   var resetTab = function(self, callback) {
     self.siblings().removeClass('selected');
@@ -393,5 +396,15 @@ define(['jquery', 'appnet', 'friends', 'user', 'jquery.caret'],
     }
 
     user.saveSettings(directedFeed, mediaOn, charLimit, write.find('input[name="_csrf"]').val());
+  });
+
+  body.on('click', '#unread-messages', function() {
+    var self = $(this);
+    var newMessages = self.find('ol li.message-item');
+    messages.prepend(newMessages);
+    unreadMessages.find('h2').empty();
+    unreadMessages.find('ol').empty();
+    self.removeClass('on');
+    messages.find('> li:gt(' + MESSAGE_LIMIT + ')').remove();
   });
 });

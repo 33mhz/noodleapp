@@ -393,6 +393,7 @@ ol.messages #paginated.loading {
 
 #overlay .inner-overlay .settings-details ul li p {
     float: left;
+    width: 460px;
 }
 
 #directed-feed, #media-on, #charlimit {
@@ -781,7 +782,7 @@ ol.tabs li:hover, .action-buttons li:hover {
     color: #eee;
 }
 
-ol.messages {
+ol.messages, #unread-messages {
     display: block;
     float: left;
     width: 100%;
@@ -793,6 +794,7 @@ ol.messages > li.loading {
     background-repeat: no-repeat;
     display: block;
     height: 33px;
+    margin-bottom: 10px;
 }
 
 ol.messages > li {
@@ -832,7 +834,7 @@ ol.messages > li .meta {
 }
 
 .meta {
-    margin: 5px 0;
+    margin: 5px 0 0;
     position: relative;
 }
 
@@ -1001,8 +1003,44 @@ ol.messages > li p {
     font-size: 14px;
     line-height: 18px;
     overflow: hidden;
-    padding: 5px 10px;
+    padding: 0 10px;
     width: 520px;
+}
+
+#unread-messages {
+    background-color: #2bd2dd;
+    border-radius: 5px;
+    box-shadow: #f1f1f1 2px 2px 2px;
+    cursor: pointer;
+    display: none;
+    font-family: 'Oswald';
+    height: 37px;
+    margin-bottom: 5px;
+    text-align: center;
+    width: 560px;
+}
+
+#unread-messages.on {
+    display: block;
+}
+
+#unread-messages:hover {
+    background-color: #111;
+}
+
+#unread-messages:hover > h2 {
+    color: #eee;
+}
+
+#unread-messages > h2 {
+    color: #ecfeff;
+    font-size: 20px;
+    line-height: 35px;
+    text-transform: uppercase;
+}
+
+#unread-messages ol {
+    display: none;
 }
 
 ol.messages > li p a, #overlay .message-summary li p a {
@@ -1363,6 +1401,6 @@ img.hush {
 
     #overlay .inner-overlay .settings-details ul li p {
         margin-left: 10px;
-        width: 200px;
+        width: 190px;
     }
 }

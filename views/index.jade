@@ -10,6 +10,9 @@ block content
         li.user-mentions(data-url="/user/mentions/#{session.id}") Mentions
         li.global-feed(data-url="/global/feed") Global Feed
 
+      ol#unread-messages
+        h2
+        ol
       ol.messages(data-userid='#{session.id}')
   else
     section.public

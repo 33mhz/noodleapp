@@ -17,19 +17,23 @@ define(['jquery', 'version-timeout', 'friends'],
   var loggedIn = false;
   var notifications = $('#notifications');
   var notificationsPreview = $('#notifications-preview');
+  var unreadMessages = $('#unread-messages');
+  var unreadMessagesNest = unreadMessages.find('ol');
   var currentMentionPostId = false;
   var loggedInId = $('body').data('sessionid');
   var loggedInUsername = $('body').data('username');
   var noTouch = '';
   var newCount = 0;
   var paginationLock = false;
+  var postLoaded = false;
+  var unreadMessageCount = 0;
   var moodArray = ['happy', 'sad', 'tired', 'angry', 'calm', 'omg'];
 
   if (!('ontouchstart' in document.documentElement)) {
     noTouch = 'no-touch';
   }
 
-  var MESSAGE_LIMIT = 19;
+  var MESSAGE_LIMIT = 49;
   var POLL_TIMEOUT = 30000;
 
   // Wait 1 minute to get new data
@@ -319,7 +323,20 @@ define(['jquery', 'version-timeout', 'friends'],
             if (paginated) {
               messages.append(message);
             } else {
-              messages.prepend(message);
+              if (postLoaded) {
+                unreadMessageCount ++;
+                unreadMessagesNest.prepend(message);
+                if (unreadMessageCount > 0) {
+                  unreadMessages.addClass('on');
+                }
+                if (unreadMessageCount > 50) {
+                  unreadMessageCount = 50;
+                }
+                unreadMessages.find('h2').text(unreadMessageCount + ' unread');
+                unreadMessagesNest.find('> li:gt(' + MESSAGE_LIMIT + ')').remove();
+              } else {
+                messages.prepend(message);
+              }
             }
 
             beforeId = null;
@@ -329,9 +346,6 @@ define(['jquery', 'version-timeout', 'friends'],
         if (paginated && paginationLock) {
           messages.find('#paginated').removeClass('loading');
         } else {
-          if (!paginationLock) {
-            messages.find('> li:gt(' + MESSAGE_LIMIT + ')').remove();
-          }
           sinceId = messages.find('> li:first-child').data('id');
         }
 
@@ -359,6 +373,7 @@ define(['jquery', 'version-timeout', 'friends'],
         setMessage(currentFeed, type, false, isStarredFeed);
         setNotification();
         updateTime();
+        postLoaded = true;
       }, POLL_TIMEOUT);
     });
   };
@@ -461,39 +476,39 @@ define(['jquery', 'version-timeout', 'friends'],
     });
   };
 
+  var resetActions = function() {
+    postLoaded = false;
+    unreadMessageCount = 0;
+    unreadMessages.find('ol').empty();
+    unreadMessages.removeClass('on');
+    isFragment = false;
+    paginationLock = false;
+    sinceId = null;
+  };
+
   var self = {
     getMyFeed: function() {
-      isFragment = false;
-      paginationLock = false;
-      sinceId = null;
+      resetActions();
       setMessage('/my/feed', 'GET', false, false);
     },
 
     getUserPosts: function() {
-      isFragment = false;
-      paginationLock = false;
-      sinceId = null;
+      resetActions();
       setMessage('/user/posts/' + userId, 'GET', false, false);
     },
 
     getUserMentions: function() {
-      isFragment = false;
-      paginationLock = false;
-      sinceId = null;
+      resetActions();
       setMessage('/user/mentions/' + userId, 'GET', false, false);
     },
 
     getUserStarred: function() {
-      isFragment = false;
-      paginationLock = false;
-      sinceId = null;
+      resetActions();
       setMessage('/user/starred/' + userId, 'GET', false, true);
     },
 
     getGlobalFeed: function() {
-      isFragment = false;
-      paginationLock = false;
-      sinceId = null;
+      resetActions();
       setMessage('/global/feed', 'GET', false, false);
     },
 
