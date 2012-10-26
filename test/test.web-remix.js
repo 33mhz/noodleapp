@@ -187,6 +187,14 @@ describe('web-remix', function() {
       });
     });
 
+    it('returns image code for an img url with junk at the end', function() {
+      webRemix.generate('http://blah.com/stuff.jpg#blah', client, function(err, subject) {
+        subject.should.equal('<div class="image-wrapper"><a href="http://blah.com/stuff.jpg#blah" target="_blank">' +
+        '<img src="http://blah.com/stuff.jpg#blah"></a></div><a href="http://blah.com/stuff.jpg#blah" ' +
+        'target="_blank" class="media-off">http://blah.com/stuff.jpg#blah</a>');
+      });
+    });
+
     it('returns a regular link', function() {
       webRemix.generate('http://3.bp.blogspot.com/Riley+the+smiling+dog.jpg/test', client, function(err, subject) {
         subject.should.equal('<a href="http://3.bp.blogspot.com/Riley+the+smiling+dog.jpg/test" target="_blank">http://3.bp.blogspot.com/Riley+the+smiling+dog.jpg/test</a>');
