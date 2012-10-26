@@ -353,7 +353,6 @@ define(['jquery', 'version-timeout', 'friends'],
           } else {
             sinceId = messages.find('> li:first-child').data('id');
           }
-          console.log(sinceId)
         }
 
         if (messages.find('> li').length >= 20 && messages.find('#paginated').length === 0) {
