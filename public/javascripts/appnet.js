@@ -327,7 +327,7 @@ define(['jquery', 'version-timeout', 'friends'],
                 unreadMessageCount ++;
                 unreadMessagesNest.prepend(message);
                 if (unreadMessageCount > 0) {
-                  unreadMessages.addClass('on');
+                  unreadMessages.fadeIn();
                 }
                 if (unreadMessageCount > 50) {
                   unreadMessageCount = 50;
@@ -634,7 +634,7 @@ define(['jquery', 'version-timeout', 'friends'],
       unreadMessages.find('h2').empty();
       unreadMessages.find('ol').empty();
       unreadMessageCount = 0;
-      self.removeClass('on');
+      self.fadeOut();
       messages.find('> li:gt(' + MESSAGE_LIMIT + ')').remove();
     }
   };

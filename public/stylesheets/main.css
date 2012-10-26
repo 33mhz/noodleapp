@@ -1018,10 +1018,6 @@ ol.messages > li p {
     width: 560px;
 }
 
-#unread-messages.on {
-    display: block;
-}
-
 #unread-messages:hover {
     background-color: #111;
 }
