@@ -714,6 +714,10 @@ section.public li h1 {
     color: #111;
 }
 
+.counter.over {
+    color: #f00;
+}
+
 button[type="submit"] {
     margin-bottom: 30px;
 }

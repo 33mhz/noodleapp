@@ -578,6 +578,7 @@ define(['jquery', 'version-timeout', 'friends'],
         }
 
         form.find('textarea').removeClass('on');
+        form.find('.form-action-wrapper').slideUp('fast');
 
         flashMessage('Posted!');
       });

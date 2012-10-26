@@ -59,14 +59,21 @@ define(['jquery', 'appnet', 'friends', 'user', 'jquery.caret'],
     if (text) {
       write.find('button').removeClass('disabled');
       var textLength = text.length;
-      if (textLength > CHAR_MAX - 1) {
-        write.find('textarea').val(text.substr(0, CHAR_MAX));
-        charLimit.text(0);
+      if (textLength > CHAR_MAX) {
+        if (textLength === 0) {
+          charLimit.removeClass('over');
+          charLimit.text(0);
+        } else {
+          charLimit.addClass('over');
+          charLimit.text('- ' + (textLength - CHAR_MAX));
+        }
       } else {
+        charLimit.removeClass('over');
         charLimit.text(CHAR_MAX - textLength);
       }
     } else {
       write.find('button').addClass('disabled');
+      charLimit.removeClass('over');
       charLimit.text(CHAR_MAX);
     }
   };
@@ -111,19 +118,7 @@ define(['jquery', 'appnet', 'friends', 'user', 'jquery.caret'],
   });
 
   /* Automatic feed loader */
-
-  if (url === '/global/feed') {
-    globalFeed.click();
-  } else if (url.match(/\/user\/posts/)) {
-    userPosts.click();
-  } else if (url.match(/\/user\/mentions/)) {
-    userMentions.click();
-  } else if (url.match(/\/user\/starred/)) {
-    userStarred.click();
-  } else {
-    // Defaults to first tab
-    tabs.find('.selected').click();
-  }
+  tabs.find('.selected').click();
 
   /* Message functionality */
 

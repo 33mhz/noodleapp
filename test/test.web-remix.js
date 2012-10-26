@@ -294,6 +294,13 @@ describe('web-remix', function() {
       });
     });
 
+    it('returns the hashtag without the wrapping characters', function(done) {
+      webRemix.generate('"#stuff"', client, function(err, subject) {
+        subject.should.equal('&quot;<a class="tags" href="/tagged/stuff">#stuff</a>&quot;');
+        done();
+      });
+    });
+
     it('returns text with periods as text', function(done) {
       var link = 'e.g.';
       webRemix.generate(link, client, function(err, subject) {

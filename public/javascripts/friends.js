@@ -24,7 +24,6 @@ define(['jquery'],
 
     getBFFs: function(self, cursorPosition) {
       var usernameClip = '';
-      console.log(usernameClip)
       var userList = self.closest('.write').find('ol.suggestions');
 
       for (var i = cursorPosition - 1; i > -1; i --) {
