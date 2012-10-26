@@ -37,7 +37,7 @@ define(['jquery', 'appnet', 'friends', 'user', 'jquery.caret'],
 
   var CHAR_MAX = parseInt(body.data('charlimit'), 10);
   var TAB_KEYCODE = 9;
-  var MESSAGE_LIMIT = 49;
+  var MESSAGE_LIMIT = 99;
 
   var resetTab = function(self, callback) {
     self.siblings().removeClass('selected');
