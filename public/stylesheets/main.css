@@ -699,6 +699,11 @@ section.public li h1 {
     height: 65px;
 }
 
+.write button.disabled {
+  background-color: #ddd;
+  color: #bbb;
+}
+
 .counter {
     color: #dedede;
     font-family: 'Oswald';
