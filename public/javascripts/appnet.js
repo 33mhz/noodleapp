@@ -324,8 +324,10 @@ define(['jquery', 'version-timeout', 'friends'],
               messages.append(message);
             } else {
               if (postLoaded) {
-                unreadMessageCount ++;
-                unreadMessagesNest.prepend(message);
+                if (unreadMessagesNest.find('li.message-item[data-id="' + data.messages[i].id + '"]').length === 0) {
+                  unreadMessageCount ++;
+                  unreadMessagesNest.prepend(message);
+                }
                 if (unreadMessageCount > 0) {
                   unreadMessages.fadeIn();
                 }
