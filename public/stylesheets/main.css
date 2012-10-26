@@ -281,6 +281,14 @@ header a#notifications.on:hover {
     padding: 5px 10px;
 }
 
+.form-action-wrapper {
+    display: none;
+}
+
+#overlay .form-action-wrapper {
+    display: block;
+}
+
 ol.messages #paginated {
     background-color: #aaa;
     border: 0;

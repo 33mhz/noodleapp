@@ -130,6 +130,7 @@ define(['jquery', 'appnet', 'friends', 'user', 'jquery.caret'],
     var messageItem = self.closest('.message-item');
     var mentions = (messageItem.data('mentions') !== '') ? messageItem.data('mentions') + ' ' : '';
     write.find('textarea').focus();
+    write.find('.form-action-wrapper').slideDown('fast');
     write.find('textarea').val('@' + messageItem.data('username') + ' ' + mentions);
     if (parseInt(messageItem.data('replyto'), 10) > 0) {
       write.find('.reply_to').val(messageItem.data('replyto'));
@@ -169,6 +170,7 @@ define(['jquery', 'appnet', 'friends', 'user', 'jquery.caret'],
     var self = $(this);
 
     write.find('textarea').focus();
+    write.find('.form-action-wrapper').slideDown('fast');
     write.find('textarea').val('"' + self.closest('.message-item').data('original') + '"');
   });
 
@@ -307,6 +309,7 @@ define(['jquery', 'appnet', 'friends', 'user', 'jquery.caret'],
 
     if (self.val().replace(/\s/, '').length < 1) {
       self.removeClass('on');
+      self.closest('form').find('.form-action-wrapper').slideUp('fast');
     }
   });
 
@@ -322,6 +325,12 @@ define(['jquery', 'appnet', 'friends', 'user', 'jquery.caret'],
       notifications.slideUp();
       notificationsDisplay = false;
     }
+  });
+
+  write.find('textarea').focus(function() {
+    var self = $(this);
+
+    self.closest('form').find('.form-action-wrapper').slideDown('fast');
   });
 
   // Clear the reply_to id if this is empty
@@ -365,6 +374,7 @@ define(['jquery', 'appnet', 'friends', 'user', 'jquery.caret'],
     friends.setUser(self, textarea, textarea.getCursorPosition());
   });
 
+  /* Settings functionality */
   body.on('click', '#settings-link', function(ev) {
     ev.preventDefault();
 
@@ -398,6 +408,7 @@ define(['jquery', 'appnet', 'friends', 'user', 'jquery.caret'],
     user.saveSettings(directedFeed, mediaOn, charLimit, write.find('input[name="_csrf"]').val());
   });
 
+  /* Unread messages functionality */
   body.on('click', '#unread-messages', function() {
     var self = $(this);
     appnet.clearUnread(self);
