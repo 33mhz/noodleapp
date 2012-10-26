@@ -348,7 +348,7 @@ define(['jquery', 'version-timeout', 'friends'],
         if (paginated && paginationLock) {
           messages.find('#paginated').removeClass('loading');
         } else {
-          sinceId = messages.find('> li:first-child').data('id');
+          sinceId = messages.find('li.message-item:first-child').data('id');
         }
 
         if (messages.find('> li').length >= 20 && messages.find('#paginated').length === 0) {
