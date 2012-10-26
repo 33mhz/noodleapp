@@ -139,6 +139,7 @@ define(['jquery', 'version-timeout', 'friends'],
     // user's full name
     message.find('a.username')
       .attr('href', '/user/' + messageItem.username + '/')
+      .attr('title', messageItem.username)
       .text(messageItem.name);
     // time
     message.find('time')
