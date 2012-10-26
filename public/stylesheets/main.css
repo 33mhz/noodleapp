@@ -661,7 +661,7 @@ section.public li h1 {
 }
 
 .write textarea {
-    border: 2px solid #fff;
+    border: 1px solid transparent;
     border-radius: 5px;
     color: #888;
     font-family: Arial;
@@ -686,7 +686,7 @@ section.public li h1 {
 }
 
 .write textarea.on {
-    border: 2px solid #111;
+    border: 1px solid #d8fd2b;
     color: #111;
     height: 65px;
 }
@@ -1006,7 +1006,7 @@ ol.messages > li p {
 }
 
 #unread-messages {
-    background-color: #2bd2dd;
+    background-color: #30d2d3;
     border-radius: 5px;
     box-shadow: #f1f1f1 2px 2px 2px;
     cursor: pointer;
@@ -1400,5 +1400,9 @@ img.hush {
     #overlay .inner-overlay .settings-details ul li p {
         margin-left: 10px;
         width: 190px;
+    }
+
+    #unread-messages {
+        width: 283px;
     }
 }
