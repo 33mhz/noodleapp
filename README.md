@@ -6,7 +6,7 @@
 
 Donating enables us to continually add new awesome features and keep the server running fast like bunnies!
 
-![NoodleApp](http://f.cl.ly/items/2i062B0R2T1t302T423y/NoodleApp-4.jpg)
+![NoodleApp](http://dl.dropbox.com/u/1913694/noodleapp/screen1.jpg)
 
 An http://app.net web client.
 
