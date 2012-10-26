@@ -57,6 +57,7 @@ define(['jquery', 'appnet', 'friends', 'user', 'jquery.caret'],
 
   var checkCharLimit = function(text) {
     if (text) {
+      write.find('button').removeClass('disabled');
       var textLength = text.length;
       if (textLength > CHAR_MAX - 1) {
         write.find('textarea').val(text.substr(0, CHAR_MAX));
@@ -65,6 +66,7 @@ define(['jquery', 'appnet', 'friends', 'user', 'jquery.caret'],
         charLimit.text(CHAR_MAX - textLength);
       }
     } else {
+      write.find('button').addClass('disabled');
       charLimit.text(CHAR_MAX);
     }
   };
