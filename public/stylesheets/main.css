@@ -661,7 +661,7 @@ section.public li h1 {
 }
 
 .write textarea {
-    border: 0;
+    border: 2px solid #fff;
     border-radius: 5px;
     color: #888;
     font-family: Arial;
@@ -675,10 +675,6 @@ section.public li h1 {
     resize: none;
 }
 
-.write textarea.on {
-    height: 65px;
-}
-
 #overlay .write {
     margin-top: 0;
     padding: 0;
@@ -690,7 +686,9 @@ section.public li h1 {
 }
 
 .write textarea.on {
+    border: 2px solid #111;
     color: #111;
+    height: 65px;
 }
 
 .counter {
@@ -1014,7 +1012,7 @@ ol.messages > li p {
     cursor: pointer;
     display: none;
     font-family: 'Oswald';
-    height: 37px;
+    height: 35px;
     margin-bottom: 5px;
     text-align: center;
     width: 560px;

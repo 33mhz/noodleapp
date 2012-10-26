@@ -627,6 +627,15 @@ define(['jquery', 'version-timeout', 'friends'],
         isStarredFeed = true;
       }
       setMessage('/paginated/feed/' + userId + '/' + postId, 'GET', true, isStarredFeed);
+    },
+
+    clearUnread: function(self) {
+      messages.prepend(unreadMessagesNested);
+      unreadMessages.find('h2').empty();
+      unreadMessages.find('ol').empty();
+      unreadMessageCount = 0;
+      self.removeClass('on');
+      messages.find('> li:gt(' + MESSAGE_LIMIT + ')').remove();
     }
   };
 

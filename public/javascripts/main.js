@@ -400,11 +400,6 @@ define(['jquery', 'appnet', 'friends', 'user', 'jquery.caret'],
 
   body.on('click', '#unread-messages', function() {
     var self = $(this);
-    var newMessages = self.find('ol li.message-item');
-    messages.prepend(newMessages);
-    unreadMessages.find('h2').empty();
-    unreadMessages.find('ol').empty();
-    self.removeClass('on');
-    messages.find('> li:gt(' + MESSAGE_LIMIT + ')').remove();
+    appnet.clearUnread(self);
   });
 });
