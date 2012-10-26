@@ -699,11 +699,6 @@ section.public li h1 {
     height: 65px;
 }
 
-.write button.disabled {
-  background-color: #ddd;
-  color: #bbb;
-}
-
 .counter {
     color: #dedede;
     font-family: 'Oswald';
@@ -739,6 +734,11 @@ button[type="submit"], section.public li a {
 button[type="submit"]:hover, section.public li a:hover, #overlay .users li.close:hover {
     background-color: #111;
     color: #eee;
+}
+
+.write button[type="submit"].disabled, .write button[type="submit"].disabled:hover {
+  background-color: #ddd;
+  color: #bbb;
 }
 
 section.public li a {
