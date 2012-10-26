@@ -432,6 +432,15 @@ define(['jquery', 'version-timeout', 'friends'],
             document.title = '[' + newCount + '] ' + title;
             notifications.text(newCount);
             notifications.addClass('on');
+
+            // Set in a Fluid app if the user supports it
+            if (window.fluid) {
+              if (window.fluid.dockBadge) {
+                window.fluid.dockBadge = newCount;
+              } else {
+                window.fluid.dockBadge = 1;
+              }
+            }
           }
 
           currentMentionPostId = data.messages[data.messages.length - 1].id;
@@ -491,6 +500,12 @@ define(['jquery', 'version-timeout', 'friends'],
     isFragment = false;
     paginationLock = false;
     sinceId = null;
+  };
+
+  var resetFluid = function() {
+    if (window.fluid) {
+      window.fluid.dockBadge = '';
+    }
   };
 
   var self = {
@@ -615,6 +630,7 @@ define(['jquery', 'version-timeout', 'friends'],
       overlay.find('.reply_to').val(postId);
       overlay.find('.write textarea').val('@' + username + ' ');
       newCount = 0;
+      resetFluid();
 
       setPost({ 'post_id': postId }, '/post', true, false, false, function() {
         setPost({ 'post_id': postId }, '/thread', false, true, false);
@@ -625,6 +641,7 @@ define(['jquery', 'version-timeout', 'friends'],
 
     resetUnread: function() {
       newCount = 0;
+      resetFluid();
     },
 
     getOlderPosts: function(postId) {
