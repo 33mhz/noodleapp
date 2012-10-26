@@ -630,7 +630,7 @@ define(['jquery', 'version-timeout', 'friends'],
     },
 
     clearUnread: function(self) {
-      messages.prepend(unreadMessagesNested);
+      messages.prepend(unreadMessagesNest.find('li'));
       unreadMessages.find('h2').empty();
       unreadMessages.find('ol').empty();
       unreadMessageCount = 0;
