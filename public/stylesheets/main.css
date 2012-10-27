@@ -75,6 +75,7 @@ body.media-disable a.media-off {
 }
 
 body.fixed {
+    background-image: url('/images/background-dark.png');
     overflow: hidden;
 }
 
@@ -1179,6 +1180,10 @@ img.hush {
     body {
         background-image: url('/images/background2x.png');
         background-size: auto 8px;
+    }
+
+    body.fixed {
+        background-image: url('/images/background-dark2x.png');
     }
 
     header a.home {
