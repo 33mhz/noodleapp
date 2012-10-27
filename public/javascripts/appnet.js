@@ -165,7 +165,9 @@ define(['jquery', 'version-timeout', 'friends'],
       }
     }
 
-    if (messageItem.photo) {
+    // Some clients include the url automatically which makes the image render twice for us.
+    // So we won't render it if it already appears to be in the body of the text.
+    if (messageItem.photo && messageItem.text.indexOf(messageItem.photo) === -1) {
       var photo = '<div class="image-wrapper"><a href="' + messageItem.photoEmbedUrl +
         '" target="_blank"><img src="' + messageItem.photo + '" alt="" title=""></div>' +
         '<a href="' + messageItem.photoEmbedUrl + '" target="_blank" class="media-off">' +
