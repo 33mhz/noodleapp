@@ -1,6 +1,6 @@
 'use strict';
 
-module.exports = function(app, client, isLoggedIn, noodle) {
+module.exports = function(app, client, isLoggedIn, noodle, config) {
   var appnet = require('../lib/appnet');
   var webremix = require('../lib/web-remix');
   var utils = require('../lib/utils');
@@ -11,6 +11,8 @@ module.exports = function(app, client, isLoggedIn, noodle) {
 
   app.get('/', function(req, res) {
     res.header('Cache-Control', 'no-cache, private, no-store, must-revalidate, max-stale=0, post-check=0, pre-check=0');
+
+    var analytics = false;
 
     if (req.session.passport.user) {
       // Process all the users's top 300 followed
@@ -41,6 +43,10 @@ module.exports = function(app, client, isLoggedIn, noodle) {
             charLimit = 256;
           }
 
+          if (config.get('analytics')) {
+            analytics = config.get('analytics');
+          }
+
           req.session.url = '/my/feed';
           res.render('index', {
             pageType: 'index',
@@ -51,7 +57,8 @@ module.exports = function(app, client, isLoggedIn, noodle) {
             username: utils.getUser(req).username,
             mediaOn: mediaOn,
             charLimit: charLimit,
-            loggedUsername: utils.getUser(req).username
+            loggedUsername: utils.getUser(req).username,
+            analytics: analytics
           });
         }
       });
@@ -64,12 +71,15 @@ module.exports = function(app, client, isLoggedIn, noodle) {
         username: '',
         mediaOn: '',
         charLimit: charLimit,
-        loggedUsername: ''
+        loggedUsername: '',
+        analytics: analytics
       });
     }
   });
 
   app.get('/user/:username', isLoggedIn, function(req, res) {
+    var analytics = false;
+
     appnet.getUser(req, function(err, user) {
       if (err) {
         res.status(500);
@@ -106,6 +116,10 @@ module.exports = function(app, client, isLoggedIn, noodle) {
               }
             }
 
+            if (config.get('analytics')) {
+              analytics = config.get('analytics');
+            }
+
             req.session.url = '/user/posts/' + user.id;
 
             res.render('profile', {
@@ -119,7 +133,8 @@ module.exports = function(app, client, isLoggedIn, noodle) {
               loggedInId: utils.getUserById(req),
               mediaOn: mediaOn,
               charLimit: charLimit,
-              loggedUsername: utils.getUser(req).username
+              loggedUsername: utils.getUser(req).username,
+              analytics: analytics
             });
           });
         }

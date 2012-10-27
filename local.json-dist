@@ -9,5 +9,7 @@
     "appnet_consumer_secret": "appnet_secret",
     "redis_dev": 0,
     "redis_test": 8,
-    "redis_prod": 9
+    "redis_prod": 9,
+    "analytics": "analytics_id",
+    "imgur_key": "img_api_key"
 }

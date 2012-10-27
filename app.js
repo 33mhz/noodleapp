@@ -54,7 +54,7 @@ var isLoggedIn = function(req, res, next) {
 
 /* Routing setup */
 
-require('./routes')(app, client, isLoggedIn, noodle);
+require('./routes')(app, client, isLoggedIn, noodle, nconf);
 require('./routes/auth')(app, passport);
 
 app.get('/404', function(req, res, next){
