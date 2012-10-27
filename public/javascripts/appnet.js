@@ -324,7 +324,7 @@ define(['jquery', 'version-timeout', 'friends'],
             if (paginated) {
               messages.append(message);
             } else {
-              if (postLoaded) {
+              if (postLoaded && data.messages[i].username !== loggedInUsername) {
                 if (unreadMessagesNest.find('li.message-item[data-id="' + data.messages[i].id + '"]').length === 0) {
                   unreadMessageCount ++;
                   unreadMessagesNest.prepend(message);
@@ -338,6 +338,7 @@ define(['jquery', 'version-timeout', 'friends'],
                 unreadMessages.find('h2').text(unreadMessageCount + ' unread');
                 unreadMessagesNest.find('> li:gt(' + MESSAGE_LIMIT + ')').remove();
               } else {
+                console.log('got here')
                 messages.prepend(message);
               }
             }
