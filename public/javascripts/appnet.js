@@ -165,6 +165,14 @@ define(['jquery', 'version-timeout', 'friends'],
       }
     }
 
+    if (messageItem.photo) {
+      var photo = '<div class="image-wrapper"><a href="' + messageItem.photoEmbedUrl +
+        '" target="_blank"><img src="' + messageItem.photo + '" alt="" title=""></div>' +
+        '<a href="' + messageItem.photoEmbedUrl + '" target="_blank" class="media-off">' +
+        messageItem.photoEmbedUrl + '</a>';
+      message.find('p').append(photo);
+    }
+
     return message;
   };
 
@@ -338,7 +346,6 @@ define(['jquery', 'version-timeout', 'friends'],
                 unreadMessages.find('h2').text(unreadMessageCount + ' unread');
                 unreadMessagesNest.find('> li:gt(' + MESSAGE_LIMIT + ')').remove();
               } else {
-                console.log('got here')
                 messages.prepend(message);
               }
             }
