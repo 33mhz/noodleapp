@@ -714,6 +714,10 @@ section.public li h1 {
     color: #f00;
 }
 
+input.file-upload {
+    
+}
+
 button[type="submit"] {
     margin-bottom: 30px;
 }
@@ -964,7 +968,7 @@ ol.messages > li:hover .actions.no-touch > li, #overlay .actions.no-touch > li:h
     opacity: 1.0;
 }
 
-.actions > li span {
+.actions > li span, .file-icon {
     background-color: #111;
     border-radius: 3px;
     bottom: -28px;
@@ -1006,6 +1010,20 @@ ol.messages > li:hover .actions.no-touch > li, #overlay .actions.no-touch > li:h
 .actions .quote {
     background-image: url('/images/quote.png');
     background-size: 22px;
+}
+
+.file-icon {
+    background-color: transparent;
+    background-image: url('/images/repost.png');
+    background-repeat: no-repeat;
+    background-size: 22px;
+    height: 25px;
+    top: 0px;
+    right: 30px;
+    display: block;
+    position: absolute;
+    width: 25px;
+    z-index: 5;
 }
 
 .actions .on {
@@ -1141,7 +1159,7 @@ img.hush {
     position: fixed;
     text-align: center;
     text-transform: uppercase;
-    width: 245px;
+    width: 265px;
     z-index:3;
 }
 

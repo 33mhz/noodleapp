@@ -29,6 +29,7 @@ define(['jquery', 'appnet', 'friends', 'user', 'jquery.caret'],
   var charLimit = $('.counter');
   var suggestions = $('ol.suggestions');
   var notifications = $('#notifications-preview');
+  var notificationIcon = $('#notifications');
   var unreadMessages = $('#unread-messages');
   var currentScrollTop = '';
   var win = $(window);
@@ -122,20 +123,6 @@ define(['jquery', 'appnet', 'friends', 'user', 'jquery.caret'],
 
   /* Message functionality */
 
-  body.on('click', '.reply', function() {
-    var self = $(this);
-    var messageItem = self.closest('.message-item');
-    var mentions = (messageItem.data('mentions') !== '') ? messageItem.data('mentions') + ' ' : '';
-    write.find('textarea').focus();
-    write.find('.form-action-wrapper').slideDown('fast');
-    write.find('textarea').val('@' + messageItem.data('username') + ' ' + mentions);
-    if (parseInt(messageItem.data('replyto'), 10) > 0) {
-      write.find('.reply_to').val(messageItem.data('replyto'));
-    } else {
-      write.find('.reply_to').val(messageItem.data('id'));
-    }
-    document.location.href = '#top';
-  });
 
   body.on('click', '.star', function() {
     var self = $(this);
@@ -204,14 +191,18 @@ define(['jquery', 'appnet', 'friends', 'user', 'jquery.caret'],
 
   var notificationsDisplay = false;
 
-  body.on('click', '#notifications', function(ev) {
-    ev.preventDefault();
-    var self = $(this);
-    self
+  var resetNotificationDisplay = function() {
+    notificationIcon
       .removeClass('on')
       .text(0);
     document.title = 'NoodleApp';
     appnet.resetUnread();
+  };
+
+  body.on('click', '#notifications', function(ev) {
+    ev.preventDefault();
+    var self = $(this);
+    resetNotificationDisplay();
     if (!notificationsDisplay) {
       notifications.slideDown();
       notificationsDisplay = true;
@@ -316,9 +307,10 @@ define(['jquery', 'appnet', 'friends', 'user', 'jquery.caret'],
       suggestions.empty();
     }
     if (notificationsDisplay &&
-        !(target.is('#notifications-preview') ||
-          target.is('#notifications') ||
-          target.closest('#notifications-preview').length)) {
+      !(target.is('#notifications-preview') ||
+      target.is('#notifications') ||
+      target.closest('#notifications-preview').length)) {
+
       notifications.slideUp();
       notificationsDisplay = false;
     }
@@ -409,5 +401,6 @@ define(['jquery', 'appnet', 'friends', 'user', 'jquery.caret'],
   body.on('click', '#unread-messages', function() {
     var self = $(this);
     appnet.clearUnread(self);
+    resetNotificationDisplay();
   });
 });

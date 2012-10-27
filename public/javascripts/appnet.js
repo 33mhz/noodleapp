@@ -152,7 +152,7 @@ define(['jquery', 'version-timeout', 'friends'],
 
     message.find('p').html(messageItem.message.replace(/\n/gm, '<br>'));
     if (messageItem.moods.length > 0) {
-      for(var i = 0; i < messageItem.moods.length; i ++) {
+      for (var i = 0; i < messageItem.moods.length; i ++) {
         var moodItem = messageItem.moods[i];
         if (moodArray.indexOf(moodItem) > -1) {
           var mood = $('<img src="" class="mood" alt="" title="">');
@@ -167,12 +167,16 @@ define(['jquery', 'version-timeout', 'friends'],
 
     // Some clients include the url automatically which makes the image render twice for us.
     // So we won't render it if it already appears to be in the body of the text.
-    if (messageItem.photo && messageItem.text.indexOf(messageItem.photo) === -1) {
-      var photo = '<div class="image-wrapper"><a href="' + messageItem.photoEmbedUrl +
-        '" target="_blank"><img src="' + messageItem.photo + '" alt="" title=""></div>' +
-        '<a href="' + messageItem.photoEmbedUrl + '" target="_blank" class="media-off">' +
-        messageItem.photoEmbedUrl + '</a>';
-      message.find('p').append(photo);
+    if (messageItem.photos.length > 0) {
+      for (var i = 0; i < messageItem.photos.length; i ++) {
+        if (messageItem.text.indexOf(messageItem.photos[i].url) === -1) {
+          var photo = '<div class="image-wrapper"><a href="' + messageItem.photos[i].embedUrl +
+            '" target="_blank"><img src="' + messageItem.photos[i].url + '" alt="" title=""></div>' +
+            '<a href="' + messageItem.photos[i].embedUrl + '" target="_blank" class="media-off">' +
+            messageItem.photos[i].embedUrl + '</a>';
+          message.find('p').append(photo);
+        }
+      }
     }
 
     return message;
@@ -400,7 +404,7 @@ define(['jquery', 'version-timeout', 'friends'],
     if (!currentMentionPostId) {
       $.ajax({
         url: '/user/mentions/' + loggedInId + '/',
-        data: { count: 1 },
+        data: { count: 1, ping: 1 },
         type: 'GET',
         dataType: 'json',
         cache: false
@@ -412,7 +416,7 @@ define(['jquery', 'version-timeout', 'friends'],
     } else {
       $.ajax({
         url: '/user/mentions/' + loggedInId + '/',
-        data: { since_id: parseInt(currentMentionPostId, 10), paginated: 1 },
+        data: { since_id: parseInt(currentMentionPostId, 10), paginated: 1, ping: 1 },
         type: 'GET',
         dataType: 'json',
         cache: false
