@@ -184,7 +184,7 @@ module.exports = function(app, client, isLoggedIn, noodle, config) {
   app.get('/user/mentions/:id', isLoggedIn, function(req, res) {
     var userId = req.params.id || utils.getUserById(req);
 
-    if (!req.query.paginated) {
+    if (!req.query.ping) {
       req.session.url = '/user/mentions/' + parseInt(userId, 10);
     }
 
