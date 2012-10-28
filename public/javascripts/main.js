@@ -38,6 +38,7 @@ define(['jquery', 'appnet', 'friends', 'user', 'jquery.caret'],
 
   var CHAR_MAX = parseInt(body.data('charlimit'), 10);
   var TAB_KEYCODE = 9;
+  var ESCAPE_KEYCODE = 27;
   var MESSAGE_LIMIT = 99;
 
   var resetTab = function(self, callback) {
@@ -283,14 +284,23 @@ define(['jquery', 'appnet', 'friends', 'user', 'jquery.caret'],
     appnet.showFollowing();
   });
 
-  overlay.on('click', '.close', function() {
+  overlay.on('click', '.close', closeOverlay);
+
+  body.on('keydown', function(e) {
+    if(e.keyCode == ESCAPE_KEYCODE && body.hasClass('fixed')) {
+      closeOverlay();
+    }
+  });
+
+  function closeOverlay() {
     window.history.pushState('', '', document.location.href.split('#')[0]);
     overlay.find('.inner-overlay').html('');
     overlay.find('textarea').val('');
     overlay.slideUp(function() {
       body.removeClass('fixed');
     });
-  });
+  }
+
 
   /* Write functionality */
 
