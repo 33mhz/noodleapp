@@ -122,7 +122,20 @@ define(['jquery', 'appnet', 'friends', 'user', 'jquery.caret'],
   tabs.find('.selected').click();
 
   /* Message functionality */
-
+  body.on('click', '.reply', function() {
+    var self = $(this);
+    var messageItem = self.closest('.message-item');
+    var mentions = (messageItem.data('mentions') !== '') ? messageItem.data('mentions') + ' ' : '';
+    write.find('textarea').focus();
+    write.find('.form-action-wrapper').slideDown('fast');
+    write.find('textarea').val('@' + messageItem.data('username') + ' ' + mentions);
+    if (parseInt(messageItem.data('replyto'), 10) > 0) {
+      write.find('.reply_to').val(messageItem.data('replyto'));
+    } else {
+      write.find('.reply_to').val(messageItem.data('id'));
+    }
+    document.location.href = '#top';
+  });
 
   body.on('click', '.star', function() {
     var self = $(this);
