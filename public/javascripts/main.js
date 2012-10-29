@@ -277,17 +277,19 @@ define(['jquery', 'appnet', 'friends', 'user', 'jquery.caret'],
   userInfo.on('click', '.followers', function() {
     var self = $(this);
     appnet.showFollowers();
+    body.addClass('fixed');
   });
 
   userInfo.on('click', '.following', function() {
     var self = $(this);
     appnet.showFollowing();
+    body.addClass('fixed');
   });
 
   overlay.on('click', '.close', closeOverlay);
 
   body.on('keydown', function(e) {
-    if(e.keyCode == ESCAPE_KEYCODE && body.hasClass('fixed')) {
+    if (e.keyCode === ESCAPE_KEYCODE && body.hasClass('fixed')) {
       closeOverlay();
     }
   });
