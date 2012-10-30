@@ -198,9 +198,9 @@ define(['jquery', 'appnet', 'friends', 'user', 'jquery.caret'],
 
   body.on('click', 'time', function() {
     var self = $(this);
+    overlay.find('textarea').focus();
     document.location.hash = '/post/' + self.closest('.message-item').data('id') +
       '/' + self.closest('.message-item').data('username');
-    overlay.find('textarea').focus();
   });
 
   checkUrl();
