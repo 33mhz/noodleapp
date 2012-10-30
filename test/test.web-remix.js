@@ -23,7 +23,8 @@ describe('web-remix', function() {
   });
   describe('.generate',  function() {
     it('returns embed code for a youtu.be short url', function(done) {
-      webRemix.generate('http://youtu.be/5cazkHAHiPU', client, function(err, subject) {
+      var youtube = { text: 'http://youtu.be/5cazkHAHiPU', url: 'http://youtu.be/5cazkHAHiPU' };
+      webRemix.generate(youtube, client, function(err, subject) {
         subject.should.equal('<div class="object-wrapper"><iframe width="525" height="295" src="//www.youtube.com/embed/5cazkHAHiPU?wmode=transparent" ' +
         'frameborder="0" allowfullscreen></iframe></div><a href="http://youtu.be/5cazkHAHiPU" target="_blank" class="media-off">http://youtu.be/5cazkHAHiPU</a>');
         done();
@@ -31,45 +32,25 @@ describe('web-remix', function() {
     });
 
     it('returns embed code for a youtube normal url', function(done) {
-      webRemix.generate('http://www.youtube.com/watch?v=5cazkHAHiPU', client, function(err, subject) {
+      var youtube = { text: 'http://www.youtube.com/watch?v=5cazkHAHiPU', url: 'http://www.youtube.com/watch?v=5cazkHAHiPU' };
+      webRemix.generate(youtube, client, function(err, subject) {
         subject.should.equal('<div class="object-wrapper"><iframe width="525" height="295" src="//www.youtube.com/embed/5cazkHAHiPU?wmode=transparent" ' +
           'frameborder="0" allowfullscreen></iframe></div><a href="http://www.youtube.com/watch?v=5cazkHAHiPU" target="_blank" class="media-off">http://www.youtube.com/watch?v=5cazkHAHiPU</a>');
         done();
       });
     });
 
-    it('returns a link for a non-video youtube url', function(done) {
-      webRemix.generate('http://www.youtube.com/some/page', client, function(err, subject) {
-        subject.should.equal('<a href="http://www.youtube.com/some/page" target="_blank">http://www.youtube.com/some/page</a>');
-        done();
-      });
-    });
-
-    it('returns embed code for a youtube normal url with square brackets', function(done) {
-      webRemix.generate('[http://www.youtube.com/watch?v=5cazkHAHiPU]', client, function(err, subject) {
-        subject.should.equal('<div class="object-wrapper"><iframe width="525" height="295" src="//www.youtube.com/embed/5cazkHAHiPU?wmode=transparent" ' +
-          'frameborder="0" allowfullscreen></iframe></div><a href="http://www.youtube.com/watch?v=5cazkHAHiPU" target="_blank" class="media-off">[http://www.youtube.com/watch?v=5cazkHAHiPU]</a>');
-        done();
-      });
-    });
-
     it('returns embed code for a vimeo video url', function(done) {
-      webRemix.generate('http://vimeo.com/37872583', client, function(err, subject) {
+      var vimeo = { text: 'http://vimeo.com/37872583', url: 'http://vimeo.com/37872583' };
+      webRemix.generate(vimeo, client, function(err, subject) {
         subject.should.equal('<div class="object-wrapper"><iframe src="//player.vimeo.com/video/37872583" width="525" height="295" ' +
           'frameborder="0" webkitAllowFullScreen mozallowfullscreen allowFullScreen></iframe></div><a href="http://vimeo.com/37872583" target="_blank" class="media-off">http://vimeo.com/37872583</a>');
         done();
       });
     });
 
-    it('returns embed code for a vimeo video url with < and >', function(done) {
-      webRemix.generate('<http://vimeo.com/37872583>', client, function(err, subject) {
-        subject.should.equal('<div class="object-wrapper"><iframe src="//player.vimeo.com/video/37872583" width="525" height="295" ' +
-          'frameborder="0" webkitAllowFullScreen mozallowfullscreen allowFullScreen></iframe></div><a href="http://vimeo.com/37872583" target="_blank" class="media-off">&lt;http://vimeo.com/37872583&gt;</a>');
-        done();
-      });
-    });
-
     it('returns embed code for a mixcloud audio url', function() {
+      var mixcloud = { text: 'http://mixcloud.com/LuckyMe/25-jamie-vexd-sunday-walkman-mix/', url: 'http://mixcloud.com/LuckyMe/25-jamie-vexd-sunday-walkman-mix/' };
       var scope = nock('mixcloud.com').get('/oembed?format=json&url=http//mixcloud.com/artist/track').reply(200,
           { html: '<div><object width="300" height="300"><param name="movie" value="//www.mixcloud.com/media/' +
           'swf/player/mixcloudLoader.swf?feed=http%3A%2F%2Fwww.mixcloud.com%2Flazykiki%2Fode-to-concrete%2F&amp;' +
@@ -90,7 +71,7 @@ describe('web-remix', function() {
           'target="_blank" style="color:#02a0c7; font-weight:bold;"> Mixcloud</a></p><div style="clear:both; ' +
           'height:3px;"></div></div><a href="http://mixcloud.com/LuckyMe/25-jamie-vexd-sunday-walkman-mix/" target="_blank" class="media-off" ' +
           '>http://mixcloud.com/LuckyMe/25-jamie-vexd-sunday-walkman-mix/</a>' });
-      webRemix.generate('http://mixcloud.com/LuckyMe/25-jamie-vexd-sunday-walkman-mix/', client, function(err, subject) {
+      webRemix.generate(mixcloud, client, function(err, subject) {
         subject.should.equal('<div class="object-wrapper"><div class="object-wrapper"><div><object width="300" height="300"><param name="movie" ' +
           'value="//www.mixcloud.com/media/swf/player/mixcloudLoader.swf?feed=http%3A%2F%2Fwww.mixcloud.com%2F' +
           'lazykiki%2Fode-to-concrete%2F&amp;embed_uuid=2a3c7546-7bd1-482b-809c-0a0fa0f39095&amp;stylecolor=&amp;' +
@@ -115,6 +96,7 @@ describe('web-remix', function() {
     });
 
     it('returns oembed code for a soundcloud url', function() {
+      var soundcloud = { text: 'http://soundcloud.com/skeptical/sets/tracks-576/', url: 'http://soundcloud.com/skeptical/sets/tracks-576/' };
       var scope = nock('soundcloud.com').get('/oembed?format=json&url=http//soundcloud.com/track').reply(200,
           { html: '<iframe src="//w.soundcloud.com/player/?url=http%3A' +
           '%2F%2Fapi.soundcloud.com%2Fplaylists%2F723408&amp;show_artwork=true" frameborder="no" height="450" ' +
@@ -122,7 +104,7 @@ describe('web-remix', function() {
           'href="http://soundcloud.com/skeptical/sets/tracks-576/">http://soundcloud.com/skeptical/sets' +
           '/tracks-576/</a><a href="http://soundcloud.com/skeptical/sets/tracks-576/" target="_blank" class="media-off" ' +
           '>http://soundcloud.com/skeptical/sets/tracks-576/</a>' });
-      webRemix.generate('http://soundcloud.com/skeptical/sets/tracks-576/', client, function(err, subject) {
+      webRemix.generate(soundcloud, client, function(err, subject) {
         subject.should.equal('<div class="object-wrapper"><iframe width="100%" height="450" scrolling="no" frameborder="no" ' +
           'src="//w.soundcloud.com/player/?url=http%3A%2F%2Fapi.soundcloud.com%2Fplaylists%2F723408&show_artwork=true">' +
           '</iframe></div><a href="http://soundcloud.com/skeptical/sets/tracks-576/" target="_blank" class="media-off" ' +
@@ -130,29 +112,9 @@ describe('web-remix', function() {
       });
     });
 
-    it('returns oembed code for a soundcloud url following tags', function() {
-      var params = {
-        format: 'json',
-        url: 'http://soundcloud.com/track'
-      };
-
-      var scope = nock('soundcloud.com').get('/oembed?', qs.stringify(params)).reply(200,
-          { html: '<iframe src="//w.soundcloud.com/player/?url=http%3A' +
-          '%2F%2Fapi.soundcloud.com%2Fplaylists%2F723408&amp;show_artwork=true" frameborder="no" height="450" ' +
-          'scrolling="no" width="100%"></iframe><a class="media-link" target="_blank"' +
-          'href="http://soundcloud.com/skeptical/sets/tracks-576/">http://soundcloud.com/skeptical/sets' +
-          '/tracks-576/</a><a href="http://soundcloud.com/skeptical/sets/tracks-576/" target="_blank" class="media-off" ' +
-          '>http://soundcloud.com/skeptical/sets/tracks-576/</a> test' });
-      webRemix.generate('http://soundcloud.com/skeptical/sets/tracks-576/ test #tag', client, function(err, subject) {
-        subject.should.equal('test <a href="/tagged/tag">#tag</a> <div class="object-wrapper"><iframe width="100%" height="450" scrolling="no" frameborder="no" ' +
-          'src="//w.soundcloud.com/player/?url=http%3A%2F%2Fapi.soundcloud.com%2Fplaylists%2F723408&show_artwork=true">' +
-          '</iframe></div><a href="http://soundcloud.com/skeptical/sets/tracks-576/" target="_blank" class="media-off" ' +
-          '>http://soundcloud.com/skeptical/sets/tracks-576/</a>');
-      });
-    });
-
     it('returns embed code for a rd.io short url', function(done) {
-      webRemix.generate('http://rd.io/i/QVME9DdeW1GL', client, function(err, subject) {
+      var rdio = { text: 'http://rd.io/i/QVME9DdeW1GL', url: 'http://rd.io/i/QVME9DdeW1GL' };
+      webRemix.generate(rdio, client, function(err, subject) {
         subject.should.equal('<div class="object-wrapper"><iframe class="rdio" width="450" height="80" ' +
           'src="//rd.io/i/QVME9DdeW1GL" frameborder="0"></iframe></div><a href="http://rd.io/i/QVME9DdeW1GL" target="_blank" class="media-off">http://rd.io/i/QVME9DdeW1GL</a>');
         done();
@@ -160,203 +122,34 @@ describe('web-remix', function() {
     });
 
     it('returns embed code for a rdio normal url', function(done) {
-      webRemix.generate('http://rdio.com/x/QVME9DdeW1GL', client, function(err, subject) {
+      var rdio = { text: 'http://rdio.com/x/QVME9DdeW1GL', url: 'http://rdio.com/x/QVME9DdeW1GL' };
+      webRemix.generate(rdio, client, function(err, subject) {
         subject.should.equal('<div class="object-wrapper"><iframe class="rdio" width="450" height="80" ' +
           'src="//rd.io/i/QVME9DdeW1GL" frameborder="0"></iframe></div><a href="http://rdio.com/x/QVME9DdeW1GL" target="_blank" class="media-off">http://rdio.com/x/QVME9DdeW1GL</a>');
         done();
       });
     });
 
-    it('returns an rdio url with parentheses', function(done) {
-      var link = '(http://rdio.com/x/QVME9DdeW1GL)';
-      webRemix.generate(link, client, function(err, subject) {
-        subject.should.equal('<div class="object-wrapper"><iframe class="rdio" width="450" height="80" ' +
-          'src="//rd.io/i/QVME9DdeW1GL" frameborder="0"></iframe></div><a href="http://rdio.com/x/QVME9DdeW1GL" target="_blank" class="media-off">(http://rdio.com/x/QVME9DdeW1GL)</a>');
-        done();
-      });
-    });
-
-    it('returns image code for an img url', function() {
-      webRemix.generate('http://3.bp.blogspot.com/_K_1LxF4TvhU/S7UUE6PYKiI/AAAAAAAADto/XfpdX2CIxqY/' +
-        's400/Riley+the+smiling+dog.jpg', client, function(err, subject) {
-        subject.should.equal('<div class="image-wrapper"><a href="http://3.bp.blogspot.com/_K_1LxF4TvhU/S7UUE6PYKiI/AAAAAAAADto/XfpdX2CIxqY/' +
-        's400/Riley+the+smiling+dog.jpg" target="_blank"><img src="http://3.bp.blogspot.com/_K_1LxF4TvhU/S7UUE6PYKiI/AAAAAAAADto/XfpdX2CIxqY/' +
-        's400/Riley+the+smiling+dog.jpg"></a></div><a href="http://3.bp.blogspot.com/_K_1LxF4TvhU/S7UUE6PYKiI/AAAAAAAADto/XfpdX2CIxqY/' +
-        's400/Riley+the+smiling+dog.jpg" target="_blank" class="media-off">http://3.bp.blogspot.com/_K_1LxF4TvhU/S7UUE6PYKiI/AAAAAAAADto/XfpdX2CIxqY/' +
-        's400/Riley+the+smiling+dog.jpg</a>');
-      });
-    });
-
-    it('returns image code for an img url with junk at the end', function() {
-      webRemix.generate('http://blah.com/stuff.jpg#blah', client, function(err, subject) {
-        subject.should.equal('<div class="image-wrapper"><a href="http://blah.com/stuff.jpg#blah" target="_blank">' +
-        '<img src="http://blah.com/stuff.jpg#blah"></a></div><a href="http://blah.com/stuff.jpg#blah" ' +
-        'target="_blank" class="media-off">http://blah.com/stuff.jpg#blah</a>');
-      });
-    });
-
     it('returns a regular link', function() {
-      webRemix.generate('http://3.bp.blogspot.com/Riley+the+smiling+dog.jpg/test', client, function(err, subject) {
+      var link = { text: 'http://3.bp.blogspot.com/Riley+the+smiling+dog.jpg/test', url: 'http://3.bp.blogspot.com/Riley+the+smiling+dog.jpg/test' };
+      webRemix.generate(link, client, function(err, subject) {
         subject.should.equal('<a href="http://3.bp.blogspot.com/Riley+the+smiling+dog.jpg/test" target="_blank">http://3.bp.blogspot.com/Riley+the+smiling+dog.jpg/test</a>');
       });
     });
 
     it('returns image code for an instagr.am url', function() {
-      webRemix.generate('http://instagram.com/p/QFJJzTw8yS/', client, function(err, subject) {
+      var instagram = { text: 'http://instagram.com/p/QFJJzTw8yS/', url: 'http://instagram.com/p/QFJJzTw8yS/' };
+      webRemix.generate(instagram, client, function(err, subject) {
         subject.should.equal('<div class="image-wrapper"><a href="http://instagram.com/p/QFJJzTw8yS/">' +
           '<img src="http://instagr.am/p/QFJJzTw8yS/media/"/></a></div><a href="http://instagram.com/p/QFJJzTw8yS/" target="_blank" class="media-off">http://instagram.com/p/QFJJzTw8yS/</a>');
       });
     });
 
-    it('returns a link for an https url', function(done) {
-      webRemix.generate('https://example.com/123/123/123/123', client, function(err, subject) {
-        subject.should.equal('<a href="https://example.com/123/123/123/123" target="_blank">https://example.com/123/123/123/123</a>');
-        done();
-      });
-    });
-
     it('returns video for a video link', function(done) {
-      var video = 'http://blah.com/video.ogv';
+      var video = { text: 'http://blah.com/video.ogv', url: 'http://blah.com/video.ogv' };
       webRemix.generate(video, client, function(err, subject) {
-        subject.should.equal('<div class="object-wrapper"><video controls="controls" preload="none" autobuffer><source src="' + video +
+        subject.should.equal('<div class="object-wrapper"><video controls="controls" preload="none" autobuffer><source src="http://blah.com/video.ogv' +
           '" type="video/ogg; codecs="vp8, vorbis" /></video></div><a href="http://blah.com/video.ogv" target="_blank" class="media-off">http://blah.com/video.ogv</a>');
-        done();
-      });
-    });
-
-    it('returns audio for an audio link', function(done) {
-      var audio = 'http://blah.com/audio.ogg';
-      webRemix.generate(audio, client, function(err, subject) {
-        subject.should.equal('<div class="object-wrapper"><audio controls="controls" preload="none" autobuffer><source src="' + audio +
-          '" type="audio/ogg" /></audio></div><a href="http://blah.com/audio.ogg" target="_blank" class="media-off">http://blah.com/audio.ogg</a>');
-        done();
-      });
-    });
-
-    it('returns audio for an audio link with smart quotes', function(done) {
-      var audio = '“http://blah2.com/audio.ogg”';
-      webRemix.generate(audio, client, function(err, subject) {
-        subject.should.equal('<div class="object-wrapper"><audio controls="controls" preload="none" autobuffer><source src="http://blah2.com/audio.ogg' +
-          '" type="audio/ogg" /></audio></div><a href="http://blah2.com/audio.ogg" target="_blank" class="media-off">“http://blah2.com/audio.ogg”</a>');
-        done();
-      });
-    });
-
-    it('returns a regular link', function(done) {
-      var link = 'http://blog.szynalski.com/2009/07/05/blind-testing-mp3-compression/';
-      webRemix.generate(link, client, function(err, subject) {
-        subject.should.equal('<a href="http://blog.szynalski.com/2009/07/05/blind-testing-mp3-compression/" target="_blank">' +
-          'http://blog.szynalski.com/2009/07/05/blind-testing-mp3-compression/</a>');
-        done();
-      });
-    });
-
-    it('returns a regular link with quotes', function(done) {
-      var link = '"http://blog.szynalski.com/2009/07/05/blind-testing-mp3-compression/"';
-      webRemix.generate(link, client, function(err, subject) {
-        subject.should.equal('&quot;<a href="http://blog.szynalski.com/2009/07/05/blind-testing-mp3-compression/" target="_blank">' +
-          'http://blog.szynalski.com/2009/07/05/blind-testing-mp3-compression/</a>&quot;');
-        done();
-      });
-    });
-
-    it('returns a regular link with square brackets', function(done) {
-      var link = '[http://blog.szynalski.com/2009/07/05/blind-testing-mp3-compression/]';
-      webRemix.generate(link, client, function(err, subject) {
-        subject.should.equal('[<a href="http://blog.szynalski.com/2009/07/05/blind-testing-mp3-compression/" target="_blank">' +
-          'http://blog.szynalski.com/2009/07/05/blind-testing-mp3-compression/</a>]');
-        done();
-      });
-    });
-
-    it('returns a regular link with parentheses', function(done) {
-      var link = '(http://blog.szynalski.com/2009/07/05/blind-testing-mp3-compression/)';
-      webRemix.generate(link, client, function(err, subject) {
-        subject.should.equal('(<a href="http://blog.szynalski.com/2009/07/05/blind-testing-mp3-compression/" target="_blank">' +
-          'http://blog.szynalski.com/2009/07/05/blind-testing-mp3-compression/</a>)');
-        done();
-      });
-    });
-
-    it('returns the user link', function(done) {
-      webRemix.generate('@borg', client, function(err, subject) {
-        subject.should.equal('<a href="/user/borg/">@borg</a>');
-        done();
-      });
-    });
-
-    it('returns a <link> as a regular link', function(done) {
-      var link = '<http://example.com/?blah,test=&>';
-      webRemix.generate(link, client, function(err, subject) {
-        subject.should.equal('&lt;<a href="http://example.com/?blah,test=&" target="_blank">' +
-          'http://example.com/?blah,test=&</a>&gt;');
-        done();
-      });
-    });
-
-    it('returns a protocol-less link as a regular link', function(done) {
-      var link = 'bla.de';
-      webRemix.generate(link, client, function(err, subject) {
-        subject.should.equal('<a href="http://bla.de" target="_blank">bla.de</a>');
-        done();
-      });
-    });
-
-    it('returns the hashtag without the wrapping characters', function(done) {
-      webRemix.generate('"#stuff"', client, function(err, subject) {
-        subject.should.equal('&quot;<a class="tags" href="/tagged/stuff">#stuff</a>&quot;');
-        done();
-      });
-    });
-
-    it('returns text with periods as text', function(done) {
-      var link = 'e.g.';
-      webRemix.generate(link, client, function(err, subject) {
-        subject.should.equal('e.g.');
-        done();
-      });
-    });
-
-    it('returns text with periods as text', function(done) {
-      var link = 'e.g';
-      webRemix.generate(link, client, function(err, subject) {
-        subject.should.equal('e.g');
-        done();
-      });
-    });
-
-    it('return a www link as a regular link', function(done) {
-      var link = 'www.bla.de';
-      webRemix.generate(link, client, function(err, subject) {
-        subject.should.equal('<a href="http://www.bla.de" target="_blank">www.bla.de</a>');
-        done();
-      });
-    });
-
-    it('returns the user link followed by \'s', function(done) {
-      webRemix.generate('@borg\'s', client, function(err, subject) {
-        subject.should.equal('<a href="/user/borg/">@borg</a>\'s');
-        done();
-      });
-    });
-
-    it('returns the user link preceded and followed by \"s', function(done) {
-      webRemix.generate('"@borg"', client, function(err, subject) {
-        subject.should.equal('&quot;<a href="/user/borg/">@borg</a>&quot;');
-        done();
-      });
-    });
-
-    it('returns a non-user link', function(done) {
-      webRemix.generate('@ borg', client, function(err, subject) {
-        subject.should.equal('@   borg');
-        done();
-      });
-    });
-
-    it('returns the plain text for anything else', function(done) {
-      webRemix.generate('foo', client, function(err, subject) {
-        subject.should.equal('foo');
         done();
       });
     });

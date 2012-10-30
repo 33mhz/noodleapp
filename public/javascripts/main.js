@@ -123,7 +123,13 @@ define(['jquery', 'appnet', 'friends', 'user', 'jquery.caret'],
   tabs.find('.selected').click();
 
   /* Message functionality */
-  body.on('click', '.reply', function() {
+  messages.on('click', '.reply', function() {
+    var self = $(this);
+
+    self.closest('.message-item').find('time').click();
+  });
+
+  overlay.on('click', '.reply', function() {
     var self = $(this);
     var messageItem = self.closest('.message-item');
     var mentions = (messageItem.data('mentions') !== '') ? messageItem.data('mentions') + ' ' : '';
