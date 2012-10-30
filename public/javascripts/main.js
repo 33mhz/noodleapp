@@ -133,15 +133,14 @@ define(['jquery', 'appnet', 'friends', 'user', 'jquery.caret'],
     var self = $(this);
     var messageItem = self.closest('.message-item');
     var mentions = (messageItem.data('mentions') !== '') ? messageItem.data('mentions') + ' ' : '';
-    write.find('textarea').focus();
-    write.find('.form-action-wrapper').slideDown('fast');
-    write.find('textarea').val('@' + messageItem.data('username') + ' ' + mentions);
+    overlay.find('textarea')
+      .focus()
+      .val('@' + messageItem.data('username') + ' ' + mentions);
     if (parseInt(messageItem.data('replyto'), 10) > 0) {
-      write.find('.reply_to').val(messageItem.data('replyto'));
+      overlay.find('.reply_to').val(messageItem.data('replyto'));
     } else {
-      write.find('.reply_to').val(messageItem.data('id'));
+     overlay.find('.reply_to').val(messageItem.data('id'));
     }
-    document.location.href = '#top';
   });
 
   body.on('click', '.star', function() {
@@ -201,6 +200,7 @@ define(['jquery', 'appnet', 'friends', 'user', 'jquery.caret'],
     var self = $(this);
     document.location.hash = '/post/' + self.closest('.message-item').data('id') +
       '/' + self.closest('.message-item').data('username');
+    overlay.find('textarea').focus();
   });
 
   checkUrl();
