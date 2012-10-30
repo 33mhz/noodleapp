@@ -1,7 +1,7 @@
 'use strict';
 
-define(['jquery', 'version-timeout', 'friends', 'annotations'],
-  function ($, versionTimeout, friends, annotations) {
+define(['jquery', 'version-timeout', 'friends'],
+  function ($, versionTimeout, friends) {
 
   var messages = $('ol.messages');
   var myFeed = $('.my-feed');
@@ -27,7 +27,6 @@ define(['jquery', 'version-timeout', 'friends', 'annotations'],
   var paginationLock = false;
   var postLoaded = false;
   var unreadMessageCount = 0;
-  var moodArray = ['happy', 'sad', 'tired', 'angry', 'calm', 'omg'];
 
   if (!('ontouchstart' in document.documentElement)) {
     noTouch = 'no-touch';
@@ -151,8 +150,6 @@ define(['jquery', 'version-timeout', 'friends', 'annotations'],
     // user's message
 
     message.find('p').html(messageItem.message.replace(/\n/gm, '<br>'));
-    annotations.generateMoods(messageItem, message);
-    annotations.generateImages(messageItem, message);
 
     return message;
   };
