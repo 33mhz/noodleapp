@@ -272,7 +272,7 @@ describe('appnet', function() {
         reply_to: 1
       };
       var scope = nock(APPNET_URL)
-        .post('/stream/0/posts?access_token=1', qs.stringify(params))
+        .post('/stream/0/posts?access_token=1&include_annotations=1', qs.stringify(params))
         .reply(200, POST_JSON);
       appnet.addMessage(req, client, function(err, resp) {
         resp.data[0].id.should.equal('1')
