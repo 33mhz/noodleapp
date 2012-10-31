@@ -212,6 +212,7 @@ define(['jquery', 'version-timeout', 'friends'],
               message.find('.info .reposts span').text(data.messages[i].numReposts);
               message.find('.info .stars span').text(data.messages[i].numStars);
               message.find('.info .replies span').text(data.messages[i].numReplies);
+              message.attr('data-mentions', data.messages[i].mentions);
             }
 
             if (ascending) {
