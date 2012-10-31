@@ -122,7 +122,7 @@ define(['jquery', 'version-timeout', 'friends'],
     return $('<li class="message-item ' + notify + '" data-mentions="" data-replyto="" data-original="" data-id="' +
       message.id + '" ' + 'data-username="' + message.username + '" data-minid="' + message.min_id + '">' +
       '<div class="post-wrapper"><div class="meta"><a href="" class="who" title=""><img src=""></a>' +
-      '<div class="details"><a href="" class="username"></a><time data-created=""></time>' +
+      '<div class="details"><a href="" class="username"></a><a href="" class="fullname"></a><time data-created=""></time>' +
       '</div></div><p></p>' + detailExtras + '</div></li>');
   };
 
@@ -136,10 +136,15 @@ define(['jquery', 'version-timeout', 'friends'],
       .attr('title', messageItem.name + ' @' + messageItem.username)
       .attr('href', '/user/' + messageItem.username + '/');
     // user's full name
+    message.find('a.fullname')
+      .attr('href', '/user/' + messageItem.username + '/')
+      .attr('title', messageItem.name)
+      .text(messageItem.name);
+    // user's username
     message.find('a.username')
       .attr('href', '/user/' + messageItem.username + '/')
       .attr('title', messageItem.username)
-      .text(messageItem.name);
+      .text(messageItem.username);
     // time
     message.find('time')
       .text(dateDisplay(messageItem.created_at))
