@@ -1,6 +1,6 @@
 {
   "name": "noodleapp",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "private": true,
   "engines": {
     "node": ">= 0.8.19",
