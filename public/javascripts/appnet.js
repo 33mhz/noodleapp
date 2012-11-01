@@ -408,7 +408,7 @@ define(['jquery', 'version-timeout', 'friends'],
                 .attr('data-postid', data.messages[i].id)
                 .attr('data-username', data.messages[i].username);
               messageItem.find('h2').text(data.messages[i].username);
-              messageItem.find('p').html(data.messages[i].text);
+              messageItem.find('p').text(data.messages[i].text);
               notificationsPreview.prepend(messageItem);
               notificationsPreview.find('> li:gt(' + (MESSAGE_LIMIT - 10) + ')').remove();
               newCount ++;
