@@ -316,7 +316,7 @@ define(['jquery', 'version-timeout', 'friends'],
             if (paginated) {
               messages.append(message);
             } else {
-              if (postLoaded && data.messages[i].username !== loggedInUsername) {
+              if (postLoaded && data.messages[i].username !== loggedInUsername && messages.find('> li').length > 0) {
                 if (unreadMessagesNest.find('li.message-item[data-id="' + data.messages[i].id + '"]').length === 0) {
                   unreadMessageCount ++;
                   unreadMessagesNest.prepend(message);
@@ -489,6 +489,7 @@ define(['jquery', 'version-timeout', 'friends'],
     unreadMessageCount = 0;
     unreadMessages.find('ol').empty();
     unreadMessages.removeClass('on');
+    unreadMessages.hide();
     isFragment = false;
     paginationLock = false;
     sinceId = null;

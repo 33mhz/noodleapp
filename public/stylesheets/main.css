@@ -62,7 +62,7 @@ html, body {
 body {
     background-color: #fff;
     background-image: url('/images/background.png');
-    font-family: Arial;
+    font-family: Helvetica, Arial;
 }
 
 a.media-off, body.media-disable ol.messages > li p .image-wrapper,
@@ -136,7 +136,7 @@ header a#notifications {
     border-radius: 100px;
     color: #fff;
     float: right;
-    font-family: Arial;
+    font-family: Helvetica, Arial;
     font-weight: bold;
     height: 18px;
     font-size: 12px;
@@ -184,7 +184,7 @@ header a#notifications.on:hover {
     border-radius: 3px;
     color: #eee;
     display: block;
-    font-family: Arial;
+    font-family: Helvetica, Arial;
     font-size: 13px;
     line-height: 16px;
     margin: 0 0 3px 0;
@@ -209,7 +209,7 @@ header a#notifications.on:hover {
 #dashboard {
     height: 100%;
     margin: 0 auto;
-    max-width: 600px;
+    max-width: 700px;
     min-width: 320px;
     position: relative;
 }
@@ -220,13 +220,13 @@ header a#notifications.on:hover {
     box-shadow: #ccc 0 0 3px;
     display: none;
     left: 50%;
-    margin-left: -305px;
+    margin-left: -355px;
     overflow-y: scroll;
     -webkit-overflow-scrolling: touch;
     padding: 50px 20px 20px;
     position: fixed;
     top: 0;
-    width: 570px;
+    width: 670px;
     z-index: 2;
 }
 
@@ -296,7 +296,7 @@ ol.messages #paginated {
     margin-bottom: 20px;
     opacity: 0.7;
     text-indent: none;
-    width: 560px;
+    width: 660px;
 }
 
 ol.messages #paginated.loading {
@@ -353,7 +353,7 @@ ol.messages #paginated.loading {
     line-height: 35px;
     overflow: hidden;
     text-overflow: ellipsis;
-    width: 505px;
+    width: 605px;
 }
 
 #overlay .users li em {
@@ -402,7 +402,7 @@ ol.messages #paginated.loading {
 
 #overlay .inner-overlay .settings-details ul li p {
     float: left;
-    width: 460px;
+    width: 560px;
 }
 
 #directed-feed, #media-on, #charlimit {
@@ -425,14 +425,14 @@ ol.messages #paginated.loading {
     float: left;
     margin-left: 10px;
     text-align: left;
-    width: 450px;
+    width: 550px;
 }
 
 #overlay .inner-overlay .message-summary li p {
     font-size: 14px;
     line-height: 17px;
     margin-top: 5px;
-    width: 545px;
+    width: 645px;
 }
 
 #overlay .message-summary li span.source {
@@ -450,13 +450,13 @@ ol.messages #paginated.loading {
 #overlay li p iframe, #overlay li p video, #overlay li p audio, #overlay li p object {
     height: 306px;
     margin: 2px 0;
-    width: 545px;
+    width: 645px;
 }
 
 #overlay li p img {
     margin: 2px 0;
-    max-height: 550px;
-    max-width: 545px;
+    max-height: 650px;
+    max-width: 645px;
 }
 
 #overlay li:first-child p iframe, #overlay li:first-child p video,
@@ -483,7 +483,7 @@ ol.messages #paginated.loading {
     padding: 5px 10px 4px 15px;
     text-overflow: ellipsis;
     text-transform: uppercase;
-    width: 156px;
+    width: 189px;
 }
 
 #overlay .suggestions {
@@ -527,7 +527,7 @@ ol.messages #paginated.loading {
     border-right: 1px solid #eee;
     float: left;
     position: relative;
-    width: 600px;
+    width: 700px;
 }
 
 .dashboard-content.error h1 {
@@ -562,7 +562,7 @@ ol.messages #paginated.loading {
     overflow: hidden;
     text-overflow: ellipsis;
     text-shadow: #111 1px 1px 1px;
-    width: 340px;
+    width: 440px;
 }
 
 #profile .user-info h2 {
@@ -575,7 +575,7 @@ ol.messages #paginated.loading {
     overflow: hidden;
     text-overflow: ellipsis;
     text-transform: uppercase;
-    width: 360px;
+    width: 460px;
 }
 
 #profile .followers, #profile .following {
@@ -674,14 +674,14 @@ section.public li h1 {
     border: 1px solid transparent;
     border-radius: 5px;
     color: #888;
-    font-family: Arial;
+    font-family: Helvetica, Arial;
     font-size: 15px;
     height: 25px;
     line-height: 20px;
     margin-bottom: 10px;
     overflow: auto;
     padding: 10px;
-    width: 540px;
+    width: 640px;
     resize: none;
 }
 
@@ -692,7 +692,7 @@ section.public li h1 {
 
 #overlay .write textarea {
     background-color: #eee;
-    width: 535px;
+    width: 635px;
 }
 
 .write textarea.on {
@@ -826,7 +826,7 @@ ol.messages > li {
     padding-bottom: 5px;
     overflow: hidden;
     position: relative;
-    width: 570px;
+    width: 670px;
 }
 
 ol.messages > li .post-wrapper {
@@ -837,7 +837,7 @@ ol.messages > li .post-wrapper {
     display: block;
     float: left;
     padding: 10px 5px;
-    width: 547px;
+    width: 647px;
 }
 
 ol.messages > li.notify .post-wrapper {
@@ -909,7 +909,9 @@ ol.messages > li .meta {
 }
 
 br {
-    display:block;
+    display: block;
+    margin: 0;
+    padding: 0;
 }
 
 .username, .fullname {
@@ -917,7 +919,7 @@ br {
     color: #555;
     display: block;
     float: left;
-    font-family: Arial;
+    font-family: Helvetica, Arial;
     font-size: 18px;
     font-weight: normal;
     line-height: 20px;
@@ -930,10 +932,10 @@ br {
 
 .fullname {
     color: #aaa;
-    font-family: Arial;
+    font-family: Helvetica, Arial;
     font-size: 13px;
     font-style: italic;
-    line-height: 24px;
+    line-height: 26px;
 }
 
 time {
@@ -962,7 +964,7 @@ time:hover {
 .details {
     float: left;
     margin-left: 10px;
-    width: 475px;
+    width: 575px;
 }
 
 .actions > li {
@@ -1049,7 +1051,7 @@ ol.messages > li p {
     line-height: 18px;
     overflow: hidden;
     padding: 0 10px;
-    width: 520px;
+    width: 620px;
 }
 
 #unread-messages {
@@ -1062,7 +1064,7 @@ ol.messages > li p {
     height: 35px;
     margin-bottom: 5px;
     text-align: center;
-    width: 560px;
+    width: 660px;
 }
 
 #unread-messages:hover {
@@ -1163,14 +1165,14 @@ img.hush {
     font-family: 'Oswald';
     font-size: 25px;
     left: 50%;
-    margin-left: -135px;
+    margin-left: -235px;
     margin-top: 32px;
     opacity: 0.8;
     padding: 20px 5px;
     position: fixed;
     text-align: center;
     text-transform: uppercase;
-    width: 265px;
+    width: 465px;
     z-index:3;
 }
 
@@ -1178,7 +1180,7 @@ img.hush {
     left: 20px;
     list-style-type: none;
     position: absolute;
-    top: 106px;
+    top: 108px;
     width: 250px;
     z-index: 4;
 }
@@ -1286,7 +1288,145 @@ img.hush {
     }
 }
 
-@media only screen and (max-width: 599px) and (orientation:portrait) {
+@media only screen and (max-width: 700px) {
+    #dashboard {
+        width: 530px;
+    }
+
+    #overlay {
+        margin-left: -264px;
+        width: 485px;
+    }
+
+    #overlay .actions {
+        margin: 0 0 5px 0;
+    }
+
+    #overlay .message-summary li .details {
+        margin-left: 0;
+        width: 450px;
+    }
+
+    #overlay .meta .who > img {
+        margin-left: 0;
+    }
+
+    #overlay .message-summary li p {
+        margin: 5px 0;
+        width: 540px;
+    }
+
+    #overlay .users li span {
+        width: 415px;
+    }
+
+    #overlay li p iframe, #overlay li p video, #overlay li p audio, #overlay li p object {
+        height: 264px;
+        width: 470px;
+    }
+
+    #overlay li p img {
+        max-height: 570px;
+        max-width: 470px;
+    }
+
+    #profile .user-info {
+        width: 485px;
+    }
+
+    #overlay .info {
+        margin: 5px 0;
+    }
+
+    #overlay .info li {
+        overflow: hidden;
+        text-overflow: ellipsis;
+        width: 127px;
+    }
+
+    #profile .user-info h2 {
+        width: 485px;
+    }
+
+    #overlay .meta {
+        display: block;
+        float: left;
+        width: 470px;
+    }
+
+    .write textarea {
+        width: 465px;
+    }
+
+    .details {
+        width: 405px;
+    }
+
+    #overlay .write textarea, ol.messages > li.message-item p {
+        width: 450px;
+    }
+
+    #overlay .inner-overlay .message-summary li .details {
+        margin-left: 0;
+        width: 340px;
+    }
+
+    #overlay .inner-overlay .message-summary li p {
+        margin-left: 0;
+        width: 470px;
+    }
+
+    .dashboard-content {
+        width: 525px;
+    }
+
+    ol.messages > li.message-item, .public ol.messages > li {
+        width: 490px;
+    }
+
+    ol.messages > li .post-wrapper {
+        width: 475px;
+    }
+
+    ol.messages li p iframe, ol.messages li p video,
+    ol.messages li p audio, ol.messages li p object {
+        height: 264px;
+        width: 450px;
+    }
+
+    ol.messages .inner-overlay ol > li {
+        width: 270px;
+    }
+
+    ol.messages .inner-overlay ol > li p {
+        padding-top: 5px;
+        width: 240px;
+    }
+
+    ol.messages .inner-overlay ol > li p img, ol.messages > li p img {
+        max-height: 550px;
+        max-width: 450px;
+    }
+
+    ol.messages #paginated {
+        width: 485px;
+    }
+
+    .suggestions {
+        top: 109px;
+    }
+
+    #overlay .inner-overlay .settings-details ul li p {
+        margin-left: 10px;
+        width: 390px;
+    }
+
+    #unread-messages {
+        width: 488px;
+    }
+}
+
+@media only screen and (max-width: 560px) and (orientation:portrait) {
     #dashboard {
         width: 320px;
     }
@@ -1348,7 +1488,7 @@ img.hush {
 
     #overlay .info li {
         margin: 2px;
-        padding-top: 5px;
+        padding: 5px 3px 3px 3px;
         width: 60px;
     }
 
