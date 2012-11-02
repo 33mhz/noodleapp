@@ -27,7 +27,7 @@ define(['jquery', 'appnet', 'friends', 'user', 'jquery.caret'],
   var csrf = write.find('input[name="_csrf"]').val();
   var postLoad = false;
   var notificationsDisplay = false;
-  var current_message;
+  var currentMessage;
 
   var CHAR_MAX = parseInt(body.data('charlimit'), 10);
   var TAB_KEYCODE = 9;
@@ -191,19 +191,19 @@ define(['jquery', 'appnet', 'friends', 'user', 'jquery.caret'],
     }
   });
 
-  var window_has_scrolled = false;
+  var windowHasScrolled = false;
   var scollCheck = setInterval(function () {
-    if (window_has_scrolled) {
-      var near_bottom = win.scrollTop() > doc.height() - win.height() - 200;
-      if (near_bottom) {
+    if (windowHasScrolled) {
+      var nearBottom = win.scrollTop() > doc.height() - win.height() - 200;
+      if (nearBottom) {
         $('#paginated').click();
       }
     }
-    window_has_scrolled = false;
+    windowHasScrolled = false;
   }, 100);
 
   win.on('scroll', function () {
-    window_has_scrolled = true;
+    windowHasScrolled = true;
   });
 
   // Overlay functionality
@@ -327,7 +327,7 @@ define(['jquery', 'appnet', 'friends', 'user', 'jquery.caret'],
     }
   });
 
-  var key_code_to_class_name = {
+  var keyCodeToClassName = {
     84: '.thread', // t
     83: '.star', // s
     82: '.reply', // r
@@ -335,7 +335,7 @@ define(['jquery', 'appnet', 'friends', 'user', 'jquery.caret'],
     81: '.quote'  // q
   };
 
-  var action_key_codes = $.map(key_code_to_class_name, function  (val, key) { return (+ key); });
+  var actionKeyCodes = $.map(keyCodeToClassName, function  (val, key) { return (+ key); });
 
   body.on('keydown', function(ev) {
     var self = $(ev.target);
@@ -360,31 +360,31 @@ define(['jquery', 'appnet', 'friends', 'user', 'jquery.caret'],
         }
     }
 
-    if (e.keyCode == 75 || e.keyCode == 74) {
-      current_message = body.find('.message-item.hover');
-      if (!current_message.length) {
-        current_message = body.find('.message-item:first');
-        current_message.addClass('hover');
+    if (ev.keyCode === 75 || ev.keyCode === 74) {
+      currentMessage = body.find('.message-item.hover');
+      if (!currentMessage.length) {
+        currentMessage = body.find('.message-item:first');
+        currentMessage.addClass('hover');
         return;
       }
 
       var next;
-      if (e.keyCode == 75) {
-        next = current_message.prev('.message-item');
+      if (ev.keyCode === 75) {
+        next = currentMessage.prev('.message-item');
       } else {
-        next = current_message.next('.message-item');
+        next = currentMessage.next('.message-item');
       }
 
       if (next.length) {
-        current_message.removeClass('hover');
+        currentMessage.removeClass('hover');
         next.addClass('hover');
         $(window).scrollTop(next.position().top - 40);
-        current_message = next;
+        currentMessage = next;
       }
     }
 
-    if(current_message && $.inArray(e.keyCode, action_key_codes) !== -1){
-      current_message.find(key_code_to_class_name[e.keyCode]).click();
+    if(currentMessage && $.inArray(ev.keyCode, actionKeyCodes) !== -1){
+      currentMessage.find(keyCodeToClassName[ev.keyCode]).click();
     }
 
   });
