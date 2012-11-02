@@ -1,6 +1,6 @@
 'use strict';
 
-define(['jquery', 'version-timeout', 'friends'],
+define(['jquery', 'version-timeout', 'friends', 'jquery.caret'],
   function ($, versionTimeout, friends) {
 
   var messages = $('ol.messages');
@@ -237,6 +237,8 @@ define(['jquery', 'version-timeout', 'friends'],
                 username += ' ' + messageOverlay.find('.message-item').data('mentions');
               }
               overlay.find('.write textarea').val(username + ' ');
+              overlay.find('.write textarea').focus();
+              overlay.find('.write textarea').moveCursorToEnd();
             }
 
             if (callback) {

@@ -202,8 +202,6 @@ define(['jquery', 'appnet', 'friends', 'user', 'jquery.caret'],
 
     document.location.hash = '/post/' + closest.data('id') +
       '/' + closest.data('username');
-    textarea.focus();
-    setTimeout(function() { textarea.moveCursorToEnd(); }, 300);
   });
 
   checkUrl();
