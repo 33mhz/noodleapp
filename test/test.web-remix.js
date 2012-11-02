@@ -133,7 +133,7 @@ describe('web-remix', function() {
     it('returns a regular link', function() {
       var link = { text: 'http://3.bp.blogspot.com/Riley+the+smiling+dog.jpg/test', url: 'http://3.bp.blogspot.com/Riley+the+smiling+dog.jpg/test' };
       webRemix.generate(link, client, function(err, subject) {
-        subject.should.equal('<a href="http://3.bp.blogspot.com/Riley+the+smiling+dog.jpg/test" target="_blank">http://3.bp.blogspot.com/Riley+the+smiling+dog.jpg/test</a>');
+        subject.should.equal('<a href="http://3.bp.blogspot.com/Riley+the+smiling+dog.jpg/test" target="_blank" title="http://3.bp.blogspot.com/Riley+the+smiling+dog.jpg/test">http://3.bp.blogspot.com/Riley+the+smiling+dog.jpg/test</a>');
       });
     });
 
