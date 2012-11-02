@@ -439,6 +439,7 @@ ol.messages #paginated.loading {
     color: #999;
     display: block;
     font-size: 12px;
+    margin-top: 5px;
     width: 100%;
 }
 
@@ -911,22 +912,32 @@ br {
     display:block;
 }
 
-.username {
+.username, .fullname {
     clear: both;
-    color: #111;
+    color: #555;
     display: block;
     float: left;
-    font-family: 'Oswald';
-    font-size: 15px;
+    font-family: Arial;
+    font-size: 18px;
+    font-weight: normal;
     line-height: 20px;
     overflow: hidden;
+    text-decoration: none;
     text-overflow: ellipsis;
     width: 75%;
     white-space: nowrap;
 }
 
+.fullname {
+    color: #aaa;
+    font-family: Arial;
+    font-size: 13px;
+    font-style: italic;
+    line-height: 24px;
+}
+
 time {
-    background-color: #d0d0d0;
+    background-color: #ffa800;
     border-radius: 100px;
     color: #fff;
     float: right;
@@ -1342,7 +1353,7 @@ img.hush {
     }
 
     #overlay .info li, #overlay .info li span {
-        font-size: 13px;
+        font-size: 12px;
     }
 
     #profile .user-info h2 {
