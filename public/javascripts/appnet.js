@@ -226,6 +226,16 @@ define(['jquery', 'version-timeout', 'friends'],
               messageOverlay.append(message);
             }
 
+            if (showDetails) {
+              var username = '@' + messageOverlay.find('.message-item').data('username');
+              var mentionList = messageOverlay.find('.message-item').data('mentions');
+              // If there are any other mentions, add them to the username
+              if (mentionList.length > 0) {
+                username += ' ' + messageOverlay.find('.message-item').data('mentions') + ' ';
+              }
+              overlay.find('.write textarea').val(username);
+            }
+
             if (callback) {
               callback();
             }
@@ -621,7 +631,6 @@ define(['jquery', 'version-timeout', 'friends'],
     showPost: function(postId, username) {
       overlay.find('.write').show();
       overlay.find('.reply_to').val(postId);
-      overlay.find('.write textarea').val('@' + username + ' ');
       newCount = 0;
       resetFluid();
 
