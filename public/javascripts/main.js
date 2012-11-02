@@ -125,7 +125,6 @@ define(['jquery', 'appnet', 'friends', 'user', 'jquery.caret'],
   /* Message functionality */
   messages.on('click', '.reply', function() {
     var self = $(this);
-
     self.closest('.message-item').find('time').click();
   });
 
@@ -198,9 +197,13 @@ define(['jquery', 'appnet', 'friends', 'user', 'jquery.caret'],
 
   body.on('click', 'time', function() {
     var self = $(this);
-    overlay.find('textarea').focus();
-    document.location.hash = '/post/' + self.closest('.message-item').data('id') +
-      '/' + self.closest('.message-item').data('username');
+    var textarea = overlay.find('textarea');
+    var closest = self.closest('.message-item');
+
+    document.location.hash = '/post/' + closest.data('id') +
+      '/' + closest.data('username');
+    textarea.focus();
+    setTimeout(function() { textarea.moveCursorToEnd(); }, 300);
   });
 
   checkUrl();
