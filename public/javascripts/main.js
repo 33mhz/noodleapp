@@ -19,13 +19,10 @@ define(['jquery', 'appnet', 'friends', 'user', 'jquery.caret'],
   var write = body.find('.write form');
   var userInfo = body.find('.user-info');
   var overlay = body.find('#overlay');
-  var dashboard = body.find('.dashboard-content');
   var charLimit = body.find('.counter');
   var suggestions = body.find('ol.suggestions');
   var notifications = body.find('#notifications-preview');
   var notificationIcon = body.find('#notifications');
-  var unreadMessages = body.find('#unread-messages');
-  var currentScrollTop = '';
   var win = $(window);
   var csrf = write.find('input[name="_csrf"]').val();
   var postLoad = false;

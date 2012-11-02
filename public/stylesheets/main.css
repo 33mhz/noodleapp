@@ -869,6 +869,7 @@ ol.messages > li .meta {
 .meta .who img {
     border-radius: 3px;
     float: left;
+    height: 40px;
     margin: 0 5px 0 10px;
     width: 40px;
 }
