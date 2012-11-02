@@ -227,7 +227,10 @@ define(['jquery', 'version-timeout', 'friends'],
             }
 
             if (showDetails) {
-              var username = '@' + messageOverlay.find('.message-item').data('username');
+              var username = '';
+              if (username !=== loggedInUsername) {
+                username = '@' + messageOverlay.find('.message-item').data('username');
+              }
               var mentionList = messageOverlay.find('.message-item').data('mentions');
               // If there are any other mentions, add them to the username
               if (mentionList.length > 0) {
