@@ -27,6 +27,7 @@ define(['jquery', 'version-timeout', 'friends', 'jquery.caret'],
   var paginationLock = false;
   var postLoaded = false;
   var unreadMessageCount = 0;
+  var textarea = overlay.find('.write textarea');
 
   if (!('ontouchstart' in document.documentElement)) {
     noTouch = 'no-touch';
@@ -236,9 +237,9 @@ define(['jquery', 'version-timeout', 'friends', 'jquery.caret'],
               if (mentionList.length > 0) {
                 username += ' ' + messageOverlay.find('.message-item').data('mentions');
               }
-              overlay.find('.write textarea').val(username + ' ');
-              overlay.find('.write textarea').focus();
-              overlay.find('.write textarea').moveCursorToEnd();
+              textarea.val(username + ' ');
+              textarea.focus();
+              textarea.moveCursorToEnd();
             }
 
             if (callback) {
