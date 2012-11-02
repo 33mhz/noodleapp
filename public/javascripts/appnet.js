@@ -228,7 +228,7 @@ define(['jquery', 'version-timeout', 'friends'],
 
             if (showDetails) {
               var username = '';
-              if (username !=== loggedInUsername) {
+              if (username !== loggedInUsername) {
                 username = '@' + messageOverlay.find('.message-item').data('username');
               }
               var mentionList = messageOverlay.find('.message-item').data('mentions');
