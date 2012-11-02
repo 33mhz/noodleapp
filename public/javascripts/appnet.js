@@ -234,9 +234,9 @@ define(['jquery', 'version-timeout', 'friends'],
               var mentionList = messageOverlay.find('.message-item').data('mentions');
               // If there are any other mentions, add them to the username
               if (mentionList.length > 0) {
-                username += ' ' + messageOverlay.find('.message-item').data('mentions') + ' ';
+                username += ' ' + messageOverlay.find('.message-item').data('mentions');
               }
-              overlay.find('.write textarea').val(username);
+              overlay.find('.write textarea').val(username + ' ');
             }
 
             if (callback) {
