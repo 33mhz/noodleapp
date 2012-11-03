@@ -34,7 +34,7 @@ define(['jquery', 'version-timeout', 'friends', 'jquery.caret'],
   }
 
   var MESSAGE_LIMIT = 49;
-  var POLL_TIMEOUT = 30000;
+  var POLL_TIMEOUT = 25000;
 
   // Wait 1 minute to get new data
   var pollMessages = function() {

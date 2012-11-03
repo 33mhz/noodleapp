@@ -292,13 +292,6 @@ define(['jquery', 'appnet', 'friends', 'user', 'jquery.caret'],
         }
         break;
 
-      case self.parent().hasClass('notification-item'):
-        var parentNode = self.parent();
-        notifications.slideUp();
-        appnet.showPost(parentNode.data('postid'), parentNode.data('username'));
-        body.addClass('fixed');
-        break;
-
       case self.hasClass('tags'):
         ev.preventDefault();
         appnet.showTagged(self.attr('href').split('/tagged/')[1]);
@@ -393,6 +386,16 @@ define(['jquery', 'appnet', 'friends', 'user', 'jquery.caret'],
 
   $(window).bind('hashchange', function() {
     checkUrl();
+  });
+
+  /* Notifications */
+  notifications.on('click', '.notification-item', function(ev) {
+    ev.preventDefault();
+    var self = $(this);
+
+    notifications.slideUp();
+    appnet.showPost(self.data('postid'), self.data('username'));
+    body.addClass('fixed');
   });
 
   /* Write functionality */
