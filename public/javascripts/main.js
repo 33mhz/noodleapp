@@ -292,10 +292,10 @@ define(['jquery', 'appnet', 'friends', 'user', 'jquery.caret'],
         }
         break;
 
-      case self.hasClass('notification-item'):
-        ev.preventDefault();
+      case self.parent().hasClass('notification-item'):
+        var parentNode = self.parent();
         notifications.slideUp();
-        appnet.showPost(self.data('postid'), self.data('username'));
+        appnet.showPost(parentNode.data('postid'), parentNode.data('username'));
         body.addClass('fixed');
         break;
 
