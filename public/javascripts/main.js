@@ -58,25 +58,14 @@ define(['jquery', 'appnet', 'friends', 'user', 'jquery.caret'],
   };
 
   var checkCharLimit = function(text) {
-    if (text) {
-      write.find('button').removeClass('disabled');
-      var textLength = text.length;
-      if (textLength > CHAR_MAX) {
-        if (textLength === 0) {
-          charLimit.removeClass('over');
-          charLimit.text(0);
-        } else {
-          charLimit.addClass('over');
-          charLimit.text('- ' + (textLength - CHAR_MAX));
-        }
-      } else {
-        charLimit.removeClass('over');
-        charLimit.text(CHAR_MAX - textLength);
-      }
+    var textLength = text.length;
+    write.find('button').toggleClass('disabled', textLength === 0);
+    if (textLength > CHAR_MAX) {
+      charLimit.addClass('over');
+      charLimit.text('- ' + (textLength - CHAR_MAX));
     } else {
-      write.find('button').addClass('disabled');
       charLimit.removeClass('over');
-      charLimit.text(CHAR_MAX);
+      charLimit.text(CHAR_MAX - textLength);
     }
   };
 
