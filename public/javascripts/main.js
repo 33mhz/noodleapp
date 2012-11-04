@@ -57,8 +57,15 @@ define(['jquery', 'appnet', 'friends', 'user', 'jquery.caret'],
     }
   };
 
+  // Length of actual text that will be posted to app.net
+  var getEffectiveLength = function(text) {
+    // Same as in markdown-to-entities, but global
+    var markdownLinkRegex = /\[([^\]]+)\]\((\S+(?=\)))\)/g;
+    return text.replace(markdownLinkRegex, '$1').length;
+  };
+
   var checkCharLimit = function(text) {
-    var textLength = text.length;
+    var textLength = getEffectiveLength(text);
     write.find('button').toggleClass('disabled', textLength === 0);
     if (textLength > CHAR_MAX) {
       charLimit.addClass('over');
