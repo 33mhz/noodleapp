@@ -57,26 +57,22 @@ define(['jquery', 'appnet', 'friends', 'user', 'jquery.caret'],
     }
   };
 
+  // Length of actual text that will be posted to app.net
+  var getEffectiveLength = function(text) {
+    // Same as in markdown-to-entities, but global
+    var markdownLinkRegex = /\[([^\]]+)\]\((\S+(?=\)))\)/g;
+    return text.replace(markdownLinkRegex, '$1').length;
+  };
+
   var checkCharLimit = function(text) {
-    if (text) {
-      write.find('button').removeClass('disabled');
-      var textLength = text.length;
-      if (textLength > CHAR_MAX) {
-        if (textLength === 0) {
-          charLimit.removeClass('over');
-          charLimit.text(0);
-        } else {
-          charLimit.addClass('over');
-          charLimit.text('- ' + (textLength - CHAR_MAX));
-        }
-      } else {
-        charLimit.removeClass('over');
-        charLimit.text(CHAR_MAX - textLength);
-      }
+    var textLength = getEffectiveLength(text);
+    write.find('button').toggleClass('disabled', textLength === 0);
+    if (textLength > CHAR_MAX) {
+      charLimit.addClass('over');
+      charLimit.text('- ' + (textLength - CHAR_MAX));
     } else {
-      write.find('button').addClass('disabled');
       charLimit.removeClass('over');
-      charLimit.text(CHAR_MAX);
+      charLimit.text(CHAR_MAX - textLength);
     }
   };
 
