@@ -360,33 +360,34 @@ define(['jquery', 'appnet', 'friends', 'user', 'jquery.caret'],
         }
     }
 
-    if (ev.keyCode === 75 || ev.keyCode === 74) {
-      currentMessage = body.find('.message-item.hover');
-      if (!currentMessage.length) {
-        currentMessage = body.find('.message-item:first');
-        currentMessage.addClass('hover');
-        return;
+    if (!self.is('textarea')) {
+      if (ev.keyCode === 75 || ev.keyCode === 74) {
+        currentMessage = body.find('.message-item.hover');
+        if (!currentMessage.length) {
+          currentMessage = body.find('.message-item:first');
+          currentMessage.addClass('hover');
+          return;
+        }
+
+        var next;
+        if (ev.keyCode === 75) {
+          next = currentMessage.prev('.message-item');
+        } else {
+          next = currentMessage.next('.message-item');
+        }
+
+        if (next.length) {
+          currentMessage.removeClass('hover');
+          next.addClass('hover');
+          $(window).scrollTop(next.position().top - 40);
+          currentMessage = next;
+        }
       }
 
-      var next;
-      if (ev.keyCode === 75) {
-        next = currentMessage.prev('.message-item');
-      } else {
-        next = currentMessage.next('.message-item');
-      }
-
-      if (next.length) {
-        currentMessage.removeClass('hover');
-        next.addClass('hover');
-        $(window).scrollTop(next.position().top - 40);
-        currentMessage = next;
+      if (currentMessage && $.inArray(ev.keyCode, actionKeyCodes) !== -1){
+        currentMessage.find(keyCodeToClassName[ev.keyCode]).click();
       }
     }
-
-    if (currentMessage && $.inArray(ev.keyCode, actionKeyCodes) !== -1){
-      currentMessage.find(keyCodeToClassName[ev.keyCode]).click();
-    }
-
   });
 
   /* User functionality */
