@@ -844,7 +844,8 @@ ol.messages > li.notify .post-wrapper {
     border-left: 3px solid #76e4f1;
 }
 
-ol.messages > li:hover .post-wrapper {
+ol.messages > li:hover .post-wrapper,
+ol.messages > li.hover .post-wrapper {
     border-left: 3px solid #d8fd2b;
 }
 
@@ -978,7 +979,9 @@ time:hover {
     width: 23px;
 }
 
-ol.messages > li:hover .actions.no-touch > li, #overlay .actions.no-touch > li:hover {
+ol.messages > li:hover .actions.no-touch > li,
+ol.messages > li.hover .actions.no-touch > li,
+#overlay .actions.no-touch > li:hover {
     opacity: 1.0;
 }
 

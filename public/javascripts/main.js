@@ -11,7 +11,6 @@ requirejs.config({
 
 define(['jquery', 'appnet', 'friends', 'user', 'jquery.caret'],
   function($, appnet, friends, user) {
-
   var body = $('body');
   var url = body.data('url');
   var tabs = body.find('ol.tabs');
@@ -24,9 +23,11 @@ define(['jquery', 'appnet', 'friends', 'user', 'jquery.caret'],
   var notifications = body.find('#notifications-preview');
   var notificationIcon = body.find('#notifications');
   var win = $(window);
+  var doc = $(document);
   var csrf = write.find('input[name="_csrf"]').val();
   var postLoad = false;
   var notificationsDisplay = false;
+  var currentMessage;
 
   var CHAR_MAX = parseInt(body.data('charlimit'), 10);
   var TAB_KEYCODE = 9;
@@ -190,6 +191,21 @@ define(['jquery', 'appnet', 'friends', 'user', 'jquery.caret'],
     }
   });
 
+  var windowHasScrolled = false;
+  var scollCheck = setInterval(function () {
+    if (windowHasScrolled) {
+      var nearBottom = win.scrollTop() > doc.height() - win.height() - 200;
+      if (nearBottom) {
+        $('#paginated').click();
+      }
+    }
+    windowHasScrolled = false;
+  }, 100);
+
+  win.on('scroll', function () {
+    windowHasScrolled = true;
+  });
+
   // Overlay functionality
   overlay.on('click', function(ev) {
     var self = $(ev.target);
@@ -311,6 +327,16 @@ define(['jquery', 'appnet', 'friends', 'user', 'jquery.caret'],
     }
   });
 
+  var keyCodeToClassName = {
+    84: '.thread', // t
+    83: '.star', // s
+    82: '.reply', // r
+    80: '.repost', // p
+    81: '.quote'  // q
+  };
+
+  var actionKeyCodes = $.map(keyCodeToClassName, function  (val, key) { return (+ key); });
+
   body.on('keydown', function(ev) {
     var self = $(ev.target);
 
@@ -333,6 +359,34 @@ define(['jquery', 'appnet', 'friends', 'user', 'jquery.caret'],
           self.closest('form').submit();
         }
     }
+
+    if (ev.keyCode === 75 || ev.keyCode === 74) {
+      currentMessage = body.find('.message-item.hover');
+      if (!currentMessage.length) {
+        currentMessage = body.find('.message-item:first');
+        currentMessage.addClass('hover');
+        return;
+      }
+
+      var next;
+      if (ev.keyCode === 75) {
+        next = currentMessage.prev('.message-item');
+      } else {
+        next = currentMessage.next('.message-item');
+      }
+
+      if (next.length) {
+        currentMessage.removeClass('hover');
+        next.addClass('hover');
+        $(window).scrollTop(next.position().top - 40);
+        currentMessage = next;
+      }
+    }
+
+    if(currentMessage && $.inArray(ev.keyCode, actionKeyCodes) !== -1){
+      currentMessage.find(keyCodeToClassName[ev.keyCode]).click();
+    }
+
   });
 
   /* User functionality */
