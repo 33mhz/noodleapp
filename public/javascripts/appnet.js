@@ -545,12 +545,16 @@ define(['jquery', 'version-timeout', 'friends', 'jquery.caret'],
 
     starMessage: function(id, csrf) {
       isFragment = true;
-      serverRequest('/star', 'POST', { post_id: id, _csrf: csrf });
+      serverRequest('/star', 'POST', { post_id: id, _csrf: csrf }, function() {
+        flashMessage('Starred!');
+      });
     },
 
     unstarMessage: function(id, csrf) {
       isFragment = true;
-      serverRequest('/star', 'DELETE', { post_id: id, _csrf: csrf });
+      serverRequest('/star', 'DELETE', { post_id: id, _csrf: csrf }, function() {
+        flashMessage('Unstarred!');
+      });
     },
 
     repostMessage: function(id, csrf) {
