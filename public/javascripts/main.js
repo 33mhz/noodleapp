@@ -383,7 +383,7 @@ define(['jquery', 'appnet', 'friends', 'user', 'jquery.caret'],
       }
     }
 
-    if(currentMessage && $.inArray(ev.keyCode, actionKeyCodes) !== -1){
+    if (currentMessage && $.inArray(ev.keyCode, actionKeyCodes) !== -1){
       currentMessage.find(keyCodeToClassName[ev.keyCode]).click();
     }
 
