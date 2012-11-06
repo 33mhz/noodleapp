@@ -47,10 +47,11 @@ html
         #overlay
           mixin messageForm('overlay-write', 'Reply', '', 'Reply')
           .inner-overlay
-      #flash-message
+        #flash-message
       .dashboard-content
         block content
 
     footer
 
-    script(src='/javascripts/require.js', data-main='/javascripts/main')
+    if session
+      script(src='/javascripts/require.js', data-main='/javascripts/main')
