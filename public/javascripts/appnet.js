@@ -645,7 +645,6 @@ define(['jquery', 'version-timeout', 'friends', 'jquery.caret'],
       resetFluid();
 
       setPost({ 'post_id': postId }, '/post', true, false, false, function() {
-        setPost({ 'post_id': postId }, '/thread', false, true, false);
         getStarredUsers(postId);
         getRepostedUsers(postId);
       });

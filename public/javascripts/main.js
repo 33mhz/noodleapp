@@ -227,6 +227,11 @@ define(['jquery', 'appnet', 'friends', 'user', 'jquery.caret'],
         }
         break;
 
+      case self.hasClass('thread'):
+        appnet.showThread(self.closest('.message-item').data('id'));
+        body.addClass('fixed');
+        break;
+
       case self.hasClass('close'):
         closeOverlay();
         break;
