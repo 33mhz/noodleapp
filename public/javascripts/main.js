@@ -52,8 +52,7 @@ define(['jquery', 'appnet', 'friends', 'user', 'jquery.caret'],
     if (document.location.hash.indexOf('/post/') > -1) {
       var postArray = document.location.hash.split('/post/')[1].split('/');
       var postId = postArray[0];
-      var usernameId = postArray[1];
-      appnet.showPost(postId, usernameId);
+      appnet.showPost(postId);
       body.addClass('fixed');
     }
   };
@@ -450,7 +449,7 @@ define(['jquery', 'appnet', 'friends', 'user', 'jquery.caret'],
     var self = $(this);
 
     notifications.slideUp();
-    appnet.showPost(self.data('postid'), self.data('username'));
+    appnet.showPost(self.data('postid'));
     body.addClass('fixed');
   });
 

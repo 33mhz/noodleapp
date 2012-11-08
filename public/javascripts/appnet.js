@@ -638,7 +638,7 @@ define(['jquery', 'version-timeout', 'friends', 'jquery.caret'],
       setPost({ 'tag': tag }, '/tags', false, false, true);
     },
 
-    showPost: function(postId, username) {
+    showPost: function(postId) {
       overlay.find('.write').show();
       overlay.find('.reply_to').val(postId);
       newCount = 0;
