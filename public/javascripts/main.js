@@ -49,11 +49,18 @@ define(['jquery', 'appnet', 'friends', 'user', 'jquery.caret'],
   };
 
   var checkUrl = function() {
-    if (document.location.hash.indexOf('/post/') > -1) {
-      var postArray = document.location.hash.split('/post/')[1].split('/');
+    var hash = document.location.hash;
+
+    if (hash.indexOf('/post/') > -1) {
+      var postArray = hash.split('/post/')[1].split('/');
       var postId = postArray[0];
       appnet.showPost(postId);
       body.addClass('fixed');
+    } else if (hash.indexOf('/tagged/') > -1) {
+      appnet.showTagged(hash.split('/tagged/')[1]);
+      body.addClass('fixed');
+    } else if (hash.length < 3 && body.hasClass('fixed')) {
+       closeOverlay();
     }
   };
 
@@ -310,8 +317,7 @@ define(['jquery', 'appnet', 'friends', 'user', 'jquery.caret'],
 
       case self.hasClass('tags'):
         ev.preventDefault();
-        appnet.showTagged(self.attr('href').split('/tagged/')[1]);
-        body.addClass('fixed');
+        document.location.hash = self.attr('href');
         break;
 
       case self.is('#settings-link'):
