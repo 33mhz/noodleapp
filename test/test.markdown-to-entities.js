@@ -12,22 +12,22 @@ describe('markdown-to-entities', function() {
         entities: {
           links: [
             {
-              pos: 28,
+              pos: 48,
               len: 19,
               url: 'http://www.washingtonpost.com/'
             },
             {
-              pos: 49,
+              pos: 69,
               len: 21,
               url:'http://news.google.ca'
             },
             {
-              pos: 73,
+              pos: 93,
               len: 18,
               url: 'http://nytimes.com/'
             },
             {
-              pos: 96,
+              pos: 116,
               len: 18,
               url: 'http://www.bing.com/news/'
             }
@@ -42,9 +42,7 @@ describe('markdown-to-entities', function() {
         return a.pos - b.pos;
       });
 
-      result.entities.links.length.should.equal(EXPECTED_RESULT.entities.links.length);
-
-      result.toString().should.equal(EXPECTED_RESULT.toString());
+      result.should.eql(EXPECTED_RESULT);
 
       done();
     });
