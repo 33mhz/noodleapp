@@ -44,9 +44,7 @@ describe('markdown-to-entities', function() {
 
       result.entities.links.length.should.equal(EXPECTED_RESULT.entities.links.length);
 
-      result.entities.links.forEach(function(link, idx) {
-        link.toString().should.equal(EXPECTED_RESULT.entities.links[idx].toString())
-      });
+      result.toString().should.equal(EXPECTED_RESULT);
 
       done();
     });
