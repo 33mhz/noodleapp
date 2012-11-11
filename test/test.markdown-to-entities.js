@@ -6,9 +6,9 @@ var markdownToEntities = require('../lib/markdown-to-entities');
 describe('markdown-to-entities', function() {
   describe('parse', function() {
     it('returns correct text and entities', function(done) {
-      var POST_TEXT = '@test You can find #News at [The Washington Post](http://www.washingtonpost.com/), http://news.google.com , [The New York Times](http://nytimes.com/), or www.bing.com/news/ .';
+      var POST_TEXT = '@test blah.app id_rsa.pub You can find #News at [The Washington Post](http://www.washingtonpost.com/), http://news.google.ca , [The New York Times](http://nytimes.com/), or www.bing.com/news/ .';
       var EXPECTED_RESULT = {
-        text: '@test You can find #News at The Washington Post, http://news.google.com , The New York Times, or www.bing.com/news/ .',
+        text: '@test blah.app id_rsa.pub You can find #News at The Washington Post, http://news.google.ca , The New York Times, or www.bing.com/news/ .',
         entities: {
           links: [
             {
@@ -18,16 +18,16 @@ describe('markdown-to-entities', function() {
             },
             {
               pos: 49,
-              len: 22,
-              url:'http://news.google.com'
+              len: 21,
+              url:'http://news.google.ca'
             },
             {
-              pos: 74,
+              pos: 73,
               len: 18,
               url: 'http://nytimes.com/'
             },
             {
-              pos: 97,
+              pos: 96,
               len: 18,
               url: 'http://www.bing.com/news/'
             }
@@ -42,7 +42,12 @@ describe('markdown-to-entities', function() {
         return a.pos - b.pos;
       });
 
-      result.should.eql(EXPECTED_RESULT);
+      result.entities.links.length.should.equal(EXPECTED_RESULT.entities.links.length);
+
+      result.entities.links.forEach(function(link, idx) {
+        link.toString().should.equal(EXPECTED_RESULT.entities.links[idx].toString())
+      });
+
       done();
     });
   });
