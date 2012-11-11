@@ -6,28 +6,28 @@ var markdownToEntities = require('../lib/markdown-to-entities');
 describe('markdown-to-entities', function() {
   describe('parse', function() {
     it('returns correct text and entities', function(done) {
-      var POST_TEXT = '@test blah.app id_rsa.pub You can find #News at [The Washington Post](http://www.washingtonpost.com/), http://news.google.ca , [The New York Times](http://nytimes.com/), or www.bing.com/news/ .';
+      var POST_TEXT = '@test You can find #News at [The Washington Post](http://www.washingtonpost.com/), http://news.google.com , [The New York Times](http://nytimes.com/), or www.bing.com/news/ .';
       var EXPECTED_RESULT = {
-        text: '@test blah.app id_rsa.pub You can find #News at The Washington Post, http://news.google.ca , The New York Times, or www.bing.com/news/ .',
+        text: '@test You can find #News at The Washington Post, http://news.google.com , The New York Times, or www.bing.com/news/ .',
         entities: {
           links: [
             {
-              pos: 48,
+              pos: 28,
               len: 19,
               url: 'http://www.washingtonpost.com/'
             },
             {
-              pos: 69,
-              len: 21,
-              url:'http://news.google.ca'
+              pos: 49,
+              len: 22,
+              url:'http://news.google.com'
             },
             {
-              pos: 93,
+              pos: 74,
               len: 18,
               url: 'http://nytimes.com/'
             },
             {
-              pos: 116,
+              pos: 97,
               len: 18,
               url: 'http://www.bing.com/news/'
             }
@@ -43,7 +43,6 @@ describe('markdown-to-entities', function() {
       });
 
       result.should.eql(EXPECTED_RESULT);
-
       done();
     });
   });
