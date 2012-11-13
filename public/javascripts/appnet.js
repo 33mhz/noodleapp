@@ -121,12 +121,17 @@ define(['jquery', 'version-timeout', 'friends', 'jquery.caret'],
 
   var generatePostItem = function(message, detailExtras) {
     var notify = '';
+    var messageId = message.id;
+
+    if (message.repostId) {
+      messageId = message.repostId;
+    }
 
     if (message.message.indexOf('@' + loggedInUsername) > -1) {
       notify = 'notify';
     }
     return $('<li class="message-item ' + notify + '" data-mentions="" data-replyto="" data-original="" data-id="' +
-      message.id + '" ' + 'data-username="' + message.username + '" data-minid="' + message.min_id + '">' +
+      messageId + '" ' + 'data-username="' + message.username + '" data-minid="' + message.min_id + '">' +
       '<div class="post-wrapper"><div class="meta"><a href="" class="who" title=""><img src=""></a>' +
       '<div class="details"><a href="" class="username"></a><a href="" class="fullname"></a><time data-created=""></time>' +
       '</div></div><p></p>' + detailExtras + '</div></li>');
