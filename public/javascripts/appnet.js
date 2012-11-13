@@ -194,7 +194,7 @@ define(['jquery', 'version-timeout', 'friends', 'jquery.caret'],
               var isThread = '';
               var isStarred = '<li class="star"><span>Star</span></li>';
 
-              if (!data.messages[i].isSelf) {
+              if (!data.messages[i].isSelf && !data.messages[i].repostId) {
                 if (data.messages[i].isRepost) {
                   isRepost = '<li class="repost on"><span>Unrepost</span></li>';
                 } else {
@@ -309,10 +309,13 @@ define(['jquery', 'version-timeout', 'friends', 'jquery.caret'],
 
             if (data.messages[i].isSelf) {
               isDeletable = '<li class="delete"><span>Delete</a></li>';
-            } else {
+            }
+
+            if (!data.messages[i].isSelf ||
+              (data.messages[i].isSelf && data.messages[i].repostId)) {
               isRepost = '<li class="repost"><span>Repost</a></li>';
 
-            if (data.messages[i].isRepost) {
+              if (data.messages[i].isSelf && data.messages[i].repostId) {
                 isRepost = '<li class="repost on"><span>Unrepost</span></li>';
               }
             }
