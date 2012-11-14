@@ -123,14 +123,11 @@ define(['jquery', 'version-timeout', 'friends', 'jquery.caret'],
     var notify = '';
     var messageId = message.id;
 
-    if (message.repostId) {
-      messageId = message.repostId;
-    }
-
     if (message.message.indexOf('@' + loggedInUsername) > -1) {
       notify = 'notify';
     }
-    return $('<li class="message-item ' + notify + '" data-mentions="" data-replyto="" data-original="" data-id="' +
+    return $('<li class="message-item ' + notify + '" data-mentions="" data-repostid="' + message.repostId +
+      '" data-replyto="" data-original="" data-id="' +
       messageId + '" ' + 'data-username="' + message.username + '" data-minid="' + message.min_id + '">' +
       '<div class="post-wrapper"><div class="meta"><a href="" class="who" title=""><img src=""></a>' +
       '<div class="details"><a href="" class="username"></a><a href="" class="fullname"></a><time data-created=""></time>' +
@@ -305,6 +302,7 @@ define(['jquery', 'version-timeout', 'friends', 'jquery.caret'],
 
         for (var i = 0; i < data.messages.length; i ++) {
           if (messages.find('li.message-item[data-id="' + data.messages[i].id + '"]').length === 0) {
+
             var isRepost = '';
             var threadAction = '';
             var isStarred = '<li class="star"><span>Star</span></li>';
@@ -347,10 +345,8 @@ define(['jquery', 'version-timeout', 'friends', 'jquery.caret'],
             if (paginated) {
               messages.append(message);
             } else {
-              if (postLoaded && data.messages[i].username !== loggedInUsername && messages.find('> li').length > 0 &&
-                unreadMessagesNest.find('li.message-item[data-id="' + data.messages[i].id + '"]').length === 0 &&
-                messages.find('li.message-item[data-id="' + data.messages[i].id + '"]').length === 0) {
-                if (!data.messages[i].isRepost && !data.messages[i].repostId) {
+              if (postLoaded && data.messages[i].username !== loggedInUsername && messages.find('> li').length > 0) {
+                if (unreadMessagesNest.find('li.message-item[data-id="' + data.messages[i].id + '"]').length === 0) {
                   unreadMessageCount ++;
                   unreadMessagesNest.prepend(message);
                 }
@@ -378,6 +374,7 @@ define(['jquery', 'version-timeout', 'friends', 'jquery.caret'],
             sinceId = unreadMessagesNest.find('> li:first-child').data('id');
           } else {
             sinceId = messages.find('> li:first-child').data('id');
+            console.log(sinceId)
           }
         }
 
