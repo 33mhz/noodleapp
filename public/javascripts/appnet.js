@@ -347,10 +347,10 @@ define(['jquery', 'version-timeout', 'friends', 'jquery.caret'],
             if (paginated) {
               messages.append(message);
             } else {
-              if (postLoaded && data.messages[i].username !== loggedInUsername && messages.find('> li').length > 0) {
-                if (messages.find('li.message-item[data-id="' + data.messages[i].id + '"]').length === 0 &&
-                  unreadMessagesNest.find('li.message-item[data-id="' + data.messages[i].id + '"]').length === 0 &&
-                  !data.messages[i].isRepost && !data.messages[i].repostId) {
+              if (postLoaded && data.messages[i].username !== loggedInUsername && messages.find('> li').length > 0 &&
+                unreadMessagesNest.find('li.message-item[data-id="' + data.messages[i].id + '"]').length === 0 &&
+                messages.find('li.message-item[data-id="' + data.messages[i].id + '"]').length === 0) {
+                if (!data.messages[i].isRepost && !data.messages[i].repostId) {
                   unreadMessageCount ++;
                   unreadMessagesNest.prepend(message);
                 }
