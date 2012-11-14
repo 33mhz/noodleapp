@@ -348,15 +348,17 @@ define(['jquery', 'version-timeout', 'friends', 'jquery.caret'],
               messages.append(message);
             } else {
               if (postLoaded && data.messages[i].username !== loggedInUsername && messages.find('> li').length > 0) {
-                if (unreadMessagesNest.find('li.message-item[data-id="' + data.messages[i].id + '"]').length === 0) {
+                if (messages.find('li.message-item[data-id="' + data.messages[i].id + '"]').length === 0 &&
+                  unreadMessagesNest.find('li.message-item[data-id="' + data.messages[i].id + '"]').length === 0 &&
+                  !data.messages[i].repostId) {
                   unreadMessageCount ++;
                   unreadMessagesNest.prepend(message);
                 }
                 if (unreadMessageCount > 0) {
                   unreadMessages.fadeIn();
                 }
-                if (unreadMessageCount > 50) {
-                  unreadMessageCount = 50;
+                if (unreadMessageCount > MESSAGE_LIMIT) {
+                  unreadMessageCount = MESSAGE_LIMIT;
                 }
                 unreadMessages.find('h2').text(unreadMessageCount + ' unread');
                 unreadMessagesNest.find('> li:gt(' + MESSAGE_LIMIT + ')').remove();
@@ -372,7 +374,7 @@ define(['jquery', 'version-timeout', 'friends', 'jquery.caret'],
         if (paginated && paginationLock) {
           messages.find('#paginated').removeClass('loading');
         } else {
-          if (unreadMessageCount > 0) {
+          if (unreadMessagesNest.find('> li').length > 0) {
             sinceId = unreadMessagesNest.find('> li:first-child').data('id');
           } else {
             sinceId = messages.find('> li:first-child').data('id');
