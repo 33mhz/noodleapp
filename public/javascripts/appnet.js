@@ -556,6 +556,7 @@ define(['jquery', 'version-timeout', 'friends', 'jquery.caret'],
 
     getUserMentions: function() {
       resetActions();
+      notifications.removeClass('on');
       setMessage('/user/mentions/' + userId, 'GET', false, false);
     },
 
