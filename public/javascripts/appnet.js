@@ -543,6 +543,14 @@ define(['jquery', 'version-timeout', 'friends', 'jquery.caret'],
     }
   };
 
+  var resetNotificationDisplay = function() {
+    notifications
+      .removeClass('on')
+      .text(0);
+    document.title = 'NoodleApp';
+    self.resetUnread();
+  };
+
   var self = {
     getMyFeed: function() {
       resetActions();
@@ -556,7 +564,7 @@ define(['jquery', 'version-timeout', 'friends', 'jquery.caret'],
 
     getUserMentions: function() {
       resetActions();
-      notifications.removeClass('on');
+      resetNotificationDisplay();
       setMessage('/user/mentions/' + userId, 'GET', false, false);
     },
 
