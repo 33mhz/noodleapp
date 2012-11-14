@@ -170,7 +170,7 @@ define(['jquery', 'version-timeout', 'friends', 'jquery.caret'],
     return message;
   };
 
-  var setPost = function(data, url, showDetails, isDetailOverlay, ascending) {
+  var setPost = function(data, url, showDetails, isDetailOverlay, ascending, callback) {
     overlay.find('.inner-overlay').html('<ol class="messages"><li class="message-item loading"></li></ol>');
     overlay.slideDown();
     var messageOverlay = $('<ol class="message-summary"></ol>');
@@ -251,6 +251,10 @@ define(['jquery', 'version-timeout', 'friends', 'jquery.caret'],
               textarea.moveCursorToEnd();
             }
           }
+        }
+
+        if (callback) {
+          callback();
         }
       }
 
@@ -666,10 +670,11 @@ define(['jquery', 'version-timeout', 'friends', 'jquery.caret'],
       newCount = 0;
       resetFluid();
 
-      setPost({ 'post_id': postId }, '/post', true, false, false);
-      setPost({ 'post_id': postId }, '/thread', false, true, false);
-      getStarredUsers(postId);
-      getRepostedUsers(postId);
+      setPost({ 'post_id': postId }, '/post', true, false, false, function() {
+        setPost({ 'post_id': postId }, '/thread', false, true, false);
+        getStarredUsers(postId);
+        getRepostedUsers(postId);
+      });
     },
 
     resetUnread: function() {
