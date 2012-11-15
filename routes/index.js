@@ -10,8 +10,6 @@ module.exports = function(app, client, isLoggedIn, noodle, config) {
   var FOLLOWING_MAX = 300;
 
   app.get('/', function(req, res) {
-    res.header('Cache-Control', 'no-cache, private, no-store, must-revalidate, max-stale=0, post-check=0, pre-check=0');
-
     var analytics = false;
 
     if (req.session.passport.user) {
@@ -52,7 +50,7 @@ module.exports = function(app, client, isLoggedIn, noodle, config) {
             pageType: 'index',
             session: utils.getUser(req),
             csrf: req.session._csrf,
-            url: req.session.url || '/my/feed',
+            url: '/my/feed',
             loggedInId: utils.getUserById(req),
             username: utils.getUser(req).username,
             mediaOn: mediaOn,
@@ -194,6 +192,23 @@ module.exports = function(app, client, isLoggedIn, noodle, config) {
         res.json({ 'error': 'error retrieving mentions' });
       } else {
         utils.generateFeed(req, recentMessages, client, false, function(messages) {
+          res.json({ messages: messages });
+        });
+      }
+    });
+  });
+
+  app.get('/user/interactions/:id', isLoggedIn, function(req, res) {
+    var userId = req.params.id || utils.getUserById(req);
+
+    req.session.url = '/user/interactions/' + parseInt(userId, 10);
+
+    appnet.userInteractions(req, function(err, recentMessages) {
+      if (err) {
+        res.status(500);
+        res.json({ 'error': 'error retrieving interactions' });
+      } else {
+        utils.generateInteractions(req, recentMessages, client, false, function(messages) {
           res.json({ messages: messages });
         });
       }

@@ -148,6 +148,12 @@ define(['jquery', 'appnet', 'friends', 'user', 'jquery.caret'],
         });
         break;
 
+      case self.hasClass('user-interactions'):
+        updateFeed(self, function() {
+          appnet.getUserInteractions();
+        });
+        break;
+
       case self.hasClass('user-starred'):
         updateFeed(self, function() {
           appnet.getUserStarred();

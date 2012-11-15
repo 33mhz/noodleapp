@@ -34,12 +34,13 @@ define(['jquery', 'version-timeout', 'friends', 'jquery.caret'],
   }
 
   var MESSAGE_LIMIT = 49;
-  var POLL_TIMEOUT = 25000;
+  var POLL_TIMEOUT = 5000;
 
   // Wait 1 minute to get new data
   var pollMessages = function() {
     setTimeout(function() {
       setMessage(currentFeed, type);
+      currentFeed = tabs.find('li.selected').data('url');
       setNotification();
     }, POLL_TIMEOUT);
   };
@@ -51,6 +52,23 @@ define(['jquery', 'version-timeout', 'friends', 'jquery.caret'],
       var newTime = new Date(oldTime.getTime() + POLL_TIMEOUT);
       self.text(dateDisplay(newTime));
     });
+  };
+
+  var setPollMessages = function(type, fragment) {
+    if (fragment) {
+      clearTimeout(pollMessages);
+    }
+    pollMessages = setTimeout(function() {
+      versionTimeout.checkVersion();
+      currentFeed = tabs.find('li.selected').data('url');
+      if (currentFeed.indexOf('interactions') > -1) {
+        setInteractionMessage(currentFeed, type, false);
+      } else {
+        setMessage(currentFeed, type, false);
+      }
+      setNotification();
+      postLoaded = true;
+    }, POLL_TIMEOUT);
   };
 
   var dateDisplay = function(time) {
@@ -268,6 +286,30 @@ define(['jquery', 'version-timeout', 'friends', 'jquery.caret'],
     });
   };
 
+  var setUnreadMessages = function(messageItem, paginated, message) {
+    if (paginated) {
+      messages.append(message);
+    } else {
+      if (postLoaded && messageItem.username !== loggedInUsername && messages.find('> li').length > 0) {
+        if (unreadMessagesNest.find('li.message-item[data-id="' + messageItem.id + '"]').length === 0) {
+          unreadMessageCount ++;
+          unreadMessagesNest.prepend(message);
+        }
+        if (unreadMessageCount > 0) {
+          unreadMessages.fadeIn();
+        }
+        if (unreadMessageCount > MESSAGE_LIMIT) {
+          unreadMessageCount = MESSAGE_LIMIT;
+        }
+        unreadMessages.find('h2').text(unreadMessageCount + ' unread');
+        unreadMessagesNest.find('> li:gt(' + MESSAGE_LIMIT + ')').remove();
+      } else {
+        messages.prepend(message);
+      }
+    }
+    beforeId = null;
+  };
+
   var setMessage = function(url, type, paginated, isStarredFeed) {
     currentFeed = url;
 
@@ -301,7 +343,9 @@ define(['jquery', 'version-timeout', 'friends', 'jquery.caret'],
         messages.find('li.loading').remove();
 
         for (var i = 0; i < data.messages.length; i ++) {
-          if (messages.find('li.message-item[data-id="' + data.messages[i].id + '"]').length === 0) {
+          var messageItem = data.messages[i];
+
+          if (messages.find('li.message-item[data-id="' + messageItem.id + '"]').length === 0) {
 
             var isRepost = '';
             var threadAction = '';
@@ -309,28 +353,28 @@ define(['jquery', 'version-timeout', 'friends', 'jquery.caret'],
             var isDeletable = '';
             var actions = '';
 
-            if (data.messages[i].isSelf) {
+            if (messageItem.isSelf) {
               isDeletable = '<li class="delete"><span>Delete</a></li>';
             }
 
-            if (!data.messages[i].isSelf ||
-              (data.messages[i].isSelf && data.messages[i].repostId)) {
+            if (!messageItem.isSelf ||
+              (messageItem.isSelf && messageItem.repostId)) {
               isRepost = '<li class="repost"><span>Repost</a></li>';
 
-              if (data.messages[i].isSelf && data.messages[i].repostId) {
+              if (messageItem.isSelf && messageItem.repostId) {
                 isRepost = '<li class="repost on"><span>Unrepost</span></li>';
               }
             }
 
-            if (data.messages[i].isThread) {
+            if (messageItem.isThread) {
               threadAction = '<li class="thread"><span>Thread</span></li>';
             }
 
-            if (data.messages[i].isStarred) {
+            if (messageItem.isStarred) {
               isStarred = '<li class="star on"><span>Unstar</span></li>';
             }
 
-            var message = generatePostItem(data.messages[i], '');
+            var message = generatePostItem(messageItem, '');
 
             actions = $('<ol class="actions ' + noTouch + '">' + threadAction + isStarred +
               '<li class="reply"><span>Reply</span></li>' +
@@ -339,30 +383,10 @@ define(['jquery', 'version-timeout', 'friends', 'jquery.caret'],
             message.find('.post-wrapper').append(actions);
 
             // user mentions in this post
-            message.attr('data-mentions', data.messages[i].mentions);
-            message = setMessageMetadata(data.messages[i], message);
+            message.attr('data-mentions', messageItem.mentions);
+            message = setMessageMetadata(messageItem, message);
 
-            if (paginated) {
-              messages.append(message);
-            } else {
-              if (postLoaded && data.messages[i].username !== loggedInUsername && messages.find('> li').length > 0) {
-                if (unreadMessagesNest.find('li.message-item[data-id="' + data.messages[i].id + '"]').length === 0) {
-                  unreadMessageCount ++;
-                  unreadMessagesNest.prepend(message);
-                }
-                if (unreadMessageCount > 0) {
-                  unreadMessages.fadeIn();
-                }
-                if (unreadMessageCount > MESSAGE_LIMIT) {
-                  unreadMessageCount = MESSAGE_LIMIT;
-                }
-                unreadMessages.find('h2').text(unreadMessageCount + ' unread');
-                unreadMessagesNest.find('> li:gt(' + MESSAGE_LIMIT + ')').remove();
-              } else {
-                messages.prepend(message);
-              }
-            }
-
+            setUnreadMessages(messageItem, paginated, message);
             beforeId = null;
           }
         }
@@ -374,36 +398,94 @@ define(['jquery', 'version-timeout', 'friends', 'jquery.caret'],
             sinceId = unreadMessagesNest.find('> li:first-child').data('id');
           } else {
             sinceId = messages.find('> li:first-child').data('id');
-            console.log(sinceId)
           }
         }
 
-        if (messages.find('> li').length >= 20 && messages.find('#paginated').length === 0) {
+        if (messages.find('> li').length >= 19 && messages.find('#paginated').length === 0) {
           messages.append('<li id="paginated">View Older</li>');
         }
 
       } else {
         messages.find('li.loading').remove();
-
-        if (paginated) {
-          messages.find('#paginated').remove();
-        }
       }
 
-      if (!isFragment) {
-        clearTimeout(pollMessages);
-      }
-
+      setPollMessages(type, isFragment);
       isFragment = true;
+    }).error(function(data) {
+      overlay.find('.inner-overlay').html('<ol class="message-summary"><li class="close">Close</li></ol>');
+      flashMessage(JSON.parse(data.responseText).error);
+    });
+  };
 
-      pollMessages = setTimeout(function() {
-        versionTimeout.checkVersion();
-        currentFeed = tabs.find('li.selected').data('url');
-        setMessage(currentFeed, type, false, isStarredFeed);
-        setNotification();
-        updateTime();
-        postLoaded = true;
-      }, POLL_TIMEOUT);
+  var setInteractionMessage = function(url, type, paginated) {
+    currentFeed = url;
+
+    if (!isFragment && !paginated) {
+      messages.html('<li class="message-item loading"></li>');
+    }
+
+    if (paginated) {
+      beforeId = parseInt(messages.find('li.message-item').last().data('minid'), 10);
+      messages.find('#paginated')
+        .addClass('loading');
+    }
+    $.ajax({
+      url: url,
+      type: type,
+      data: { since_id: sinceId, before_id: beforeId },
+      dataType: 'json',
+      cache: false
+
+    }).done(function(data) {
+      if (data.messages && data.messages.length > 0) {
+        messages.find('li.loading').remove();
+
+        for (var i = 0; i < data.messages.length; i ++) {
+          var messageItem = data.messages[i];
+          if (messages.find('li.message-item[data-id="' + messageItem.id + '"]').length === 0) {
+            var message = $('<li class="message-item" data-id="' +
+              messageItem.id + '" ' + 'data-minid="' +
+              messageItem.minId + '">' +
+              '<div class="post-wrapper"><div class="meta"><div class="users"></div>' +
+              '<div class="details"><span class="action"></span>' +
+              '</div></div><p></p></div></li>');
+
+            for (var j = 0; j < messageItem.users.length; j ++) {
+              var userList = messageItem.users[j];
+              var user = $('<a href="" class="who" title=""><img src=""></a>');
+              user.attr('href', '/user/' + userList.username);
+              user.attr('title', userList.name);
+              user.find('img').attr('src', userList.avatar_image.url);
+              message.find('.users').append(user);
+            }
+
+            message.find('.details span').text(messageItem.action);
+            message.find('p').html(messageItem.message);
+
+            setUnreadMessages(messageItem, paginated, message);
+          }
+        }
+
+        if (paginated && paginationLock) {
+          messages.find('#paginated').removeClass('loading');
+        } else {
+          if (unreadMessagesNest.find('> li').length > 0) {
+            sinceId = unreadMessagesNest.find('> li:first-child').data('id');
+          } else {
+            sinceId = messages.find('> li:first-child').data('id');
+          }
+        }
+
+        if (messages.find('> li').length >= 19 && messages.find('#paginated').length === 0) {
+          messages.append('<li id="paginated">View Older</li>');
+        }
+
+      } else {
+        messages.find('li.loading').remove();
+      }
+
+      setPollMessages(type, isFragment);
+      isFragment = true;
     }).error(function(data) {
       overlay.find('.inner-overlay').html('<ol class="message-summary"><li class="close">Close</li></ol>');
       flashMessage(JSON.parse(data.responseText).error);
@@ -565,6 +647,11 @@ define(['jquery', 'version-timeout', 'friends', 'jquery.caret'],
       resetActions();
       resetNotificationDisplay();
       setMessage('/user/mentions/' + userId, 'GET', false, false);
+    },
+
+    getUserInteractions: function() {
+      resetActions();
+      setInteractionMessage('/user/interactions/' + userId, 'GET', false, false);
     },
 
     getUserStarred: function() {

@@ -1510,10 +1510,10 @@ img.hush {
     }
 
     ol.tabs li {
-        font-size: 16px;
+        font-size: 14px;
         line-height: 16px;
         margin: 8px 2px 0;
-        padding: 7px 8px;
+        padding: 5px 8px;
     }
 
     #overlay .meta {
