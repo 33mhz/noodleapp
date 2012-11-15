@@ -34,13 +34,12 @@ define(['jquery', 'version-timeout', 'friends', 'jquery.caret'],
   }
 
   var MESSAGE_LIMIT = 49;
-  var POLL_TIMEOUT = 5000;
+  var POLL_TIMEOUT = 25000;
 
-  // Wait 1 minute to get new data
+  // Wait 25 seconds to get new data
   var pollMessages = function() {
     setTimeout(function() {
       setMessage(currentFeed, type);
-      currentFeed = tabs.find('li.selected').data('url');
       setNotification();
     }, POLL_TIMEOUT);
   };
@@ -52,23 +51,6 @@ define(['jquery', 'version-timeout', 'friends', 'jquery.caret'],
       var newTime = new Date(oldTime.getTime() + POLL_TIMEOUT);
       self.text(dateDisplay(newTime));
     });
-  };
-
-  var setPollMessages = function(type, fragment) {
-    if (fragment) {
-      clearTimeout(pollMessages);
-    }
-    pollMessages = setTimeout(function() {
-      versionTimeout.checkVersion();
-      currentFeed = tabs.find('li.selected').data('url');
-      if (currentFeed.indexOf('interactions') > -1) {
-        setInteractionMessage(currentFeed, type, false);
-      } else {
-        setMessage(currentFeed, type, false);
-      }
-      setNotification();
-      postLoaded = true;
-    }, POLL_TIMEOUT);
   };
 
   var dateDisplay = function(time) {
@@ -401,7 +383,7 @@ define(['jquery', 'version-timeout', 'friends', 'jquery.caret'],
           }
         }
 
-        if (messages.find('> li').length >= 19 && messages.find('#paginated').length === 0) {
+        if (messages.find('> li').length >= 20 && messages.find('#paginated').length === 0) {
           messages.append('<li id="paginated">View Older</li>');
         }
 
@@ -409,8 +391,22 @@ define(['jquery', 'version-timeout', 'friends', 'jquery.caret'],
         messages.find('li.loading').remove();
       }
 
-      setPollMessages(type, isFragment);
+      if (!isFragment) {
+        clearTimeout(pollMessages);
+      }
+
       isFragment = true;
+
+      if (!paginated) {
+        pollMessages = setTimeout(function() {
+          versionTimeout.checkVersion();
+          currentFeed = tabs.find('li.selected').data('url');
+          setMessage(currentFeed, type, false, isStarredFeed);
+          setNotification();
+          updateTime();
+          postLoaded = true;
+        }, POLL_TIMEOUT);
+      }
     }).error(function(data) {
       overlay.find('.inner-overlay').html('<ol class="message-summary"><li class="close">Close</li></ol>');
       flashMessage(JSON.parse(data.responseText).error);
@@ -476,7 +472,7 @@ define(['jquery', 'version-timeout', 'friends', 'jquery.caret'],
           }
         }
 
-        if (messages.find('> li').length >= 19 && messages.find('#paginated').length === 0) {
+        if (messages.find('> li').length >= 20 && messages.find('#paginated').length === 0) {
           messages.append('<li id="paginated">View Older</li>');
         }
 
@@ -484,8 +480,21 @@ define(['jquery', 'version-timeout', 'friends', 'jquery.caret'],
         messages.find('li.loading').remove();
       }
 
-      setPollMessages(type, isFragment);
+      if (!isFragment) {
+        clearTimeout(pollMessages);
+      }
+
       isFragment = true;
+
+      if (!paginated) {
+        pollMessages = setTimeout(function() {
+          versionTimeout.checkVersion();
+          currentFeed = tabs.find('li.selected').data('url');
+          setInteractionMessage(currentFeed, type, false);
+          setNotification();
+          postLoaded = true;
+        }, POLL_TIMEOUT);
+      }
     }).error(function(data) {
       overlay.find('.inner-overlay').html('<ol class="message-summary"><li class="close">Close</li></ol>');
       flashMessage(JSON.parse(data.responseText).error);
