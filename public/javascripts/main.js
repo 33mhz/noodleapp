@@ -1,4 +1,3 @@
-/*global document:true, requirejs:true */
 'use strict';
 
 requirejs.config({
@@ -339,6 +338,9 @@ define(['jquery', 'appnet', 'friends', 'user', 'jquery.caret'],
       case self.parent().is('#unread-messages'):
         appnet.clearUnread(self.parent());
         resetNotificationDisplay();
+        if (messages.find('> li').length >= 20 && messages.find('#paginated').length === 0) {
+          messages.append('<li id="paginated">View Older</li>');
+        }
         break;
     }
   });
