@@ -369,9 +369,10 @@ define(['jquery', 'version-timeout', 'friends', 'jquery.caret'],
             message = setMessageMetadata(messageItem, message);
 
             setUnreadMessages(messageItem, paginated, message);
-            beforeId = null;
           }
         }
+
+        beforeId = null;
 
         if (paginated && paginationLock) {
           messages.find('#paginated').removeClass('loading');
@@ -461,6 +462,8 @@ define(['jquery', 'version-timeout', 'friends', 'jquery.caret'],
             setUnreadMessages(messageItem, paginated, message);
           }
         }
+
+        beforeId = null;
 
         if (paginated && paginationLock) {
           messages.find('#paginated').removeClass('loading');
