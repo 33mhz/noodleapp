@@ -11,19 +11,19 @@ block content
             = 'Follows you'
           else
             = 'Does not follow you'
-      h3(class='following') Following #{user.counts.following}
-      h3(class='followers') Followers #{user.counts.followers}
+      a(class='following', href='javascript:;', title='Following') Following #{user.counts.following}
+      a(class='followers', href='javascript:;', title='Followers') Followers #{user.counts.followers}
 
-      ol.action-buttons(data-userid='#{user.id}', data-username='#{user.username}')
+      .action-buttons(data-userid='#{user.id}', data-username='#{user.username}')
         if session && (user.id !== session.id)
           if user.you_follow
-            li(class='follow on') Unfollow
+            a(class='follow on', href='javascript:;', title='Unfollow') Unfollow
           else
-            li(class='follow') Follow
+            a(class='follow', href='javascript:;', title='Follow') Follow
           if user.you_muted
-            li(class='mute on') Unmute
+            a(class='mute on', href='javascript:;', title='Unmute') Unmute
           else
-            li(class='mute') Mute
+            a(class='mute', href='javascript:;', title='Mute') Mute
       p= 'Posts: ' + user.counts.posts
 
       p!= description.replace(/\n/gm, '<br>')
