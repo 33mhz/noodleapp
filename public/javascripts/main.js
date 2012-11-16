@@ -30,20 +30,19 @@ define(['jquery', 'appnet', 'friends', 'user', 'jquery.caret'],
 
   var CHAR_MAX = parseInt(body.data('charlimit'), 10);
 
-  var
-    TAB_KEYCODE = 9,
-    RETURN_KEYCODE = 13,
-    ESCAPE_KEYCODE = 27,
-    SPACE_KEYCODE = 32,
-    F_KEYCODE = 70,
-    J_KEYCODE = 74,
-    K_KEYCODE = 75,
-    P_KEYCODE = 80,
-    Q_KEYCODE = 81,
-    R_KEYCODE = 82,
-    S_KEYCODE = 83,
-    T_KEYCODE = 84,
-    U_KEYCODE = 85;
+  var TAB_KEYCODE = 9;
+  var RETURN_KEYCODE = 13;
+  var ESCAPE_KEYCODE = 27;
+  var SPACE_KEYCODE = 32;
+  var F_KEYCODE = 70;
+  var J_KEYCODE = 74;
+  var K_KEYCODE = 75;
+  var P_KEYCODE = 80;
+  var Q_KEYCODE = 81;
+  var R_KEYCODE = 82;
+  var S_KEYCODE = 83;
+  var T_KEYCODE = 84;
+  var U_KEYCODE = 85;
 
   var MESSAGE_LIMIT = 99;
 

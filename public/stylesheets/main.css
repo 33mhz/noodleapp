@@ -875,35 +875,6 @@ ol.messages > li .meta {
     width: 40px;
 }
 
-.actions {
-    display: block;
-    float: right;
-    margin: -2px 3px 0;
-}
-
-.actions > li {
-    box-shadow: none;
-    border: 0;
-    float: left;
-    margin: 7px 8px 0 0;
-    padding: 0;
-    position: relative;
-}
-
-.actions > li a {
-    display: none;
-    font-size: 11px;
-    height: 16px;
-    right: -5px;
-    position: absolute;
-    top: -27px;
-    z-index: 4;
-}
-
-.actions.no-touch > li:hover a {
-    display: block;
-}
-
 .clear {
     display: block;
     float: left;
@@ -969,12 +940,26 @@ time:hover {
     width: 575px;
 }
 
+.actions {
+    display: block;
+    float: right;
+    margin: -2px 3px 0;
+}
+
+.actions.no-touch > li:hover a {
+    display: block;
+}
+
 .actions > li {
     background-repeat: no-repeat;
+    border: 0;
+    box-shadow: none;
     cursor: pointer;
     float: left;
     height: 23px;
+    margin: 7px 8px 0 0;
     opacity: 0.1;
+    padding: 0;
     position: relative;
     width: 23px;
 }
@@ -988,15 +973,17 @@ ol.messages > li.hover .actions.no-touch > li,
 .actions > li a {
     background-color: #111;
     border-radius: 3px;
-    bottom: -28px;
     color: #eee;
     display: none;
     font-family: 'Oswald';
     font-size: 12px;
     padding: 2px 5px;
     position: absolute;
+    right: -5px;
+    text-decoration: none;
     text-transform: uppercase;
-    z-index: 2;
+    top: -27px;
+    z-index: 4;
 }
 
 .actions .thread {
@@ -1239,7 +1226,7 @@ img.hush {
 
     .actions .repost {
         background-image: url('/images/repost2x.png');
-        background-size: auto 24px;
+        background-size: auto 23px;
     }
 
     .actions .delete {
