@@ -140,33 +140,37 @@ define(['jquery', 'appnet', 'friends', 'user', 'jquery.caret'],
   /* Feed functionality */
   tabs.on('click', function(ev) {
     var self = $(ev.target);
+    var selfLink = self.parent();
+
+    tabs.find('li').removeClass('selected');
+    selfLink.addClass('selected');
 
     switch (true) {
-      case self.hasClass('global-feed'):
+      case selfLink.hasClass('global-feed'):
         updateFeed(self, function() {
           appnet.getGlobalFeed();
         });
         break;
 
-      case self.hasClass('user-posts'):
+      case selfLink.hasClass('user-posts'):
         updateFeed(self, function() {
           appnet.getUserPosts();
         });
         break;
 
-      case self.hasClass('user-mentions'):
+      case selfLink.hasClass('user-mentions'):
         updateFeed(self, function() {
           appnet.getUserMentions();
         });
         break;
 
-      case self.hasClass('user-interactions'):
+      case selfLink.hasClass('user-interactions'):
         updateFeed(self, function() {
           appnet.getUserInteractions();
         });
         break;
 
-      case self.hasClass('user-starred'):
+      case selfLink.hasClass('user-starred'):
         updateFeed(self, function() {
           appnet.getUserStarred();
         });
@@ -181,7 +185,7 @@ define(['jquery', 'appnet', 'friends', 'user', 'jquery.caret'],
   });
 
   /* Automatic feed loader */
-  tabs.find('.selected').click();
+  tabs.find('.selected a').click();
 
   /* Message functionality */
   messages.on('click', function(ev) {

@@ -31,9 +31,12 @@ block content
 
   section
     ol.tabs
-      li.user-posts.selected(data-url='/user/posts/#{user.id}') Recent
-      li.user-mentions(data-url='/user/mentions/#{user.id}') Mentions
-      li.user-starred(data-url='/user/starred/#{user.id}') Starred
+      li.user-posts.selected(data-url='/user/posts/#{user.id}')
+        a(href='javascript:;', title='Recent') Recent
+      li.user-mentions(data-url='/user/mentions/#{user.id}')
+        a(href='javascript:;', title='Mentions') Mentions
+      li.user-starred(data-url='/user/starred/#{user.id}')
+        a(href='javascript:;', title='Starred') Starred
 
     ol#unread-messages
       h2

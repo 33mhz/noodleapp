@@ -763,11 +763,13 @@ ol.tabs {
     margin-bottom: 5px;
 }
 
-ol.tabs li {
+ol.tabs li a {
     background-color: #ddd;
     border-radius: 5px;
     color: #bbb;
+    display: block;
     padding: 6px 12px 5px;
+    text-decoration: none;
 }
 
 ol.tabs li, .action-buttons li {
@@ -792,12 +794,12 @@ ol.tabs li:first-child {
     margin-left: 0;
 }
 
-ol.tabs li.selected, ol.tabs li.selected:hover {
+ol.tabs li.selected a, ol.tabs li.selected:hover a {
     background-color: #fff;
     color: #888;
 }
 
-ol.tabs li:hover, .action-buttons li:hover {
+ol.tabs li:hover a, .action-buttons li:hover {
     background-color: #111;
     color: #eee;
 }
@@ -954,22 +956,19 @@ time:hover {
     margin: 7px 8px 0 0;
 }
 
-ol.messages > li:hover .actions.no-touch > li a,
-ol.messages > li.hover .actions.no-touch > li a,
-#overlay .actions.no-touch > li a:hover,
-.actions > li a:focus {
+.actions > li {
+    opacity: 0.1;
+}
+
+.actions.no-touch > li a,
+.actions.no-touch > li a,
+.actions > li:hover,
+.actions > li.on {
     opacity: 1.0;
 }
 
-ol.messages > li:hover .actions.no-touch > li a:hover span,
-ol.messages > li.hover .actions.no-touch > li a:hover span,
-#overlay .actions.no-touch > li a:hover span,
-.actions > li a:focus span {
+.actions.no-touch > li a:hover span {
     display: block;
-}
-
-.actions > li {
-    opacity: 0.1;
 }
 
 .actions > li a {
@@ -1001,10 +1000,6 @@ ol.messages > li.hover .actions.no-touch > li a:hover span,
     z-index: 4;
 }
 
-.actions > li:hover a span {
-    display: block;
-}
-
 .actions .thread a {
     background-image: url('/images/thread.png');
     background-size: 22px;
@@ -1033,10 +1028,6 @@ ol.messages > li.hover .actions.no-touch > li a:hover span,
 .actions .quote a {
     background-image: url('/images/quote.png');
     background-size: 22px;
-}
-
-.actions .on, .actions li:hover {
-    opacity: 1.0;
 }
 
 ol.messages > li p {
@@ -1502,9 +1493,13 @@ img.hush {
     }
 
     ol.tabs li {
-        font-size: 14px;
-        line-height: 16px;
-        margin: 8px 2px 0;
+        margin: 0;
+    }
+
+    ol.tabs li a {
+        font-size: 13px;
+        line-height: 15px;
+        margin: 6px 2px 0;
         padding: 5px 8px;
     }
 
