@@ -6,8 +6,8 @@ define(['jquery', 'version-timeout', 'friends', 'jquery.caret'],
   var messages = $('ol.messages');
   var myFeed = $('.my-feed');
   var overlay = $('#overlay');
-  var tabs = $('ol.tabs');
-  var currentFeed = tabs.find('li.selected').data('url');
+  var tabs = $('.tabs');
+  var currentFeed = tabs.find('a.selected').data('url');
   var userListMeta = $('<ol class="avatars"></ol>');
   var userId = messages.data('userid');
   var sinceId = null;
@@ -177,22 +177,22 @@ define(['jquery', 'version-timeout', 'friends', 'jquery.caret'],
     var isRepost = '';
     var isThread = '';
     var metaInfo = '';
-    var isStarred = '<li class="star" tabindex="0"><a title="Star" href="javascript:;"><span>Star</span></a></li>';
+    var isStarred = '<a class="star" title="Star" href="javascript:;"><span>Star</span></a>';
 
     if (!msg.isSelf && !msg.repostId) {
       if (msg.isRepost) {
-        isRepost = '<li class="repost on" tabindex="0"><a title="Unrepost" href="javascript:;"><span>Unrepost</span></a></li>';
+        isRepost = '<a class="repost on" title="Unrepost" href="javascript:;"><span>Unrepost</span></a>';
       } else {
-        isRepost = '<li class="repost" tabindex="0"><a title="Repost" href="javascript:;"><span>Repost</span></a></li>';
+        isRepost = '<a class="repost" title="Repost" href="javascript:;"><span>Repost</span></a>';
       }
     }
 
     if (msg.isThread) {
-      isThread = '<li class="thread" tabindex="0"><a title="Thread" href="javascript:;"><span>Thread</span></a></li>';
+      isThread = '<a class="thread" title="Thread" href="javascript:;"><span>Thread</span></a>';
     }
 
     if (msg.isStarred) {
-      isStarred = '<li class="star on" tabindex="0"><a title="Unstar" href="javascript:;"><span>Unstar</span></a></li>';
+      isStarred = '<a class="star on" title="Unstar" href="javascript:;"><span>Unstar</span></a>';
     }
 
     if (showMeta) {
@@ -203,9 +203,9 @@ define(['jquery', 'version-timeout', 'friends', 'jquery.caret'],
         '<div id="avatar-pings"></div><div id="thread-detail"></div>';
     }
 
-    detailExtras = '<ul class="actions ' + noTouch + '">' + isThread +
-      isStarred + '<li class="reply" tabindex="0"><a title="Reply" href="javascript:;"><span>Reply</span></a></li>' + isRepost +
-      '<li class="quote" tabindex="0"><a title="Quote" href="javascript:;"><span>Quote</span></a></li></ul>' + metaInfo;
+    detailExtras = '<div class="actions ' + noTouch + '">' + isThread +
+      isStarred + '<a class="reply" title="Reply" href="javascript:;"><span>Reply</span></a>' + isRepost +
+      '<a class="quote" title="Quote" href="javascript:;"><span>Quote</span></a></div>' + metaInfo;
 
     return detailExtras;
   };
@@ -388,7 +388,7 @@ define(['jquery', 'version-timeout', 'friends', 'jquery.caret'],
       if (!paginated) {
         pollMessages = setTimeout(function() {
           versionTimeout.checkVersion();
-          currentFeed = tabs.find('li.selected').data('url');
+          currentFeed = tabs.find('a.selected').data('url');
           setMessage(currentFeed, type, false, isStarredFeed);
           setNotification();
           updateTime();
@@ -479,7 +479,7 @@ define(['jquery', 'version-timeout', 'friends', 'jquery.caret'],
       if (!paginated) {
         pollMessages = setTimeout(function() {
           versionTimeout.checkVersion();
-          currentFeed = tabs.find('li.selected').data('url');
+          currentFeed = tabs.find('a.selected').data('url');
           setInteractionMessage(currentFeed, type, false);
           setNotification();
           postLoaded = true;

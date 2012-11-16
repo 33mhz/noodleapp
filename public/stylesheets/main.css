@@ -262,10 +262,8 @@ header a#notifications.on:hover {
     padding: 5px 0;
 }
 
-.close, #paginated {
-    background-color: #aaa;
-    border-radius: 5px;
-    color: #fff;
+#paginated {
+    color: #ccc;
     cursor: pointer;
     display: block;
     font-family: 'Oswald';
@@ -277,10 +275,17 @@ header a#notifications.on:hover {
 }
 
 .close {
+    color: #aaa;
+    cursor: pointer;
     float: right;
-    margin-right: 5px;
-    padding: 3px 8px;
+    font-size: 18px;
+    line-height: 30px;
+    margin-right: 15px;
     text-decoration: none;
+}
+
+.close:hover {
+    color: #111;
 }
 
 .form-action-wrapper {
@@ -323,7 +328,7 @@ ol.messages #paginated.loading {
     margin: 5px 0;
 }
 
-#overlay .users li:hover, #overlay li.close:hover, ol.messages .paginated:hover {
+#overlay .users li:hover, ol.messages .paginated:hover {
     background-color: #111;
 }
 
@@ -718,13 +723,13 @@ button[type="submit"], section.public li a {
     float: right;
     font-family: 'Oswald';
     font-size: 18px;
-    line-height: 18px;
-    padding: 3px 11px;
+    line-height: 20px;
+    padding: 3px 11px 2px;
     text-decoration: none;
     text-transform: uppercase;
 }
 
-button[type="submit"]:hover, section.public li a:hover, #overlay .close:hover {
+button[type="submit"]:hover, section.public li a:hover {
     background-color: #111;
     color: #eee;
 }
@@ -745,22 +750,26 @@ section.public li a {
     width: 150px;
 }
 
-ol.tabs {
+.tabs {
     display: block;
     float: left;
     margin-bottom: 5px;
 }
 
-ol.tabs li a {
+.tabs a {
     background-color: #ddd;
     border-radius: 5px;
     color: #bbb;
     display: block;
+    float: left;
+    font-family: 'Oswald';
+    margin-right: 5px;
     padding: 6px 12px 5px;
     text-decoration: none;
+    text-transform: uppercase;
 }
 
-ol.tabs li, .action-buttons li {
+a.tabs a, .action-buttons a {
     cursor: pointer;
     float: left;
     margin: 2px 2px 0;
@@ -778,17 +787,17 @@ ol.tabs li, .action-buttons li {
     text-shadow: none;
 }
 
-ol.tabs li:first-child {
+.tabs li:first-child {
     margin-left: 0;
 }
 
-ol.tabs li.selected a, ol.tabs li.selected:hover a {
+.tabs a.selected, .tabs a:hover {
     background-color: #fff;
     color: #888;
 }
 
-ol.tabs li:hover a, .action-buttons li:hover,
-ol.tabs li:focus a, .action-buttons li:focus {
+.tabs a:hover, .action-buttons a:hover,
+.tabs a:focus, .action-buttons a:focus {
     background-color: #111;
     color: #eee;
 }
@@ -936,42 +945,35 @@ time:hover {
     margin: -2px 3px 0;
 }
 
-.actions > li {
+.actions > a {
     display: inline-block;
     margin: 7px 8px 0 0;
 }
 
-.actions > li {
-    opacity: 0.1;
-}
-
-.actions.no-touch > li a,
-.actions.no-touch > li a,
-.actions > li:hover,
-.actions > li.on,
-.actions > li:focus {
+.actions.no-touch > a:hover,
+.actions > a.on {
     opacity: 1.0;
 }
 
-.actions.no-touch > li a:hover span,
-.actions.no-touch > li:focus a span {
+.actions.no-touch > a:hover span {
     display: block;
 }
 
-.actions > li a {
+.actions > a {
     background-repeat: no-repeat;
     border: 0;
     box-shadow: none;
     cursor: pointer;
     float: left;
     height: 23px;
+    opacity: 0.1;
     padding: 0;
     position: relative;
     width: 23px;
     display: inline-block;
 }
 
-.actions > li a span {
+.actions > a span {
     background-color: #111;
     border-radius: 3px;
     color: #eee;
@@ -987,32 +989,32 @@ time:hover {
     z-index: 4;
 }
 
-.actions .thread a {
+.actions .thread {
     background-image: url('/images/thread.png');
     background-size: 22px;
 }
 
-.actions .star a {
+.actions .star {
     background-image: url('/images/star.png');
     background-size: 22px;
 }
 
-.actions .reply a {
+.actions .reply {
     background-image: url('/images/reply.png');
     background-size: 22px;
 }
 
-.actions .repost a {
+.actions .repost {
     background-image: url('/images/repost.png');
     background-size: 22px;
 }
 
-.actions .delete a {
+.actions .delete {
     background-image: url('/images/delete.png');
     background-size: 22px;
 }
 
-.actions .quote a {
+.actions .quote {
     background-image: url('/images/quote.png');
     background-size: 22px;
 }
@@ -1479,11 +1481,7 @@ img.hush {
         top: 182px;
     }
 
-    ol.tabs li {
-        margin: 0;
-    }
-
-    ol.tabs li a {
+    .tabs a {
         font-size: 13px;
         line-height: 15px;
         margin: 6px 2px 0;

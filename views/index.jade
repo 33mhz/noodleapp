@@ -5,15 +5,11 @@ block content
     mixin messageForm('', 'Write your message', '', 'Post')
 
     section
-      ol.tabs
-        li.my-feed.selected(data-url='/my/feed', tabindex='0')
-          a(href='javascript:;', title='My Feed') My Feed
-        li.user-mentions(data-url='/user/mentions/#{session.id}', tabindex='0')
-          a(href='javascript:;', title='Mentions') Mentions
-        li.user-interactions(data-url='/user/interactions/#{session.id}', tabindex='0')
-          a(href='javascript:;', title='Interact') Interact
-        li.global-feed(data-url='/global/feed', tabindex='0')
-          a(href='javascript:;', title='Global') Global
+      .tabs
+        a.my-feed.selected(data-url='/my/feed', href='javascript:;', title='My Feed') My Feed
+        a.user-mentions(data-url='/user/mentions/#{session.id}', href='javascript:;', title='Mentions') Mentions
+        a.user-interactions(data-url='/user/interactions/#{session.id}', href='javascript:;', title='Interact') Interact
+        a.global-feed(data-url='/global/feed', href='javascript:;', title='Global') Global
 
       ol#unread-messages
         h2

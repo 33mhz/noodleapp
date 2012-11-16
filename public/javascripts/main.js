@@ -12,7 +12,7 @@ define(['jquery', 'appnet', 'friends', 'user', 'jquery.caret'],
   function($, appnet, friends, user) {
   var body = $('body');
   var url = body.data('url');
-  var tabs = body.find('ol.tabs');
+  var tabs = body.find('.tabs');
   var messages = body.find('ol.messages');
   var write = body.find('.write form');
   var userInfo = body.find('.user-info');
@@ -140,37 +140,36 @@ define(['jquery', 'appnet', 'friends', 'user', 'jquery.caret'],
   /* Feed functionality */
   tabs.on('click', function(ev) {
     var self = $(ev.target);
-    var selfLink = self.parent();
 
-    tabs.find('li').removeClass('selected');
-    selfLink.addClass('selected');
+    tabs.find('a').removeClass('selected');
+    self.addClass('selected');
 
     switch (true) {
-      case selfLink.hasClass('global-feed'):
+      case self.hasClass('global-feed'):
         updateFeed(self, function() {
           appnet.getGlobalFeed();
         });
         break;
 
-      case selfLink.hasClass('user-posts'):
+      case self.hasClass('user-posts'):
         updateFeed(self, function() {
           appnet.getUserPosts();
         });
         break;
 
-      case selfLink.hasClass('user-mentions'):
+      case self.hasClass('user-mentions'):
         updateFeed(self, function() {
           appnet.getUserMentions();
         });
         break;
 
-      case selfLink.hasClass('user-interactions'):
+      case self.hasClass('user-interactions'):
         updateFeed(self, function() {
           appnet.getUserInteractions();
         });
         break;
 
-      case selfLink.hasClass('user-starred'):
+      case self.hasClass('user-starred'):
         updateFeed(self, function() {
           appnet.getUserStarred();
         });
@@ -185,31 +184,30 @@ define(['jquery', 'appnet', 'friends', 'user', 'jquery.caret'],
   });
 
   /* Automatic feed loader */
-  tabs.find('.selected a').click();
+  tabs.find('a.selected').click();
 
   /* Message functionality */
   messages.on('click', function(ev) {
     var self = $(ev.target);
-    var selfLink = self.parent();
 
     switch (true) {
-      case selfLink.hasClass('reply'):
+      case self.hasClass('reply'):
         self.closest('.message-item').find('time').click();
         break;
 
-      case selfLink.hasClass('quote'):
+      case self.hasClass('quote'):
         var textarea = self.closest('.dashboard-content').find('textarea');
         textarea.focus();
         write.find('.form-action-wrapper').slideDown('fast');
         textarea.val('"' + self.closest('.message-item').data('original') + '"');
         break;
 
-      case selfLink.hasClass('delete'):
+      case self.hasClass('delete'):
         appnet.deleteMessage(self.closest('.message-item').data('id'), csrf);
         self.closest('li.message-item').fadeOut();
         break;
 
-      case selfLink.hasClass('thread'):
+      case self.hasClass('thread'):
         appnet.showThread(self.closest('.message-item').data('id'));
         body.addClass('fixed');
         break;
@@ -241,7 +239,7 @@ define(['jquery', 'appnet', 'friends', 'user', 'jquery.caret'],
     var selfLink = self.parent();
 
     switch (true) {
-      case selfLink.hasClass('reply'):
+      case self.hasClass('reply'):
         var messageItem = self.closest('.message-item');
         var mentions = (messageItem.data('mentions') !== '') ? messageItem.data('mentions') + ' ' : '';
 
@@ -257,7 +255,7 @@ define(['jquery', 'appnet', 'friends', 'user', 'jquery.caret'],
         }
         break;
 
-      case selfLink.hasClass('thread'):
+      case self.hasClass('thread'):
         appnet.showThread(self.closest('.message-item').data('id'));
         body.addClass('fixed');
         break;
@@ -266,7 +264,7 @@ define(['jquery', 'appnet', 'friends', 'user', 'jquery.caret'],
         closeOverlay();
         break;
 
-      case selfLink.hasClass('quote'):
+      case self.hasClass('quote'):
         var textarea = overlay.find('textarea');
         textarea.focus();
         overlay.find('.form-action-wrapper').slideDown('fast');
@@ -299,26 +297,26 @@ define(['jquery', 'appnet', 'friends', 'user', 'jquery.caret'],
         write.find('textarea').blur();
         break;
 
-      case selfLink.hasClass('star'):
-        if (selfLink.hasClass('on')) {
-          selfLink.removeClass('on');
-          selfLink.find('span').text('Star');
+      case self.hasClass('star'):
+        if (self.hasClass('on')) {
+          self.removeClass('on');
+          self.find('span').text('Star');
           appnet.unstarMessage(self.closest('.message-item').data('id'), csrf);
         } else {
-          selfLink.addClass('on');
-          selfLink.find('span').text('Unstar');
+          self.addClass('on');
+          self.find('span').text('Unstar');
           appnet.starMessage(self.closest('.message-item').data('id'), csrf);
         }
         break;
 
-      case selfLink.hasClass('repost'):
-        if (selfLink.hasClass('on')) {
-          selfLink.removeClass('on');
-          selfLink.find('span').text('Repost');
+      case self.hasClass('repost'):
+        if (self.hasClass('on')) {
+          self.removeClass('on');
+          self.find('span').text('Repost');
           appnet.unrepostMessage(self.closest('.message-item').data('id'), csrf);
         } else {
-          selfLink.addClass('on');
-          selfLink.find('span').text('Unrepost');
+          self.addClass('on');
+          self.find('span').text('Unrepost');
           appnet.repostMessage(self.closest('.message-item').data('id'), csrf);
         }
         break;
