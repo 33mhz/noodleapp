@@ -264,7 +264,7 @@ header a#notifications.on:hover {
 
 .close, #paginated {
     background-color: #aaa;
-    border-radius: 3px;
+    border-radius: 5px;
     color: #fff;
     cursor: pointer;
     display: block;
@@ -490,18 +490,6 @@ ol.messages #paginated.loading {
 #overlay .suggestions {
     left: 0;
     top: 86px;
-}
-
-#overlay li .info li span {
-    color: #111;
-}
-
-#overlay .actions li {
-    margin: 5px 5px 0 5px;
-}
-
-#overlay .actions li span {
-    padding: 5px 5px 1px 5px;
 }
 
 #avatar-pings img {
