@@ -173,25 +173,26 @@ define(['jquery', 'appnet', 'friends', 'user', 'jquery.caret'],
   /* Message functionality */
   messages.on('click', function(ev) {
     var self = $(ev.target);
+    var selfLink = self.parent();
 
     switch (true) {
-      case self.hasClass('reply'):
+      case selfLink.hasClass('reply'):
         self.closest('.message-item').find('time').click();
         break;
 
-      case self.hasClass('quote'):
+      case selfLink.hasClass('quote'):
         var textarea = self.closest('.dashboard-content').find('textarea');
         textarea.focus();
         write.find('.form-action-wrapper').slideDown('fast');
         textarea.val('"' + self.closest('.message-item').data('original') + '"');
         break;
 
-      case self.hasClass('delete'):
+      case selfLink.hasClass('delete'):
         appnet.deleteMessage(self.closest('.message-item').data('id'), csrf);
         self.closest('li.message-item').fadeOut();
         break;
 
-      case self.hasClass('thread'):
+      case selfLink.hasClass('thread'):
         appnet.showThread(self.closest('.message-item').data('id'));
         body.addClass('fixed');
         break;
@@ -220,9 +221,10 @@ define(['jquery', 'appnet', 'friends', 'user', 'jquery.caret'],
   // Overlay functionality
   overlay.on('click', function(ev) {
     var self = $(ev.target);
+    var selfLink = self.parent();
 
     switch (true) {
-      case self.hasClass('reply'):
+      case selfLink.hasClass('reply'):
         var messageItem = self.closest('.message-item');
         var mentions = (messageItem.data('mentions') !== '') ? messageItem.data('mentions') + ' ' : '';
 
@@ -238,16 +240,16 @@ define(['jquery', 'appnet', 'friends', 'user', 'jquery.caret'],
         }
         break;
 
-      case self.hasClass('thread'):
+      case selfLink.hasClass('thread'):
         appnet.showThread(self.closest('.message-item').data('id'));
         body.addClass('fixed');
         break;
 
-      case self.hasClass('close'):
+      case selfLink.hasClass('close'):
         closeOverlay();
         break;
 
-      case self.hasClass('quote'):
+      case selfLink.hasClass('quote'):
         var textarea = overlay.find('textarea');
         textarea.focus();
         overlay.find('.form-action-wrapper').slideDown('fast');
