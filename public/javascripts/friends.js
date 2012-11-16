@@ -5,7 +5,6 @@ define(['jquery'],
 
   var userLists = $('ol.suggestions');
   var usernamesArr = [];
-  var selectedUsers = {};
   var write = $('.write');
 
   var self = {
@@ -23,39 +22,23 @@ define(['jquery'],
     },
 
     getBFFs: function(self, cursorPosition) {
-      var usernameClip = '';
-      var userList = self.closest('.write').find('ol.suggestions');
+      var userList = self.closest('.write').find('ol.suggestions').empty();
+      var beforeCursor = self.val().substring(0, cursorPosition);
+      var userBeforeCursor;
+      var userBeforeCursorMatch = beforeCursor.match(/@([A-Za-z0-9_]+)$/);
 
-      for (var i = cursorPosition - 1; i > -1; i --) {
-        if (self.val()[i] !== '@') {
-          usernameClip += self.val()[i];
-        } else {
-          usernameClip += '@';
-          break;
-        }
-      }
+      if(userBeforeCursorMatch) {
+        userBeforeCursor = userBeforeCursorMatch[1];
 
-      usernameClip = usernameClip.split('').reverse().join('');
+        // Usernames that start with what the user typed
+        var selectedUsers = usernamesArr.filter(function(user) {
+          return user.indexOf(userBeforeCursor) === 0;
+        });
 
-      if (!usernameClip.match(/^@/)) {
-        userList.empty();
-      } else if(usernameClip.match(/@[A-Za-z0-9_-]+/gi)) {
-        var lastUser = usernameClip.split('@')[1];
-
-        // Add a username if it has a wildcard match
-        for (var i = 0; i < usernamesArr.length; i ++) {
-          if (usernamesArr[i].indexOf(lastUser) === 0) {
-            selectedUsers[usernamesArr[i]] = usernamesArr[i];
-          } else {
-            delete selectedUsers[usernamesArr[i]];
-          }
-        }
-
-        userList.empty();
         // Redraw suggestions
-        for (var i in selectedUsers) {
+        for (var j = 0; j < selectedUsers.length; j ++) {
           var userRow = $('<li></li>');
-          userRow.text('@' + selectedUsers[i]);
+          userRow.text('@' + selectedUsers[j]);
           userList.append(userRow);
         }
       }
