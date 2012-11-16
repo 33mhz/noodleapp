@@ -301,8 +301,13 @@ define(['jquery', 'appnet', 'friends', 'user', 'jquery.caret'],
       case self.is('time'):
         var textarea = overlay.find('textarea');
         var closest = self.closest('.message-item');
+        var postId = closest.data('id');
 
-        document.location.hash = '/post/' + closest.data('id') +
+        if (parseInt(closest.data('repostid'), 10) > 0) {
+          postId = closest.data('repostid');
+        }
+
+        document.location.hash = '/post/' + postId +
           '/' + closest.data('username');
         break;
 

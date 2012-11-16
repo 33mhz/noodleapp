@@ -339,12 +339,11 @@ define(['jquery', 'version-timeout', 'friends', 'jquery.caret'],
               isDeletable = '<li class="delete"><span>Delete</a></li>';
             }
 
-            if (!messageItem.isSelf ||
-              (messageItem.isSelf && messageItem.repostId)) {
-              isRepost = '<li class="repost"><span>Repost</a></li>';
-
-              if (messageItem.isSelf && messageItem.repostId) {
+            if (!messageItem.isSelf) {
+              if (messageItem.isRepost) {
                 isRepost = '<li class="repost on"><span>Unrepost</span></li>';
+              } else {
+                isRepost = '<li class="repost"><span>Repost</a></li>';
               }
             }
 
