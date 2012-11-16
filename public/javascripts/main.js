@@ -389,7 +389,7 @@ define(['jquery', 'appnet', 'friends', 'user', 'jquery.caret'],
         }
     }
 
-    if (!self.is('textarea')) {
+    if (!(self.is('textarea') || ev.ctrlKey || ev.shiftKey || ev.metaKey)) {
       if (ev.keyCode === K_KEYCODE || ev.keyCode === J_KEYCODE) {
         currentMessage = body.find('.message-item.hover');
         if (!currentMessage.length) {
