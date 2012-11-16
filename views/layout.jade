@@ -7,7 +7,8 @@ mixin messageForm(cssName, placeholder, message, buttonText)
         input(type='hidden', name='_csrf', value='#{csrf}')
         .form-action-wrapper
           span.counter= charLimit
-          button(type='submit', class='submittable')= buttonText
+          button(type='submit', class='submittable', title='#{buttonText}')= buttonText
+          a(href='javascript:;', class='close', title='Cancel') Cancel
         ol.suggestions(class='writeable')
 
 !!! 5

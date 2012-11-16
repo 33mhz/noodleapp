@@ -257,7 +257,7 @@ define(['jquery', 'appnet', 'friends', 'user', 'jquery.caret'],
         body.addClass('fixed');
         break;
 
-      case selfLink.hasClass('close'):
+      case self.hasClass('close') || selfLink.hasClass('close'):
         closeOverlay();
         break;
 
@@ -288,6 +288,11 @@ define(['jquery', 'appnet', 'friends', 'user', 'jquery.caret'],
     }
 
     switch (true) {
+      case self.hasClass('close'):
+        write.find('textarea').val('');
+        write.find('textarea').blur();
+        break;
+
       case self.hasClass('star'):
         if (self.hasClass('on')) {
           self.removeClass('on');

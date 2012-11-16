@@ -262,11 +262,12 @@ header a#notifications.on:hover {
     padding: 5px 0;
 }
 
-#overlay li.close, #paginated {
+.close, #paginated {
     background-color: #aaa;
     border-radius: 3px;
     color: #fff;
     cursor: pointer;
+    display: block;
     font-family: 'Oswald';
     font-size: 18px;
     line-height: 20px;
@@ -275,11 +276,11 @@ header a#notifications.on:hover {
     text-transform: uppercase;
 }
 
-#overlay li.close {
-    border-radius: 5px;
+.close {
     float: right;
-    margin-bottom: 10px;
-    padding: 5px 10px;
+    margin-right: 5px;
+    padding: 3px 8px;
+    text-decoration: none;
 }
 
 .form-action-wrapper {
@@ -715,10 +716,6 @@ section.public li h1 {
     color: #f00;
 }
 
-input.file-upload {
-
-}
-
 button[type="submit"] {
     margin-bottom: 30px;
 }
@@ -729,15 +726,17 @@ button[type="submit"], section.public li a {
     border-radius: 5px;
     color: #fff;
     cursor: pointer;
+    display: block;
     float: right;
     font-family: 'Oswald';
     font-size: 18px;
     line-height: 18px;
-    padding: 4px 11px;
+    padding: 3px 11px;
+    text-decoration: none;
     text-transform: uppercase;
 }
 
-button[type="submit"]:hover, section.public li a:hover, #overlay .users li.close:hover {
+button[type="submit"]:hover, section.public li a:hover, #overlay .close:hover {
     background-color: #111;
     color: #eee;
 }
