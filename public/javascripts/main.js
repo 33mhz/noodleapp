@@ -29,8 +29,22 @@ define(['jquery', 'appnet', 'friends', 'user', 'jquery.caret'],
   var currentMessage;
 
   var CHAR_MAX = parseInt(body.data('charlimit'), 10);
-  var TAB_KEYCODE = 9;
-  var ESCAPE_KEYCODE = 27;
+
+  var
+    TAB_KEYCODE = 9,
+    RETURN_KEYCODE = 13,
+    ESCAPE_KEYCODE = 27,
+    SPACE_KEYCODE = 32,
+    F_KEYCODE = 70,
+    J_KEYCODE = 74,
+    K_KEYCODE = 75,
+    P_KEYCODE = 80,
+    Q_KEYCODE = 81,
+    R_KEYCODE = 82,
+    S_KEYCODE = 83,
+    T_KEYCODE = 84,
+    U_KEYCODE = 85;
+
   var MESSAGE_LIMIT = 99;
 
   var resetNotificationDisplay = function() {
@@ -351,15 +365,12 @@ define(['jquery', 'appnet', 'friends', 'user', 'jquery.caret'],
     }
   });
 
-  var keyCodeToClassName = {
-    84: '.thread', // t
-    83: '.star', // s
-    82: '.reply', // r
-    80: '.repost', // p
-    81: '.quote'  // q
-  };
-
-  var actionKeyCodes = $.map(keyCodeToClassName, function  (val, key) { return (+ key); });
+  var keyCodeToClassName = {};
+  keyCodeToClassName[T_KEYCODE] = '.thread';
+  keyCodeToClassName[S_KEYCODE] = '.star';
+  keyCodeToClassName[R_KEYCODE] = '.reply';
+  keyCodeToClassName[P_KEYCODE] = '.repost';
+  keyCodeToClassName[Q_KEYCODE] = '.quote';
 
   body.on('keydown', function(ev) {
     var self = $(ev.target);
@@ -370,7 +381,7 @@ define(['jquery', 'appnet', 'friends', 'user', 'jquery.caret'],
 
     switch (true) {
       case self.hasClass('submittable'):
-        if (ev.keyCode === 9 || ev.keyCode === 32) {
+        if (ev.keyCode === TAB_KEYCODE || ev.keyCode === SPACE_KEYCODE) {
           // Pressing TAB/space autocompletes to the first user listed.
           var userLi = suggestions.find('li:first');
           if (userLi.length) {
@@ -379,13 +390,13 @@ define(['jquery', 'appnet', 'friends', 'user', 'jquery.caret'],
             return false;
           }
 
-        } else if (ev.keyCode === 13 && (ev.ctrlKey || ev.metaKey)) {
+        } else if (ev.keyCode === RETURN_KEYCODE && (ev.ctrlKey || ev.metaKey)) {
           self.closest('form').submit();
         }
     }
 
-    if (!self.is('textarea')) {
-      if (ev.keyCode === 75 || ev.keyCode === 74) {
+    if (!(self.is('textarea') || ev.ctrlKey || ev.shiftKey || ev.metaKey)) {
+      if (ev.keyCode === K_KEYCODE || ev.keyCode === J_KEYCODE) {
         currentMessage = body.find('.message-item.hover');
         if (!currentMessage.length) {
           currentMessage = body.find('.message-item:first');
@@ -394,7 +405,7 @@ define(['jquery', 'appnet', 'friends', 'user', 'jquery.caret'],
         }
 
         var next;
-        if (ev.keyCode === 75) {
+        if (ev.keyCode === K_KEYCODE) {
           next = currentMessage.prev('.message-item');
         } else {
           next = currentMessage.next('.message-item');
@@ -406,10 +417,12 @@ define(['jquery', 'appnet', 'friends', 'user', 'jquery.caret'],
           $(window).scrollTop(next.position().top - 40);
           currentMessage = next;
         }
+        ev.preventDefault();
       }
 
-      if (currentMessage && $.inArray(ev.keyCode, actionKeyCodes) !== -1){
+      if (currentMessage && keyCodeToClassName[ev.keyCode]) {
         currentMessage.find(keyCodeToClassName[ev.keyCode]).click();
+        ev.preventDefault();
       }
     }
   });
