@@ -787,7 +787,8 @@ ol.tabs li.selected a, ol.tabs li.selected:hover a {
     color: #888;
 }
 
-ol.tabs li:hover a, .action-buttons li:hover {
+ol.tabs li:hover a, .action-buttons li:hover,
+ol.tabs li:focus a, .action-buttons li:focus {
     background-color: #111;
     color: #eee;
 }
@@ -935,10 +936,6 @@ time:hover {
     margin: -2px 3px 0;
 }
 
-.actions.no-touch > li:hover a {
-    display: block;
-}
-
 .actions > li {
     display: inline-block;
     margin: 7px 8px 0 0;
@@ -951,11 +948,13 @@ time:hover {
 .actions.no-touch > li a,
 .actions.no-touch > li a,
 .actions > li:hover,
-.actions > li.on {
+.actions > li.on,
+.actions > li:focus {
     opacity: 1.0;
 }
 
-.actions.no-touch > li a:hover span {
+.actions.no-touch > li a:hover span,
+.actions.no-touch > li:focus a span {
     display: block;
 }
 

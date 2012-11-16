@@ -6,13 +6,13 @@ block content
 
     section
       ol.tabs
-        li.my-feed.selected(data-url='/my/feed')
+        li.my-feed.selected(data-url='/my/feed', tabindex='0')
           a(href='javascript:;', title='My Feed') My Feed
-        li.user-mentions(data-url='/user/mentions/#{session.id}')
+        li.user-mentions(data-url='/user/mentions/#{session.id}', tabindex='0')
           a(href='javascript:;', title='Mentions') Mentions
-        li.user-interactions(data-url='/user/interactions/#{session.id}')
+        li.user-interactions(data-url='/user/interactions/#{session.id}', tabindex='0')
           a(href='javascript:;', title='Interact') Interact
-        li.global-feed(data-url='/global/feed')
+        li.global-feed(data-url='/global/feed', tabindex='0')
           a(href='javascript:;', title='Global') Global
 
       ol#unread-messages
