@@ -495,6 +495,10 @@ ol.messages #paginated.loading {
     color: #111;
 }
 
+#overlay .actions li {
+    margin: 5px 5px 0 5px;
+}
+
 #overlay .actions li span {
     padding: 5px 5px 1px 5px;
 }
@@ -762,9 +766,9 @@ ol.tabs {
 
 ol.tabs li {
     background-color: #ddd;
-    border-radius: 3px;
+    border-radius: 5px;
     color: #bbb;
-    padding: 4px 9px 3px;
+    padding: 6px 12px 5px;
 }
 
 ol.tabs li, .action-buttons li {
@@ -772,15 +776,16 @@ ol.tabs li, .action-buttons li {
     float: left;
     margin: 2px 2px 0;
     font-family: 'Oswald';
-    font-size: 18px;
-    line-height: 22px;
+    font-size: 16px;
+    line-height: 20px;
+    text-transform: uppercase;
 }
 
 .action-buttons li {
     background-color: #7edddc;
     border-radius: 5px;
     color: #348988;
-    padding: 5px 9px;
+    padding: 5px 12px;
     text-shadow: none;
 }
 
@@ -870,6 +875,35 @@ ol.messages > li .meta {
     width: 40px;
 }
 
+.actions {
+    display: block;
+    float: right;
+    margin: -2px 3px 0;
+}
+
+.actions > li {
+    box-shadow: none;
+    border: 0;
+    float: left;
+    margin: 7px 8px 0 0;
+    padding: 0;
+    position: relative;
+}
+
+.actions > li a {
+    display: none;
+    font-size: 11px;
+    height: 16px;
+    right: -5px;
+    position: absolute;
+    top: -27px;
+    z-index: 4;
+}
+
+.actions.no-touch > li:hover a {
+    display: block;
+}
+
 .clear {
     display: block;
     float: left;
@@ -935,37 +969,68 @@ time:hover {
     width: 575px;
 }
 
-.actions {
-    display: block;
-    float: right;
-    margin: 5px 3px 0;
-}
-
 .actions > li {
     background-repeat: no-repeat;
-    border: 0;
-    box-shadow: none;
     cursor: pointer;
     float: left;
-    margin: 7px 3px 0 0;
-    padding: 0;
+    height: 23px;
+    opacity: 0.1;
     position: relative;
+    width: 23px;
 }
 
-.actions.no-touch > li a:hover {
+ol.messages > li:hover .actions.no-touch > li,
+ol.messages > li.hover .actions.no-touch > li,
+#overlay .actions.no-touch > li:hover {
     opacity: 1.0;
 }
 
 .actions > li a {
     background-color: #111;
     border-radius: 3px;
+    bottom: -28px;
     color: #eee;
-    display: block;
+    display: none;
+    font-family: 'Oswald';
     font-size: 12px;
-    line-height: 13px;
-    opacity: 0.15;
-    padding: 4px 5px 2px 5px;
+    padding: 2px 5px;
+    position: absolute;
+    text-transform: uppercase;
     z-index: 2;
+}
+
+.actions .thread {
+    background-image: url('/images/thread.png');
+    background-size: 22px;
+}
+
+.actions .star {
+    background-image: url('/images/star.png');
+    background-size: 22px;
+}
+
+.actions .reply {
+    background-image: url('/images/reply.png');
+    background-size: 22px;
+}
+
+.actions .repost {
+    background-image: url('/images/repost.png');
+    background-size: 22px;
+}
+
+.actions .delete {
+    background-image: url('/images/delete.png');
+    background-size: 22px;
+}
+
+.actions .quote {
+    background-image: url('/images/quote.png');
+    background-size: 22px;
+}
+
+.actions .on {
+    opacity: 1.0;
 }
 
 ol.messages > li p {
@@ -1431,10 +1496,10 @@ img.hush {
     }
 
     ol.tabs li {
-        font-size: 16px;
-        line-height: 17px;
-        margin: 7px 2px 0;
-        padding: 5px;
+        font-size: 14px;
+        line-height: 16px;
+        margin: 8px 2px 0;
+        padding: 5px 8px;
     }
 
     #overlay .meta {

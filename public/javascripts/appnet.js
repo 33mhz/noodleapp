@@ -53,6 +53,10 @@ define(['jquery', 'version-timeout', 'friends', 'jquery.caret'],
     });
   };
 
+  var generateCloseLink = function() {
+    return '<ol class="message-summary"><li class="close"><a title="Close">Close</a></li></ol>';
+  }
+
   var dateDisplay = function(time) {
     var date = new Date(time);
     var diff = (Date.now() - date) / 1000;
@@ -87,7 +91,7 @@ define(['jquery', 'version-timeout', 'friends', 'jquery.caret'],
         callback();
       }
     }).error(function(data) {
-      overlay.find('.inner-overlay').html('<ol class="message-summary"><li class="close">Close</li></ol>');
+      overlay.find('.inner-overlay').html(generateCloseLink());
       flashMessage(JSON.parse(data.responseText).error);
     });
   };
@@ -112,7 +116,7 @@ define(['jquery', 'version-timeout', 'friends', 'jquery.caret'],
           .find('span.name').html(data.users[i].name + ' <em>@' + data.users[i].username + '</em>');
         userList.append(user);
       }
-      userList.append('<li class="close">Close</li>');
+      userList.append('<li class="close"><a title="Close">Close</a></li>');
       overlay.find('.inner-overlay').html(userList);
     }).error(function(data) {
       flashMessage(JSON.parse(data.responseText).error);
@@ -168,6 +172,44 @@ define(['jquery', 'version-timeout', 'friends', 'jquery.caret'],
     return message;
   };
 
+  var generateDetails = function(msg, showMeta) {
+    var detailExtras = '';
+    var isRepost = '';
+    var isThread = '';
+    var metaInfo = '';
+    var isStarred = '<li class="star"><a title="Star" href="javascript:;">Star</a></li>';
+
+    if (!msg.isSelf && !msg.repostId) {
+      if (msg.isRepost) {
+        isRepost = '<li class="repost on"><a title="Unrepost" href="javascript:;">Unrepost</a></li>';
+      } else {
+        isRepost = '<li class="repost"><a title="Repost" href="javascript:;">Repost</a></li>';
+      }
+    }
+
+    if (msg.isThread) {
+      isThread = '<li class="thread"><a title="Thread" href="javascript:;">Thread</a></li>';
+    }
+
+    if (msg.isStarred) {
+      isStarred = '<li class="star on"><a title="Unstar" href="javascript:;">Unstar</a></li>';
+    }
+
+    if (showMeta) {
+      metaInfo = '<div class="info"><ol>' +
+        '<li class="reposts">Reposts: <span></span></li>' +
+        '<li class="stars">Stars: <span></span></li>' +
+        '<li class="replies">Replies: <span></span></li></ol></div>' +
+        '<div id="avatar-pings"></div><div id="thread-detail"></div>';
+    }
+
+    detailExtras = '<ul class="actions ' + noTouch + '">' + isThread +
+      isStarred + '<li class="reply"><a title="Reply" href="javascript:;">Reply</a></li>' + isRepost +
+      '<li class="quote"><a title="Quote" href="javascript:;">Quote</a></li></ul>' + metaInfo;
+
+    return detailExtras;
+  };
+
   var setPost = function(data, url, showDetails, isDetailOverlay, ascending, callback) {
     overlay.find('.inner-overlay').html('<ol class="messages"><li class="message-item loading"></li></ol>');
     overlay.slideDown();
@@ -188,33 +230,7 @@ define(['jquery', 'version-timeout', 'friends', 'jquery.caret'],
             var detailExtras = '';
 
             if (showDetails) {
-              var isRepost = '';
-              var isThread = '';
-              var isStarred = '<li class="star"><a title="Star">Star</a></li>';
-
-              if (!data.messages[i].isSelf && !data.messages[i].repostId) {
-                if (data.messages[i].isRepost) {
-                  isRepost = '<li class="repost on"><a title="Unrepost">Unrepost</a></li>';
-                } else {
-                  isRepost = '<li class="repost"><a title="Repost">Repost</a></li>';
-                }
-              }
-
-              if (data.messages[i].isThread) {
-                isThread = '<li class="thread"><a title="Thread">Thread</a></li>';
-              }
-
-              if (data.messages[i].isStarred) {
-                isStarred = '<li class="star on"><a title="Unstar">Unstar</a></li>';
-              }
-
-              detailExtras = '<ul class="actions ' + noTouch + '">' + isThread +
-                isStarred + '<li class="reply"><a title="Reply">Reply</a></li>' + isRepost +
-                '<li class="quote"><a title="Quote">Quote</a></li></ul><div class="info"><ol>' +
-                '<li class="reposts">Reposts: <span></span></li>' +
-                '<li class="stars">Stars: <span></span></li>' +
-                '<li class="replies">Replies: <span></span></li></ol></div>' +
-                '<div id="avatar-pings"></div><div id="thread-detail"></div>';
+              detailExtras = generateDetails(data.messages[i], true);
             }
 
             var message = generatePostItem(data.messages[i], detailExtras);
@@ -259,12 +275,12 @@ define(['jquery', 'version-timeout', 'friends', 'jquery.caret'],
       if (isDetailOverlay) {
         overlay.find('#thread-detail').html(messageOverlay);
       } else {
-        messageOverlay.append('<li class="close">Close</li>');
+        messageOverlay.append('<li class="close"><a title="Close">Close</a></li>');
         overlay.find('.inner-overlay').html(messageOverlay);
         overlay.slideDown();
       }
     }).error(function(data) {
-      overlay.find('.inner-overlay').html('<ol class="message-summary"><li class="close">Close</li></ol>');
+      overlay.find('.inner-overlay').html(generateCloseLink());
       flashMessage(JSON.parse(data.responseText).error);
     });
   };
@@ -329,40 +345,11 @@ define(['jquery', 'version-timeout', 'friends', 'jquery.caret'],
           var messageItem = data.messages[i];
 
           if (messages.find('li.message-item[data-id="' + messageItem.id + '"]').length === 0) {
-
-            var isRepost = '';
-            var threadAction = '';
-            var isStarred = '<li class="star"><a title="Star">Star</a></li>';
-            var isDeletable = '';
-            var actions = '';
-
-            if (messageItem.isSelf) {
-              isDeletable = '<li class="delete"><a title="Delete">Delete</a></li>';
-            }
-
-            if (!messageItem.isSelf) {
-              if (messageItem.isRepost) {
-                isRepost = '<li class="repost on"><a title="Unrepost">Unrepost</a></li>';
-              } else {
-                isRepost = '<li class="repost"><a title="Repost">Repost</a></li>';
-              }
-            }
-
-            if (messageItem.isThread) {
-              threadAction = '<li class="thread"><a title="Thread">Thread</a></li>';
-            }
-
-            if (messageItem.isStarred) {
-              isStarred = '<li class="star on"><a title="Unstar">Unstar</a></li>';
-            }
+            var detailExtras = generateDetails(messageItem, false);
 
             var message = generatePostItem(messageItem, '');
 
-            actions = $('<ol class="actions ' + noTouch + '">' + threadAction + isStarred +
-              '<li class="reply"><a title="Reply">Reply</a></li>' +
-              isRepost + '<li class="quote"><a title="Quote">Quote</a></li>' + isDeletable + '</ol>');
-
-            message.find('.post-wrapper').append(actions);
+            message.find('.post-wrapper').append(detailExtras);
 
             // user mentions in this post
             message.attr('data-mentions', messageItem.mentions);
@@ -409,7 +396,7 @@ define(['jquery', 'version-timeout', 'friends', 'jquery.caret'],
         }, POLL_TIMEOUT);
       }
     }).error(function(data) {
-      overlay.find('.inner-overlay').html('<ol class="message-summary"><li class="close">Close</li></ol>');
+      overlay.find('.inner-overlay').html(generateCloseLink());
       flashMessage(JSON.parse(data.responseText).error);
     });
   };
@@ -499,7 +486,7 @@ define(['jquery', 'version-timeout', 'friends', 'jquery.caret'],
         }, POLL_TIMEOUT);
       }
     }).error(function(data) {
-      overlay.find('.inner-overlay').html('<ol class="message-summary"><li class="close">Close</li></ol>');
+      overlay.find('.inner-overlay').html(generateCloseLink());
       flashMessage(JSON.parse(data.responseText).error);
     });
   };
@@ -516,7 +503,7 @@ define(['jquery', 'version-timeout', 'friends', 'jquery.caret'],
       }).done(function(data) {
         currentMentionPostId = data.messages[0].id;
       }).error(function(data) {
-        overlay.find('.inner-overlay').html('<ol class="message-summary"><li class="close">Close</li></ol>');
+        overlay.find('.inner-overlay').html(generateCloseLink());
         flashMessage(JSON.parse(data.responseText).error);
       });
 
@@ -599,7 +586,7 @@ define(['jquery', 'version-timeout', 'friends', 'jquery.caret'],
 
       overlay.find('#avatar-pings').html(userListMeta);
     }).error(function(data) {
-      overlay.find('.inner-overlay').html('<ol class="message-summary"><li class="close">Close</li></ol>');
+      overlay.find('.inner-overlay').html(generateCloseLink());
       flashMessage(JSON.parse(data.responseText).error);
     });
   };
