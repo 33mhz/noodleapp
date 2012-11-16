@@ -793,10 +793,14 @@ define(['jquery', 'version-timeout', 'friends', 'jquery.caret'],
       isFragment = true;
       paginationLock = true;
       var isStarredFeed = false;
-      if (tabs.find('.selected').hasClass('user-starred')) {
-        isStarredFeed = true;
+      if (tabs.find('.selected').hasClass('user-interactions')) {
+        setInteractionMessage('/paginated/interactions', 'GET', true);
+      } else {
+        if (tabs.find('.selected').hasClass('user-starred')) {
+          isStarredFeed = true;
+        }
+        setMessage('/paginated/feed/' + userId + '/' + postId, 'GET', true, isStarredFeed);
       }
-      setMessage('/paginated/feed/' + userId + '/' + postId, 'GET', true, isStarredFeed);
     },
 
     clearUnread: function(self) {

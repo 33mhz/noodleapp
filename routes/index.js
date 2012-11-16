@@ -275,6 +275,19 @@ module.exports = function(app, client, isLoggedIn, noodle, config) {
     });
   });
 
+  app.get('/paginated/interactions', isLoggedIn, function(req, res) {
+    appnet.paginatedFeed(req, client, function(err, recentMessages) {
+      if (err) {
+        res.status(500);
+        res.json({ 'error': 'error retrieving the paginated feed' });
+      } else {
+        utils.generateInteractions(req, recentMessages, client, true, function(messages) {
+          res.json({ messages: messages });
+        });
+      }
+    });
+  });
+
   app.post('/post', isLoggedIn, function(req, res) {
     appnet.addMessage(req, client, function(err, recentMessage) {
       if (err) {
