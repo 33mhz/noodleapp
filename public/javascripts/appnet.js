@@ -177,22 +177,22 @@ define(['jquery', 'version-timeout', 'friends', 'jquery.caret'],
     var isRepost = '';
     var isThread = '';
     var metaInfo = '';
-    var isStarred = '<li class="star"><a title="Star" href="javascript:;">Star</a></li>';
+    var isStarred = '<li class="star"><a title="Star" href="javascript:;"><span>Star</span></a></li>';
 
     if (!msg.isSelf && !msg.repostId) {
       if (msg.isRepost) {
-        isRepost = '<li class="repost on"><a title="Unrepost" href="javascript:;">Unrepost</a></li>';
+        isRepost = '<li class="repost on"><a title="Unrepost" href="javascript:;"><span>Unrepost</span></a></li>';
       } else {
-        isRepost = '<li class="repost"><a title="Repost" href="javascript:;">Repost</a></li>';
+        isRepost = '<li class="repost"><a title="Repost" href="javascript:;"><span>Repost</span></a></li>';
       }
     }
 
     if (msg.isThread) {
-      isThread = '<li class="thread"><a title="Thread" href="javascript:;">Thread</a></li>';
+      isThread = '<li class="thread"><a title="Thread" href="javascript:;"><span>Thread</span></a></li>';
     }
 
     if (msg.isStarred) {
-      isStarred = '<li class="star on"><a title="Unstar" href="javascript:;">Unstar</a></li>';
+      isStarred = '<li class="star on"><a title="Unstar" href="javascript:;"><span>Unstar</span></a></li>';
     }
 
     if (showMeta) {
@@ -204,8 +204,8 @@ define(['jquery', 'version-timeout', 'friends', 'jquery.caret'],
     }
 
     detailExtras = '<ul class="actions ' + noTouch + '">' + isThread +
-      isStarred + '<li class="reply"><a title="Reply" href="javascript:;">Reply</a></li>' + isRepost +
-      '<li class="quote"><a title="Quote" href="javascript:;">Quote</a></li></ul>' + metaInfo;
+      isStarred + '<li class="reply"><a title="Reply" href="javascript:;"><span>Reply</span></a></li>' + isRepost +
+      '<li class="quote"><a title="Quote" href="javascript:;"><span>Quote</span></a></li></ul>' + metaInfo;
 
     return detailExtras;
   };
