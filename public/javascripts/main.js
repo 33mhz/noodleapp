@@ -186,25 +186,26 @@ define(['jquery', 'appnet', 'friends', 'user', 'jquery.caret'],
   /* Message functionality */
   messages.on('click', function(ev) {
     var self = $(ev.target);
+    var selfLink = self.parent();
 
     switch (true) {
-      case self.hasClass('reply'):
+      case selfLink.hasClass('reply'):
         self.closest('.message-item').find('time').click();
         break;
 
-      case self.hasClass('quote'):
+      case selfLink.hasClass('quote'):
         var textarea = self.closest('.dashboard-content').find('textarea');
         textarea.focus();
         write.find('.form-action-wrapper').slideDown('fast');
         textarea.val('"' + self.closest('.message-item').data('original') + '"');
         break;
 
-      case self.hasClass('delete'):
+      case selfLink.hasClass('delete'):
         appnet.deleteMessage(self.closest('.message-item').data('id'), csrf);
         self.closest('li.message-item').fadeOut();
         break;
 
-      case self.hasClass('thread'):
+      case selfLink.hasClass('thread'):
         appnet.showThread(self.closest('.message-item').data('id'));
         body.addClass('fixed');
         break;
@@ -236,7 +237,7 @@ define(['jquery', 'appnet', 'friends', 'user', 'jquery.caret'],
     var selfLink = self.parent();
 
     switch (true) {
-      case self.hasClass('reply'):
+      case selfLink.hasClass('reply'):
         var messageItem = self.closest('.message-item');
         var mentions = (messageItem.data('mentions') !== '') ? messageItem.data('mentions') + ' ' : '';
 
@@ -252,7 +253,7 @@ define(['jquery', 'appnet', 'friends', 'user', 'jquery.caret'],
         }
         break;
 
-      case self.hasClass('thread'):
+      case selfLink.hasClass('thread'):
         appnet.showThread(self.closest('.message-item').data('id'));
         body.addClass('fixed');
         break;
@@ -261,7 +262,7 @@ define(['jquery', 'appnet', 'friends', 'user', 'jquery.caret'],
         closeOverlay();
         break;
 
-      case self.hasClass('quote'):
+      case selfLink.hasClass('quote'):
         var textarea = overlay.find('textarea');
         textarea.focus();
         overlay.find('.form-action-wrapper').slideDown('fast');
@@ -273,6 +274,7 @@ define(['jquery', 'appnet', 'friends', 'user', 'jquery.caret'],
   // General activity for all shared functionality
   body.on('click', function(ev) {
     var self = $(ev.target);
+    var selfLink = self.parent();
 
     if (!self.hasClass('writeable')) {
       suggestions.empty();
@@ -293,26 +295,26 @@ define(['jquery', 'appnet', 'friends', 'user', 'jquery.caret'],
         write.find('textarea').blur();
         break;
 
-      case self.hasClass('star'):
-        if (self.hasClass('on')) {
-          self.removeClass('on');
-          self.find('span').text('Star');
+      case selfLink.hasClass('star'):
+        if (selfLink.hasClass('on')) {
+          selfLink.removeClass('on');
+          selfLink.find('span').text('Star');
           appnet.unstarMessage(self.closest('.message-item').data('id'), csrf);
         } else {
-          self.addClass('on');
-          self.find('span').text('Unstar');
+          selfLink.addClass('on');
+          selfLink.find('span').text('Unstar');
           appnet.starMessage(self.closest('.message-item').data('id'), csrf);
         }
         break;
 
-      case self.hasClass('repost'):
-        if (self.hasClass('on')) {
-          self.removeClass('on');
-          self.find('span').text('Repost');
+      case selfLink.hasClass('repost'):
+        if (selfLink.hasClass('on')) {
+          selfLink.removeClass('on');
+          selfLink.find('span').text('Repost');
           appnet.unrepostMessage(self.closest('.message-item').data('id'), csrf);
         } else {
-          self.addClass('on');
-          self.find('span').text('Unrepost');
+          selfLink.addClass('on');
+          selfLink.find('span').text('Unrepost');
           appnet.repostMessage(self.closest('.message-item').data('id'), csrf);
         }
         break;

@@ -968,6 +968,10 @@ ol.messages > li.hover .actions.no-touch > li a:hover span,
     display: block;
 }
 
+.actions > li {
+    opacity: 0.1;
+}
+
 .actions > li a {
     background-repeat: no-repeat;
     border: 0;
@@ -975,7 +979,6 @@ ol.messages > li.hover .actions.no-touch > li a:hover span,
     cursor: pointer;
     float: left;
     height: 23px;
-    opacity: 0.1;
     padding: 0;
     position: relative;
     width: 23px;
@@ -996,6 +999,10 @@ ol.messages > li.hover .actions.no-touch > li a:hover span,
     text-transform: uppercase;
     top: -27px;
     z-index: 4;
+}
+
+.actions > li:hover a span {
+    display: block;
 }
 
 .actions .thread a {
@@ -1028,7 +1035,7 @@ ol.messages > li.hover .actions.no-touch > li a:hover span,
     background-size: 22px;
 }
 
-.actions .on {
+.actions .on, .actions li:hover {
     opacity: 1.0;
 }
 
