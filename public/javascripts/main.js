@@ -411,10 +411,10 @@ define(['jquery', 'appnet', 'friends', 'user', 'jquery.caret'],
 
     if (!(self.is('textarea') || ev.ctrlKey || ev.shiftKey || ev.metaKey)) {
       if (ev.keyCode === K_KEYCODE || ev.keyCode === J_KEYCODE) {
-        currentMessage = body.find('.message-item.hover');
+        currentMessage = body.find('.message-item.selected-item');
         if (!currentMessage.length) {
           currentMessage = body.find('.message-item:first');
-          currentMessage.addClass('hover');
+          currentMessage.addClass('selected-item');
           return;
         }
 
@@ -426,8 +426,8 @@ define(['jquery', 'appnet', 'friends', 'user', 'jquery.caret'],
         }
 
         if (next.length) {
-          currentMessage.removeClass('hover');
-          next.addClass('hover');
+          currentMessage.removeClass('selected-item');
+          next.addClass('selected-item');
           $(window).scrollTop(next.position().top - 40);
           currentMessage = next;
         }

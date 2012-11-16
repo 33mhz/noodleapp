@@ -853,9 +853,12 @@ ol.messages > li.notify .post-wrapper {
     border-left: 3px solid #76e4f1;
 }
 
-ol.messages > li:hover .post-wrapper,
-ol.messages > li.hover .post-wrapper {
+ol.messages > li:hover .post-wrapper {
     border-left: 3px solid #d8fd2b;
+}
+
+.message-item.selected-item .post-wrapper {
+    border-left: 3px solid #ff7575;
 }
 
 ol.messages > li .meta {
