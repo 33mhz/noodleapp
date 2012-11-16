@@ -130,7 +130,8 @@ define(['jquery', 'version-timeout', 'friends', 'jquery.caret'],
       '" data-replyto="" data-original="" data-id="' +
       messageId + '" ' + 'data-username="' + message.username + '" data-minid="' + message.min_id + '">' +
       '<div class="post-wrapper"><div class="meta"><a href="" class="who" title=""><img src=""></a>' +
-      '<div class="details"><a href="" class="username"></a><a href="" class="fullname"></a><time data-created=""></time>' +
+      '<div class="details"><a href="" class="username"></a><a href="" class="fullname"></a>' +
+      '<time data-created="" title="Post details"></time>' +
       '</div></div><p></p>' + detailExtras + '</div></li>');
   };
 
@@ -189,27 +190,27 @@ define(['jquery', 'version-timeout', 'friends', 'jquery.caret'],
             if (showDetails) {
               var isRepost = '';
               var isThread = '';
-              var isStarred = '<li class="star"><span>Star</span></li>';
+              var isStarred = '<li class="star"><a title="Star">Star</a></li>';
 
               if (!data.messages[i].isSelf && !data.messages[i].repostId) {
                 if (data.messages[i].isRepost) {
-                  isRepost = '<li class="repost on"><span>Unrepost</span></li>';
+                  isRepost = '<li class="repost on"><a title="Unrepost">Unrepost</a></li>';
                 } else {
-                  isRepost = '<li class="repost"><span>Repost</a></li>';
+                  isRepost = '<li class="repost"><a title="Repost">Repost</a></li>';
                 }
               }
 
               if (data.messages[i].isThread) {
-                isThread = '<li class="thread"><span>Thread</span></li>';
+                isThread = '<li class="thread"><a title="Thread">Thread</a></li>';
               }
 
               if (data.messages[i].isStarred) {
-                isStarred = '<li class="star on"><span>Unstar</span></li>';
+                isStarred = '<li class="star on"><a title="Unstar">Unstar</a></li>';
               }
 
               detailExtras = '<ul class="actions ' + noTouch + '">' + isThread +
-                isStarred + '<li class="reply"><span>Reply</span></li>' + isRepost +
-                '<li class="quote"><span>Quote</span></li></ul><div class="info"><ol>' +
+                isStarred + '<li class="reply"><a title="Reply">Reply</a></li>' + isRepost +
+                '<li class="quote"><a title="Quote">Quote</a></li></ul><div class="info"><ol>' +
                 '<li class="reposts">Reposts: <span></span></li>' +
                 '<li class="stars">Stars: <span></span></li>' +
                 '<li class="replies">Replies: <span></span></li></ol></div>' +
@@ -331,35 +332,35 @@ define(['jquery', 'version-timeout', 'friends', 'jquery.caret'],
 
             var isRepost = '';
             var threadAction = '';
-            var isStarred = '<li class="star"><span>Star</span></li>';
+            var isStarred = '<li class="star"><a title="Star">Star</a></li>';
             var isDeletable = '';
             var actions = '';
 
             if (messageItem.isSelf) {
-              isDeletable = '<li class="delete"><span>Delete</a></li>';
+              isDeletable = '<li class="delete"><a title="Delete">Delete</a></li>';
             }
 
             if (!messageItem.isSelf) {
               if (messageItem.isRepost) {
-                isRepost = '<li class="repost on"><span>Unrepost</span></li>';
+                isRepost = '<li class="repost on"><a title="Unrepost">Unrepost</a></li>';
               } else {
-                isRepost = '<li class="repost"><span>Repost</a></li>';
+                isRepost = '<li class="repost"><a title="Repost">Repost</a></li>';
               }
             }
 
             if (messageItem.isThread) {
-              threadAction = '<li class="thread"><span>Thread</span></li>';
+              threadAction = '<li class="thread"><a title="Thread">Thread</a></li>';
             }
 
             if (messageItem.isStarred) {
-              isStarred = '<li class="star on"><span>Unstar</span></li>';
+              isStarred = '<li class="star on"><a title="Unstar">Unstar</a></li>';
             }
 
             var message = generatePostItem(messageItem, '');
 
             actions = $('<ol class="actions ' + noTouch + '">' + threadAction + isStarred +
-              '<li class="reply"><span>Reply</span></li>' +
-              isRepost + '<li class="quote"><span>Quote</span></li>' + isDeletable + '</ol>');
+              '<li class="reply"><a title="Reply">Reply</a></li>' +
+              isRepost + '<li class="quote"><a title="Quote">Quote</a></li>' + isDeletable + '</ol>');
 
             message.find('.post-wrapper').append(actions);
 
