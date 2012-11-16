@@ -951,26 +951,39 @@ time:hover {
 }
 
 .actions > li {
+    display: inline-block;
+    margin: 7px 8px 0 0;
+}
+
+ol.messages > li:hover .actions.no-touch > li a,
+ol.messages > li.hover .actions.no-touch > li a,
+#overlay .actions.no-touch > li a:hover,
+.actions > li a:focus {
+    opacity: 1.0;
+}
+
+ol.messages > li:hover .actions.no-touch > li a:hover span,
+ol.messages > li.hover .actions.no-touch > li a:hover span,
+#overlay .actions.no-touch > li a:hover span,
+.actions > li a:focus span {
+    display: block;
+}
+
+.actions > li a {
     background-repeat: no-repeat;
     border: 0;
     box-shadow: none;
     cursor: pointer;
     float: left;
     height: 23px;
-    margin: 7px 8px 0 0;
     opacity: 0.1;
     padding: 0;
     position: relative;
     width: 23px;
+    display: inline-block;
 }
 
-ol.messages > li:hover .actions.no-touch > li,
-ol.messages > li.hover .actions.no-touch > li,
-#overlay .actions.no-touch > li:hover {
-    opacity: 1.0;
-}
-
-.actions > li a {
+.actions > li a span {
     background-color: #111;
     border-radius: 3px;
     color: #eee;
@@ -986,32 +999,32 @@ ol.messages > li.hover .actions.no-touch > li,
     z-index: 4;
 }
 
-.actions .thread {
+.actions .thread a {
     background-image: url('/images/thread.png');
     background-size: 22px;
 }
 
-.actions .star {
+.actions .star a {
     background-image: url('/images/star.png');
     background-size: 22px;
 }
 
-.actions .reply {
+.actions .reply a {
     background-image: url('/images/reply.png');
     background-size: 22px;
 }
 
-.actions .repost {
+.actions .repost a {
     background-image: url('/images/repost.png');
     background-size: 22px;
 }
 
-.actions .delete {
+.actions .delete a {
     background-image: url('/images/delete.png');
     background-size: 22px;
 }
 
-.actions .quote {
+.actions .quote a {
     background-image: url('/images/quote.png');
     background-size: 22px;
 }
