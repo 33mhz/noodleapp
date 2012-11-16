@@ -284,6 +284,10 @@ header a#notifications.on:hover {
     text-decoration: none;
 }
 
+.high-contrast .close {
+    color: #666;
+}
+
 .close:hover {
     color: #111;
 }
@@ -411,11 +415,11 @@ ol.messages #paginated.loading {
     width: 560px;
 }
 
-#directed-feed, #media-on, #charlimit {
+#directed-feed, #media-on, #charlimit, #high-contrast {
     background-image: url('/images/settings-off.png');
 }
 
-#directed-feed.on, #media-on.on, #charlimit.on {
+#directed-feed.on, #media-on.on, #charlimit.on, #high-contrast.on {
     background-image: url('/images/settings-on.png');
 }
 
@@ -695,6 +699,10 @@ section.public li h1 {
     height: 65px;
 }
 
+.high-contrast .write textarea.on {
+    border: 1px solid #333;
+}
+
 .counter {
     color: #dedede;
     font-family: 'Oswald';
@@ -767,6 +775,11 @@ section.public li a {
     padding: 6px 12px 5px;
     text-decoration: none;
     text-transform: uppercase;
+}
+
+.high-contrast .tabs a {
+    background-color: #888;
+    color: #eee;
 }
 
 a.tabs a, .action-buttons a {
@@ -924,6 +937,10 @@ time {
     width: 30px;
 }
 
+.high-contrast time {
+    background-color: #555;
+}
+
 time {
     cursor: pointer;
 }
@@ -971,6 +988,10 @@ time:hover {
     position: relative;
     width: 23px;
     display: inline-block;
+}
+
+.high-contrast .actions > a {
+    opacity: 0.6;
 }
 
 .actions > a span {
@@ -1066,6 +1087,10 @@ ol.messages > li p a, #overlay .message-summary li p a {
     color: #20c2c0;
     text-decoration: none;
     white-space: nowrap;
+}
+
+.high-contrast ol.messages > li p a, .high-contrast #overlay .message-summary li p a {
+    color: #0b85b3;
 }
 
 ol.messages > li p .image-wrapper, ol.messages > li p .object-wrapper {

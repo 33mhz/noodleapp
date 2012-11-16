@@ -24,6 +24,7 @@ module.exports = function(app, client, isLoggedIn, noodle, config) {
       });
 
       var mediaOn = '';
+      var highContrast = '';
 
       userDb.getSettings(req, client, function(err, userItems) {
         if (err) {
@@ -33,6 +34,10 @@ module.exports = function(app, client, isLoggedIn, noodle, config) {
 
           if (userItems.mediaOn === 'false') {
             mediaOn = 'media-disable';
+          }
+
+          if (userItems.highContrast === 'true') {
+            highContrast = 'high-contrast';
           }
 
           if (userItems.charLimit === 'true') {
@@ -54,6 +59,7 @@ module.exports = function(app, client, isLoggedIn, noodle, config) {
             loggedInId: utils.getUserById(req),
             username: utils.getUser(req).username,
             mediaOn: mediaOn,
+            highContrast: highContrast,
             charLimit: charLimit,
             loggedUsername: utils.getUser(req).username,
             analytics: analytics
@@ -68,6 +74,7 @@ module.exports = function(app, client, isLoggedIn, noodle, config) {
         loggedInId: '',
         username: '',
         mediaOn: '',
+        highContrast: '',
         charLimit: charLimit,
         loggedUsername: '',
         analytics: analytics
@@ -97,6 +104,7 @@ module.exports = function(app, client, isLoggedIn, noodle, config) {
           }
 
           var mediaOn = '';
+          var highContrast = '';
 
           userDb.getSettings(req, client, function(err, userItems) {
             if (err) {
@@ -105,6 +113,10 @@ module.exports = function(app, client, isLoggedIn, noodle, config) {
             } else {
               if (userItems.mediaOn === 'false') {
                 mediaOn = 'media-disable';
+              }
+
+              if (userItems.highContrast === 'true') {
+                highContrast = 'high-contrast';
               }
 
               if (userItems.charLimit === 'true') {
@@ -130,6 +142,7 @@ module.exports = function(app, client, isLoggedIn, noodle, config) {
               description: description,
               loggedInId: utils.getUserById(req),
               mediaOn: mediaOn,
+              highContrast: highContrast,
               charLimit: charLimit,
               loggedUsername: utils.getUser(req).username,
               analytics: analytics

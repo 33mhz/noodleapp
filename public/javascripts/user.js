@@ -8,6 +8,7 @@ define(['jquery'],
   var directedFeed = false;
   var mediaOn = false;
   var charLimit = false;
+  var highContrast = false;
 
   var self = {
     getSettings: function() {
@@ -25,6 +26,7 @@ define(['jquery'],
           '<span id="directed-feed"></span> <p>Include posts directed to users I don\'t follow</p></li>' +
           '<li><span id="media-on"></span> <p>Auto-embed media</p></li>' +
           '<li><span id="charlimit"></span> <p>Limit to 140 characters</p></li>' +
+          '<li><span id="high-contrast"></span> <p>Set high contrast interace</p></li>' +
           '</ul></li><li class="close">Close</li></ol>');
 
         if (data.settings.directedFeed === 'true') {
@@ -42,11 +44,16 @@ define(['jquery'],
           charLimit = true;
         }
 
+        if (data.settings.highContrast === 'true') {
+          settingsList.find('#high-contrast').addClass('on');
+          highContrast = true;
+        }
+
         overlay.find('.inner-overlay').html(settingsList);
       });
     },
 
-    saveSettings: function(directedFeed, mediaOn, charLimit, csrf) {
+    saveSettings: function(directedFeed, mediaOn, charLimit, highContrast, csrf) {
       $.ajax({
         url: '/settings',
         type: 'POST',
@@ -54,6 +61,7 @@ define(['jquery'],
           directed_feed: directedFeed,
           media_on: mediaOn,
           char_limit: charLimit,
+          high_contrast: highContrast,
           _csrf: csrf
         },
         dataType: 'json',

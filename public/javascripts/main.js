@@ -115,6 +115,7 @@ define(['jquery', 'appnet', 'friends', 'user', 'jquery.caret'],
     var directedFeed = false;
     var mediaOn = false;
     var charLimit = false;
+    var highContrast = false;
 
     if (self.hasClass('on')) {
       self.removeClass('on');
@@ -134,7 +135,11 @@ define(['jquery', 'appnet', 'friends', 'user', 'jquery.caret'],
       charLimit = true;
     }
 
-    user.saveSettings(directedFeed, mediaOn, charLimit, write.find('input[name="_csrf"]').val());
+    if (overlay.find('#high-contrast').hasClass('on')) {
+      highContrast = true;
+    }
+
+    user.saveSettings(directedFeed, mediaOn, charLimit, highContrast, write.find('input[name="_csrf"]').val());
   };
 
   /* Feed functionality */
@@ -360,6 +365,7 @@ define(['jquery', 'appnet', 'friends', 'user', 'jquery.caret'],
       case self.is('#charlimit'):
       case self.is('#media-on'):
       case self.is('#directed-feed'):
+      case self.is('#high-contrast'):
         saveSettings(self);
         break;
 
