@@ -454,9 +454,19 @@ define(['jquery', 'appnet', 'friends', 'user', 'jquery.caret'],
         ev.preventDefault();
       }
 
-      if (currentMessage && keyCodeToClassName[ev.keyCode]) {
-        currentMessage.find(keyCodeToClassName[ev.keyCode]).click();
-        ev.preventDefault();
+      if (currentMessage) {
+        if (ev.keyCode == F_KEYCODE || ev.keyCode == U_KEYCODE) {
+          var username = currentMessage.data('username');
+          if (ev.keyCode == F_KEYCODE) {
+            appnet.follow(username, csrf, true);
+          } else {
+            appnet.unfollow(username, csrf, true);
+          }
+          ev.preventDefault();
+        } else if(keyCodeToClassName[ev.keyCode]) {
+          currentMessage.find(keyCodeToClassName[ev.keyCode]).click();
+          ev.preventDefault();
+        }
       }
     }
   });
@@ -480,12 +490,12 @@ define(['jquery', 'appnet', 'friends', 'user', 'jquery.caret'],
         if (self.hasClass('on')) {
           self.removeClass('on');
           self.text('Follow');
-          appnet.unfollow(self.parent().data('userid'), self.parent().data('username'), csrf);
+          appnet.unfollow(self.parent().data('username'), csrf, false);
 
         } else {
           self.addClass('on');
           self.text('Unfollow');
-          appnet.follow(self.parent().data('userid'), self.parent().data('username'), csrf);
+          appnet.follow(self.parent().data('username'), csrf, false);
         }
         break;
 
