@@ -1661,6 +1661,7 @@ img.hush {
     }
 
     .write textarea {
+        margin-top: 20px;
         width: 260px;
     }
 
