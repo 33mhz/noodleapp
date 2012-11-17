@@ -434,9 +434,19 @@ define(['jquery', 'appnet', 'friends', 'user', 'jquery.caret'],
         ev.preventDefault();
       }
 
-      if (currentMessage && keyCodeToClassName[ev.keyCode]) {
-        currentMessage.find(keyCodeToClassName[ev.keyCode]).click();
-        ev.preventDefault();
+      if (currentMessage) {
+        if (ev.keyCode == F_KEYCODE || ev.keyCode == U_KEYCODE) {
+          var username = currentMessage.data('username');
+          if (ev.keyCode == F_KEYCODE) {
+            appnet.follow(username, csrf, true);
+          } else {
+            appnet.unfollow(username, csrf, true);
+          }
+          ev.preventDefault();
+        } else if(keyCodeToClassName[ev.keyCode]) {
+          currentMessage.find(keyCodeToClassName[ev.keyCode]).click();
+          ev.preventDefault();
+        }
       }
     }
   });
