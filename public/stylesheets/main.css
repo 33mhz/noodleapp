@@ -958,7 +958,7 @@ ol.messages > li:hover .post-wrapper {
     border-left: 3px solid #d8fd2b;
 }
 
-.message-item.selected-item .post-wrapper {
+li.message-item.selected-item div.post-wrapper {
     border-left: 3px solid #ff7575;
 }
 
