@@ -256,7 +256,7 @@ describe('appnet', function() {
     });
 
     it('returns paginated my feed', function(done) {
-      req.session.url = '';
+      req.session.url = '/my/feed';
       var scope = nock(APPNET_URL)
         .get('/stream/0/posts/stream?access_token=1&since_id=&before_id=1&include_deleted=0&include_directed_posts=0&include_annotations=1')
         .reply(200, POST_JSON);
