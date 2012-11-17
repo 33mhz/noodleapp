@@ -177,6 +177,7 @@ define(['jquery', 'version-timeout', 'friends', 'jquery.caret'],
     var isRepost = '';
     var isThread = '';
     var metaInfo = '';
+    var isDeletable = '';
     var isStarred = '<a class="star" title="Star" href="javascript:;"><span>Star</span></a>';
 
     if (!msg.isSelf && !msg.repostId) {
@@ -195,6 +196,10 @@ define(['jquery', 'version-timeout', 'friends', 'jquery.caret'],
       isStarred = '<a class="star on" title="Unstar" href="javascript:;"><span>Unstar</span></a>';
     }
 
+    if (msg.isSelf) {
+      isDeletable = '<a class="delete" title="Delete" href="javascript:;"><span>Delete</a></a>';
+    }
+
     if (showMeta) {
       metaInfo = '<div class="info"><ol>' +
         '<li class="reposts">Reposts: <span></span></li>' +
@@ -205,7 +210,7 @@ define(['jquery', 'version-timeout', 'friends', 'jquery.caret'],
 
     detailExtras = '<div class="actions ' + noTouch + '">' + isThread +
       isStarred + '<a class="reply" title="Reply" href="javascript:;"><span>Reply</span></a>' + isRepost +
-      '<a class="quote" title="Quote" href="javascript:;"><span>Quote</span></a></div>' + metaInfo;
+      '<a class="quote" title="Quote" href="javascript:;"><span>Quote</span></a>' + isDeletable + '</div>' + metaInfo;
 
     return detailExtras;
   };

@@ -36,6 +36,7 @@ define(['jquery', 'appnet', 'friends', 'user', 'jquery.caret'],
   var RETURN_KEYCODE = 13;
   var ESCAPE_KEYCODE = 27;
   var SPACE_KEYCODE = 32;
+  var D_KEYCODE = 68;
   var F_KEYCODE = 70;
   var J_KEYCODE = 74;
   var K_KEYCODE = 75;
@@ -396,6 +397,7 @@ define(['jquery', 'appnet', 'friends', 'user', 'jquery.caret'],
   });
 
   var keyCodeToClassName = {};
+  keyCodeToClassName[D_KEYCODE] = '.delete';
   keyCodeToClassName[T_KEYCODE] = '.thread';
   keyCodeToClassName[S_KEYCODE] = '.star';
   keyCodeToClassName[R_KEYCODE] = '.reply';
