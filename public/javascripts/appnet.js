@@ -86,11 +86,11 @@ define(['jquery', 'version-timeout', 'friends', 'jquery.caret'],
       data: data,
       dataType: 'json',
       cache: false
-    }).always(function(data) {
+    }).done(function(data) {
       if (callback) {
         callback();
       }
-    }).error(function(data) {
+    }).fail(function(data) {
       overlay.find('.inner-overlay').html(generateCloseLink());
       flashMessage(JSON.parse(data.responseText).error);
     });
