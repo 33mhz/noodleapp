@@ -46,6 +46,7 @@ define(['jquery', 'appnet', 'friends', 'user', 'jquery.caret'],
   var S_KEYCODE = 83;
   var T_KEYCODE = 84;
   var U_KEYCODE = 85;
+  var QUESTION_SLASH_KEYCODE = 191;
 
   var MESSAGE_LIMIT = 99;
 
@@ -407,12 +408,18 @@ define(['jquery', 'appnet', 'friends', 'user', 'jquery.caret'],
   body.on('keydown', function(ev) {
     var self = $(ev.target);
 
+    // Close all overlays and menus if ESC is pressed
     if (ev.keyCode === ESCAPE_KEYCODE && (body.hasClass('fixed') || menuOpen)) {
       closeOverlay();
       mapMenu
         .removeClass('on')
         .addClass('off');
       menuOpen = false;
+    }
+
+    // Open menu if ctrl|cmd|shift + ?|/ is pressed
+    if (ev.keyCode === QUESTION_SLASH_KEYCODE && (ev.ctrlKey || ev.metaKey || ev.shiftKey)) {
+      mapMenu.find('#menu-toggle').click();
     }
 
     switch (true) {

@@ -1336,7 +1336,7 @@ img.hush {
 
     .actions .thread {
         background-image: url('/images/thread2x.png');
-        background-size: auto 24px;
+        background-size: auto 23px;
     }
 
     .actions .star {
@@ -1346,7 +1346,7 @@ img.hush {
 
     .actions .reply {
         background-image: url('/images/reply2x.png');
-        background-size: auto 25px;
+        background-size: auto 23px;
     }
 
     .actions .repost {
