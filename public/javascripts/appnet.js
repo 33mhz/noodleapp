@@ -783,7 +783,7 @@ define(['jquery', 'version-timeout', 'friends', 'jquery.caret'],
       resetFluid();
     },
 
-    getOlderPosts: function(postId) {
+    getOlderPosts: function(postId, callback) {
       isFragment = true;
       paginationLock = true;
       var isStarredFeed = false;
@@ -793,7 +793,11 @@ define(['jquery', 'version-timeout', 'friends', 'jquery.caret'],
         if (tabs.find('.selected').hasClass('user-starred')) {
           isStarredFeed = true;
         }
-        setMessage('/paginated/feed/' + userId + '/' + postId, 'GET', true, isStarredFeed);
+        setMessage('/paginated/feed/' + userId + '/' + postId, 'GET', true, isStarredFeed, function() {
+          if (callback) {
+            callback();
+          }
+        });
       }
     },
 

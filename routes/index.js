@@ -130,8 +130,6 @@ module.exports = function(app, client, isLoggedIn, noodle, config) {
               analytics = config.get('analytics');
             }
 
-            req.session.url = '/user/posts/' + user.id;
-
             res.render('profile', {
               pageType: 'profile',
               csrf: req.session._csrf,

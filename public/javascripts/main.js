@@ -184,7 +184,7 @@ define(['jquery', 'appnet', 'friends', 'user', 'jquery.caret'],
         });
         break;
 
-      default:
+      case self.hasClass('my-feed'):
         updateFeed(self, function() {
           appnet.getMyFeed();
         });
@@ -411,10 +411,12 @@ define(['jquery', 'appnet', 'friends', 'user', 'jquery.caret'],
     // Close all overlays and menus if ESC is pressed
     if (ev.keyCode === ESCAPE_KEYCODE && (body.hasClass('fixed') || menuOpen)) {
       closeOverlay();
-      mapMenu
-        .removeClass('on')
-        .addClass('off');
-      menuOpen = false;
+      if (mapMenu.hasClass('on')) {
+        mapMenu
+          .removeClass('on')
+          .addClass('off');
+        menuOpen = false;
+      }
     }
 
     // Open menu if ctrl|cmd|shift + ?|/ is pressed
