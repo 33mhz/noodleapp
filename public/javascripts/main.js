@@ -420,7 +420,9 @@ define(['jquery', 'appnet', 'friends', 'user', 'jquery.caret'],
     }
 
     // Open menu if ctrl|cmd|shift + ?|/ is pressed
-    if (ev.keyCode === QUESTION_SLASH_KEYCODE && (ev.ctrlKey || ev.metaKey || ev.shiftKey)) {
+    if (ev.keyCode === QUESTION_SLASH_KEYCODE
+      && (ev.ctrlKey || ev.metaKey || ev.shiftKey)
+      && !write.find('textarea').hasClass('on')) {
       mapMenu.find('#menu-toggle').click();
     }
 
