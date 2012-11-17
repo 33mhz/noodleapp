@@ -1533,6 +1533,10 @@ img.hush {
         width: 320px;
     }
 
+    #map-menu {
+        display: none;
+    }
+
     #overlay {
         margin-left: -161px;
         width: 282px;
