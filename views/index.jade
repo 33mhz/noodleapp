@@ -1,16 +1,17 @@
 extend layout
 
+block tabs
+  .tabs
+    a.my-feed.selected(data-url='/my/feed', href='javascript:;', title='My Feed') My Feed
+    a.user-mentions(data-url='/user/mentions/#{session.id}', href='javascript:;', title='Mentions') Mentions
+    a.user-interactions(data-url='/user/interactions/#{session.id}', href='javascript:;', title='Interact') Interact
+    a.global-feed(data-url='/global/feed', href='javascript:;', title='Global') Global
+
 block content
   if session
     mixin messageForm('', 'Write your message', '', 'Post')
 
     section
-      .tabs
-        a.my-feed.selected(data-url='/my/feed', href='javascript:;', title='My Feed') My Feed
-        a.user-mentions(data-url='/user/mentions/#{session.id}', href='javascript:;', title='Mentions') Mentions
-        a.user-interactions(data-url='/user/interactions/#{session.id}', href='javascript:;', title='Interact') Interact
-        a.global-feed(data-url='/global/feed', href='javascript:;', title='Global') Global
-
       ol#unread-messages
         h2
         ol

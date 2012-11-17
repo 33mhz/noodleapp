@@ -100,17 +100,17 @@ body.fixed {
 }
 
 #map-menu.on {
-    animation-duration: 500ms;
+    animation-duration: 300ms;
     animation-name: slideout;
-    -webkit-transition-duration: 500ms;
+    -webkit-transition-duration: 300ms;
     -webkit-transition-animation-name: slideout;
     left: 0;
 }
 
 #map-menu.off {
-    animation-duration: 500ms;
+    animation-duration: 200ms;
     animation-name: slidein;
-    -webkit-transition-duration: 500ms;
+    -webkit-transition-duration: 200ms;
     -webkit-transition-animation-name: slidein;
     left: -390px;
 }
@@ -181,16 +181,19 @@ body.fixed {
 }
 
 header {
-    background: #f9f9f9;
+    background-color: rgba(249, 249, 249, 0.87);
     border-bottom: 1px solid #fff;
     box-shadow: #999 -2px 0 3px;
     color: #eee;
     font-family: 'Oswald';
-    opacity: 0.8;
     padding: 3px 0;
     position: fixed;
     width: 100%;
     z-index: 3;
+}
+
+.high-contrast header {
+    background-color: rgb(249, 249, 249);
 }
 
 header a {
@@ -249,7 +252,7 @@ header a#notifications {
     min-width: 18px;
 }
 
-header a:hover {
+header > a:hover {
     opacity: 0.4;
 }
 
@@ -857,21 +860,28 @@ section.public li a {
 
 .tabs {
     display: block;
-    float: left;
-    margin-bottom: 5px;
+    margin: 0 auto;
+    width: 360px;
 }
 
 .tabs a {
     background-color: #ddd;
-    border-radius: 5px;
-    color: #bbb;
+    border-radius: 3px;
+    color: #aaa;
     display: block;
     float: left;
     font-family: 'Oswald';
-    margin-right: 5px;
-    padding: 6px 12px 5px;
+    font-size: 15px;
+    margin: 0 5px;
+    padding: 5px 0 3px;
+    text-align: center;
     text-decoration: none;
     text-transform: uppercase;
+    width: 80px;
+}
+
+.tabs.long a {
+    width: 110px;
 }
 
 .high-contrast .tabs a {
@@ -903,9 +913,14 @@ a.tabs a, .action-buttons a {
     margin-left: 0;
 }
 
-.tabs a.selected, .tabs a:hover {
-    background-color: #fff;
-    color: #888;
+.tabs a.selected {
+    background-color: #a7eae4;
+    color: #20c2c0;
+}
+
+.high-contrast .tabs a.selected {
+    background-color: #20c2c0;
+    color: #fff;
 }
 
 .tabs a:hover, .action-buttons a:hover {
@@ -1533,6 +1548,10 @@ img.hush {
         width: 320px;
     }
 
+    .write {
+        margin-top: 52px;
+    }
+
     #map-menu {
         display: none;
     }
@@ -1611,11 +1630,24 @@ img.hush {
         top: 182px;
     }
 
+    .tabs {
+        bottom: -24px;
+        left: 50%;
+        margin-left: -142px;
+        position: absolute;
+        width: 288px;
+    }
+
     .tabs a {
         font-size: 13px;
         line-height: 15px;
-        margin: 6px 2px 0;
-        padding: 5px 8px;
+        margin: 0 2px;
+        padding: 4px 0;
+        width: 68px;
+    }
+
+    .tabs.long a {
+        width: 92px;
     }
 
     #overlay .meta {
