@@ -433,7 +433,7 @@ define(['jquery', 'appnet', 'friends', 'user', 'jquery.caret'],
       if (ev.keyCode === K_KEYCODE || ev.keyCode === J_KEYCODE) {
         currentMessage = body.find('.message-item.selected-item');
         if (!currentMessage.length) {
-          currentMessage = body.find('.message-item:first');
+          currentMessage = body.find('.message-item:visible:first');
           currentMessage.addClass('selected-item');
           return;
         }
