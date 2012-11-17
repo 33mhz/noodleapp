@@ -21,11 +21,13 @@ define(['jquery', 'appnet', 'friends', 'user', 'jquery.caret'],
   var suggestions = body.find('ol.suggestions');
   var notifications = body.find('#notifications-preview');
   var notificationIcon = body.find('#notifications');
+  var mapMenu = body.find('#map-menu');
   var win = $(window);
   var doc = $(document);
   var csrf = write.find('input[name="_csrf"]').val();
   var postLoad = false;
   var notificationsDisplay = false;
+  var menuOpen = false;
   var currentMessage;
 
   var CHAR_MAX = parseInt(body.data('charlimit'), 10);
@@ -376,6 +378,20 @@ define(['jquery', 'appnet', 'friends', 'user', 'jquery.caret'],
           messages.append('<li id="paginated">View Older</li>');
         }
         break;
+
+      case self.is('#menu-toggle'):
+        if (!menuOpen) {
+          menuOpen = true;
+          mapMenu
+            .removeClass('off')
+            .addClass('on');
+        } else {
+          menuOpen = false;
+          mapMenu
+            .removeClass('on')
+            .addClass('off');
+        }
+        break;
     }
   });
 
@@ -389,8 +405,12 @@ define(['jquery', 'appnet', 'friends', 'user', 'jquery.caret'],
   body.on('keydown', function(ev) {
     var self = $(ev.target);
 
-    if (ev.keyCode === ESCAPE_KEYCODE && body.hasClass('fixed')) {
+    if (ev.keyCode === ESCAPE_KEYCODE && (body.hasClass('fixed') || menuOpen)) {
       closeOverlay();
+      mapMenu
+        .removeClass('on')
+        .addClass('off');
+      menuOpen = false;
     }
 
     switch (true) {

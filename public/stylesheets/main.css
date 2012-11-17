@@ -79,6 +79,107 @@ body.fixed {
     overflow: hidden;
 }
 
+@keyframes slideout {
+    from {
+        left: -390px;
+    }
+
+    to {
+        left: 0;
+    }
+}
+
+@keyframes slidein {
+    from {
+        left: 0;
+    }
+
+    to {
+        left: -390px;
+    }
+}
+
+#map-menu.on {
+    animation-duration: 500ms;
+    animation-name: slideout;
+    -webkit-transition-duration: 500ms;
+    -webkit-transition-animation-name: slideout;
+    left: 0;
+}
+
+#map-menu.off {
+    animation-duration: 500ms;
+    animation-name: slidein;
+    -webkit-transition-duration: 500ms;
+    -webkit-transition-animation-name: slidein;
+    left: -390px;
+}
+
+#map-menu {
+    background-color: #111;
+    border-bottom-right-radius: 20px;
+    border-top-right-radius: 20px;
+    color: #ccc;
+    left: -390px;
+    opacity: 0.97;
+    padding: 30px 20px;
+    position: fixed;
+    top: 50px;
+    width: 350px;
+    z-index: 5;
+}
+
+#map-menu .tag {
+    background-color: #ccc;
+    border-top: 2px solid #fff;
+    border-right: 2px solid #fff;
+    border-bottom: 2px solid #fff;
+    border-bottom-right-radius: 20px;
+    border-top-right-radius: 20px;
+    height: 42px;
+    padding: 5px;
+    position: absolute;
+    right: -42px;
+    top: 30px;
+    width: 30px;
+}
+
+#map-menu .tag:hover {
+    background-color: #111;
+}
+
+.tag:hover #menu-toggle {
+    color: #fff;
+}
+
+#menu-toggle {
+    color: #f1f1f1;
+    display: block;
+    font-family: 'Oswald';
+    font-size: 30px;
+    padding: 5px;
+    text-decoration: none;
+}
+
+#map-menu h2 {
+    color: #666;
+    font-family: 'Oswald';
+    font-size: 20px;
+    text-transform: uppercase;
+}
+
+#map-menu ul {
+    margin-top: 20px;
+}
+
+#map-menu li {
+    background-color: #222;
+    border-radius: 3px;
+    font-size: 14px;
+    margin: 3px 0 0;
+    padding: 7px 8px;
+}
+
 header {
     background: #f9f9f9;
     border-bottom: 1px solid #fff;
@@ -991,7 +1092,7 @@ time:hover {
 }
 
 .high-contrast .actions > a {
-    opacity: 0.6;
+    opacity: 0.5;
 }
 
 .actions > a span {
