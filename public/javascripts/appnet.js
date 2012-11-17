@@ -689,17 +689,19 @@ define(['jquery', 'version-timeout', 'friends', 'jquery.caret'],
       serverRequest('/repost', 'DELETE', { post_id: id, _csrf: csrf });
     },
 
-    follow: function(id, username, csrf) {
+    follow: function(username, csrf, flashUsername) {
       isFragment = true;
-      serverRequest('/follow', 'POST', { user_id: id, username: username, _csrf: csrf }, function() {
-        flashMessage('Followed!');
+      serverRequest('/follow', 'POST', { username: username, _csrf: csrf }, function() {
+        var msg = 'Followed' + (flashUsername ? ' ' + username : '') + '!';
+        flashMessage(msg);
       });
     },
 
-    unfollow: function(id, username, csrf) {
+    unfollow: function(username, csrf, flashUsername) {
       isFragment = true;
-      serverRequest('/follow', 'DELETE', { user_id: id, username: username, _csrf: csrf }, function() {
-        flashMessage('Unfollowed');
+      serverRequest('/follow', 'DELETE', { username: username, _csrf: csrf }, function() {
+        var msg = 'Unfollowed' + (flashUsername ? ' ' + username : '') + '!';
+        flashMessage(msg);
       });
     },
 

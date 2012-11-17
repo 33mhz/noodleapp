@@ -460,12 +460,12 @@ define(['jquery', 'appnet', 'friends', 'user', 'jquery.caret'],
         if (self.hasClass('on')) {
           self.removeClass('on');
           self.text('Follow');
-          appnet.unfollow(self.parent().data('userid'), self.parent().data('username'), csrf);
+          appnet.unfollow(self.parent().data('username'), csrf, false);
 
         } else {
           self.addClass('on');
           self.text('Unfollow');
-          appnet.follow(self.parent().data('userid'), self.parent().data('username'), csrf);
+          appnet.follow(self.parent().data('username'), csrf, false);
         }
         break;
 
