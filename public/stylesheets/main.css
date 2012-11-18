@@ -378,7 +378,8 @@ header a#notifications.on:hover {
     text-transform: uppercase;
 }
 
-.close {
+.close, #overlay ol.users .close {
+    background-color: transparent;
     color: #aaa;
     cursor: pointer;
     float: right;
@@ -388,11 +389,12 @@ header a#notifications.on:hover {
     text-decoration: none;
 }
 
-.high-contrast .close {
+.high-contrast .close, #overlay ol.users .close {
     color: #666;
 }
 
-.close:hover {
+.close:hover, #overlay ol.users .close:hover {
+    background-color: transparent;
     color: #111;
 }
 
@@ -463,8 +465,8 @@ ol.messages #paginated.loading {
     display: block;
     float: left;
     font-family: 'Oswald';
-    font-size: 18px;
-    line-height: 35px;
+    font-size: 16px;
+    line-height: 33px;
     overflow: hidden;
     text-overflow: ellipsis;
     width: 605px;
@@ -477,7 +479,6 @@ ol.messages #paginated.loading {
 
 #overlay .users li:hover em {
     color: #eee;
-    padding-left: 10px;
 }
 
 #overlay .inner-overlay h1 {
@@ -487,7 +488,7 @@ ol.messages #paginated.loading {
     text-transform: uppercase;
 }
 
-#overlay .inner-overlay .settings-details ul li span {
+#overlay .inner-overlay .settings-details ul li a {
     background-repeat: no-repeat;
     cursor: pointer;
     display: block;
@@ -496,7 +497,7 @@ ol.messages #paginated.loading {
     width: 25px;
 }
 
-#overlay .inner-overlay .settings-details ul li span:hover {
+#overlay .inner-overlay .settings-details ul li a:hover {
     opacity: 0.4;
 }
 
@@ -1479,6 +1480,10 @@ img.hush {
         width: 405px;
     }
 
+    #overlay ol.users {
+        margin-top: 20px;
+    }
+
     #overlay .write textarea, ol.messages > li.message-item p {
         width: 450px;
     }
@@ -1639,6 +1644,9 @@ img.hush {
     }
 
     .tabs a {
+        border-bottom: 1px solid #555;
+        border-top-left-radius: 0;
+        border-top-right-radius: 0;
         font-size: 13px;
         line-height: 15px;
         margin: 0 2px;
@@ -1684,6 +1692,10 @@ img.hush {
     #overlay .inner-overlay .message-summary li p {
         margin-left: 0;
         width: 270px;
+    }
+
+    #overlay h1 {
+        margin-top: 20px;
     }
 
     .dashboard-content {

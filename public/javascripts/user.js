@@ -23,11 +23,12 @@ define(['jquery'],
 
       }).done(function(data) {
         var settingsList = $('<h1>Settings</h1><ol class="message-summary settings-details"><li><ul><li>' +
-          '<span id="directed-feed"></span> <p>Include posts directed to users I don\'t follow</p></li>' +
-          '<li><span id="media-on"></span> <p>Auto-embed media</p></li>' +
-          '<li><span id="charlimit"></span> <p>Limit to 140 characters</p></li>' +
-          '<li><span id="high-contrast"></span> <p>Set high contrast interace</p></li>' +
-          '</ul></li><li class="close">Close</li></ol>');
+          '<a href="javascript:;" id="directed-feed" title="Include posts directed to users I don\'t follow"></a>' +
+          '<p>Include posts directed to users I don\'t follow</p></li>' +
+          '<li><a href="javascript:;" id="media-on" title="Auto-embed media"></a> <p>Auto-embed media</p></li>' +
+          '<li><a href="javascript:;" id="charlimit" title="Limit to 140 characters"></a> <p>Limit to 140 characters</p></li>' +
+          '<li><a href="javascript:;" id="high-contrast" title="Set high contrast interface"></a> ' +
+          '<p>Set high contrast interface</p></li></ul></li><li class="close">Close</li></ol>');
 
         if (data.settings.directedFeed === 'true') {
           settingsList.find('#directed-feed').addClass('on');
