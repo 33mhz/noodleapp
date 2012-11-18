@@ -435,7 +435,8 @@ define(['jquery', 'version-timeout', 'friends', 'jquery.caret'],
             var message = $('<li class="message-item" data-id="' +
               messageItem.id + '" ' + 'data-minid="' +
               messageItem.minId + '">' +
-              '<div class="post-wrapper"><div class="meta"><div class="users"></div>' +
+              '<div class="post-wrapper"><div class="meta">' +
+              '<div class="users">' + messageItem.icon + '</div>' +
               '<div class="details"><span class="action"></span>' +
               '</div></div><p></p></div></li>');
 
@@ -467,7 +468,7 @@ define(['jquery', 'version-timeout', 'friends', 'jquery.caret'],
           }
         }
 
-        if (messages.find('> li').length >= 20 && messages.find('#paginated').length === 0) {
+        if (messages.find('> li .users img').length >= 20 && messages.find('#paginated').length === 0) {
           messages.append('<li id="paginated">View Older</li>');
         }
 

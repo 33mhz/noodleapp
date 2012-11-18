@@ -367,13 +367,13 @@ header a#notifications.on:hover {
 }
 
 #paginated {
-    color: #ccc;
+    color: #aaa;
     cursor: pointer;
     display: block;
     font-family: 'Oswald';
-    font-size: 18px;
-    line-height: 20px;
-    padding-top: 7px;
+    font-size: 15px;
+    line-height: 17px;
+    padding-top: 5px;
     text-align: center;
     text-transform: uppercase;
 }
@@ -407,7 +407,7 @@ header a#notifications.on:hover {
 }
 
 ol.messages #paginated {
-    background-color: #aaa;
+    background-color: #f1f1f1;
     border: 0;
     margin-bottom: 20px;
     opacity: 0.7;
@@ -416,7 +416,7 @@ ol.messages #paginated {
 }
 
 ol.messages #paginated.loading {
-    background-image: url('/images/ajax-loader-paginated.gif');
+    background-image: url('/images/ajax-loader.gif');
     background-position: center;
     background-repeat: no-repeat;
     height: 33px;
@@ -1127,22 +1127,33 @@ time:hover {
     z-index: 4;
 }
 
+span.action-icon {
+    background-position: 0 55%;
+    background-repeat: no-repeat;
+    display: block;
+    float: left;
+    height: 25px;
+    margin: 5px 0 5px 25px;
+    opacity: 0.3;
+    width: 25px;
+}
+
 .actions .thread {
     background-image: url('/images/thread.png');
     background-size: 22px;
 }
 
-.actions .star {
+.actions .star, span.action-icon.star {
     background-image: url('/images/star.png');
     background-size: 22px;
 }
 
-.actions .reply {
+.actions .reply, span.action-icon.reply {
     background-image: url('/images/reply.png');
     background-size: 22px;
 }
 
-.actions .repost {
+.actions .repost, span.action-icon.repost {
     background-image: url('/images/repost.png');
     background-size: 22px;
 }
@@ -1154,6 +1165,11 @@ time:hover {
 
 .actions .quote {
     background-image: url('/images/quote.png');
+    background-size: 22px;
+}
+
+span.action-icon.follow {
+    background-image: url('/images/follow.png');
     background-size: 22px;
 }
 
@@ -1340,13 +1356,8 @@ img.hush {
         background-size: auto 25px;
     }
 
-    ol.messages li.loading {
+    ol.messages li.loading, ol.messages #paginated.loading {
         background-image: url('/images/ajax-loader2x.gif');
-        background-size: auto 33px;
-    }
-
-    ol.messages #paginated.loading {
-        background-image: url('/images/ajax-loader-paginated2x.gif');
         background-size: auto 33px;
     }
 
@@ -1636,7 +1647,7 @@ img.hush {
     }
 
     .tabs {
-        bottom: -24px;
+        bottom: -25px;
         left: 50%;
         margin-left: -142px;
         position: absolute;
