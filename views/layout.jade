@@ -29,29 +29,29 @@ html
   body(data-url='#{url}', data-username='#{loggedUsername}', data-sessionid='#{loggedInId}', class='#{mediaOn} #{highContrast}', data-charlimit='#{charLimit}')
     #hush
 
-    #map-menu
-      h2 Keyboard Shortcut Reference
-      ul
-        li ESC (close overlay / this menu too!)
-        li k (move up feed)
-        li j (move down feed)
-        li t (open thread)
-        li s (star post)
-        li r (reply to post)
-        li p (repost)
-        li q (quote)
-        li d (delete your post)
-        li f (follow user at selected post)
-        li u (unfollow user at selected post)
-      .tag
-        a(href='javascript:;', id='menu-toggle', title='Keyboard Shortcuts') ?
+    if session
+      #map-menu
+        h2 Keyboard Shortcut Reference
+        ul
+          li ESC (close overlay / this menu too!)
+          li k (move up feed)
+          li j (move down feed)
+          li t (open thread)
+          li s (star post)
+          li r (reply to post)
+          li p (repost)
+          li q (quote)
+          li d (delete your post)
+          li f (follow user at selected post)
+          li u (unfollow user at selected post)
+        .tag
+          a(href='javascript:;', id='menu-toggle', title='Keyboard Shortcuts') ?
 
     header
       a.home(href='/') NoodleApp
 
-      block tabs
-
       if session
+        block tabs
         a(href='/logout', id='logout', title='Sign out') Log out
         a(href='#', id='settings-link', title='Settings') Settings
         a(href='/user/#{session.username}/', id='profile-link', title='Profile') Profile
