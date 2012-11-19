@@ -2,7 +2,7 @@ extend layout
 
 block tabs
   .tabs.long
-    a.user-posts.selected(data-url='/user/posts/#{user.id}', href='javascript:;', title='Recent') Recent
+    a.user-posts.selected(data-url='/user/posts/#{user.id}', href='javascript:;', title='Recent', class='initial') Recent
     a.user-mentions(data-url='/user/mentions/#{user.id}', href='javascript:;', title='Mentions') Mentions
     a.user-starred(data-url='/user/starred/#{user.id}', href='javascript:;', title='Starred') Starred
 

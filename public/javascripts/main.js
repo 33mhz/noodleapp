@@ -150,47 +150,47 @@ define(['jquery', 'appnet', 'friends', 'user', 'jquery.caret'],
   tabs.on('click', function(ev) {
     var self = $(ev.target);
 
+    if (!self.hasClass('initial')) {
+      closeOverlay();
+    }
+
+    self.removeClass('initial');
+
     tabs.find('a').removeClass('selected');
     self.addClass('selected');
 
     switch (true) {
       case self.hasClass('global-feed'):
-        closeOverlay();
         updateFeed(self, function() {
           appnet.getGlobalFeed();
         });
         break;
 
       case self.hasClass('user-posts'):
-        closeOverlay();
         updateFeed(self, function() {
           appnet.getUserPosts();
         });
         break;
 
       case self.hasClass('user-mentions'):
-        closeOverlay();
         updateFeed(self, function() {
           appnet.getUserMentions();
         });
         break;
 
       case self.hasClass('user-interactions'):
-        closeOverlay();
         updateFeed(self, function() {
           appnet.getUserInteractions();
         });
         break;
 
       case self.hasClass('user-starred'):
-        closeOverlay();
         updateFeed(self, function() {
           appnet.getUserStarred();
         });
         break;
 
       case self.hasClass('my-feed'):
-        closeOverlay();
         updateFeed(self, function() {
           appnet.getMyFeed();
         });
