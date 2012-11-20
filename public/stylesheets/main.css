@@ -1422,6 +1422,23 @@ img.hush {
         width: 530px;
     }
 
+    #map-menu {
+        display: none;
+    }
+
+    .tabs {
+        bottom: -25px;
+        left: 50%;
+        margin-left: -180px;
+        position: absolute;
+    }
+
+    .tabs a {
+        border-bottom: 1px solid #555;
+        border-top-left-radius: 0;
+        border-top-right-radius: 0;
+    }
+
     #overlay {
         margin-left: -264px;
         width: 485px;
@@ -1481,6 +1498,18 @@ img.hush {
         display: block;
         float: left;
         width: 470px;
+    }
+
+    .write {
+        margin-top: 50px;
+    }
+
+    #overlay .write {
+        margin-top: 20px;
+    }
+
+    #overlay h1 {
+        padding-top: 40px;
     }
 
     .write textarea {
