@@ -22,6 +22,8 @@ define(['jquery', 'appnet', 'friends', 'user', 'jquery.caret'],
   var notifications = body.find('#notifications-preview');
   var notificationIcon = body.find('#notifications');
   var mapMenu = body.find('#map-menu');
+  var unreadMessages = $('#unread-messages');
+  var unreadMessagesNest = unreadMessages.find('ol');
   var win = $(window);
   var doc = $(document);
   var csrf = write.find('input[name="_csrf"]').val();
@@ -59,7 +61,7 @@ define(['jquery', 'appnet', 'friends', 'user', 'jquery.caret'],
   };
 
   var showUnread = function(unreadMessages) {
-    appnet.clearUnread(unreadMessages);
+    clearUnread(unreadMessages);
     resetNotificationDisplay();
     if (messages.find('> li').length >= 20 && messages.find('#paginated').length === 0) {
       messages.append('<li id="paginated">View Older</li>');
@@ -121,6 +123,15 @@ define(['jquery', 'appnet', 'friends', 'user', 'jquery.caret'],
     overlay.slideUp(function() {
       body.removeClass('fixed');
     });
+  };
+
+  var clearUnread = function(self) {
+    messages.prepend(unreadMessagesNest.find('li.message-item'));
+    unreadMessages.find('h2').empty();
+    unreadMessages.find('ol').empty();
+    appnet.setUnreadMessageCount = 0;
+    self.fadeOut();
+    messages.find('> li:gt(' + MESSAGE_LIMIT + ')').remove();
   };
 
   var saveSettings = function(self) {

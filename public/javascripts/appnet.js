@@ -22,11 +22,11 @@ define(['jquery', 'version-timeout', 'friends', 'jquery.caret'],
   var currentMentionPostId = false;
   var loggedInId = $('body').data('sessionid');
   var loggedInUsername = $('body').data('username');
+  var unreadMessageCount = 0;
   var noTouch = '';
   var newCount = 0;
   var paginationLock = false;
   var postLoaded = false;
-  var unreadMessageCount = 0;
   var textarea = overlay.find('.write textarea');
 
   if (!('ontouchstart' in document.documentElement)) {
@@ -802,13 +802,8 @@ define(['jquery', 'version-timeout', 'friends', 'jquery.caret'],
       }
     },
 
-    clearUnread: function(self) {
-      messages.prepend(unreadMessagesNest.find('li.message-item'));
-      unreadMessages.find('h2').empty();
-      unreadMessages.find('ol').empty();
+    setUnreadMessageCount: function() {
       unreadMessageCount = 0;
-      self.fadeOut();
-      messages.find('> li:gt(' + MESSAGE_LIMIT + ')').remove();
     }
   };
 
