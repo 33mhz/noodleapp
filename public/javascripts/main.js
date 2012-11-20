@@ -58,6 +58,14 @@ define(['jquery', 'appnet', 'friends', 'user', 'jquery.caret'],
     appnet.resetUnread();
   };
 
+  var showUnread = function(unreadMessages) {
+    appnet.clearUnread(unreadMessages);
+    resetNotificationDisplay();
+    if (messages.find('> li').length >= 20 && messages.find('#paginated').length === 0) {
+      messages.append('<li id="paginated">View Older</li>');
+    }
+  };
+
   var resetTab = function(self, callback) {
     self.siblings().removeClass('selected');
     self.addClass('selected');
@@ -380,11 +388,7 @@ define(['jquery', 'appnet', 'friends', 'user', 'jquery.caret'],
         break;
 
       case self.parent().is('#unread-messages'):
-        appnet.clearUnread(self.parent());
-        resetNotificationDisplay();
-        if (messages.find('> li').length >= 20 && messages.find('#paginated').length === 0) {
-          messages.append('<li id="paginated">View Older</li>');
-        }
+        showUnread(self.parent());
         break;
 
       case self.is('#menu-toggle'):
@@ -460,6 +464,13 @@ define(['jquery', 'appnet', 'friends', 'user', 'jquery.caret'],
         var next;
         if (ev.keyCode === K_KEYCODE) {
           next = currentMessage.prev('.message-item');
+          if(next.length === 0) {
+            var unreadMessages = $('#unread-messages');
+            if(unreadMessages.is(':visible')) {
+              showUnread(unreadMessages);
+              next = currentMessage.prev('.message-item');
+            }
+          }
         } else {
           next = currentMessage.next('.message-item');
         }
