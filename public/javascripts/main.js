@@ -99,13 +99,18 @@ define(['jquery', 'appnet', 'friends', 'user', 'jquery.caret'],
 
   var checkCharLimit = function(text) {
     var textLength = getEffectiveLength(text);
-    write.find('button').toggleClass('disabled', textLength === 0);
+    var button = write.find('button');
+
     if (textLength > CHAR_MAX) {
       charLimit.addClass('over');
       charLimit.text('- ' + (textLength - CHAR_MAX));
+      button.attr('disabled', 'disabled');
+      button.addClass('disabled');
     } else {
       charLimit.removeClass('over');
       charLimit.text(CHAR_MAX - textLength);
+      button.removeAttr('disabled');
+      button.removeClass('disabled');
     }
   };
 
@@ -233,7 +238,7 @@ define(['jquery', 'appnet', 'friends', 'user', 'jquery.caret'],
         var textarea = self.closest('.dashboard-content').find('textarea');
         textarea.focus();
         write.find('.form-action-wrapper').slideDown('fast');
-        textarea.val('"' + self.closest('.message-item').data('original') + '"');
+        textarea.val('>> "' + self.closest('.message-item').data('original') + '"');
         break;
 
       case self.hasClass('delete'):
@@ -458,7 +463,7 @@ define(['jquery', 'appnet', 'friends', 'user', 'jquery.caret'],
             return false;
           }
 
-        } else if (ev.keyCode === RETURN_KEYCODE && (ev.ctrlKey || ev.metaKey)) {
+        } else if (ev.keyCode === RETURN_KEYCODE && (ev.ctrlKey || ev.metaKey) && !write.find('button').hasClass('disabled')) {
           self.closest('form').submit();
         }
     }

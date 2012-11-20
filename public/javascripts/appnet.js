@@ -143,7 +143,7 @@ define(['jquery', 'version-timeout', 'friends', 'jquery.caret'],
     // reply to id
     message.attr('data-replyto', messageItem.reply_to);
     // plain text
-    message.attr('data-original', messageItem.text);
+    message.attr('data-original', '@' + messageItem.username + ': ' + messageItem.text);
     // user's profile page
     message.find('a.who')
       .attr('title', messageItem.name + ' @' + messageItem.username)
