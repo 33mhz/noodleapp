@@ -134,7 +134,7 @@ define(['jquery', 'appnet', 'friends', 'user', 'jquery.caret'],
     messages.prepend(unreadMessagesNest.find('li.message-item'));
     unreadMessages.find('h2').empty();
     unreadMessages.find('ol').empty();
-    appnet.setUnreadMessageCount = 0;
+    appnet.setUnreadMessageCount();
     self.fadeOut();
     messages.find('> li:gt(' + MESSAGE_LIMIT + ')').remove();
   };
