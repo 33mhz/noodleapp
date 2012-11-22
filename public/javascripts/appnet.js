@@ -132,7 +132,7 @@ define(['jquery', 'version-timeout', 'friends', 'jquery.caret'],
     }
     return $('<li class="message-item ' + notify + '" data-mentions="" data-repostid="' + message.repostId +
       '" data-replyto="" data-original="" data-id="' +
-      messageId + '" ' + 'data-username="' + message.username + '" data-minid="' + message.min_id + '">' +
+      messageId + '" ' + 'data-username="' + message.username + '" data-minid="' + message.minId + '">' +
       '<div class="post-wrapper"><div class="meta"><a href="" class="who" title=""><img src=""></a>' +
       '<div class="details"><a href="" class="username"></a><a href="" class="fullname"></a>' +
       '<time data-created="" title="Post details"></time>' +
@@ -141,7 +141,7 @@ define(['jquery', 'version-timeout', 'friends', 'jquery.caret'],
 
   var setMessageMetadata = function(messageItem, message) {
     // reply to id
-    message.attr('data-replyto', messageItem.reply_to);
+    message.attr('data-replyto', messageItem.replyTo);
     // plain text
     message.attr('data-original', '@' + messageItem.username + ': ' + messageItem.text);
     // user's profile page
@@ -160,8 +160,8 @@ define(['jquery', 'version-timeout', 'friends', 'jquery.caret'],
       .text(messageItem.username);
     // time
     message.find('time')
-      .text(dateDisplay(messageItem.created_at))
-      .attr('data-created', messageItem.created_at)
+      .text(dateDisplay(messageItem.createdAt))
+      .attr('data-created', messageItem.createdAt)
       .attr('data-username', messageItem.username);
     // user's avatar
     message.find('a.who img').attr('src', messageItem.user);
@@ -272,8 +272,11 @@ define(['jquery', 'version-timeout', 'friends', 'jquery.caret'],
           }
         }
 
+        // Callbacks are currently only for the post detail call. So this is a quick check
+        // to see if it has a callback and assumes it's only wanting the reply post.
+        // Will probably have to add a flag/option later if this is reused for other purposes.
         if (callback) {
-          callback();
+          callback(data.messages[0].inReplyToId);
         }
       }
 
@@ -772,8 +775,8 @@ define(['jquery', 'version-timeout', 'friends', 'jquery.caret'],
       newCount = 0;
       resetFluid();
 
-      setPost({ 'post_id': postId }, '/post', true, false, false, function() {
-        setPost({ 'post_id': postId }, '/thread', false, true, false);
+      setPost({ 'post_id': postId }, '/post', true, false, false, function(replyId) {
+        setPost({ 'post_id': replyId }, '/post', false, true, false);
         getStarredUsers(postId);
         getRepostedUsers(postId);
       });
