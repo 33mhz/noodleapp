@@ -22,6 +22,8 @@ define(['jquery', 'appnet', 'friends', 'user', 'jquery.caret'],
   var notifications = body.find('#notifications-preview');
   var notificationIcon = body.find('#notifications');
   var mapMenu = body.find('#map-menu');
+  var primaryWrite = body.find('#write');
+  var dashboard = body.find('.dashboard-content');
   var unreadMessages = $('#unread-messages');
   var unreadMessagesNest = unreadMessages.find('ol');
   var win = $(window);
@@ -48,6 +50,7 @@ define(['jquery', 'appnet', 'friends', 'user', 'jquery.caret'],
   var S_KEYCODE = 83;
   var T_KEYCODE = 84;
   var U_KEYCODE = 85;
+  var N_KEYCODE = 78;
   var QUESTION_SLASH_KEYCODE = 191;
 
   var MESSAGE_LIMIT = 99;
@@ -230,10 +233,6 @@ define(['jquery', 'appnet', 'friends', 'user', 'jquery.caret'],
     var self = $(ev.target);
 
     switch (true) {
-      case self.hasClass('reply'):
-        self.closest('.message-item').find('time').click();
-        break;
-
       case self.hasClass('quote'):
         var textarea = self.closest('.dashboard-content').find('textarea');
         textarea.focus();
@@ -331,6 +330,10 @@ define(['jquery', 'appnet', 'friends', 'user', 'jquery.caret'],
     }
 
     switch (true) {
+      case self.hasClass('reply'):
+        self.closest('.message-item').find('time').click();
+        break;
+
       case self.hasClass('close'):
         write.find('textarea').val('');
         write.find('textarea').blur();
@@ -443,6 +446,7 @@ define(['jquery', 'appnet', 'friends', 'user', 'jquery.caret'],
           .addClass('off');
         menuOpen = false;
       }
+      body.focus();
     }
 
     // Open menu if ctrl|cmd|shift + ?|/ is pressed
@@ -450,6 +454,13 @@ define(['jquery', 'appnet', 'friends', 'user', 'jquery.caret'],
       && (ev.ctrlKey || ev.metaKey || ev.shiftKey)
       && !write.find('textarea').hasClass('on')) {
       mapMenu.find('#menu-toggle').click();
+    }
+
+    // Create a new post
+    if (ev.keyCode === N_KEYCODE
+      && !write.find('textarea').hasClass('on')) {
+      ev.preventDefault();
+      dashboard.find('.write textarea').focus();
     }
 
     switch (true) {
@@ -586,6 +597,7 @@ define(['jquery', 'appnet', 'friends', 'user', 'jquery.caret'],
     charLimit.addClass('on');
     checkCharLimit(self.val());
     self.closest('form').find('.form-action-wrapper').slideDown('fast');
+    return true;
   });
 
   write.find('textarea').blur(function() {

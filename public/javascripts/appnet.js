@@ -236,6 +236,9 @@ define(['jquery', 'version-timeout', 'friends', 'jquery.caret'],
 
             if (showDetails) {
               detailExtras = generateDetails(data.messages[i], true);
+            } else {
+              detailExtras = '<div class="actions ' + noTouch + '">' +
+                '<a class="reply" title="Reply" href="javascript:;"><span>Reply</span></a></div>';
             }
 
             var message = generatePostItem(data.messages[i], detailExtras);
