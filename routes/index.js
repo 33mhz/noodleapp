@@ -85,7 +85,7 @@ module.exports = function(app, client, isLoggedIn, noodle, config) {
   app.get('/user/:username', isLoggedIn, function(req, res) {
     var analytics = false;
 
-    appnet.getUser(req, function(err, user) {
+    appnet.getUser(req, req.params.username, function(err, user) {
       if (err) {
         res.status(500);
         res.redirect('/500');

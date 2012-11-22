@@ -165,7 +165,7 @@ describe('appnet', function() {
       var scope = nock(APPNET_URL)
         .get('/stream/0/users/@test?access_token=1')
         .reply(200, USER_JSON);
-      appnet.getUser(req, function(err, resp) {
+      appnet.getUser(req, req.params.username, function(err, resp) {
         resp.data.id.should.equal('1');
         done();
       });
