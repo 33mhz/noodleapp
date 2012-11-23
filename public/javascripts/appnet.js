@@ -27,6 +27,7 @@ define(['jquery', 'version-timeout', 'friends', 'jquery.caret'],
   var newCount = 0;
   var paginationLock = false;
   var postLoaded = false;
+  var replyToId = null;
   var textarea = overlay.find('.write textarea');
 
   if (!('ontouchstart' in document.documentElement)) {
@@ -131,7 +132,7 @@ define(['jquery', 'version-timeout', 'friends', 'jquery.caret'],
       notify = 'notify';
     }
     return $('<li class="message-item ' + notify + '" data-mentions="" data-repostid="' + message.repostId +
-      '" data-replyto="" data-original="" data-id="' +
+      '" data-replyto="" data-replytoid="' + message.inReplyToId + '" data-original="" data-id="' +
       messageId + '" ' + 'data-username="' + message.username + '" data-minid="' + message.minId + '">' +
       '<div class="post-wrapper"><div class="meta"><a href="" class="who" title=""><img src=""></a>' +
       '<div class="details"><a href="" class="username"></a><a href="" class="fullname"></a>' +
@@ -275,16 +276,15 @@ define(['jquery', 'version-timeout', 'friends', 'jquery.caret'],
           }
         }
 
-        // Callbacks are currently only for the post detail call. So this is a quick check
-        // to see if it has a callback and assumes it's only wanting the reply post.
-        // Will probably have to add a flag/option later if this is reused for other purposes.
         if (callback) {
-          callback(data.messages[0].inReplyToId);
+          replyToId = data.messages[0].inReplyToId;
+          callback();
         }
       }
 
       if (isDetailOverlay) {
         overlay.find('#thread-detail').html(messageOverlay);
+        overlay.find('#thread-detail .message-item[data-id="' + replyToId + '"]').addClass('selected-item');
       } else {
         messageOverlay.append('<li class="close"><a title="Close">Close</a></li>');
         overlay.find('.inner-overlay').html(messageOverlay);
@@ -778,8 +778,8 @@ define(['jquery', 'version-timeout', 'friends', 'jquery.caret'],
       newCount = 0;
       resetFluid();
 
-      setPost({ 'post_id': postId }, '/post', true, false, false, function(replyId) {
-        setPost({ 'post_id': replyId }, '/post', false, true, false);
+      setPost({ 'post_id': postId }, '/post', true, false, false, function(replyToId) {
+        setPost({ 'post_id': postId }, '/thread', false, true, false);
         getStarredUsers(postId);
         getRepostedUsers(postId);
       });

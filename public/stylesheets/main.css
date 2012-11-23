@@ -974,8 +974,14 @@ ol.messages > li:hover .post-wrapper {
     border-left: 3px solid #d8fd2b;
 }
 
-li.message-item.selected-item div.post-wrapper {
+li.message-item.selected-item div.post-wrapper,
+#thread-detail .selected-item {
     border-left: 3px solid #ff7575;
+}
+
+#thread-detail .message-item {
+    border-radius: 5px;
+    margin-bottom: 3px;
 }
 
 ol.messages > li .meta {

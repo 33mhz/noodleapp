@@ -330,7 +330,7 @@ define(['jquery', 'appnet', 'friends', 'user', 'jquery.caret'],
     }
 
     switch (true) {
-      case self.hasClass('reply'):
+      case (self.hasClass('reply') && !body.hasClass('fixed')):
         self.closest('.message-item').find('time').click();
         break;
 
