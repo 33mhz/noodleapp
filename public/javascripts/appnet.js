@@ -179,6 +179,7 @@ define(['jquery', 'version-timeout', 'friends', 'jquery.caret'],
     var isThread = '';
     var metaInfo = '';
     var isDeletable = '';
+    var isReply = '<a class="reply" title="Reply" href="javascript:;"><span>Reply</span></a>';
     var isStarred = '<a class="star" title="Star" href="javascript:;"><span>Star</span></a>';
 
     if (!msg.isSelf && !msg.repostId) {
@@ -202,6 +203,7 @@ define(['jquery', 'version-timeout', 'friends', 'jquery.caret'],
     }
 
     if (showMeta) {
+      isReply = '';
       metaInfo = '<div class="info"><ol>' +
         '<li class="reposts">Reposts: <span></span></li>' +
         '<li class="stars">Stars: <span></span></li>' +
@@ -210,7 +212,7 @@ define(['jquery', 'version-timeout', 'friends', 'jquery.caret'],
     }
 
     detailExtras = '<div class="actions ' + noTouch + '">' + isThread +
-      isStarred + '<a class="reply" title="Reply" href="javascript:;"><span>Reply</span></a>' + isRepost +
+      isStarred + isReply + isRepost +
       '<a class="quote" title="Quote" href="javascript:;"><span>Quote</span></a>' + isDeletable + '</div>' + metaInfo;
 
     return detailExtras;
