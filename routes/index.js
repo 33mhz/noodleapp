@@ -56,7 +56,7 @@ module.exports = function(app, client, isLoggedIn, noodle, config) {
             session: utils.getUser(req),
             csrf: req.session._csrf,
             url: '/my/feed',
-            loggedInId: utils.getUserById(req),
+            loggedInId: utils.getUserId(req),
             username: utils.getUser(req).username,
             mediaOn: mediaOn,
             highContrast: highContrast,
@@ -138,7 +138,7 @@ module.exports = function(app, client, isLoggedIn, noodle, config) {
               user: user,
               url: req.session.url || '/my/feed',
               description: description,
-              loggedInId: utils.getUserById(req),
+              loggedInId: utils.getUserId(req),
               mediaOn: mediaOn,
               highContrast: highContrast,
               charLimit: charLimit,
@@ -174,7 +174,7 @@ module.exports = function(app, client, isLoggedIn, noodle, config) {
   });
 
   app.get('/user/posts/:id', isLoggedIn, function(req, res) {
-    var userId = req.params.id || utils.getUserById(req);
+    var userId = req.params.id || utils.getUserId(req);
 
     req.session.url = '/user/posts/' + parseInt(userId, 10);
 
@@ -191,7 +191,7 @@ module.exports = function(app, client, isLoggedIn, noodle, config) {
   });
 
   app.get('/user/mentions/:id', isLoggedIn, function(req, res) {
-    var userId = req.params.id || utils.getUserById(req);
+    var userId = req.params.id || utils.getUserId(req);
 
     if (!req.query.ping) {
       req.session.url = '/user/mentions/' + parseInt(userId, 10);
@@ -210,7 +210,7 @@ module.exports = function(app, client, isLoggedIn, noodle, config) {
   });
 
   app.get('/user/interactions/:id', isLoggedIn, function(req, res) {
-    var userId = req.params.id || utils.getUserById(req);
+    var userId = req.params.id || utils.getUserId(req);
 
     req.session.url = '/user/interactions/' + parseInt(userId, 10);
 
@@ -227,7 +227,7 @@ module.exports = function(app, client, isLoggedIn, noodle, config) {
   });
 
   app.get('/user/starred/:id', isLoggedIn, function(req, res) {
-    var userId = req.params.id || utils.getUserById(req);
+    var userId = req.params.id || utils.getUserId(req);
 
     req.session.url = '/user/starred/' + parseInt(userId, 10);
 
