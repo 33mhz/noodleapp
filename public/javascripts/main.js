@@ -97,7 +97,8 @@ define(['jquery', 'appnet', 'friends', 'user', 'jquery.caret'],
   var getEffectiveLength = function(text) {
     // Same as in markdown-to-entities, but global
     var markdownLinkRegex = /\[([^\]]+)\]\((\S+(?=\)))\)/g;
-    return text.replace(markdownLinkRegex, '$1').length;
+    // Apparently newlines are considered part of the character count limitation
+    return text.replace(markdownLinkRegex, '$1').length + text.split(/\n/).length;
   };
 
   var checkCharLimit = function(text) {
