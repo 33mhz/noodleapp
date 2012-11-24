@@ -97,8 +97,18 @@ define(['jquery', 'appnet', 'friends', 'user', 'jquery.caret'],
   var getEffectiveLength = function(text) {
     // Same as in markdown-to-entities, but global
     var markdownLinkRegex = /\[([^\]]+)\]\((\S+(?=\)))\)/g;
+
     // Apparently newlines are considered part of the character count limitation
-    return text.replace(markdownLinkRegex, '$1').length + text.split(/\n/).length;
+    // And apparently the newline is treated as two characters, not one when passed
+    // to the API as a post message - so here we count one for the key enter and one for
+    // the newline regex match. Which results in working out as two: '\n'
+    var markdownText = text.replace(markdownLinkRegex, '$1');
+    var markdownTextNewlineCount = 0;
+    if (markdownText.match(/\n/g)) {
+      markdownTextNewlineCount = markdownText.match(/\n/g).length;
+    }
+
+    return markdownText.length + markdownTextNewlineCount;
   };
 
   var checkCharLimit = function(text) {
