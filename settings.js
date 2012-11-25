@@ -46,6 +46,7 @@ module.exports = function(app, configurations, express) {
       return;
     });
     app.use(function(err, req, res, next) {
+      console.error('Uncaught error.  Returning 500: ', err);
       res.status(err.status || 500);
       res.render('500', { error: err, layout: false });
     });
