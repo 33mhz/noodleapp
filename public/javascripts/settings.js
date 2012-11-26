@@ -45,11 +45,10 @@ console.log(flashMsg);
       var overlay = $('#overlay', window.top.document);
       var body = $(window.top.document.body);
       window.history.pushState('', '', document.location.href.split('#')[0]);
-      overlay.find('.inner-overlay').html('');
-      overlay.find('textarea').val('');
       overlay.slideUp(function() {
         body.removeClass('fixed');
         overlay.removeClass('settings-overlay');
+        overlay.find('.inner-overlay').html('');
       });
     });
   }
