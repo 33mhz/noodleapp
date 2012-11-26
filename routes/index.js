@@ -151,25 +151,28 @@ module.exports = function(app, client, isLoggedIn, noodle, config) {
     });
   });
 
+  var renderSettings = function(err, req, res, locals) {
+    if (err) {
+      res.status(500);
+      res.redirect('/500');
+    } else {
+      locals.csrf = req.session._csrf;
+      locals.layout = false;
+      res.render('settings', locals);
+    }
+  };
+
   app.get('/settings', isLoggedIn, function(req, res) {
     userDb.getSettings(req, client, function(err, settings) {
-      if (err) {
-        res.status(500);
-        res.json({ 'error': 'error retrieving your settings' });
-      } else {
-        res.json({ settings: settings });
-      }
+      settings.isPostback = 0;
+      renderSettings(err, req, res, settings);
     });
   });
 
   app.post('/settings', isLoggedIn, function(req, res) {
     userDb.saveSettings(req, client, function(err, settings) {
-      if (err) {
-        res.status(500);
-        res.json({ 'error': 'error retrieving your settings' });
-      } else {
-        res.json({ settings: settings });
-      }
+      settings.isPostback = 1;
+      renderSettings(err, req, res, settings);
     });
   });
 
