@@ -50,17 +50,17 @@ describe('markdown-to-entities', function() {
   describe('stringify', function() {
     it('returns correct markdown from text and links', function(done) {
       var USER_DESCRIPTION = {
-        text: 'I\'m a chef at the Sabrosa restaurant.  Feel free to try some of our recipes.  In my spare time, I bike trails from http://trails.com/ and swim.',
+        text: 'I\'m a chef at the Sabrosa restaurant [www.sabrosa.com].  Feel free to try some of our recipes [tastyrecipes.com].  In my spare time, I bike trails from http://trails.com/ and swim.',
         entities: {
           links: [
             {
-              pos: 64,
+              pos: 82,
               len: 11,
               text: 'our recipes',
               url: 'http://tastyrecipes.com/sabrosa'
             },
             {
-              pos: 115,
+              pos: 152,
               len: 18,
               text: 'http://trails.com/',
               url: 'http://trails.com/'
