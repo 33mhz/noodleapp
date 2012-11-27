@@ -481,14 +481,33 @@ ol.messages #paginated.loading {
     color: #eee;
 }
 
-#overlay .inner-overlay h1 {
+#overlay.settings-overlay {
+    overflow: visible;
+}
+
+.settings-overlay .inner-overlay {
+    height: 100%;
+    width: 102%;
+    margin-left: -1%;
+}
+
+.settings-overlay .inner-overlay > iframe {
+    height: 100%;
+    width: 100%;
+}
+
+.settings {
+    margin-left: 10px;
+}
+
+.settings h1 {
     font-family: 'Oswald';
     font-size: 30px;
     margin-bottom: 10px;
     text-transform: uppercase;
 }
 
-#overlay .inner-overlay .settings-details ul li a {
+.settings-details ul li a {
     background-repeat: no-repeat;
     cursor: pointer;
     display: block;
@@ -497,16 +516,15 @@ ol.messages #paginated.loading {
     width: 25px;
 }
 
-#overlay .inner-overlay .settings-details ul li a:hover {
+.settings-details ul li a:hover {
     opacity: 0.4;
 }
 
-#overlay .inner-overlay .settings-details li ul {
+.settings-details li ul {
     margin: 0;
 }
 
-
-#overlay .inner-overlay .settings-details li ul li {
+.settings-details li ul li {
     border-top: 1px dotted #eee;
     clear: both;
     float: left;
@@ -515,17 +533,46 @@ ol.messages #paginated.loading {
     width: 100%;
 }
 
-#overlay .inner-overlay .settings-details ul li p {
+.settings-details textarea {
+    width: 80%;
+    height: 200px;
+}
+
+.settings-details ul li span {
     float: left;
     width: 560px;
 }
 
-#directed-feed, #media-on, #charlimit, #high-contrast {
-    background-image: url('/images/settings-off.png');
+.settings-details button[type="submit"] {
+    float: left;
+    margin-top: 10px;
+    margin-bottom: inherit;
 }
 
-#directed-feed.on, #media-on.on, #charlimit.on, #high-contrast.on {
+.settings-toggle {
+    background-image: url('/images/settings-off.png');
+    text-decoration: none;
+    color: inherit;
+}
+
+.settings-toggle.on {
     background-image: url('/images/settings-on.png');
+}
+
+.settings-toggle span {
+    padding-left: 25px;
+}
+
+.settings-details input, .settings-details select {
+    margin-left: 10px;
+}
+
+#user-timezone-picker {
+    margin-top: 25px;
+}
+
+.timezone-pin {
+    padding-top: 4px;
 }
 
 #overlay .inner-overlay .message-summary li.message-item {
@@ -536,14 +583,14 @@ ol.messages #paginated.loading {
     width: 100%;
 }
 
-#overlay .inner-overlay .message-summary li .details, #overlay .inner-overlay .message-summary li p {
+#overlay .inner-overlay .message-summary li .details, #overlay .inner-overlay .message-summary li p, .settings-details li span {
     float: left;
     margin-left: 10px;
     text-align: left;
     width: 550px;
 }
 
-#overlay .inner-overlay .message-summary li p {
+#overlay .inner-overlay .message-summary li p, .settings-details li span {
     font-size: 14px;
     line-height: 17px;
     margin-top: 5px;
@@ -1412,12 +1459,12 @@ img.hush {
         background-size: auto 25px;
     }
 
-    #directed-feed, #media-on {
+    .settings-toggle {
         background-image: url('/images/settings-off2x.png');
         background-size: auto 25px;
     }
 
-    #directed-feed.on, #media-on.on {
+    .settings-toggle.on {
         background-image: url('/images/settings-on2x.png');
         background-size: auto 25px;
     }
@@ -1584,7 +1631,7 @@ img.hush {
         top: 109px;
     }
 
-    #overlay .inner-overlay .settings-details ul li p {
+    .settings-details ul li span {
         margin-left: 10px;
         width: 390px;
     }
@@ -1784,7 +1831,7 @@ img.hush {
         top: 203px;
     }
 
-    #overlay .inner-overlay .settings-details ul li p {
+    .settings-details ul li span {
         margin-left: 10px;
         width: 190px;
     }

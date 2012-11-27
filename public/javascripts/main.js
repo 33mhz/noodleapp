@@ -8,7 +8,7 @@ requirejs.config({
   }
 });
 
-define(['jquery', 'appnet', 'friends', 'user', 'jquery.caret'],
+define(['jquery', 'appnet', 'friends', 'jquery.caret'],
   function($, appnet, friends, user) {
   var body = $('body');
   var url = body.data('url');
@@ -141,6 +141,7 @@ define(['jquery', 'appnet', 'friends', 'user', 'jquery.caret'],
     overlay.find('textarea').val('');
     overlay.slideUp(function() {
       body.removeClass('fixed');
+      overlay.removeClass('settings-overlay');
     });
   };
 
@@ -153,35 +154,14 @@ define(['jquery', 'appnet', 'friends', 'user', 'jquery.caret'],
     messages.find('> li:gt(' + MESSAGE_LIMIT + ')').remove();
   };
 
-  var saveSettings = function(self) {
-    var directedFeed = false;
-    var mediaOn = false;
-    var charLimit = false;
-    var highContrast = false;
-
-    if (self.hasClass('on')) {
-      self.removeClass('on');
-    } else {
-      self.addClass('on');
-    }
-
-    if (overlay.find('#directed-feed').hasClass('on')) {
-      directedFeed = true;
-    }
-
-    if (overlay.find('#media-on').hasClass('on')) {
-      mediaOn = true;
-    }
-
-    if (overlay.find('#charlimit').hasClass('on')) {
-      charLimit = true;
-    }
-
-    if (overlay.find('#high-contrast').hasClass('on')) {
-      highContrast = true;
-    }
-
-    user.saveSettings(directedFeed, mediaOn, charLimit, highContrast, write.find('input[name="_csrf"]').val());
+  var showSettings = function() {
+    // The fixed class causes issues with the overlay closing, possibly connected with the closeOverlay in checkUrl.  But it's also required for ESC to work...
+    // $('body').addClass('fixed');
+    window.location.hash = 'settings';
+    overlay.find('.write').hide();
+    overlay.addClass('settings-overlay');
+    overlay.find('.inner-overlay').html('<iframe src="/settings">Enable iframes to change settings.</iframe>');
+    overlay.slideDown();
   };
 
   /* Feed functionality */
@@ -407,14 +387,7 @@ define(['jquery', 'appnet', 'friends', 'user', 'jquery.caret'],
         break;
 
       case self.is('#settings-link'):
-        user.getSettings();
-        break;
-
-      case self.is('#charlimit'):
-      case self.is('#media-on'):
-      case self.is('#directed-feed'):
-      case self.is('#high-contrast'):
-        saveSettings(self);
+        showSettings();
         break;
 
       case self.parent().is('#unread-messages'):
@@ -630,8 +603,7 @@ define(['jquery', 'appnet', 'friends', 'user', 'jquery.caret'],
     if (self.val().trim().length === 0) {
       write.find('.reply_to').val('');
     }
-
-  })
+  });
 
   write.submit(function(ev) {
     ev.preventDefault();

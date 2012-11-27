@@ -17,7 +17,8 @@
     "connect-redis": ">= 1.4.4",
     "hiredis": "0.1.14",
     "redis": "0.7.2",
-    "requirejs": ">= 2.1.0"
+    "requirejs": ">= 2.1.0",
+    "xtend": "1.0.x"
   },
   "devDependencies": {
     "mocha": ">= 1.4.2",
