@@ -13,17 +13,16 @@ html
         li
           ul
             li
-              label
-                span Name
-                  input(name='user[name]', value=name)
+              label(for='user[name]') Name
+              input(name='user[name]', type='text', value=name)
             li
-              span Language
-                select(name='user[locale]')
-                  each language in languages
-                    option(value=language.value, selected=(language.value === locale)) #{language.name}
-  
+              label(for='user[locale]') Language
+              select(name='user[locale]')
+                each language in languages
+                  option(value=language.value, selected=(language.value === locale))= language.name
+
             li
-              span Timezone
+              label(for='user[timezone]', class='clear') Timezone
               div#user-timezone-picker
                 img#user-timezone-image(width='600', height='300', usemap='#user-timezone-map', src='/images/timezone/livingearth_600w.jpg', alt='Map for selecting timezones.  Enter the IANA timezone identifier as text in the next field')
                 img.timezone-pin(src='/images/timezone/pin.png', alt='Marker for selected timezone')
@@ -480,22 +479,21 @@ html
                   area(data-timezone='Pacific/Wake', data-country='UM', data-pin='578,118', data-offset='12', shape='rect', coords='573,123,583,113')
                   area(data-timezone='Pacific/Wallis', data-country='WF', data-pin='6,172', data-offset='12', shape='rect', coords='-2,179,11,167')
               input#user-timezone(name='user[timezone]', value=timezone)
-          
+
             li
-              label
-                span Description
-                textarea(name='user[description]') #{description}
-          
+              label(for='user[description]', class='clear') Description
+              textarea(name='user[description]') #{description}
+
             each toggle in toggleSettings
               li
                 a.settings-toggle(href='#', title='', class=(locals[toggle.name] === 'true' ? 'on' : ''))
                   span #{toggle.description}
                   input(type='hidden', name='user[' + toggle.name + ']', value=locals[toggle.name])
 
-          li
+          li.buttons
             button(type='submit') Save
-            span.close Close
+            a(href='javascript:;', class='close') Close
 
       input(type='hidden', name='_csrf', value=csrf)
-    
+
     script(src='/javascripts/require.js', data-main='/javascripts/settings')

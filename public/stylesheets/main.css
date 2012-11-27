@@ -65,6 +65,14 @@ body {
     font-family: Helvetica, Arial;
 }
 
+body.settings {
+    background-image: none;
+}
+
+body.settings li {
+    border: 0;
+}
+
 a.media-off, body.media-disable ol.messages > li p .image-wrapper,
 body.media-disable ol.messages > li p .object-wrapper {
     display: none;
@@ -507,6 +515,14 @@ ol.messages #paginated.loading {
     text-transform: uppercase;
 }
 
+.settings-details .buttons {
+    clear: both;
+    display: block;
+    float: left;
+    margin: 10px 0;
+    width: 100%;
+}
+
 .settings-details ul li a {
     background-repeat: no-repeat;
     cursor: pointer;
@@ -516,16 +532,11 @@ ol.messages #paginated.loading {
     width: 25px;
 }
 
-.settings-details ul li a:hover {
-    opacity: 0.4;
-}
-
-.settings-details li ul {
+body.settings li ul {
     margin: 0;
 }
 
-.settings-details li ul li {
-    border-top: 1px dotted #eee;
+body.settings li ul li {
     clear: both;
     float: left;
     margin: 10px 0 0;
@@ -533,20 +544,42 @@ ol.messages #paginated.loading {
     width: 100%;
 }
 
-.settings-details textarea {
-    width: 80%;
-    height: 200px;
+body.settings input[type="text"] {
+    padding: 5px;
 }
 
-.settings-details ul li span {
+body.settings textarea, body.settings input[type="text"] {
+    border: 2px solid #eee;
+}
+
+body.settings textarea {
+    font-family: Arial, sans-serif;
+    font-size: 15px;
+    height: 130px;
+    margin-top: 10px;
+    padding: 10px;
+    resize: none;
+    width: 80%;
+}
+
+body.settings ul li span {
     float: left;
     width: 560px;
 }
 
-.settings-details button[type="submit"] {
+body.settings button[type="submit"] {
     float: left;
     margin-top: 10px;
     margin-bottom: inherit;
+}
+
+body.settings label {
+    margin-right: 10px;
+}
+
+body.settings label.clear {
+    clear: both;
+    display: block;
 }
 
 .settings-toggle {
@@ -563,11 +596,12 @@ ol.messages #paginated.loading {
     padding-left: 25px;
 }
 
-.settings-details input, .settings-details select {
-    margin-left: 10px;
+#user-timezone {
+    border: 0;
 }
 
 #user-timezone-picker {
+    border: 0;
     margin-top: 25px;
 }
 
