@@ -16,7 +16,6 @@ requirejs.config({
 define(['jquery', 'jquery.timezone-picker'],
   function($, tp) {
     var flashMsg = $('#flash-message', window.top.document);
-console.log(flashMsg);
     var flashMessage = function(message) {
       flashMsg.text(message);
       flashMsg.fadeIn(200, function() {
