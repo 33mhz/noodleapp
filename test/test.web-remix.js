@@ -49,53 +49,7 @@ describe('web-remix', function() {
       });
     });
 
-    it('returns embed code for a mixcloud audio url', function() {
-      var mixcloud = { text: 'http://mixcloud.com/LuckyMe/25-jamie-vexd-sunday-walkman-mix/', url: 'http://mixcloud.com/LuckyMe/25-jamie-vexd-sunday-walkman-mix/' };
-      var scope = nock('mixcloud.com').get('/oembed?format=json&url=http//mixcloud.com/artist/track').reply(200,
-          { html: '<div><object width="300" height="300"><param name="movie" value="//www.mixcloud.com/media/' +
-          'swf/player/mixcloudLoader.swf?feed=http%3A%2F%2Fwww.mixcloud.com%2Flazykiki%2Fode-to-concrete%2F&amp;' +
-          'embed_uuid=c40faa22-7805-46e6-9a5a-563b12de0f86&amp;stylecolor=&amp;embed_type=widget_standard">' +
-          '</param><param name="allowFullScreen" value="true"></param><param name="wmode" value="opaque"></param>' +
-          '<param name="allowscriptaccess" value="always"></param><embed src="//www.mixcloud.com/media/swf/player/' +
-          'mixcloudLoader.swf?feed=http%3A%2F%2Fwww.mixcloud.com%2Flazykiki%2Fode-to-concrete%2F&amp;embed_uuid=' +
-          'c40faa22-7805-46e6-9a5a-563b12de0f86&amp;stylecolor=&amp;embed_type=widget_standard" type="application/' +
-          'x-shockwave-flash" wmode="opaque" allowscriptaccess="always" allowfullscreen="true" width="300" height="' +
-          '300"></embed></object><div style="clear:both; height:3px;"></div><p style="display:block; font-size:12px; ' +
-          'font-family:Helvetica, Arial, sans-serif; margin:0; padding: 3px 4px; color:#999;"><a href="http://www.' +
-          'mixcloud.com/lazykiki/ode-to-concrete/?utm_source=widget&amp;amp;utm_medium=web&amp;amp;utm_campaign=base_' +
-          'links&amp;amp;utm_term=resource_link" target="_blank" style="color:#02a0c7; font-weight:bold;">Ode to ' +
-          'Concrète</a><span> by </span><a href="http://www.mixcloud.com/lazykiki/?utm_source=widget&amp;amp;utm_' +
-          'medium=web&amp;amp;utm_campaign=base_links&amp;amp;utm_term=profile_link" target="_blank" style="' +
-          'color:#02a0c7; font-weight:bold;">Lazy Kiki</a><span> on </span><a href="http://www.mixcloud.com/' +
-          '?utm_source=widget&amp;utm_medium=web&amp;utm_campaign=base_links&amp;utm_term=homepage_link" ' +
-          'target="_blank" style="color:#02a0c7; font-weight:bold;"> Mixcloud</a></p><div style="clear:both; ' +
-          'height:3px;"></div></div><a href="http://mixcloud.com/LuckyMe/25-jamie-vexd-sunday-walkman-mix/" target="_blank" class="media-off" ' +
-          '>http://mixcloud.com/LuckyMe/25-jamie-vexd-sunday-walkman-mix/</a>' });
-      webRemix.generate(mixcloud, client, function(err, subject) {
-        subject.should.equal('<div class="object-wrapper"><div class="object-wrapper"><div><object width="300" height="300"><param name="movie" ' +
-          'value="//www.mixcloud.com/media/swf/player/mixcloudLoader.swf?feed=http%3A%2F%2Fwww.mixcloud.com%2F' +
-          'lazykiki%2Fode-to-concrete%2F&amp;embed_uuid=2a3c7546-7bd1-482b-809c-0a0fa0f39095&amp;stylecolor=&amp;' +
-          'embed_type=widget_standard"></param><param name="allowFullScreen" value="true"></param><param ' +
-          'name="wmode" value="opaque"></param><param name="allowscriptaccess" value="always"></param>' +
-          '<embed src="//www.mixcloud.com/media/swf/player/mixcloudLoader.swf?feed=http%3A%2F%2Fwww.mixcloud.com%2F' +
-          'lazykiki%2Fode-to-concrete%2F&amp;embed_uuid=2a3c7546-7bd1-482b-809c-0a0fa0f39095&amp;stylecolor=&amp;embed_' +
-          'type=widget_standard" type="application/x-shockwave-flash" wmode="opaque" allowscriptaccess="always" ' +
-          'allowfullscreen="true" width="300" height="300"></embed></object><div style="clear:both; height:3px;">' +
-          '</div><p style="display:block; font-size:12px; font-family:Helvetica, Arial, sans-serif; margin:0; ' +
-          'padding: 3px 4px; color:#999;"><a href="http://www.mixcloud.com/lazykiki/ode-to-concrete/?utm_source=' +
-          'widget&amp;amp;utm_medium=web&amp;amp;utm_campaign=base_links&amp;amp;utm_term=resource_link" ' +
-          'target="_blank" style="color:#02a0c7; font-weight:bold;">Ode to Concrète</a><span> by </span>' +
-          '<a href="http://www.mixcloud.com/lazykiki/?utm_source=widget&amp;amp;utm_medium=web&amp;amp;utm_' +
-          'campaign=base_links&amp;amp;utm_term=profile_link" target="_blank" style="color:#02a0c7; ' +
-          'font-weight:bold;">Lazy Kiki</a><span> on </span><a href="http://www.mixcloud.com/?utm_source=' +
-          'widget&amp;utm_medium=web&amp;utm_campaign=base_links&amp;utm_term=homepage_link" target="_blank" ' +
-          'style="color:#02a0c7; font-weight:bold;"> Mixcloud</a></p><div style="clear:both; height:3px;">' +
-          '</div></div></div></div><a href="http://mixcloud.com/LuckyMe/25-jamie-vexd-sunday-walkman-mix/" target="_blank" class="media-off" ' +
-          '>http://mixcloud.com/LuckyMe/25-jamie-vexd-sunday-walkman-mix/</a>');
-      });
-    });
-
-    it('returns oembed code for a soundcloud url', function() {
+    it('returns oembed code for a soundcloud url', function(done) {
       var soundcloud = { text: 'http://soundcloud.com/skeptical/sets/tracks-576/', url: 'http://soundcloud.com/skeptical/sets/tracks-576/' };
       var scope = nock('soundcloud.com').get('/oembed?format=json&url=http//soundcloud.com/track').reply(200,
           { html: '<iframe src="//w.soundcloud.com/player/?url=http%3A' +
@@ -107,8 +61,9 @@ describe('web-remix', function() {
       webRemix.generate(soundcloud, client, function(err, subject) {
         subject.should.equal('<div class="object-wrapper"><iframe width="100%" height="450" scrolling="no" frameborder="no" ' +
           'src="//w.soundcloud.com/player/?url=http%3A%2F%2Fapi.soundcloud.com%2Fplaylists%2F723408&show_artwork=true">' +
-          '</iframe></div><a href="http://soundcloud.com/skeptical/sets/tracks-576/" target="_blank" class="media-off" ' +
+          '</iframe></div><a href="http://soundcloud.com/skeptical/sets/tracks-576/" target="_blank" class="media-off"' +
           '>http://soundcloud.com/skeptical/sets/tracks-576/</a>');
+        done();
       });
     });
 
@@ -137,11 +92,12 @@ describe('web-remix', function() {
       });
     });
 
-    it('returns image code for an instagr.am url', function() {
+    it('returns image code for an instagr.am url', function(done) {
       var instagram = { text: 'http://instagram.com/p/QFJJzTw8yS/', url: 'http://instagram.com/p/QFJJzTw8yS/' };
       webRemix.generate(instagram, client, function(err, subject) {
         subject.should.equal('<div class="image-wrapper"><a href="http://instagram.com/p/QFJJzTw8yS/">' +
           '<img src="http://instagr.am/p/QFJJzTw8yS/media/"/></a></div><a href="http://instagram.com/p/QFJJzTw8yS/" target="_blank" class="media-off">http://instagram.com/p/QFJJzTw8yS/</a>');
+        done();
       });
     });
 
