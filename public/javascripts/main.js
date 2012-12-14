@@ -158,6 +158,7 @@ define(['jquery', 'appnet', 'friends', 'jquery.caret'],
     // The fixed class causes issues with the overlay closing, possibly connected with the closeOverlay in checkUrl.  But it's also required for ESC to work...
     // $('body').addClass('fixed');
     window.location.hash = 'settings';
+    menuOpen = true;
     overlay.find('.write').hide();
     overlay.addClass('settings-overlay');
     overlay.find('.inner-overlay').html('<iframe src="/settings">Enable iframes to change settings.</iframe>');

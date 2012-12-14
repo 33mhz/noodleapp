@@ -15,13 +15,13 @@ html
             li
               label(for='user[name]') Name
               input(name='user[name]', type='text', value=name)
-            li
+            li#user-local-item
               label(for='user[locale]') Language
               select(name='user[locale]')
                 each language in languages
                   option(value=language.value, selected=(language.value === locale))= language.name
 
-            li
+            li#user-timezone-item
               label(for='user[timezone]', class='clear') Timezone
               div#user-timezone-picker
                 img#user-timezone-image(width='600', height='300', usemap='#user-timezone-map', src='/images/timezone/livingearth_600w.jpg', alt='Map for selecting timezones.  Enter the IANA timezone identifier as text in the next field')

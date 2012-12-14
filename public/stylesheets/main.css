@@ -1865,9 +1865,21 @@ img.hush {
         top: 203px;
     }
 
+    .settings h1 {
+        margin-top: 20px;
+    }
+
     .settings-details ul li span {
         margin-left: 10px;
         width: 190px;
+    }
+
+    body.settings ul li span {
+        width: 200px;
+    }
+
+    #user-timezone-item, #user-local-item {
+        display: none;
     }
 
     #unread-messages {
