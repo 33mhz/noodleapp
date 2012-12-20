@@ -164,15 +164,13 @@ module.exports = function(app, client, isLoggedIn, noodle, config) {
 
   app.get('/settings', isLoggedIn, function(req, res) {
     userDb.getSettings(req, client, function(err, settings) {
-      settings.isPostback = 0;
       renderSettings(err, req, res, settings);
     });
   });
 
   app.post('/settings', isLoggedIn, function(req, res) {
     userDb.saveSettings(req, client, function(err, settings) {
-      settings.isPostback = 1;
-      renderSettings(err, req, res, settings);
+      res.redirect('/');
     });
   });
 

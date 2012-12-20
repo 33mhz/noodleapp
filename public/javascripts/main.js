@@ -55,6 +55,13 @@ define(['jquery', 'appnet', 'friends', 'jquery.caret'],
 
   var MESSAGE_LIMIT = 99;
 
+  overlay.on('click', '.settings-toggle', function(ev) {
+    ev.preventDefault();
+    var self = $(this);
+    self.toggleClass('on');
+    self.find('input').val(self.hasClass('on'));
+  });
+
   var resetNotificationDisplay = function() {
     notificationIcon
       .removeClass('on')
@@ -155,14 +162,14 @@ define(['jquery', 'appnet', 'friends', 'jquery.caret'],
   };
 
   var showSettings = function() {
-    // The fixed class causes issues with the overlay closing, possibly connected with the closeOverlay in checkUrl.  But it's also required for ESC to work...
-    // $('body').addClass('fixed');
-    window.location.hash = 'settings';
-    menuOpen = true;
-    overlay.find('.write').hide();
-    overlay.addClass('settings-overlay');
-    overlay.find('.inner-overlay').html('<iframe src="/settings">Enable iframes to change settings.</iframe>');
-    overlay.slideDown();
+    $.get('/settings', function(data) {
+      body.addClass('fixed');
+      menuOpen = true;
+      overlay.find('.write').hide();
+      overlay.addClass('settings-overlay');
+      overlay.find('.inner-overlay').html(data);
+      overlay.slideDown();
+    });
   };
 
   /* Feed functionality */
@@ -369,7 +376,6 @@ define(['jquery', 'appnet', 'friends', 'jquery.caret'],
         break;
 
       case self.is('#notifications'):
-        var self = $(this);
         resetNotificationDisplay();
 
         if (!notificationsDisplay) {
@@ -435,15 +441,14 @@ define(['jquery', 'appnet', 'friends', 'jquery.caret'],
     }
 
     // Open menu if ctrl|cmd|shift + ?|/ is pressed
-    if (ev.keyCode === QUESTION_SLASH_KEYCODE
-      && (ev.ctrlKey || ev.metaKey || ev.shiftKey)
-      && !write.find('textarea').hasClass('on')) {
+    if (ev.keyCode === QUESTION_SLASH_KEYCODE &&
+      (ev.ctrlKey || ev.metaKey || ev.shiftKey) &&
+      !write.find('textarea').hasClass('on')) {
       mapMenu.find('#menu-toggle').click();
     }
 
     // Create a new post
-    if (ev.keyCode === N_KEYCODE
-      && !write.find('textarea').hasClass('on')) {
+    if (ev.keyCode === N_KEYCODE && !write.find('textarea').hasClass('on')) {
       ev.preventDefault();
       dashboard.find('.write textarea').focus();
     }

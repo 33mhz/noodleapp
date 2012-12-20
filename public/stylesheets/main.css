@@ -65,11 +65,7 @@ body {
     font-family: Helvetica, Arial;
 }
 
-body.settings {
-    background-image: none;
-}
-
-body.settings li {
+body.settings #overlay li {
     border: 0;
 }
 
@@ -489,26 +485,7 @@ ol.messages #paginated.loading {
     color: #eee;
 }
 
-#overlay.settings-overlay {
-    overflow: visible;
-}
-
-.settings-overlay .inner-overlay {
-    height: 100%;
-    width: 102%;
-    margin-left: -1%;
-}
-
-.settings-overlay .inner-overlay > iframe {
-    height: 100%;
-    width: 100%;
-}
-
-.settings {
-    margin-left: 10px;
-}
-
-.settings h1 {
+.settings-overlay h1 {
     font-family: 'Oswald';
     font-size: 30px;
     margin-bottom: 10px;
@@ -532,11 +509,11 @@ ol.messages #paginated.loading {
     width: 25px;
 }
 
-body.settings li ul {
+.settings-overlay li ul {
     margin: 0;
 }
 
-body.settings li ul li {
+.settings-overlay li ul li {
     clear: both;
     float: left;
     margin: 10px 0 0;
@@ -544,15 +521,15 @@ body.settings li ul li {
     width: 100%;
 }
 
-body.settings input[type="text"] {
+.settings-overlay input[type="text"] {
     padding: 5px;
 }
 
-body.settings textarea, body.settings input[type="text"] {
+.settings-overlay textarea, .settings-overlay input[type="text"] {
     border: 2px solid #eee;
 }
 
-body.settings textarea {
+.settings-overlay textarea {
     font-family: Arial, sans-serif;
     font-size: 15px;
     height: 130px;
@@ -562,22 +539,22 @@ body.settings textarea {
     width: 80%;
 }
 
-body.settings ul li span {
+.settings-overlay ul li span {
     float: left;
     width: 560px;
 }
 
-body.settings button[type="submit"] {
+.settings-overlay button[type="submit"] {
     float: left;
     margin-top: 10px;
     margin-bottom: inherit;
 }
 
-body.settings label {
+.settings-overlay label {
     margin-right: 10px;
 }
 
-body.settings label.clear {
+.settings-overlay label.clear {
     clear: both;
     display: block;
 }
@@ -594,19 +571,6 @@ body.settings label.clear {
 
 .settings-toggle span {
     padding-left: 25px;
-}
-
-#user-timezone {
-    border: 0;
-}
-
-#user-timezone-picker {
-    border: 0;
-    margin-top: 25px;
-}
-
-.timezone-pin {
-    padding-top: 4px;
 }
 
 #overlay .inner-overlay .message-summary li.message-item {
@@ -1504,177 +1468,6 @@ img.hush {
     }
 }
 
-@media only screen and (max-width: 600px) {
-    #dashboard {
-        width: 530px;
-    }
-
-    #map-menu {
-        display: none;
-    }
-
-    .tabs {
-        bottom: -25px;
-        left: 50%;
-        margin-left: -180px;
-        position: absolute;
-    }
-
-    .tabs a {
-        border-bottom: 1px solid #555;
-        border-top-left-radius: 0;
-        border-top-right-radius: 0;
-    }
-
-    #overlay {
-        margin-left: -264px;
-        width: 485px;
-    }
-
-    #overlay .actions {
-        margin: 0 0 5px 0;
-    }
-
-    #overlay .message-summary li .details {
-        margin-left: 0;
-        width: 450px;
-    }
-
-    #overlay .meta .who > img {
-        margin-left: 0;
-    }
-
-    #overlay .message-summary li p {
-        margin: 5px 0;
-        width: 540px;
-    }
-
-    #overlay .users li span {
-        width: 415px;
-    }
-
-    #overlay li p iframe, #overlay li p video, #overlay li p audio, #overlay li p object {
-        height: 264px;
-        width: 470px;
-    }
-
-    #overlay li p img {
-        max-height: 570px;
-        max-width: 470px;
-    }
-
-    #profile .user-info {
-        width: 485px;
-    }
-
-    #overlay .info {
-        margin: 5px 0;
-    }
-
-    #overlay .info li {
-        overflow: hidden;
-        text-overflow: ellipsis;
-        width: 127px;
-    }
-
-    #profile .user-info h2 {
-        width: 485px;
-    }
-
-    #overlay .meta {
-        display: block;
-        float: left;
-        width: 470px;
-    }
-
-    .write {
-        margin-top: 50px;
-    }
-
-    #overlay .write {
-        margin-top: 20px;
-    }
-
-    #overlay h1 {
-        padding-top: 40px;
-    }
-
-    .write textarea {
-        width: 465px;
-    }
-
-    .details {
-        width: 405px;
-    }
-
-    #overlay ol.users {
-        margin-top: 20px;
-    }
-
-    #overlay .write textarea, ol.messages > li.message-item p {
-        width: 450px;
-    }
-
-    #overlay .inner-overlay .message-summary li .details {
-        margin-left: 0;
-        width: 340px;
-    }
-
-    #overlay .inner-overlay .message-summary li p {
-        margin-left: 0;
-        width: 470px;
-    }
-
-    .dashboard-content {
-        width: 525px;
-    }
-
-    ol.messages > li.message-item, .public ol.messages > li {
-        width: 490px;
-    }
-
-    ol.messages > li .post-wrapper {
-        width: 475px;
-    }
-
-    ol.messages li p iframe, ol.messages li p video,
-    ol.messages li p audio, ol.messages li p object {
-        height: 264px;
-        width: 450px;
-    }
-
-    ol.messages .inner-overlay ol > li {
-        width: 270px;
-    }
-
-    ol.messages .inner-overlay ol > li p {
-        padding-top: 5px;
-        width: 240px;
-    }
-
-    ol.messages .inner-overlay ol > li p img, ol.messages > li p img {
-        max-height: 550px;
-        max-width: 450px;
-    }
-
-    ol.messages #paginated {
-        width: 485px;
-    }
-
-    .suggestions {
-        top: 109px;
-    }
-
-    .settings-details ul li span {
-        margin-left: 10px;
-        width: 390px;
-    }
-
-    #unread-messages {
-        width: 488px;
-    }
-}
-
 @media only screen and (max-width: 530px) and (orientation:portrait) {
     #dashboard {
         width: 320px;
@@ -1865,16 +1658,12 @@ img.hush {
         top: 203px;
     }
 
-    .settings h1 {
-        margin-top: 20px;
-    }
-
     .settings-details ul li span {
         margin-left: 10px;
         width: 190px;
     }
 
-    body.settings ul li span {
+    .settings-overlay ul li span {
         width: 200px;
     }
 
