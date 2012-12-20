@@ -15,7 +15,8 @@ form(method='post', action='/settings', autocomplete='off')
 
         li#user-timezone-item
           label(for='user[timezone]', class='clear') Timezone
-          input#user-timezone(name='user[timezone]', value=timezone)
+          div#user-timezone-picker
+            input#user-timezone(name='user[timezone]', value=timezone)
 
         li
           label(for='user[description]', class='clear') Description
