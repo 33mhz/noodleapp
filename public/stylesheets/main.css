@@ -134,7 +134,7 @@ body.fixed {
 }
 
 #map-menu .tag {
-    background-color: #ccc;
+    background-color: #bbb;
     border-top: 2px solid #fff;
     border-right: 2px solid #fff;
     border-bottom: 2px solid #fff;
@@ -178,15 +178,15 @@ body.fixed {
 
 #map-menu li {
     background-color: #222;
-    border-radius: 3px;
+    border-radius: 2px;
     font-size: 14px;
     margin: 3px 0 0;
     padding: 7px 8px;
 }
 
 header {
-    background-color: rgba(249, 249, 249, 0.87);
-    border-bottom: 1px solid #fff;
+    background-color: rgba(232, 232, 232, 0.87);
+    border-bottom: 1px solid #eee;
     box-shadow: #999 -2px 0 3px;
     color: #eee;
     font-family: 'Oswald';
@@ -217,25 +217,70 @@ header a.home {
     width: 25px;
 }
 
-header a#logout, header a#profile-link, header a#settings-link {
+header > ul {
+    position: absolute;
+    right: 10px;
+    width: 105px;
+}
+
+header > ul > li {
+    float: left;
+    position: relative;
+}
+
+header > ul > li:hover, header > ul > li:focus {
+    height: 100px;
+}
+
+header > ul > li:hover ul.submenu, header > ul > li:focus ul.submenu {
+    display: block;
+}
+
+header ul.submenu {
+    display: none;
+    padding: 3px;
+    position: absolute;
+    right: 0;
+    text-transform: uppercase;
+    top: 30px;
+}
+
+header ul.submenu li {
+    background-color: #111;
+    clear: both;
+    float: right;
+    margin-bottom: 3px;
+    padding: 5px 10px;
+    text-align: right;
+    width: 100px;
+}
+
+header ul.submenu li a {
+    color: #eee;
+    font-size: 14px;
+}
+
+header ul.submenu li a:hover {
+    background-color: #;
+}
+
+header a#profile-link, header a#settings {
+    display: inline-block;
     float: right;
     font-size: 1px;
     height: 25px;
-    margin-right: 10px;
+    margin-right: 6px;
     outline: hidden;
+    position: relative;
     text-indent: -9999px;
     width: 25px;
-}
-
-header a#logout {
-    background-image: url('/images/logout.png');
 }
 
 header a#profile-link {
     background-image: url('/images/profile.png');
 }
 
-header a#settings-link {
+header a#settings {
     background-image: url('/images/settings.png');
 }
 
@@ -250,14 +295,10 @@ header a#notifications {
     font-size: 12px;
     letter-spacing: 0.04em;
     line-height: 19px;
-    margin-right: 10px;
+    margin-right: 6px;
     padding: 3px;
     text-align: center;
     min-width: 18px;
-}
-
-header > a:hover {
-    opacity: 0.4;
 }
 
 header a#notifications.on {
@@ -275,7 +316,7 @@ header a#notifications.on:hover {
     border-bottom-right-radius: 5px;
     display: none;
     height: 300px;
-    opacity: 0.9;
+    opacity: 0.93;
     overflow-y: scroll;
     overflow-x: hidden;
     -webkit-overflow-scrolling: touch;
@@ -289,7 +330,7 @@ header a#notifications.on:hover {
 
 #notifications-preview li a.notification-item {
     background-color: #222;
-    border-radius: 3px;
+    border-radius: 2px;
     color: #eee;
     display: block;
     font-family: Helvetica, Arial;
@@ -485,7 +526,7 @@ ol.messages #paginated.loading {
     color: #eee;
 }
 
-.settings-overlay h1 {
+.settings-overlay h1, .message-wrapper h1 {
     font-family: 'Oswald';
     font-size: 30px;
     margin-bottom: 10px;
@@ -632,7 +673,7 @@ ol.messages #paginated.loading {
 
 #overlay .info li {
     background-color: #eee;
-    border-radius: 5px;
+    border-radius: 2px;
     color: #888;
     float: left;
     font-family: 'Oswald';
@@ -816,7 +857,7 @@ section.public li h1 {
 
 .write textarea {
     border: 1px solid transparent;
-    border-radius: 5px;
+    border-radius: 2px;
     color: #888;
     font-family: Helvetica, Arial;
     font-size: 15px;
@@ -870,7 +911,7 @@ button[type="submit"] {
 button[type="submit"], section.public li a {
     background-color: #74b908;
     border: 0;
-    border-radius: 5px;
+    border-radius: 2px;
     color: #fff;
     cursor: pointer;
     display: block;
@@ -911,28 +952,23 @@ section.public li a {
 }
 
 .tabs a {
-    background-color: #ddd;
-    border-radius: 3px;
-    color: #aaa;
+    background-color: #fff;
+    color: #333;
     display: block;
     float: left;
     font-family: 'Oswald';
-    font-size: 15px;
-    margin: 0 5px;
+    font-size: 14px;
+    line-height: 16px;
+    margin: 0 3px;
     padding: 5px 0 3px;
     text-align: center;
     text-decoration: none;
     text-transform: uppercase;
-    width: 80px;
+    width: 77px;
 }
 
 .tabs.long a {
     width: 110px;
-}
-
-.high-contrast .tabs a {
-    background-color: #888;
-    color: #eee;
 }
 
 a.tabs a, .action-buttons a {
@@ -947,7 +983,7 @@ a.tabs a, .action-buttons a {
 
 .action-buttons a {
     background-color: #7edddc;
-    border-radius: 5px;
+    border-radius: 2px;
     color: #348988;
     display: block;
     padding: 5px 12px;
@@ -959,17 +995,8 @@ a.tabs a, .action-buttons a {
     margin-left: 0;
 }
 
-.tabs a.selected {
-    background-color: #a7eae4;
-    color: #20c2c0;
-}
-
-.high-contrast .tabs a.selected {
-    background-color: #20c2c0;
-    color: #fff;
-}
-
-.tabs a:hover, .action-buttons a:hover {
+.tabs a:hover, .action-buttons a:hover, .tabs a.selected, #message-summary li a:hover,
+#message-summary li a.selected {
     background-color: #111;
     color: #eee;
 }
@@ -1003,8 +1030,7 @@ ol.messages > li {
 ol.messages > li .post-wrapper {
     background-color: #fff;
     border-left: 3px solid #fff;
-    border-radius: 5px;
-    box-shadow: #f1f1f1 3px 3px 2px;
+    border-radius: 2px;
     display: block;
     float: left;
     padding: 10px 5px;
@@ -1025,7 +1051,7 @@ li.message-item.selected-item div.post-wrapper,
 }
 
 #thread-detail .message-item {
-    border-radius: 5px;
+    border-radius: 2px;
     margin-bottom: 3px;
 }
 
@@ -1092,7 +1118,7 @@ br {
 }
 
 time {
-    background-color: #adc1c5;
+    background-color: #ccc;
     border-radius: 100px;
     color: #fff;
     float: right;
@@ -1164,7 +1190,7 @@ time:hover {
 
 .actions > a span {
     background-color: #111;
-    border-radius: 3px;
+    border-radius: 2px;
     color: #eee;
     display: none;
     font-family: 'Oswald';
@@ -1237,7 +1263,7 @@ ol.messages > li p {
 
 #unread-messages {
     background-color: #30d2d3;
-    border-radius: 5px;
+    border-radius: 2px;
     box-shadow: #f1f1f1 2px 2px 2px;
     cursor: pointer;
     display: none;
@@ -1267,8 +1293,8 @@ ol.messages > li p {
     display: none;
 }
 
-ol.messages > li p a, #overlay .message-summary li p a {
-    color: #20c2c0;
+ol.messages > li p a, #overlay .message-summary li p a, #message-detail li a {
+    color: #1699ca;
     text-decoration: none;
     white-space: nowrap;
 }
@@ -1392,6 +1418,107 @@ img.hush {
     color: #eee;
 }
 
+.message-wrapper {
+    margin-top: 40px;
+    padding: 20px;
+}
+
+#message-summary, #message-detail {
+    display: block;
+    float: left;
+    margin: 15px 0;
+}
+
+#message-summary {
+    width: 130px;
+}
+
+#message-summary .avatar {
+    width: 80px;
+}
+
+#message-summary a {
+    display: block;
+}
+
+#message-summary a span {
+    display: block;
+    font-family: 'Oswald';
+    font-size: 15px;
+    line-height: 20px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+#message-detail {
+    min-height: 50px;
+    width: 530px;
+}
+
+#message-summary li, #message-detail li {
+    margin: 0 2px 2px;
+}
+
+#message-detail li {
+    background-color: #f1f1f1;
+    font-size: 14px;
+    line-height: 17px;
+    overflow: hidden;
+    padding: 10px;
+}
+
+#message-detail li img.avatar {
+    width: 30px;
+}
+
+#message-summary li a, #message-detail {
+    color: #111;
+    display: block;
+    margin-bottom: 3px;
+}
+
+#message-summary li a {
+    background-color: #fff;
+    font-size: 13px;
+    padding: 5px;
+    text-decoration: none;
+}
+
+#message-detail li iframe {
+    height: 284px;
+    width: 505px;
+}
+
+#message-detail li img {
+    max-height: 505px;
+    max-width: 505px;
+}
+
+.write.channel-message {
+    margin: 0;
+    padding: 0 0 20px 0;
+}
+
+.write.channel-message {
+    float: right;
+    width: 515px;
+}
+
+.write.channel-message textarea {
+    width: 490px;
+}
+
+#recipients {
+    display: block;
+    margin: 10px 0;
+}
+
+#recipients input {
+    margin-left: 10px;
+    padding: 3px;
+    width: 414px;
+}
+
 @media screen and (-webkit-min-device-pixel-ratio: 2), screen and (min--moz-device-pixel-ratio: 2), (min-resolution: 2dppx) {
     body {
         background-image: url('/images/background2x.png');
@@ -1442,17 +1569,12 @@ img.hush {
         background-size: auto 25px;
     }
 
-    header a#logout {
-        background-image: url('/images/logout2x.png');
-        background-size: auto 25px;
-    }
-
     header a#profile-link {
         background-image: url('/images/profile2x.png');
         background-size: auto 25px;
     }
 
-    header a#settings-link {
+    header a#settings {
         background-image: url('/images/settings2x.png');
         background-size: auto 25px;
     }
@@ -1468,7 +1590,7 @@ img.hush {
     }
 }
 
-@media only screen and (max-width: 530px) and (orientation:portrait) {
+@media only screen and (max-width: 730px) and (orientation:portrait) {
     #dashboard {
         width: 320px;
     }
@@ -1571,7 +1693,7 @@ img.hush {
         line-height: 15px;
         margin: 0 2px;
         padding: 4px 0;
-        width: 68px;
+        width: 66px;
     }
 
     .tabs.long a {
@@ -1667,11 +1789,35 @@ img.hush {
         width: 200px;
     }
 
-    #user-timezone-item, #user-local-item {
-        display: none;
-    }
-
     #unread-messages {
         width: 283px;
+    }
+
+    #message-detail {
+        width: 280px;
+    }
+
+    #message-detail li iframe {
+        height: 143px;
+        width: 255px;
+    }
+
+    #message-detail li img {
+        max-height: 255px;
+        max-width: 255px;
+    }
+
+    .write.channel-message {
+        width: 285px;
+    }
+
+    .write.channel-message textarea {
+        width: 270px;
+    }
+
+    #recipients input {
+        margin-left: 10px;
+        padding: 3px;
+        width: 188px;
     }
 }

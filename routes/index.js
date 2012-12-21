@@ -514,4 +514,89 @@ module.exports = function(app, client, isLoggedIn, noodle, config) {
       }
     });
   });
+
+  app.get('/messages', isLoggedIn, function(req, res) {
+    var analytics = false;
+
+    appnet.getChannels(req, function(err, channels) {
+      if (err) {
+        res.redirect('/500');
+      } else {
+        userDb.getSettings(req, client, function(err, userItems) {
+          if (err) {
+            res.status(500);
+            res.redirect('/500');
+          } else {
+            var mediaOn = '';
+            var highContrast = '';
+
+            if (userItems.mediaOn === 'false') {
+              mediaOn = 'media-disable';
+            }
+
+            if (userItems.highContrast === 'true') {
+              highContrast = 'high-contrast';
+            }
+
+            if (userItems.charLimit === 'true') {
+              charLimit = 140;
+            } else {
+              charLimit = 256;
+            }
+          }
+
+          if (config.get('analytics')) {
+            analytics = config.get('analytics');
+          }
+
+          res.render('messages', {
+            pageType: 'messages',
+            username: utils.getUser(req).username,
+            csrf: req.session._csrf,
+            session: utils.getUser(req),
+            url: '/channels',
+            loggedInId: utils.getUserId(req),
+            mediaOn: mediaOn,
+            highContrast: highContrast,
+            charLimit: charLimit,
+            loggedUsername: utils.getUser(req).username,
+            analytics: analytics,
+            channels: channels.data
+          });
+        });
+      }
+    });
+  });
+
+  app.get('/channel/:id', isLoggedIn, function(req, res) {
+    appnet.getMessages(req, function(err, recentMessages) {
+      if (err) {
+        res.status(500);
+        res.json({ 'error': 'error retrieving messages' });
+      } else {
+        utils.generateFeed(req, recentMessages, client, false, function(messages) {
+          res.render('_messages', {
+            layout: false,
+            messages: messages
+          });
+        });
+      }
+    });
+  });
+
+  app.post('/channel', isLoggedIn, function(req, res) {
+    appnet.postChannelMessage(req, function(err, recentMessage) {
+      if (err) {
+        res.status(500);
+        res.json({ 'error': 'error posting message' });
+      } else {
+        utils.generateFeed(req, [recentMessage], client, false, function(messages) {
+          res.render('_messages', {
+            layout: false,
+            messages: messages
+          });
+        });
+      }
+    });
+  });
 };

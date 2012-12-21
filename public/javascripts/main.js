@@ -185,38 +185,38 @@ define(['jquery', 'appnet', 'friends', 'jquery.caret'],
     tabs.find('a').removeClass('selected');
     self.addClass('selected');
 
-    switch (true) {
-      case self.hasClass('global-feed'):
+    switch (self.data('action')) {
+      case 'global-feed':
         updateFeed(self, function() {
           appnet.getGlobalFeed();
         });
         break;
 
-      case self.hasClass('user-posts'):
+      case 'user-posts':
         updateFeed(self, function() {
           appnet.getUserPosts();
         });
         break;
 
-      case self.hasClass('user-mentions'):
+      case 'user-mentions':
         updateFeed(self, function() {
           appnet.getUserMentions();
         });
         break;
 
-      case self.hasClass('user-interactions'):
+      case 'user-interactions':
         updateFeed(self, function() {
           appnet.getUserInteractions();
         });
         break;
 
-      case self.hasClass('user-starred'):
+      case 'user-starred':
         updateFeed(self, function() {
           appnet.getUserStarred();
         });
         break;
 
-      case self.hasClass('my-feed'):
+      case 'my-feed':
         updateFeed(self, function() {
           appnet.getMyFeed();
         });
@@ -231,25 +231,25 @@ define(['jquery', 'appnet', 'friends', 'jquery.caret'],
   messages.on('click', function(ev) {
     var self = $(ev.target);
 
-    switch (true) {
-      case self.hasClass('quote'):
+    switch (self.data('action')) {
+      case 'quote':
         var textarea = self.closest('.dashboard-content').find('textarea');
         textarea.focus();
         write.find('.form-action-wrapper').slideDown('fast');
         textarea.val('>> "' + self.closest('.message-item').data('original') + '"');
         break;
 
-      case self.hasClass('delete'):
+      case 'delete':
         appnet.deleteMessage(self.closest('.message-item').data('id'), csrf);
         self.closest('li.message-item').fadeOut();
         break;
 
-      case self.hasClass('thread'):
+      case 'thread':
         appnet.showThread(self.closest('.message-item').data('id'));
         body.addClass('fixed');
         break;
 
-      case self.is('#paginated'):
+      case 'paginated':
         appnet.getOlderPosts(self.prev().data('id'));
         break;
     }
@@ -275,8 +275,8 @@ define(['jquery', 'appnet', 'friends', 'jquery.caret'],
     var self = $(ev.target);
     var selfLink = self.parent();
 
-    switch (true) {
-      case self.hasClass('reply'):
+    switch (self.data('action')) {
+      case 'reply':
         var messageItem = self.closest('.message-item');
         var mentions = (messageItem.data('mentions') !== '') ? messageItem.data('mentions') + ' ' : '';
 
@@ -292,16 +292,16 @@ define(['jquery', 'appnet', 'friends', 'jquery.caret'],
         }
         break;
 
-      case self.hasClass('thread'):
+      case 'thread':
         appnet.showThread(self.closest('.message-item').data('id'));
         body.addClass('fixed');
         break;
 
-      case self.hasClass('close') || selfLink.hasClass('close'):
+      case 'close':
         closeOverlay();
         break;
 
-      case self.hasClass('quote'):
+      case 'quote':
         var textarea = overlay.find('textarea');
         textarea.focus();
         overlay.find('.form-action-wrapper').slideDown('fast');
@@ -329,6 +329,22 @@ define(['jquery', 'appnet', 'friends', 'jquery.caret'],
     }
 
     switch (true) {
+      case self.hasClass('channel'):
+        appnet.getMessages(self.data('id'));
+        self.closest('#message-summary').find('a.selected').removeClass('selected');
+        if (self.data('username') !== '@' + body.data('username')) {
+          write.find('#destination').val(self.data('username'));
+        } else {
+          write.find('#destination').val('');
+        }
+        write.find('#channel-id').val(self.data('id'));
+        self.addClass('selected');
+        break;
+      case selfLink.hasClass('channel'):
+        appnet.getMessages(selfLink.data('id'));
+        selfLink.closest('#message-summary').find('a.selected').removeClass('selected');
+        selfLink.addClass('selected');
+        break;
       case (self.hasClass('reply')):
         self.closest('.message-item').find('time').click();
         break;
@@ -448,7 +464,7 @@ define(['jquery', 'appnet', 'friends', 'jquery.caret'],
     }
 
     // Create a new post
-    if (ev.keyCode === N_KEYCODE && !write.find('textarea').hasClass('on')) {
+    if (ev.keyCode === N_KEYCODE && !write.find('textarea').hasClass('on') && !write.hasClass('channel-message-form')) {
       ev.preventDefault();
       dashboard.find('.write textarea').focus();
     }

@@ -31,6 +31,6 @@ form(method='post', action='/settings', autocomplete='off')
 
       li.buttons
         button(type='submit') Save
-        a(href='javascript:;', class='close') Close
+        a(href='javascript:;', class='close', data-action='close') Close
 
   input(type='hidden', name='_csrf', value=csrf)

@@ -55,7 +55,7 @@ define(['jquery', 'version-timeout', 'friends', 'jquery.caret'],
   };
 
   var generateCloseLink = function() {
-    return '<ol class="message-summary"><li class="close"><a title="Close">Close</a></li></ol>';
+    return '<ol class="message-summary"><li class="close"><a title="Close" data-action="close">Close</a></li></ol>';
   }
 
   var dateDisplay = function(time) {
@@ -89,7 +89,7 @@ define(['jquery', 'version-timeout', 'friends', 'jquery.caret'],
       cache: false
     }).done(function(data) {
       if (callback) {
-        callback();
+        callback(data);
       }
     }).fail(function(data) {
       overlay.find('.inner-overlay').html(generateCloseLink());
@@ -117,7 +117,7 @@ define(['jquery', 'version-timeout', 'friends', 'jquery.caret'],
           .find('span.name').html(data.users[i].name + ' <em>@' + data.users[i].username + '</em>');
         userList.append(user);
       }
-      userList.append('<li class="close"><a title="Close">Close</a></li>');
+      userList.append('<li class="close"><a title="Close" data-action="close">Close</a></li>');
       overlay.find('.inner-overlay').html(userList);
     }).error(function(data) {
       flashMessage(JSON.parse(data.responseText).error);
@@ -179,27 +179,27 @@ define(['jquery', 'version-timeout', 'friends', 'jquery.caret'],
     var isThread = '';
     var metaInfo = '';
     var isDeletable = '';
-    var isReply = '<a class="reply" title="Reply" href="javascript:;"><span>Reply</span></a>';
-    var isStarred = '<a class="star" title="Star" href="javascript:;"><span>Star</span></a>';
+    var isReply = '<a class="reply" title="Reply" data-action="reply" href="javascript:;"><span>Reply</span></a>';
+    var isStarred = '<a class="star" title="Star" data-action="star" href="javascript:;"><span>Star</span></a>';
 
     if (!msg.isSelf && !msg.repostId) {
       if (msg.isRepost) {
-        isRepost = '<a class="repost on" title="Unrepost" href="javascript:;"><span>Unrepost</span></a>';
+        isRepost = '<a class="repost on" title="Unrepost" data-action="repost" href="javascript:;"><span>Unrepost</span></a>';
       } else {
-        isRepost = '<a class="repost" title="Repost" href="javascript:;"><span>Repost</span></a>';
+        isRepost = '<a class="repost" title="Repost" data-action="repost" href="javascript:;"><span>Repost</span></a>';
       }
     }
 
     if (msg.isThread) {
-      isThread = '<a class="thread" title="Thread" href="javascript:;"><span>Thread</span></a>';
+      isThread = '<a class="thread" title="Thread" data-action="thread" href="javascript:;"><span>Thread</span></a>';
     }
 
     if (msg.isStarred) {
-      isStarred = '<a class="star on" title="Unstar" href="javascript:;"><span>Unstar</span></a>';
+      isStarred = '<a class="star on" title="Unstar" data-action="star" href="javascript:;"><span>Unstar</span></a>';
     }
 
     if (msg.isSelf) {
-      isDeletable = '<a class="delete" title="Delete" href="javascript:;"><span>Delete</a></a>';
+      isDeletable = '<a class="delete" title="Delete" data-action="delete" href="javascript:;"><span>Delete</a></a>';
     }
 
     if (showMeta) {
@@ -241,7 +241,7 @@ define(['jquery', 'version-timeout', 'friends', 'jquery.caret'],
               detailExtras = generateDetails(data.messages[i], true);
             } else {
               detailExtras = '<div class="actions ' + noTouch + '">' +
-                '<a class="reply" title="Reply" href="javascript:;"><span>Reply</span></a></div>';
+                '<a class="reply" data-action="reply" title="Reply" href="javascript:;"><span>Reply</span></a></div>';
             }
 
             var message = generatePostItem(data.messages[i], detailExtras);
@@ -288,7 +288,7 @@ define(['jquery', 'version-timeout', 'friends', 'jquery.caret'],
         overlay.find('#thread-detail').html(messageOverlay);
         overlay.find('#thread-detail .message-item[data-id="' + replyToId + '"]').addClass('selected-item');
       } else {
-        messageOverlay.append('<li class="close"><a title="Close">Close</a></li>');
+        messageOverlay.append('<li class="close"><a title="Close" data-action="close">Close</a></li>');
         overlay.find('.inner-overlay').html(messageOverlay);
         overlay.slideDown();
       }
@@ -385,7 +385,7 @@ define(['jquery', 'version-timeout', 'friends', 'jquery.caret'],
         }
 
         if (messages.find('> li').length >= 20 && messages.find('#paginated').length === 0) {
-          messages.append('<li id="paginated">View Older</li>');
+          messages.append('<li id="paginated" data-action="paginated">View Older</li>');
         }
 
       } else {
@@ -477,7 +477,7 @@ define(['jquery', 'version-timeout', 'friends', 'jquery.caret'],
         }
 
         if (messages.find('> li .users img').length >= 20 && messages.find('#paginated').length === 0) {
-          messages.append('<li id="paginated">View Older</li>');
+          messages.append('<li id="paginated" data-action="paginated">View Older</li>');
         }
 
       } else {
@@ -735,18 +735,27 @@ define(['jquery', 'version-timeout', 'friends', 'jquery.caret'],
 
     postMessage: function(form) {
       isFragment = true;
-      serverRequest('/post', 'POST', form.serialize(), function() {
-        // for now let's only show the new message if we're on 'my feed'
-        if (tabs.find('.my-feed').hasClass('selected')) {
-          setMessage('/my/feed', 'GET', false, false);
-          sinceId = messages.find('> li:first-child').data('id');
-        }
+      if (form.hasClass('channel-message-form')) {
+        serverRequest('/channel', 'POST', form.serialize(), function() {
+          form.find('textarea').removeClass('on');
+          form.find('.form-action-wrapper').slideUp('fast');
 
-        form.find('textarea').removeClass('on');
-        form.find('.form-action-wrapper').slideUp('fast');
+          flashMessage('Posted Channel Message!');
+        });
+      } else {
+        serverRequest('/post', 'POST', form.serialize(), function() {
+          // for now let's only show the new message if we're on 'my feed'
+          if (tabs.find('.my-feed').hasClass('selected')) {
+            setMessage('/my/feed', 'GET', false, false);
+            sinceId = messages.find('> li:first-child').data('id');
+          }
 
-        flashMessage('Posted!');
-      });
+          form.find('textarea').removeClass('on');
+          form.find('.form-action-wrapper').slideUp('fast');
+
+          flashMessage('Posted!');
+        });
+      }
     },
 
     deleteMessage: function(postId, csrf) {
@@ -808,6 +817,12 @@ define(['jquery', 'version-timeout', 'friends', 'jquery.caret'],
           }
         });
       }
+    },
+
+    getMessages: function(channelId, callback) {
+      $.get('/channel/' + channelId, function(data) {
+        $('#message-detail').replaceWith(data);
+      });
     },
 
     setUnreadMessageCount: function() {

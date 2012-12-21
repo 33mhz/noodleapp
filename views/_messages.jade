@@ -1,0 +1,5 @@
+ul#message-detail
+  for message in messages
+    li
+      img(src='#{message.user}', class='avatar')
+      p!= message.message

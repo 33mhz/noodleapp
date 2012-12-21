@@ -54,10 +54,23 @@ html
 
       if session
         block tabs
-        a(href='/logout', id='logout', title='Sign out') Log out
-        a(href='#', id='settings-link', title='Settings') Settings
-        a(href='/user/#{session.username}/', id='profile-link', title='Profile') Profile
-        a(href='#', id='notifications', title='Notifications', class='') 0
+        ul
+          li
+            a(href='#', id='notifications', title='Notifications', class='') 0
+          li
+            a(href='javascript:;', id='profile-link', title='Profile') Profile
+            ul.submenu
+              li
+                a(href='/user/#{session.username}/', title='View Profile') View Profile
+              li
+                a(href='/messages/', title='Messages') Messages
+          li
+            a(href='javascript:;', id='settings', title='Settings') Settings
+            ul.submenu
+              li
+                a(href='javascript:;', id='settings-link', title='Edit settings') Edit Settings
+              li
+                a(href='/logout', title='Sign out') Log out
 
     if session
       ol#notifications-preview

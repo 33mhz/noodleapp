@@ -2,9 +2,9 @@ extend layout
 
 block tabs
   .tabs.long
-    a.user-posts.selected(data-url='/user/posts/#{user.id}', href='javascript:;', title='Recent', class='initial') Recent
-    a.user-mentions(data-url='/user/mentions/#{user.id}', href='javascript:;', title='Mentions') Mentions
-    a.user-starred(data-url='/user/starred/#{user.id}', href='javascript:;', title='Starred') Starred
+    a.user-posts.selected(data-url='/user/posts/#{user.id}', data-action='user-posts', href='javascript:;', title='Recent', class='initial') Recent
+    a.user-mentions(data-url='/user/mentions/#{user.id}', data-action='user-mentions', href='javascript:;', title='Mentions') Mentions
+    a.user-starred(data-url='/user/starred/#{user.id}', data-action='user-starred', href='javascript:;', title='Starred') Starred
 
 block content
   #profile(style='background-image: url(#{user.cover_image.url});')
