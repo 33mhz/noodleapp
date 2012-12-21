@@ -88,7 +88,7 @@ describe('web-remix', function() {
     it('returns a regular link', function() {
       var link = { text: 'http://3.bp.blogspot.com/Riley+the+smiling+dog.jpg/test', url: 'http://3.bp.blogspot.com/Riley+the+smiling+dog.jpg/test' };
       webRemix.generate(link, client, function(err, subject) {
-        subject.should.equal('<a href="http://3.bp.blogspot.com/Riley+the+smiling+dog.jpg/test" target="_blank" title="http://3.bp.blogspot.com/Riley+the+smiling+dog.jpg/test">http://3.bp.blogspot.com/Riley+the+smiling+dog.jpg/test</a>');
+        subject.should.equal('<a href="http://3.bp.blogspot.com/Riley+the+smiling+dog.jpg/test" target="_blank">http://3.bp.blogspot.com/Riley+the+smiling+dog.jpg/test</a>');
       });
     });
 
@@ -97,15 +97,6 @@ describe('web-remix', function() {
       webRemix.generate(instagram, client, function(err, subject) {
         subject.should.equal('<div class="image-wrapper"><a href="http://instagram.com/p/QFJJzTw8yS/">' +
           '<img src="http://instagr.am/p/QFJJzTw8yS/media/"/></a></div><a href="http://instagram.com/p/QFJJzTw8yS/" target="_blank" class="media-off">http://instagram.com/p/QFJJzTw8yS/</a>');
-        done();
-      });
-    });
-
-    it('returns video for a video link', function(done) {
-      var video = { text: 'http://blah.com/video.ogv', url: 'http://blah.com/video.ogv' };
-      webRemix.generate(video, client, function(err, subject) {
-        subject.should.equal('<div class="object-wrapper"><video controls="controls" preload="none" autobuffer><source src="http://blah.com/video.ogv' +
-          '" type="video/ogg; codecs="vp8, vorbis" /></video></div><a href="http://blah.com/video.ogv" target="_blank" class="media-off">http://blah.com/video.ogv</a>');
         done();
       });
     });
