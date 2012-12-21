@@ -14,9 +14,10 @@ form(method='post', action='/settings', autocomplete='off')
               option(value=language.value, selected=(language.value === locale))= language.name
 
         li#user-timezone-item
-          label(for='user[timezone]', class='clear') Timezone
-          div#user-timezone-picker
-            input#user-timezone(name='user[timezone]', value=timezone)
+          label(for='user[timezone]') Timezone
+          select(name='user[timezone]')
+            each tz in timezones
+              option(value=tz.value, selected=(tz.value === timezone))= tz.name
 
         li
           label(for='user[description]', class='clear') Description
