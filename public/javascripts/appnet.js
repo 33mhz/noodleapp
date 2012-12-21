@@ -93,7 +93,9 @@ define(['jquery', 'version-timeout', 'friends', 'jquery.caret'],
       }
     }).fail(function(data) {
       overlay.find('.inner-overlay').html(generateCloseLink());
-      flashMessage(JSON.parse(data.responseText).error);
+      if (data.responseText) {
+        flashMessage(JSON.parse(data.responseText).error);
+      }
     });
   };
 
@@ -736,9 +738,16 @@ define(['jquery', 'version-timeout', 'friends', 'jquery.caret'],
     postMessage: function(form) {
       isFragment = true;
       if (form.hasClass('channel-message-form')) {
-        serverRequest('/channel', 'POST', form.serialize(), function() {
+        $.ajax({
+          url: '/channel',
+          type: 'POST',
+          data: form.serialize(),
+          dataType: 'json',
+          cache: false
+        }).always(function(data) {
           form.find('textarea').removeClass('on');
           form.find('.form-action-wrapper').slideUp('fast');
+          $('#message-detail').append($(data.responseText).html());
 
           flashMessage('Posted Channel Message!');
         });

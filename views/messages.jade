@@ -15,7 +15,7 @@ block content
     .write.channel-message
       form(method='post', class='channel-message-form')
         label(for='destinations', id='recipients') Recipients
-          input(type='text', name='destinations', value='', id='destination', placeholder='Optional usernames (space-delimited)')
+          input(type='text', name='destinations', value='', id='destination', placeholder='Optional usernames (space-delimited)', autocomplete='off')
         textarea(name='text', class='writeable submittable')
         input(type='hidden', name='channel_id', id='channel-id', value='', autocomplete='off')
         input(type='hidden', name='_csrf', value='#{csrf}')
