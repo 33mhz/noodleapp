@@ -185,9 +185,9 @@ body.fixed {
 }
 
 header {
-    background-color: rgba(232, 232, 232, 0.87);
-    border-bottom: 1px solid #eee;
-    box-shadow: #999 -2px 0 3px;
+    background-color: rgba(255, 255, 255, 0.87);
+    border-bottom: 1px solid #fff;
+    box-shadow: #222 -1px 0 2px;
     color: #eee;
     font-family: 'Oswald';
     padding: 3px 0;
@@ -366,7 +366,6 @@ header a#notifications.on:hover {
 #overlay {
     background-color: rgba(255, 255, 255, 0.98);
     bottom: 0;
-    box-shadow: #ccc 0 0 3px;
     display: none;
     left: 50%;
     margin-left: -355px;
@@ -384,7 +383,6 @@ header a#notifications.on:hover {
     background-position: center;
     background-repeat: no-repeat;
     border: 0;
-    box-shadow: none;
     display: block;
     height: 33px;
     margin: 0 auto;
@@ -712,8 +710,9 @@ ol.messages #paginated.loading {
 
 .dashboard-content {
     background-color: #f7f7f7;
-    border-left: 1px solid #eee;
-    border-right: 1px solid #eee;
+    border-left: 1px solid #fff;
+    border-right: 1px solid #fff;
+    box-shadow: #bbb 0 0 3px;
     float: left;
     position: relative;
     width: 700px;
@@ -1173,7 +1172,6 @@ time:hover {
 .actions > a {
     background-repeat: no-repeat;
     border: 0;
-    box-shadow: none;
     cursor: pointer;
     float: left;
     height: 23px;
@@ -1264,7 +1262,6 @@ ol.messages > li p {
 #unread-messages {
     background-color: #30d2d3;
     border-radius: 2px;
-    box-shadow: #f1f1f1 2px 2px 2px;
     cursor: pointer;
     display: none;
     font-family: 'Oswald';
@@ -1294,7 +1291,7 @@ ol.messages > li p {
 }
 
 ol.messages > li p a, #overlay .message-summary li p a, #message-detail li a {
-    color: #1699ca;
+    color: #3da8bf;
     text-decoration: none;
     white-space: nowrap;
 }
@@ -1443,8 +1440,7 @@ img.hush {
 
 #message-summary a span {
     display: block;
-    font-family: 'Oswald';
-    font-size: 15px;
+    font-size: 14px;
     line-height: 20px;
     overflow: hidden;
     text-overflow: ellipsis;
@@ -1460,7 +1456,7 @@ img.hush {
 }
 
 #message-detail li {
-    background-color: #f1f1f1;
+    background-color: #fff;
     font-size: 14px;
     line-height: 17px;
     overflow: hidden;

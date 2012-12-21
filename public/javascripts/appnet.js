@@ -213,7 +213,7 @@ define(['jquery', 'version-timeout', 'friends', 'jquery.caret'],
 
     detailExtras = '<div class="actions ' + noTouch + '">' + isThread +
       isStarred + isReply + isRepost +
-      '<a class="quote" title="Quote" href="javascript:;"><span>Quote</span></a>' + isDeletable + '</div>' + metaInfo;
+      '<a class="quote" title="Quote" data-action="quote" href="javascript:;"><span>Quote</span></a>' + isDeletable + '</div>' + metaInfo;
 
     return detailExtras;
   };
