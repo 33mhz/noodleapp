@@ -83,6 +83,13 @@ body.fixed {
     overflow: hidden;
 }
 
+.tip {
+    background-color: #b9fdff;
+    font-size: 14px;
+    line-height: 16px;
+    padding: 1px;
+}
+
 @keyframes slideout {
     from {
         left: -390px;
