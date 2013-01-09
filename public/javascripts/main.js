@@ -617,14 +617,10 @@ define(['jquery', 'appnet', 'friends', 'jquery.caret'],
     }
   });
 
-  // Clear the reply_to id if this is empty
   write.find('textarea').keyup(function(evt) {
     var self = $(this);
     checkCharLimit(self.val());
     friends.getBFFs(self, self.getCursorPosition());
-    if (self.val().trim().length === 0) {
-      write.find('.reply_to').val('');
-    }
   });
 
   write.submit(function(ev) {
