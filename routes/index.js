@@ -184,7 +184,7 @@ module.exports = function(app, client, isLoggedIn, noodle, config) {
         res.status(500);
         res.json({ 'error': 'error retrieving your posts' });
       } else {
-        utils.generateFeed(req, recentMessages, client, false, function(messages) {
+        utils.generateFeed(req, recentMessages, false, function(messages) {
           res.json({ messages: messages });
         });
       }
@@ -203,7 +203,7 @@ module.exports = function(app, client, isLoggedIn, noodle, config) {
         res.status(500);
         res.json({ 'error': 'error retrieving mentions' });
       } else {
-        utils.generateFeed(req, recentMessages, client, false, function(messages) {
+        utils.generateFeed(req, recentMessages, false, function(messages) {
           res.json({ messages: messages });
         });
       }
@@ -220,7 +220,7 @@ module.exports = function(app, client, isLoggedIn, noodle, config) {
         res.status(500);
         res.json({ 'error': 'error retrieving interactions' });
       } else {
-        utils.generateInteractions(req, recentMessages, client, false, function(messages) {
+        utils.generateInteractions(req, recentMessages, false, function(messages) {
           res.json({ messages: messages });
         });
       }
@@ -237,7 +237,7 @@ module.exports = function(app, client, isLoggedIn, noodle, config) {
         res.status(500);
         res.json({ 'error': 'error retrieving starred' });
       } else {
-        utils.generateFeed(req, recentMessages, client, false, function(messages) {
+        utils.generateFeed(req, recentMessages, false, function(messages) {
           res.json({ messages: messages });
         });
       }
@@ -252,7 +252,7 @@ module.exports = function(app, client, isLoggedIn, noodle, config) {
         res.status(500);
         res.json({ 'error': 'error retrieving your personal feed' });
       } else {
-        utils.generateFeed(req, recentMessages, client, false, function(messages) {
+        utils.generateFeed(req, recentMessages, false, function(messages) {
           res.json({ messages: messages });
         });
       }
@@ -267,7 +267,7 @@ module.exports = function(app, client, isLoggedIn, noodle, config) {
         res.status(500);
         res.json({ 'error': 'error retrieving the global feed' });
       } else {
-        utils.generateFeed(req, recentMessages, client, false, function(messages) {
+        utils.generateFeed(req, recentMessages, false, function(messages) {
           res.json({ messages: messages });
         });
       }
@@ -280,7 +280,7 @@ module.exports = function(app, client, isLoggedIn, noodle, config) {
         res.status(500);
         res.json({ 'error': 'error retrieving the paginated feed' });
       } else {
-        utils.generateFeed(req, recentMessages, client, true, function(messages) {
+        utils.generateFeed(req, recentMessages, true, function(messages) {
           res.json({ messages: messages });
         });
       }
@@ -293,7 +293,7 @@ module.exports = function(app, client, isLoggedIn, noodle, config) {
         res.status(500);
         res.json({ 'error': 'error retrieving the paginated feed' });
       } else {
-        utils.generateInteractions(req, recentMessages, client, true, function(messages) {
+        utils.generateInteractions(req, recentMessages, true, function(messages) {
           res.json({ messages: messages });
         });
       }
@@ -306,7 +306,7 @@ module.exports = function(app, client, isLoggedIn, noodle, config) {
         res.status(500);
         res.json({ 'error': 'error posting a new message' });
       } else {
-        utils.generateFeed(req, [recentMessage.data], client, true, function(messages) {
+        utils.generateFeed(req, [recentMessage.data], true, function(messages) {
           res.json({ messages: messages });
         });
       }
@@ -440,7 +440,7 @@ module.exports = function(app, client, isLoggedIn, noodle, config) {
         res.status(500);
         res.json({ 'error': 'error retrieving thread' });
       } else {
-        utils.generateFeed(req, recentMessages, client, false, function(messages) {
+        utils.generateFeed(req, recentMessages, false, function(messages) {
           res.json({ messages: messages });
         });
       }
@@ -453,7 +453,7 @@ module.exports = function(app, client, isLoggedIn, noodle, config) {
         res.status(500);
         res.json({ 'error': 'error retrieving tagged posts' });
       } else {
-        utils.generateFeed(req, recentMessages, client, false, function(messages) {
+        utils.generateFeed(req, recentMessages, false, function(messages) {
           res.json({ messages: messages });
         });
       }
@@ -467,7 +467,7 @@ module.exports = function(app, client, isLoggedIn, noodle, config) {
         res.json({ 'error': 'error retrieving post' });
       } else {
 
-        utils.generateFeed(req, [recentMessage], client, false, function(messages) {
+        utils.generateFeed(req, [recentMessage], false, function(messages) {
           res.json({ messages: messages });
         });
       }
@@ -574,7 +574,7 @@ module.exports = function(app, client, isLoggedIn, noodle, config) {
         res.status(500);
         res.json({ 'error': 'error retrieving messages' });
       } else {
-        utils.generateFeed(req, recentMessages, client, false, function(messages) {
+        utils.generateFeed(req, recentMessages, false, function(messages) {
           res.render('_messages', {
             layout: false,
             messages: messages
@@ -590,7 +590,7 @@ module.exports = function(app, client, isLoggedIn, noodle, config) {
         res.status(500);
         res.json({ 'error': 'error posting message' });
       } else {
-        utils.generateFeed(req, [recentMessage], client, false, function(messages) {
+        utils.generateFeed(req, [recentMessage], false, function(messages) {
           res.render('_messages', {
             layout: false,
             messages: messages
