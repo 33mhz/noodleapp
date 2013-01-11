@@ -56,6 +56,7 @@ describe('markdown-to-entities', function() {
             {
               pos: 82,
               len: 11,
+              amended_len: 30,
               text: 'our recipes',
               url: 'http://tastyrecipes.com/sabrosa'
             },
@@ -68,6 +69,7 @@ describe('markdown-to-entities', function() {
             {
               pos: 18,
               len: 18,
+              amended_len: 36,
               text: 'Sabrosa restaurant',
               url: 'http://www.sabrosa.com'
             }
