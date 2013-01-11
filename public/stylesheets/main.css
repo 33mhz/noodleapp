@@ -1602,6 +1602,10 @@ img.hush {
         margin-top: 52px;
     }
 
+    .write textarea {
+        width: 260px;
+    }
+
     #map-menu {
         display: none;
     }
