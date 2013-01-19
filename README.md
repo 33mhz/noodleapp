@@ -44,7 +44,7 @@ Ignore everything below.
 
 ### Clone the repository
 
-> git clone git://github.com/noodle/noodleapp.git
+> git clone git://github.com/nooodle/noodleapp.git
 
 Install node through the website http://nodejs.org/#download
 
