@@ -15,7 +15,7 @@ block content
       ol#unread-messages
         h2
         ol
-      ol.messages(data-userid='#{session.id}')
+      ol.messages(data-userid='#{session.id}', role='listbox', tabindex='0')
   else
     section.public
       ol.messages

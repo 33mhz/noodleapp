@@ -133,7 +133,7 @@ define(['jquery', 'version-timeout', 'friends', 'jquery.caret'],
     if (message.message.indexOf('@' + loggedInUsername) > -1) {
       notify = 'notify';
     }
-    return $('<li class="message-item ' + notify + '" data-mentions="" data-repostid="' + message.repostId +
+    return $('<li class="message-item ' + notify + '" role="group" tabindex="-1" aria-label="' + message.username + ': ' + message.text.replace(/"/g, '&#34;') + ', ' + dateDisplay(message.createdAt) + '" data-mentions="" data-repostid="' + message.repostId +
       '" data-replyto="" data-replytoid="' + message.inReplyToId + '" data-original="" data-id="' +
       messageId + '" ' + 'data-username="' + message.username + '" data-minid="' + message.minId + '">' +
       '<div class="post-wrapper"><div class="meta"><a href="" class="who" title=""><img src=""></a>' +
