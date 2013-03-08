@@ -491,6 +491,7 @@ define(['jquery', 'appnet', 'friends', 'jquery.caret'],
         if (!currentMessage.length) {
           currentMessage = body.find('.message-item:visible:first');
           currentMessage.addClass('selected-item');
+          currentMessage.focus();
           return;
         }
 
@@ -512,6 +513,7 @@ define(['jquery', 'appnet', 'friends', 'jquery.caret'],
           currentMessage.removeClass('selected-item');
           next.addClass('selected-item');
           $(window).scrollTop(next.position().top - 40);
+          next.focus();
           currentMessage = next;
         }
         ev.preventDefault();
