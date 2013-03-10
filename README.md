@@ -46,6 +46,14 @@ Ignore everything below.
 
 > git clone git://github.com/nooodle/noodleapp.git
 
+### Install redis
+
+If you have brew you can just install with
+
+> brew install redis
+
+### Install node
+
 Install node through the website http://nodejs.org/#download
 
 > cd noodleapp
