@@ -18,7 +18,7 @@ If you continue to use the Service after the revised Terms go into effect, then 
 
 ## Privacy Policy
 
-For information about how we collect and use information about users of the Service, please check out our [privacy policy](https://github.com/nooodle/noodleapp/docs/privacy.md).
+For information about how we collect and use information about users of the Service, please check out our [privacy policy](https://github.com/nooodle/noodleapp/blob/master/docs/privacy.md).
 
 ## Third-Party Services
 
