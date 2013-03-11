@@ -1,4 +1,4 @@
-# NOODLEAPP TERMS OF SERVICE
+# Noodle Industries Inc. TERMS OF SERVICE
 
 Last Updated: March 11, 2013
 
