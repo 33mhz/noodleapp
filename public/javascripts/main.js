@@ -631,7 +631,6 @@ define(['jquery', 'appnet', 'friends', 'jquery.caret'],
     var self = $(this);
     appnet.postMessage(self);
     url = '/my/feed';
-    self.find('textarea').val('');
     charLimit.text(CHAR_MAX);
     write.find('.reply_to').val('');
     return false;

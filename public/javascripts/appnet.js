@@ -759,6 +759,8 @@ define(['jquery', 'version-timeout', 'friends', 'jquery.caret'],
             sinceId = messages.find('> li:first-child').data('id');
           }
 
+          form.find('textarea').val('');
+
           form.find('textarea').removeClass('on');
           form.find('.form-action-wrapper').slideUp('fast');
 
