@@ -57,16 +57,16 @@ var isLoggedIn = function(req, res, next) {
 require('./routes')(app, client, isLoggedIn, noodle, nconf);
 require('./routes/auth')(app, passport);
 
-app.get('/404', function(req, res, next){
+app.get('/404', function(req, res, next) {
   next();
 });
 
-app.get('/403', function(req, res, next){
-  err.status = 403;
+app.get('/403', function(req, res, next) {
+  res.status(403);
   next(new Error('not allowed!'));
 });
 
-app.get('/500', function(req, res, next){
+app.get('/500', function(req, res, next) {
   next(new Error('something went wrong!'));
 });
 

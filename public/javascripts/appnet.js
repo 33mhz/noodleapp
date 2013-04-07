@@ -1,7 +1,6 @@
-'use strict';
-
 define(['jquery', 'version-timeout', 'friends', 'jquery.caret'],
   function ($, versionTimeout, friends) {
+  'use strict';
 
   var messages = $('ol.messages');
   var myFeed = $('.my-feed');
@@ -121,7 +120,7 @@ define(['jquery', 'version-timeout', 'friends', 'jquery.caret'],
       }
       userList.append('<li class="close"><a title="Close" data-action="close">Close</a></li>');
       overlay.find('.inner-overlay').html(userList);
-    }).error(function(data) {
+    }).fail(function(data) {
       flashMessage(JSON.parse(data.responseText).error);
     });
   };
@@ -294,7 +293,7 @@ define(['jquery', 'version-timeout', 'friends', 'jquery.caret'],
         overlay.find('.inner-overlay').html(messageOverlay);
         overlay.slideDown();
       }
-    }).error(function(data) {
+    }).fail(function(data) {
       overlay.find('.inner-overlay').html(generateCloseLink());
       flashMessage(JSON.parse(data.responseText).error);
     });
@@ -410,7 +409,7 @@ define(['jquery', 'version-timeout', 'friends', 'jquery.caret'],
           postLoaded = true;
         }, POLL_TIMEOUT);
       }
-    }).error(function(data) {
+    }).fail(function(data) {
       overlay.find('.inner-overlay').html(generateCloseLink());
       flashMessage(JSON.parse(data.responseText).error);
     });
@@ -501,7 +500,7 @@ define(['jquery', 'version-timeout', 'friends', 'jquery.caret'],
           postLoaded = true;
         }, POLL_TIMEOUT);
       }
-    }).error(function(data) {
+    }).fail(function(data) {
       overlay.find('.inner-overlay').html(generateCloseLink());
       flashMessage(JSON.parse(data.responseText).error);
     });
@@ -518,7 +517,7 @@ define(['jquery', 'version-timeout', 'friends', 'jquery.caret'],
         cache: false
       }).done(function(data) {
         currentMentionPostId = data.messages[0].id;
-      }).error(function(data) {
+      }).fail(function(data) {
         overlay.find('.inner-overlay').html(generateCloseLink());
         flashMessage(JSON.parse(data.responseText).error);
       });
@@ -570,7 +569,7 @@ define(['jquery', 'version-timeout', 'friends', 'jquery.caret'],
 
           currentMentionPostId = data.messages[data.messages.length - 1].id;
         }
-      }).error(function(data) {
+      }).fail(function(data) {
         flashMessage(JSON.parse(data.responseText).error);
       });
     }
@@ -601,7 +600,7 @@ define(['jquery', 'version-timeout', 'friends', 'jquery.caret'],
       }
 
       overlay.find('#avatar-pings').html(userListMeta);
-    }).error(function(data) {
+    }).fail(function(data) {
       overlay.find('.inner-overlay').html(generateCloseLink());
       flashMessage(JSON.parse(data.responseText).error);
     });

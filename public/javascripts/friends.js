@@ -1,7 +1,6 @@
-'use strict';
-
 define(['jquery'],
   function ($) {
+  'use strict';
 
   var userLists = $('ol.suggestions');
   var usernamesArr = [];

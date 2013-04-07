@@ -1,5 +1,3 @@
-'use strict';
-
 requirejs.config({
   baseUrl: '/javascripts/',
   enforceDefine: true,
@@ -10,6 +8,8 @@ requirejs.config({
 
 define(['jquery', 'appnet', 'friends', 'jquery.caret'],
   function($, appnet, friends, user) {
+  'use strict';
+
   var body = $('body');
   var url = body.data('url');
   var tabs = body.find('.tabs');
@@ -464,25 +464,26 @@ define(['jquery', 'appnet', 'friends', 'jquery.caret'],
     }
 
     // Create a new post
-    if (ev.keyCode === N_KEYCODE && !write.find('textarea').hasClass('on') && !write.hasClass('channel-message-form')) {
+    if (ev.keyCode === N_KEYCODE && !write.find('textarea').hasClass('on') &&
+      !write.hasClass('channel-message-form')) {
       ev.preventDefault();
       dashboard.find('.write textarea').focus();
     }
 
-    switch (true) {
-      case self.hasClass('submittable'):
-        if (ev.keyCode === TAB_KEYCODE || ev.keyCode === SPACE_KEYCODE) {
-          // Pressing TAB/space autocompletes to the first user listed.
-          var userLi = suggestions.find('li:first');
-          if (userLi.length) {
-            friends.setUser(userLi, self, self.getCursorPosition());
-            suggestions.empty();
-            return false;
-          }
-
-        } else if (ev.keyCode === RETURN_KEYCODE && (ev.ctrlKey || ev.metaKey) && !write.find('button').hasClass('disabled')) {
-          self.closest('form').submit();
+    if (self.hasClass('submittable')) {
+      if (ev.keyCode === TAB_KEYCODE || ev.keyCode === SPACE_KEYCODE) {
+        // Pressing TAB/space autocompletes to the first user listed.
+        var userLi = suggestions.find('li:first');
+        if (userLi.length) {
+          friends.setUser(userLi, self, self.getCursorPosition());
+          suggestions.empty();
+          return false;
         }
+
+      } else if (ev.keyCode === RETURN_KEYCODE && (ev.ctrlKey || ev.metaKey) &&
+        !write.find('button').hasClass('disabled')) {
+        self.closest('form').submit();
+      }
     }
 
     if (!(self.is('textarea') || ev.ctrlKey || ev.shiftKey || ev.metaKey)) {
