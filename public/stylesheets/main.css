@@ -1593,6 +1593,10 @@ img.hush {
 }
 
 @media only screen and (max-width: 730px) and (orientation:portrait) {
+    body {
+        overflow-x: hidden;
+    }
+
     #dashboard {
         width: 320px;
     }
@@ -1601,7 +1605,7 @@ img.hush {
         margin-top: 52px;
     }
 
-    .write textarea {
+    .write textarea, .write textarea.on {
         width: 260px;
     }
 
