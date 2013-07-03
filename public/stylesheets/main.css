@@ -365,8 +365,7 @@ header a#notifications.on:hover {
 #dashboard {
     height: 100%;
     margin: 0 auto;
-    max-width: 700px;
-    min-width: 320px;
+    width: 700px;
     position: relative;
 }
 
@@ -1587,9 +1586,10 @@ img.hush {
     }
 }
 
-@media only screen and (max-width: 730px) and (orientation:portrait) {
+@media only screen and (max-width: 400px) {
     body {
         overflow-x: hidden;
+        width: 320px;
     }
 
     #dashboard {
