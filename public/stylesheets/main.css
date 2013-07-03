@@ -448,11 +448,9 @@ header a#notifications.on:hover {
     color: #111;
 }
 
-/*
 .form-action-wrapper {
     display: none;
 }
-*/
 
 #overlay .form-action-wrapper {
     display: block;
