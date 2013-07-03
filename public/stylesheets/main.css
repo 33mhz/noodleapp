@@ -1728,10 +1728,6 @@ img.hush {
         margin-top: 20px;
     }
 
-    .write textarea.on {
-        height: 160px;
-    }
-
     #overlay .write textarea, ol.messages > li.message-item p {
         width: 250px;
     }
