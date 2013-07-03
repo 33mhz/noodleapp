@@ -887,12 +887,7 @@ section.public li h1 {
 }
 
 .write textarea.on {
-    border: 1px solid #d8fd2b;
     color: #111;
-}
-
-.high-contrast .write textarea.on {
-    border: 1px solid #333;
 }
 
 .counter {
