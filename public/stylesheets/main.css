@@ -1589,7 +1589,6 @@ img.hush {
 @media only screen and (max-width: 400px) {
     body {
         overflow-x: hidden;
-        width: 320px;
     }
 
     #dashboard {
