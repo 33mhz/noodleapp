@@ -602,11 +602,10 @@ define(['jquery', 'appnet', 'friends', 'jquery.caret'],
 
   write.find('textarea').focus(function() {
     var self = $(this);
-    self.addClass('on');
+    //self.addClass('on');
     charLimit.addClass('on');
     checkCharLimit(self.val());
-    self.closest('form').find('.form-action-wrapper').show();
-    return true;
+    //self.closest('form').find('.form-action-wrapper').show();
   });
 
   write.find('textarea').blur(function() {
@@ -616,7 +615,7 @@ define(['jquery', 'appnet', 'friends', 'jquery.caret'],
 
     if (self.val().replace(/\s/, '').length < 1) {
       self.removeClass('on');
-      self.closest('form').find('.form-action-wrapper').hide();
+      //self.closest('form').find('.form-action-wrapper').hide();
     }
   });
 
@@ -634,7 +633,6 @@ define(['jquery', 'appnet', 'friends', 'jquery.caret'],
     url = '/my/feed';
     charLimit.text(CHAR_MAX);
     write.find('.reply_to').val('');
-    return false;
   });
 
   suggestions.on('click', 'li', function() {
