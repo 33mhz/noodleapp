@@ -605,7 +605,7 @@ define(['jquery', 'appnet', 'friends', 'jquery.caret'],
     self.addClass('on');
     charLimit.addClass('on');
     checkCharLimit(self.val());
-    self.closest('form').find('.form-action-wrapper').slideDown('fast');
+    self.closest('form').find('.form-action-wrapper').show();
     return true;
   });
 
@@ -616,7 +616,7 @@ define(['jquery', 'appnet', 'friends', 'jquery.caret'],
 
     if (self.val().replace(/\s/, '').length < 1) {
       self.removeClass('on');
-      self.closest('form').find('.form-action-wrapper').slideUp('fast');
+      self.closest('form').find('.form-action-wrapper').hide();
     }
   });
 
