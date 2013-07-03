@@ -867,7 +867,7 @@ section.public li h1 {
     color: #888;
     font-family: Helvetica, Arial;
     font-size: 15px;
-    height: 25px;
+    height: 45px;
     line-height: 20px;
     margin-bottom: 10px;
     overflow: auto;
@@ -889,7 +889,6 @@ section.public li h1 {
 .write textarea.on {
     border: 1px solid #d8fd2b;
     color: #111;
-    height: 65px;
 }
 
 .high-contrast .write textarea.on {
