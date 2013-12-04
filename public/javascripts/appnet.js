@@ -112,7 +112,7 @@ define(['jquery', 'version-timeout', 'friends', 'jquery.caret'],
       var userList = $('<ol class="users"></ol>');
       for (var i = 0; i < data.users.length; i ++) {
         var user = $('<li><a href=""><img src=""><span class="name"></span></a></li>');
-        user.find('img').attr('src', data.users[i].avatar_image.url);
+        user.find('img').attr('src', data.users[i].avatar_image.url + '?h=200');
         user.find('a')
           .attr('href', '/user/' + data.users[i].username + '/')
           .find('span.name').html(data.users[i].name + ' <em>@' + data.users[i].username + '</em>');
@@ -454,7 +454,7 @@ define(['jquery', 'version-timeout', 'friends', 'jquery.caret'],
               var user = $('<a href="" class="who" title=""><img src=""></a>');
               user.attr('href', '/user/' + userList.username);
               user.attr('title', userList.name);
-              user.find('img').attr('src', userList.avatar_image.url);
+              user.find('img').attr('src', userList.avatar_image.url + '?h=200');
               message.find('.users').append(user);
             }
 
@@ -592,7 +592,7 @@ define(['jquery', 'version-timeout', 'friends', 'jquery.caret'],
           user.attr('data-avatarid', userItem.id);
           user.find('a').attr('href', '/user/' + userItem.username + '/');
           user.find('img')
-            .attr('src', userItem.avatar_image.url)
+            .attr('src', userItem.avatar_image.url + '?h=200')
             .attr('alt', userItem.name)
             .attr('title', userItem.name);
           userListMeta.append(user);

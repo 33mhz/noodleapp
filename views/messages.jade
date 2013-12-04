@@ -8,7 +8,7 @@ block content
       for channel in channels
         li
           a(href='javascript:;', class='channel', data-action='message', data-username='@#{channel.owner.username}', data-id='#{channel.id}', title='@#{channel.owner.username}')
-            img(src='#{channel.owner.avatar_image.url}', class='avatar')
+            img(src='#{channel.owner.avatar_image.url}?h=200', class='avatar')
             span= channel.owner.name
     ul#message-detail
 
