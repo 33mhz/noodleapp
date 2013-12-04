@@ -249,7 +249,12 @@ define(['jquery', 'version-timeout', 'friends', 'jquery.caret'],
             message = setMessageMetadata(data.messages[i], message);
 
             if (showDetails) {
-              message.find('p').append('<span class="source">Posted from ' + data.messages[i].appSource + '</span>');
+              message.find('p').append('<span class="source">Posted from <a href="' + data.messages[i].appSourceUrl + '">' + data.messages[i].appSource + '</a></span>');
+              if (data.messages[i].crosspost !== '') {
+                var cpurl = data.messages[i].crosspost.split('//')
+                cpurl = cpurl[1].split('/')
+                message.find('p').append('<span class="source">Crossposted from <a href="' + data.messages[i].crosspost + '">' + cpurl[0] + '</a></span>');
+              }
               message.find('.info .reposts span').text(data.messages[i].numReposts);
               message.find('.info .stars span').text(data.messages[i].numStars);
               message.find('.info .replies span').text(data.messages[i].numReplies);
