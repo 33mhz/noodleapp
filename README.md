@@ -12,13 +12,15 @@ An http://app.net web client.
 
 ## To use the client
 
-Go here and sign in: http://pastapp.net [no longer: http<colon>//app<dot>noodletalk<dot>org]
+Go here and sign in: http://pastapp.net [no longer: http&lt;colon>//app&lt;dot>noodletalk&lt;dot>org]
 
 Ignore everything below.
 
 ## Installation instructions (if you want to hack on the code)
 
-# SIGN UP TO [http://app.net](http://app.net) [WITH A DEVELOPER ACCOUNT]
+## SIGN UP TO [http://app.net](http://app.net)
+
+[A DEVELOPER ACCOUNT is required only for multi-user deployment]
 
 ### Create the app.net app
 
