@@ -541,7 +541,7 @@ module.exports = function(app, client, isLoggedIn, noodle, config) {
             if (userItems.charLimit === 'true') {
               charLimit = 140;
             } else {
-              charLimit = 256;
+              charLimit = 2048;
             }
           }
 
