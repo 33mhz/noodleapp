@@ -166,7 +166,7 @@ define(['jquery', 'version-timeout', 'friends', 'jquery.caret'],
       .attr('data-created', messageItem.createdAt)
       .attr('data-username', messageItem.username);
     // user's avatar
-    message.find('a.who img').attr('src', messageItem.user);
+    message.find('a.who img').attr('src', messageItem.user + '?h=160');
     // user's message
 
     message.find('p').html(messageItem.message.replace(/\n/gm, '<br>'));
@@ -323,6 +323,7 @@ define(['jquery', 'version-timeout', 'friends', 'jquery.caret'],
         unreadMessagesNest.find('> li:gt(' + MESSAGE_LIMIT + ')').remove();
       } else {
         messages.prepend(message);
+	//TODO retain scroll position
       }
     }
     beforeId = null;
