@@ -4,19 +4,19 @@
   "private": true,
   "engines": {
     "node": ">= 0.8.9",
-    "npm": "1.1.x"
+    "npm": "1.4.x"
   },
   "dependencies": {
     "connect": "2.7.6",
     "express": "3.2.0",
-    "jade": "0.29.0",
+    "pug": "latest",
     "request": "2.16.6",
-    "nconf": "0.6.7",
+    "nconf": "0.8.4",
     "passport": "0.1.16",
     "passport-appdotnet": ">= 0.1.1",
     "connect-redis": "1.4.5",
     "hiredis": "0.1.15",
-    "redis": "0.8.3",
+    "redis": "2.6.3",
     "requirejs": "2.1.5",
     "xtend": "2.0.x"
   },

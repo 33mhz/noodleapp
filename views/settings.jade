@@ -20,13 +20,13 @@ form(method='post', action='/settings', autocomplete='off')
               option(value=tz.value, selected=(tz.value === timezone))= tz.name
 
         li
-          label(for='user[description]', class='clear') Description
-          textarea(name='user[description]') #{description}
+          label(for='user[content]', class='clear') Description
+          textarea(name='user[content]') #{content}
 
         each toggle in toggleSettings
           li
             a.settings-toggle(href='#', title='', class=(locals[toggle.name] === 'true' ? 'on' : ''))
-              span #{toggle.description}
+              span #{toggle.content}
               input(type='hidden', name='user[' + toggle.name + ']', value=locals[toggle.name])
 
       li.buttons

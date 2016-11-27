@@ -99,8 +99,8 @@ module.exports = function(app, client, isLoggedIn, noodle, config) {
           var description = '';
 
           // User descriptions don't always exist
-          if (user.description && user.description.html) {
-            description = user.description.html;
+          if (user.content && user.content.html) {
+            description = user.content.html;
           }
 
           var mediaOn = '';

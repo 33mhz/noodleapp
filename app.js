@@ -30,7 +30,7 @@ passport.use(new AppDotNetStrategy({
     clientID: nconf.get('appnet_consumer_key'),
     clientSecret: nconf.get('appnet_consumer_secret'),
     scope: 'stream messages write_post follow update_profile',
-    callbackURL: nconf.get('domain') + ':' + nconf.get('authPort') + '/auth/appdotnet/callback'
+    callbackURL: nconf.get('domain') + '/auth/appdotnet/callback'
   },
   function(accessToken, refreshToken, profile, done) {
     process.nextTick(function (err) {

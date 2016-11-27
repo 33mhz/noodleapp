@@ -6,33 +6,29 @@
 
 Donating enables us to continually add new awesome features and keep the server running fast like bunnies!
 
-![NoodleApp](https://files.app.net/rlwj9k3k)
-
-An http://app.net web client.
+A https://pnut.io client.
 
 ## To use the client
 
-Go here and sign in: http://pastapp.net [no longer: http&lt;colon>//app&lt;dot>noodletalk&lt;dot>org]
+Go here and sign in: http://noodle.s3rv.com [no longer: http&lt;colon>//app&lt;dot>noodletalk&lt;dot>org]
 
 Ignore everything below.
 
 ## Installation instructions (if you want to hack on the code)
 
-## SIGN UP TO [http://app.net](http://app.net)
+## SIGN UP TO [https://pnut.io](https://pnut.io)
 
-[A DEVELOPER ACCOUNT is required only for multi-user deployment]
+[A DEVELOPER ACCOUNT is required]
 
-### Create the app.net app
+### Create the pnut.io app
 
-> go to [https://alpha.app.net/developer/apps/](https://alpha.app.net/developer/apps/)
-
-> click "Create an App"
+> go to https://pnut.io/dev
 
 > enter the application name: noodleapp-dev
 
-> enter the website: http://dev.noodletalk.org:3000
+> enter the website: http://dev.noodletalk.org
 
-> enter the callback url: http://dev.noodletalk.org:3000/auth/appdotnet/callback
+> enter the callback url: http://dev.noodletalk.org/auth/appdotnet/callback
 
 > click "Create", you will need the client id and client secret below
 
@@ -42,7 +38,7 @@ Ignore everything below.
 
 ### Clone the repository
 
-> git clone git://github.com/cdn/noodleapp.git
+> git clone git://github.com/33mhz/noodleapp.git
 
 ### Install redis
 
@@ -70,7 +66,7 @@ Install node through the website http://nodejs.org/#download
 
 > node app.js
 
-> go to http://dev.noodletalk.org:3000
+> go to http://dev.noodletalk.org
 
 ## Tests
 
