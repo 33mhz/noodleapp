@@ -478,7 +478,7 @@ module.exports = function(app, client, isLoggedIn, noodle, config) {
     appnet.starredUsers(req, function(err, users) {
       if (err) {
         res.status(500);
-        res.json({ 'error': 'error retrieving starring users' });
+        res.json({ 'error': 'error retrieving bookmarking users' });
       } else {
         res.json({ users: users.data });
       }
