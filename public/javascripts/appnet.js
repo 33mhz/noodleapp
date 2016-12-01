@@ -113,6 +113,9 @@ define(['jquery', 'version-timeout', 'friends', 'jquery.caret'],
       for (var i = 0; i < data.users.length; i ++) {
         var user = $('<li><a href=""><img src=""><span class="name"></span></a></li>');
         user.find('img').attr('src', data.users[i].content.avatar_image.link + '?h=200');
+        if (typeof data.users[i].name === 'undefined') {
+            data.users[i].name = '';
+        }
         user.find('a')
           .attr('href', '/user/' + data.users[i].username + '/')
           .find('span.name').html(data.users[i].name + ' <em>@' + data.users[i].username + '</em>');
@@ -147,6 +150,9 @@ define(['jquery', 'version-timeout', 'friends', 'jquery.caret'],
     // plain text
     message.attr('data-original', '@' + messageItem.username + ': ' + messageItem.text);
     // user's profile page
+    if (typeof messageItem.name === 'undefined') {
+        messageItem.name = '';
+    }
     message.find('a.who')
       .attr('title', messageItem.name + ' @' + messageItem.username)
       .attr('href', '/user/' + messageItem.username + '/');
@@ -459,6 +465,9 @@ define(['jquery', 'version-timeout', 'friends', 'jquery.caret'],
               var userList = messageItem.users[j];
               var user = $('<a href="" class="who" title=""><img src=""></a>');
               user.attr('href', '/user/' + userList.username);
+              if (typeof userList.name === 'undefined') {
+                userList.name = '';
+              }
               user.attr('title', userList.name);
               user.find('img').attr('src', userList.content.avatar_image.link + '?h=200');
               message.find('.users').append(user);
@@ -597,6 +606,9 @@ define(['jquery', 'version-timeout', 'friends', 'jquery.caret'],
           var user = $('<li data-avatarid=""><a href=""><img src="" alt="" title=""></a></li>');
           user.attr('data-avatarid', userItem.id);
           user.find('a').attr('href', '/user/' + userItem.username + '/');
+          if (typeof userItem.name === 'undefined') {
+            userItem.name = '';
+          }
           user.find('img')
             .attr('src', userItem.content.avatar_image.link + '?h=200')
             .attr('alt', userItem.name)
