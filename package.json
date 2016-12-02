@@ -13,7 +13,7 @@
     "request": "2.16.6",
     "nconf": "0.8.4",
     "passport": "0.1.16",
-    "passport-appdotnet": ">= 0.1.1",
+    "passport-pnut": ">= 0.1.1",
     "connect-redis": "1.4.5",
     "hiredis": "0.1.15",
     "redis": "2.6.3",

@@ -6,8 +6,8 @@ requirejs.config({
   }
 });
 
-define(['jquery', 'appnet', 'friends', 'jquery.caret'],
-  function($, appnet, friends, user) {
+define(['jquery', 'pnut', 'friends', 'jquery.caret'],
+  function($, pnut, friends, user) {
   'use strict';
 
   var body = $('body');
@@ -67,7 +67,7 @@ define(['jquery', 'appnet', 'friends', 'jquery.caret'],
       .removeClass('on')
       .text(0);
     document.title = 'NoodleApp';
-    appnet.resetUnread();
+    pnut.resetUnread();
   };
 
   var showUnread = function(unreadMessages) {
@@ -90,17 +90,17 @@ define(['jquery', 'appnet', 'friends', 'jquery.caret'],
     if (hash.indexOf('/post/') > -1) {
       var postArray = hash.split('/post/')[1].split('/');
       var postId = postArray[0];
-      appnet.showPost(postId);
+      pnut.showPost(postId);
       body.addClass('fixed');
     } else if (hash.indexOf('/tagged/') > -1) {
-      appnet.showTagged(hash.split('/tagged/')[1]);
+      pnut.showTagged(hash.split('/tagged/')[1]);
       body.addClass('fixed');
     } else if (hash.length < 3 && body.hasClass('fixed')) {
        closeOverlay();
     }
   };
 
-  // Length of actual text that will be posted to app.net
+  // Length of actual text that will be posted to pnut.io
   var getEffectiveLength = function(text) {
     // Same as in markdown-to-entities, but global
     var markdownLinkRegex = /\[([^\]]+)\]\((\S+(?=\)))\)/g;
@@ -156,7 +156,7 @@ define(['jquery', 'appnet', 'friends', 'jquery.caret'],
     messages.prepend(unreadMessagesNest.find('li.message-item'));
     unreadMessages.find('h2').empty();
     unreadMessages.find('ol').empty();
-    appnet.setUnreadMessageCount();
+    pnut.setUnreadMessageCount();
     self.fadeOut();
     messages.find('> li:gt(' + MESSAGE_LIMIT + ')').remove();
   };
@@ -188,37 +188,37 @@ define(['jquery', 'appnet', 'friends', 'jquery.caret'],
     switch (self.data('action')) {
       case 'global-feed':
         updateFeed(self, function() {
-          appnet.getGlobalFeed();
+          pnut.getGlobalFeed();
         });
         break;
 
       case 'user-posts':
         updateFeed(self, function() {
-          appnet.getUserPosts();
+          pnut.getUserPosts();
         });
         break;
 
       case 'user-mentions':
         updateFeed(self, function() {
-          appnet.getUserMentions();
+          pnut.getUserMentions();
         });
         break;
 
       case 'user-interactions':
         updateFeed(self, function() {
-          appnet.getUserInteractions();
+          pnut.getUserInteractions();
         });
         break;
 
       case 'user-starred':
         updateFeed(self, function() {
-          appnet.getUserStarred();
+          pnut.getUserStarred();
         });
         break;
 
       case 'my-feed':
         updateFeed(self, function() {
-          appnet.getMyFeed();
+          pnut.getMyFeed();
         });
         break;
     }
@@ -240,17 +240,17 @@ define(['jquery', 'appnet', 'friends', 'jquery.caret'],
         break;
 
       case 'delete':
-        appnet.deleteMessage(self.closest('.message-item').data('id'), csrf);
+        pnut.deleteMessage(self.closest('.message-item').data('id'), csrf);
         self.closest('li.message-item').fadeOut();
         break;
 
       case 'thread':
-        appnet.showThread(self.closest('.message-item').data('id'));
+        pnut.showThread(self.closest('.message-item').data('id'));
         body.addClass('fixed');
         break;
 
       case 'paginated':
-        appnet.getOlderPosts(self.prev().data('id'));
+        pnut.getOlderPosts(self.prev().data('id'));
         break;
     }
   });
@@ -293,7 +293,7 @@ define(['jquery', 'appnet', 'friends', 'jquery.caret'],
         break;
 
       case 'thread':
-        appnet.showThread(self.closest('.message-item').data('id'));
+        pnut.showThread(self.closest('.message-item').data('id'));
         body.addClass('fixed');
         break;
 
@@ -330,7 +330,7 @@ define(['jquery', 'appnet', 'friends', 'jquery.caret'],
 
     switch (true) {
       case self.hasClass('channel'):
-        appnet.getMessages(self.data('id'));
+        pnut.getMessages(self.data('id'));
         self.closest('#message-summary').find('a.selected').removeClass('selected');
         if (self.data('username') !== '@' + body.data('username')) {
           write.find('#destination').val(self.data('username'));
@@ -341,7 +341,7 @@ define(['jquery', 'appnet', 'friends', 'jquery.caret'],
         self.addClass('selected');
         break;
       case selfLink.hasClass('channel'):
-        appnet.getMessages(selfLink.data('id'));
+        pnut.getMessages(selfLink.data('id'));
         selfLink.closest('#message-summary').find('a.selected').removeClass('selected');
         selfLink.addClass('selected');
         break;
@@ -358,11 +358,11 @@ define(['jquery', 'appnet', 'friends', 'jquery.caret'],
         if (self.hasClass('on')) {
           self.removeClass('on');
           self.find('span').text('Star');
-          appnet.unstarMessage(self.closest('.message-item').data('id'), csrf);
+          pnut.unstarMessage(self.closest('.message-item').data('id'), csrf);
         } else {
           self.addClass('on');
           self.find('span').text('Unstar');
-          appnet.starMessage(self.closest('.message-item').data('id'), csrf);
+          pnut.starMessage(self.closest('.message-item').data('id'), csrf);
         }
         break;
 
@@ -370,11 +370,11 @@ define(['jquery', 'appnet', 'friends', 'jquery.caret'],
         if (self.hasClass('on')) {
           self.removeClass('on');
           self.find('span').text('Repost');
-          appnet.unrepostMessage(self.closest('.message-item').data('id'), csrf);
+          pnut.unrepostMessage(self.closest('.message-item').data('id'), csrf);
         } else {
           self.addClass('on');
           self.find('span').text('Unrepost');
-          appnet.repostMessage(self.closest('.message-item').data('id'), csrf);
+          pnut.repostMessage(self.closest('.message-item').data('id'), csrf);
         }
         break;
 
@@ -524,9 +524,9 @@ define(['jquery', 'appnet', 'friends', 'jquery.caret'],
         if (ev.keyCode == F_KEYCODE || ev.keyCode == U_KEYCODE) {
           var username = currentMessage.data('username');
           if (ev.keyCode == F_KEYCODE) {
-            appnet.follow(username, csrf, true);
+            pnut.follow(username, csrf, true);
           } else {
-            appnet.unfollow(username, csrf, true);
+            pnut.unfollow(username, csrf, true);
           }
           ev.preventDefault();
         } else if(keyCodeToClassName[ev.keyCode]) {
@@ -543,12 +543,12 @@ define(['jquery', 'appnet', 'friends', 'jquery.caret'],
 
     switch (true) {
       case self.hasClass('followers'):
-        appnet.showFollowers();
+        pnut.showFollowers();
         body.addClass('fixed');
         break;
 
       case self.hasClass('following'):
-        appnet.showFollowing();
+        pnut.showFollowing();
         body.addClass('fixed');
         break;
 
@@ -556,12 +556,12 @@ define(['jquery', 'appnet', 'friends', 'jquery.caret'],
         if (self.hasClass('on')) {
           self.removeClass('on');
           self.text('Follow');
-          appnet.unfollow(self.parent().data('username'), csrf, false);
+          pnut.unfollow(self.parent().data('username'), csrf, false);
 
         } else {
           self.addClass('on');
           self.text('Unfollow');
-          appnet.follow(self.parent().data('username'), csrf, false);
+          pnut.follow(self.parent().data('username'), csrf, false);
         }
         break;
 
@@ -569,12 +569,12 @@ define(['jquery', 'appnet', 'friends', 'jquery.caret'],
         if (self.hasClass('on')) {
           self.removeClass('on');
           self.text('Mute');
-          appnet.unmute(self.parent().data('userid'), self.parent().data('username'), csrf);
+          pnut.unmute(self.parent().data('userid'), self.parent().data('username'), csrf);
 
         } else {
           self.addClass('on');
           self.text('Unmute');
-          appnet.mute(self.parent().data('userid'), self.parent().data('username'), csrf);
+          pnut.mute(self.parent().data('userid'), self.parent().data('username'), csrf);
         }
         break;
     }
@@ -592,7 +592,7 @@ define(['jquery', 'appnet', 'friends', 'jquery.caret'],
     var self = $(this);
 
     notifications.slideUp();
-    appnet.showPost(self.data('postid'));
+    pnut.showPost(self.data('postid'));
     body.addClass('fixed');
   });
 
@@ -629,7 +629,7 @@ define(['jquery', 'appnet', 'friends', 'jquery.caret'],
     ev.preventDefault();
 
     var self = $(this);
-    appnet.postMessage(self);
+    pnut.postMessage(self);
     url = '/my/feed';
     charLimit.text(CHAR_MAX);
     write.find('.reply_to').val('');

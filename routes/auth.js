@@ -2,16 +2,16 @@
 
 module.exports = function(app, passport) {
   // Login
-  app.get('/auth/appdotnet',
-    passport.authenticate('appdotnet'),
+  app.get('/auth/pnut',
+    passport.authenticate('pnut'),
     function(req, res) {
-      // App.net for authentication
+      // pnut.io for authentication
     }
   );
 
   // Callback
-  app.get('/auth/appdotnet/callback',
-    passport.authenticate('appdotnet', { failureRedirect: '/' }),
+  app.get('/auth/pnut/callback',
+    passport.authenticate('pnut', { failureRedirect: '/' }),
     function(req, res) {
       res.redirect('/');
     }

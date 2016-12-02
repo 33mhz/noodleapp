@@ -1,7 +1,7 @@
 /*global describe:true it:true */
 'use strict';
 
-var appnet = require('../lib/appnet');
+var appnet = require('../lib/pnut');
 var nock = require('nock');
 var should = require('should');
 var qs = require('querystring');

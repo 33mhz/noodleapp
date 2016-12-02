@@ -9,7 +9,7 @@ var settings = require('./settings')(app, configurations, express);
 var passport = require('passport');
 var redis = require('redis');
 var client = redis.createClient();
-var AppDotNetStrategy = require('passport-appdotnet').Strategy;
+var PnutStrategy = require('passport-pnut').Strategy;
 var noodle = require('./package');
 var utils = require('./lib/utils');
 var userDb = require('./lib/user');
@@ -26,11 +26,11 @@ passport.deserializeUser(function(obj, done) {
   done(null, obj);
 });
 
-passport.use(new AppDotNetStrategy({
-    clientID: nconf.get('appnet_consumer_key'),
-    clientSecret: nconf.get('appnet_consumer_secret'),
+passport.use(new PnutStrategy({
+    clientID: nconf.get('pnut_consumer_key'),
+    clientSecret: nconf.get('pnut_consumer_secret'),
     scope: 'stream messages write_post follow update_profile',
-    callbackURL: nconf.get('domain') + '/auth/appdotnet/callback'
+    callbackURL: nconf.get('domain') + '/auth/pnut/callback'
   },
   function(accessToken, refreshToken, profile, done) {
     process.nextTick(function (err) {

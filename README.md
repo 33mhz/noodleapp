@@ -1,16 +1,10 @@
 # NoodleApp
 
-## Support Edna Piranha by donating!
-
-<a href='http://www.pledgie.com/campaigns/18407'><img alt='Click here to lend your support to: NoodleApp - an app.net web client and make a donation at www.pledgie.com !' src='http://www.pledgie.com/campaigns/18407.png?skin_name=chrome' border='0' /></a>
-
-Donating enables us to continually add new awesome features and keep the server running fast like bunnies!
-
 A https://pnut.io client.
 
 ## To use the client
 
-Go here and sign in: http://noodle.s3rv.com [no longer: http&lt;colon>//app&lt;dot>noodletalk&lt;dot>org]
+Go here and sign in: http://noodle.s3rv.com
 
 Ignore everything below.
 
@@ -26,15 +20,17 @@ Ignore everything below.
 
 > enter the application name: noodleapp-dev
 
-> enter the website: http://dev.noodletalk.org
+> enter the website: http://site.example.com
 
-> enter the callback url: http://dev.noodletalk.org/auth/appdotnet/callback
+> enter the callback url: http://site.example.com/auth/pnut/callback
 
 > click "Create", you will need the client id and client secret below
 
 ### Edit /etc/hosts
 
-> Add the following: 127.0.0.1 dev.noodletalk.org
+> Add the following: 127.0.0.1 site.example.com
+
+> It is recommendable to use a web server like nginx as a proxy in front of noodle, across HTTPS
 
 ### Clone the repository
 
@@ -54,9 +50,9 @@ Install node through the website http://nodejs.org/#download
 
 > cp local.json-dist local.json
 
-> change the domain in local.json to: http://dev.noodletalk.org
+> change the domain in local.json to: http://site.example.com
 
-> copy and paste your app.net client id and secret to local.json under 'appnet_consumer_key' and 'appnet_consumer_secret'
+> copy and paste your pnut.io client id and secret to local.json under 'pnut_consumer_key' and 'pnut_consumer_secret'
 
 > adjust redis databases accordingly on local.json ( if using non-default port for redis, adjust in node_modules/redis/index.js )
 
@@ -66,7 +62,7 @@ Install node through the website http://nodejs.org/#download
 
 > node app.js
 
-> go to http://dev.noodletalk.org
+> go to http://site.example.com
 
 ## Tests
 

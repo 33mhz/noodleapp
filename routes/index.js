@@ -1,7 +1,7 @@
 'use strict';
 
 module.exports = function(app, client, isLoggedIn, noodle, config) {
-  var appnet = require('../lib/appnet');
+  var pnut = require('../lib/pnut');
   var webremix = require('../lib/web-remix');
   var utils = require('../lib/utils');
   var userDb = require('../lib/user');
@@ -15,7 +15,7 @@ module.exports = function(app, client, isLoggedIn, noodle, config) {
     if (req.session.passport.user) {
       // Process all the users's top 300 followed
       req.body.count = FOLLOWING_MAX;
-      appnet.following(req, function(err, users) {
+      pnut.following(req, function(err, users) {
         if (users) {
           users.data.forEach(function(user) {
             userDb.bffUser(utils.getUser(req).id, user.username, client);
@@ -85,7 +85,7 @@ module.exports = function(app, client, isLoggedIn, noodle, config) {
   app.get('/user/:username', isLoggedIn, function(req, res) {
     var analytics = false;
 
-    appnet.getUser(req, req.params.username, function(err, user) {
+    pnut.getUser(req, req.params.username, function(err, user) {
       if (err) {
         res.status(500);
         res.redirect('/500');
@@ -179,7 +179,7 @@ module.exports = function(app, client, isLoggedIn, noodle, config) {
 
     req.session.url = '/user/posts/' + parseInt(userId, 10);
 
-    appnet.userPosts(req, client, function(err, recentMessages) {
+    pnut.userPosts(req, client, function(err, recentMessages) {
       if (err) {
         res.status(500);
         res.json({ 'error': 'error retrieving your posts' });
@@ -198,7 +198,7 @@ module.exports = function(app, client, isLoggedIn, noodle, config) {
       req.session.url = '/user/mentions/' + parseInt(userId, 10);
     }
 
-    appnet.userMentions(req, function(err, recentMessages) {
+    pnut.userMentions(req, function(err, recentMessages) {
       if (err) {
         res.status(500);
         res.json({ 'error': 'error retrieving mentions' });
@@ -215,7 +215,7 @@ module.exports = function(app, client, isLoggedIn, noodle, config) {
 
     req.session.url = '/user/interactions/' + parseInt(userId, 10);
 
-    appnet.userInteractions(req, function(err, recentMessages) {
+    pnut.userInteractions(req, function(err, recentMessages) {
       if (err) {
         res.status(500);
         res.json({ 'error': 'error retrieving interactions' });
@@ -232,7 +232,7 @@ module.exports = function(app, client, isLoggedIn, noodle, config) {
 
     req.session.url = '/user/starred/' + parseInt(userId, 10);
 
-    appnet.userStarred(req, client, function(err, recentMessages) {
+    pnut.userStarred(req, client, function(err, recentMessages) {
       if (err) {
         res.status(500);
         res.json({ 'error': 'error retrieving starred' });
@@ -247,7 +247,7 @@ module.exports = function(app, client, isLoggedIn, noodle, config) {
   app.get('/my/feed', isLoggedIn, function(req, res) {
     req.session.url = '/my/feed';
 
-    appnet.myFeed(req, client, function(err, recentMessages) {
+    pnut.myFeed(req, client, function(err, recentMessages) {
       if (err) {
         res.status(500);
         res.json({ 'error': 'error retrieving your personal feed' });
@@ -262,7 +262,7 @@ module.exports = function(app, client, isLoggedIn, noodle, config) {
   app.get('/global/feed', isLoggedIn, function(req, res) {
     req.session.url = '/global/feed';
 
-    appnet.globalFeed(req, function(err, recentMessages) {
+    pnut.globalFeed(req, function(err, recentMessages) {
       if (err) {
         res.status(500);
         res.json({ 'error': 'error retrieving the global feed' });
@@ -275,7 +275,7 @@ module.exports = function(app, client, isLoggedIn, noodle, config) {
   });
 
   app.get('/paginated/feed/:id/:post_id', isLoggedIn, function(req, res) {
-    appnet.paginatedFeed(req, client, function(err, recentMessages) {
+    pnut.paginatedFeed(req, client, function(err, recentMessages) {
       if (err) {
         res.status(500);
         res.json({ 'error': 'error retrieving the paginated feed' });
@@ -288,7 +288,7 @@ module.exports = function(app, client, isLoggedIn, noodle, config) {
   });
 
   app.get('/paginated/interactions', isLoggedIn, function(req, res) {
-    appnet.paginatedFeed(req, client, function(err, recentMessages) {
+    pnut.paginatedFeed(req, client, function(err, recentMessages) {
       if (err) {
         res.status(500);
         res.json({ 'error': 'error retrieving the paginated feed' });
@@ -301,7 +301,7 @@ module.exports = function(app, client, isLoggedIn, noodle, config) {
   });
 
   app.post('/post', isLoggedIn, function(req, res) {
-    appnet.addMessage(req, client, function(err, recentMessage) {
+    pnut.addMessage(req, client, function(err, recentMessage) {
       if (err) {
         res.status(500);
         res.json({ 'error': 'error posting a new message' });
@@ -314,7 +314,7 @@ module.exports = function(app, client, isLoggedIn, noodle, config) {
   });
 
   app.delete('/post', isLoggedIn, function(req, res) {
-    appnet.deleteMessage(req, client, function(err, message) {
+    pnut.deleteMessage(req, client, function(err, message) {
       if (err) {
         res.status(500);
         res.json({ 'error': 'error deleting message' });
@@ -325,7 +325,7 @@ module.exports = function(app, client, isLoggedIn, noodle, config) {
   });
 
   app.put('/star', isLoggedIn, function(req, res) {
-    appnet.starMessage(req, client, function(err, message) {
+    pnut.starMessage(req, client, function(err, message) {
       if (err) {
         res.status(500);
         res.json({ 'error': 'error starring message' });
@@ -336,7 +336,7 @@ module.exports = function(app, client, isLoggedIn, noodle, config) {
   });
 
   app.delete('/star', isLoggedIn, function(req, res) {
-    appnet.unstarMessage(req, client, function(err, message) {
+    pnut.unstarMessage(req, client, function(err, message) {
       if (err) {
         res.status(500);
         res.json({ 'error': 'error unstarring message' });
@@ -347,7 +347,7 @@ module.exports = function(app, client, isLoggedIn, noodle, config) {
   });
 
   app.put('/repost', isLoggedIn, function(req, res) {
-    appnet.repost(req, client, function(err, message) {
+    pnut.repost(req, client, function(err, message) {
       if (err) {
         res.status(500);
         res.json({ 'error': 'error reposting message' });
@@ -358,7 +358,7 @@ module.exports = function(app, client, isLoggedIn, noodle, config) {
   });
 
   app.delete('/repost', isLoggedIn, function(req, res) {
-    appnet.unrepost(req, client, function(err, message) {
+    pnut.unrepost(req, client, function(err, message) {
       if (err) {
         res.status(500);
         res.json({ 'error': 'error reposting message' });
@@ -369,7 +369,7 @@ module.exports = function(app, client, isLoggedIn, noodle, config) {
   });
 
   app.put('/follow', isLoggedIn, function(req, res) {
-    appnet.follow(req, client, function(err, user) {
+    pnut.follow(req, client, function(err, user) {
       if (err) {
         res.status(500);
         res.json({ 'error': 'error following user' });
@@ -380,7 +380,7 @@ module.exports = function(app, client, isLoggedIn, noodle, config) {
   });
 
   app.delete('/follow', isLoggedIn, function(req, res) {
-    appnet.unfollow(req, client, function(err, user) {
+    pnut.unfollow(req, client, function(err, user) {
       if (err) {
         res.status(500);
         res.json({ 'error': 'error unfollowing user' });
@@ -391,7 +391,7 @@ module.exports = function(app, client, isLoggedIn, noodle, config) {
   });
 
   app.put('/mute', isLoggedIn, function(req, res) {
-    appnet.mute(req, client, function(err, user) {
+    pnut.mute(req, client, function(err, user) {
       if (err) {
         res.status(500);
         res.json({ 'error': 'error muting user' });
@@ -402,7 +402,7 @@ module.exports = function(app, client, isLoggedIn, noodle, config) {
   });
 
   app.delete('/mute', isLoggedIn, function(req, res) {
-    appnet.unmute(req, client, function(err, user) {
+    pnut.unmute(req, client, function(err, user) {
       if (err) {
         res.status(500);
         res.json({ 'error': 'error unmuting user' });
@@ -413,7 +413,7 @@ module.exports = function(app, client, isLoggedIn, noodle, config) {
   });
 
   app.get('/followers', isLoggedIn, function(req, res) {
-    appnet.followers(req, function(err, users) {
+    pnut.followers(req, function(err, users) {
       if (err) {
         res.status(500);
         res.json({ 'error': 'error retrieving followers' });
@@ -424,7 +424,7 @@ module.exports = function(app, client, isLoggedIn, noodle, config) {
   });
 
   app.get('/following', isLoggedIn, function(req, res) {
-    appnet.following(req, function(err, users) {
+    pnut.following(req, function(err, users) {
       if (err) {
         res.status(500);
         res.json({ 'error': 'error retrieving following' });
@@ -435,7 +435,7 @@ module.exports = function(app, client, isLoggedIn, noodle, config) {
   });
 
   app.get('/thread', isLoggedIn, function(req, res) {
-    appnet.thread(req, function(err, recentMessages) {
+    pnut.thread(req, function(err, recentMessages) {
       if (err) {
         res.status(500);
         res.json({ 'error': 'error retrieving thread' });
@@ -448,7 +448,7 @@ module.exports = function(app, client, isLoggedIn, noodle, config) {
   });
 
   app.get('/tags', isLoggedIn, function(req, res) {
-    appnet.getTags(req, function(err, recentMessages) {
+    pnut.getTags(req, function(err, recentMessages) {
       if (err) {
         res.status(500);
         res.json({ 'error': 'error retrieving tagged posts' });
@@ -461,7 +461,7 @@ module.exports = function(app, client, isLoggedIn, noodle, config) {
   });
 
   app.get('/post', isLoggedIn, function(req, res) {
-    appnet.getPost(req, function(err, recentMessage) {
+    pnut.getPost(req, function(err, recentMessage) {
       if (err) {
         res.status(500);
         res.json({ 'error': 'error retrieving post' });
@@ -474,7 +474,7 @@ module.exports = function(app, client, isLoggedIn, noodle, config) {
   });
 
   app.get('/starred_users', isLoggedIn, function(req, res) {
-    appnet.starredUsers(req, function(err, users) {
+    pnut.starredUsers(req, function(err, users) {
       if (err) {
         res.status(500);
         res.json({ 'error': 'error retrieving bookmarking users' });
@@ -485,7 +485,7 @@ module.exports = function(app, client, isLoggedIn, noodle, config) {
   });
 
   app.get('/reposted_users', isLoggedIn, function(req, res) {
-    appnet.repostedUsers(req, function(err, users) {
+    pnut.repostedUsers(req, function(err, users) {
       if (err) {
         res.status(500);
         res.json({ 'error': 'error retrieving reposting users' });
@@ -517,7 +517,7 @@ module.exports = function(app, client, isLoggedIn, noodle, config) {
   app.get('/messages', isLoggedIn, function(req, res) {
     var analytics = false;
 
-    appnet.getChannels(req, function(err, channels) {
+    pnut.getChannels(req, function(err, channels) {
       if (err) {
         res.redirect('/500');
       } else {
@@ -568,7 +568,7 @@ module.exports = function(app, client, isLoggedIn, noodle, config) {
   });
 
   app.get('/channel/:id', isLoggedIn, function(req, res) {
-    appnet.getMessages(req, function(err, recentMessages) {
+    pnut.getMessages(req, function(err, recentMessages) {
       if (err) {
         res.status(500);
         res.json({ 'error': 'error retrieving messages' });
@@ -584,7 +584,7 @@ module.exports = function(app, client, isLoggedIn, noodle, config) {
   });
 
   app.post('/channel', isLoggedIn, function(req, res) {
-    appnet.postChannelMessage(req, function(err, recentMessage) {
+    pnut.postChannelMessage(req, function(err, recentMessage) {
       if (err) {
         res.status(500);
         res.json({ 'error': 'error posting message' });

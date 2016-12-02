@@ -5,11 +5,11 @@
     "session_secret": "secret",
     "session_cookie": "session_your_cookie_name",
     "redis_db": 10,
-    "appnet_consumer_key": "appnet_key",
-    "appnet_consumer_secret": "appnet_secret",
+    "pnut_consumer_key": "pnut_key",
+    "pnut_consumer_secret": "pnut_secret",
     "redis_dev": 0,
     "redis_test": 8,
     "redis_prod": 9,
-    "analytics": "analytics_id",
+    "analytics": "analytics_id BLANK TO DISABLE",
     "imgur_key": "img_api_key"
 }
