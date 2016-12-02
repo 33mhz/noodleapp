@@ -7,7 +7,7 @@ module.exports = function(app, client, isLoggedIn, noodle, config) {
   var userDb = require('../lib/user');
   var charLimit = 256;
 
-  var FOLLOWING_MAX = 300;
+  var FOLLOWING_MAX = 200;
 
   app.get('/', function(req, res) {
     var analytics = false;
@@ -466,7 +466,6 @@ module.exports = function(app, client, isLoggedIn, noodle, config) {
         res.status(500);
         res.json({ 'error': 'error retrieving post' });
       } else {
-
         utils.generateFeed(req, [recentMessage], false, function(messages) {
           res.json({ messages: messages });
         });

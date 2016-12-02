@@ -151,7 +151,7 @@ define(['jquery', 'version-timeout', 'friends', 'jquery.caret'],
     message.attr('data-original', '@' + messageItem.username + ': ' + messageItem.text);
     // user's profile page
     if (typeof messageItem.name === 'undefined') {
-        messageItem.name = '';
+        messageItem.name = '@'+messageItem.username;
     }
     message.find('a.who')
       .attr('title', messageItem.name + ' @' + messageItem.username)
@@ -264,7 +264,9 @@ define(['jquery', 'version-timeout', 'friends', 'jquery.caret'],
               message.find('.info .reposts span').text(data.messages[i].numReposts);
               message.find('.info .stars span').text(data.messages[i].numStars);
               message.find('.info .replies span').text(data.messages[i].numReplies);
-              message.attr('data-mentions', data.messages[i].mentions);
+              if (typeof data.messages[i].mentions !== 'undefined') {
+                message.attr('data-mentions', data.messages[i].mentions);
+              }
             }
 
             if (ascending) {
@@ -275,7 +277,7 @@ define(['jquery', 'version-timeout', 'friends', 'jquery.caret'],
 
             if (showDetails) {
               var username = '';
-              if (username !== loggedInUsername) {
+              if (messageOverlay.find('.message-item').data('username').toLowerCase() !== loggedInUsername.toLowerCase()) {
                 username = '@' + messageOverlay.find('.message-item').data('username');
               }
               var mentionList = messageOverlay.find('.message-item').data('mentions');
