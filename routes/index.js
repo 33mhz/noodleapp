@@ -324,7 +324,7 @@ module.exports = function(app, client, isLoggedIn, noodle, config) {
     });
   });
 
-  app.post('/star', isLoggedIn, function(req, res) {
+  app.put('/star', isLoggedIn, function(req, res) {
     appnet.starMessage(req, client, function(err, message) {
       if (err) {
         res.status(500);
@@ -346,7 +346,7 @@ module.exports = function(app, client, isLoggedIn, noodle, config) {
     });
   });
 
-  app.post('/repost', isLoggedIn, function(req, res) {
+  app.put('/repost', isLoggedIn, function(req, res) {
     appnet.repost(req, client, function(err, message) {
       if (err) {
         res.status(500);
@@ -368,7 +368,7 @@ module.exports = function(app, client, isLoggedIn, noodle, config) {
     });
   });
 
-  app.post('/follow', isLoggedIn, function(req, res) {
+  app.put('/follow', isLoggedIn, function(req, res) {
     appnet.follow(req, client, function(err, user) {
       if (err) {
         res.status(500);
@@ -390,7 +390,7 @@ module.exports = function(app, client, isLoggedIn, noodle, config) {
     });
   });
 
-  app.post('/mute', isLoggedIn, function(req, res) {
+  app.put('/mute', isLoggedIn, function(req, res) {
     appnet.mute(req, client, function(err, user) {
       if (err) {
         res.status(500);

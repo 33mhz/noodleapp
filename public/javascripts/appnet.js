@@ -700,7 +700,7 @@ define(['jquery', 'version-timeout', 'friends', 'jquery.caret'],
 
     starMessage: function(id, csrf) {
       isFragment = true;
-      serverRequest('/star', 'POST', { post_id: id, _csrf: csrf }, function() {
+      serverRequest('/star', 'PUT', { post_id: id, _csrf: csrf }, function() {
         flashMessage('Starred!');
       });
     },
@@ -714,7 +714,7 @@ define(['jquery', 'version-timeout', 'friends', 'jquery.caret'],
 
     repostMessage: function(id, csrf) {
       isFragment = true;
-      serverRequest('/repost', 'POST', { post_id: id, _csrf: csrf }, function() {
+      serverRequest('/repost', 'PUT', { post_id: id, _csrf: csrf }, function() {
         flashMessage('Reposted!');
       });
     },
@@ -726,7 +726,7 @@ define(['jquery', 'version-timeout', 'friends', 'jquery.caret'],
 
     follow: function(username, csrf, flashUsername) {
       isFragment = true;
-      serverRequest('/follow', 'POST', { username: username, _csrf: csrf }, function() {
+      serverRequest('/follow', 'PUT', { username: username, _csrf: csrf }, function() {
         var msg = 'Followed' + (flashUsername ? ' ' + username : '') + '!';
         flashMessage(msg);
       });
@@ -742,7 +742,7 @@ define(['jquery', 'version-timeout', 'friends', 'jquery.caret'],
 
     mute: function(id, username, csrf) {
       isFragment = true;
-      serverRequest('/mute', 'POST', { user_id: id, username: username, _csrf: csrf }, function() {
+      serverRequest('/mute', 'PUT', { user_id: id, username: username, _csrf: csrf }, function() {
         flashMessage('Muted!');
       });
     },
