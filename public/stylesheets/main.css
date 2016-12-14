@@ -655,7 +655,7 @@ ol.messages #paginated.loading {
 }
 
 #overlay li p iframe, #overlay li p video, #overlay li p audio, #overlay li p object {
-    height: 306px;
+    height: 290px;
     margin: 2px 0;
     width: 645px;
 }
@@ -1163,6 +1163,7 @@ time:hover {
     margin: 7px 8px 0 0;
 }
 
+.high-contrast .actions > a.on,
 .actions.no-touch > a:hover,
 .actions > a.on {
     opacity: 1.0;
@@ -1178,7 +1179,7 @@ time:hover {
     cursor: pointer;
     float: left;
     height: 23px;
-    opacity: 0.1;
+    opacity: 0.2;
     padding: 0;
     position: relative;
     width: 23px;
@@ -1315,7 +1316,7 @@ ol.messages > li p .image-wrapper:first-child, ol.messages > li p .object-wrappe
 
 ol.messages > li p img {
     max-height: 535px;
-    max-width: 525px;
+    max-width: 640px;
 }
 
 ol.messages > li,
@@ -1418,9 +1419,13 @@ img.hush {
     color: #eee;
 }
 
+.avatar {
+    background-color: #bbb;
+}
+
 .message-wrapper {
     margin-top: 40px;
-    padding: 20px;
+    padding: 10px;
 }
 
 #message-summary, #message-detail {
@@ -1430,11 +1435,15 @@ img.hush {
 }
 
 #message-summary {
-    width: 130px;
+    width: 140px;
 }
 
 #message-summary .avatar {
     width: 80px;
+}
+
+#message-summary .avatar.writers {
+  width: 41px;
 }
 
 #message-summary a {
@@ -1495,12 +1504,12 @@ img.hush {
 
 .write.channel-message {
     margin: 0;
-    padding: 0 0 20px 0;
+    padding: 0 0 10px 0;
 }
 
 .write.channel-message {
     float: right;
-    width: 515px;
+    width: 535px;
 }
 
 .write.channel-message textarea {

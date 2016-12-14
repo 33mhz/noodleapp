@@ -153,7 +153,7 @@ describe('appnet', function() {
   describe('.userPosts',  function() {
     it('returns posts by a user', function(done) {
       var scope = nock(APPNET_URL)
-        .get('/stream/0/users/1/posts?access_token=1&since_id=1&before_id=1&include_deleted=0&include_annotations=1')
+        .get('/stream/0/users/1/posts?access_token=1&since_id=1&before_id=1&include_deleted=0&include_annotations=1&count=40')
         .reply(200, POST_JSON);
       appnet.userPosts(req, client, function(err, resp) {
         resp.data[0].id.should.equal('1');
@@ -163,7 +163,7 @@ describe('appnet', function() {
 
     it('returns a user', function(done) {
       var scope = nock(APPNET_URL)
-        .get('/stream/0/users/@test?access_token=1')
+        .get('/stream/0/users/@test?access_token=1&count=40')
         .reply(200, USER_JSON);
       appnet.getUser(req, req.params.username, function(err, resp) {
         resp.data.id.should.equal('1');
@@ -173,7 +173,7 @@ describe('appnet', function() {
 
     it('returns my feed', function(done) {
       var scope = nock(APPNET_URL)
-        .get('/stream/0/posts/stream?access_token=1&since_id=1&before_id=1&include_deleted=0&include_directed_posts=0&include_annotations=1')
+        .get('/stream/0/posts/stream?access_token=1&since_id=1&before_id=1&include_deleted=0&include_directed_posts=0&include_annotations=1&count=40')
         .reply(200, POST_JSON);
       appnet.myFeed(req, client, function(err, resp) {
         resp.data[0].id.should.equal('1');
@@ -183,7 +183,7 @@ describe('appnet', function() {
 
     it('returns user mentions', function(done) {
       var scope = nock(APPNET_URL)
-        .get('/stream/0/users/1/mentions?access_token=1&since_id=1&before_id=1&include_deleted=0&count=&include_annotations=1')
+        .get('/stream/0/users/1/mentions?access_token=1&since_id=1&before_id=1&include_deleted=0&count=&include_annotations=1&count=40')
         .reply(200, POST_JSON);
       appnet.userMentions(req, function(err, resp) {
         resp.data[0].id.should.equal('1');
@@ -193,7 +193,7 @@ describe('appnet', function() {
 
     it('returns user starred', function(done) {
       var scope = nock(APPNET_URL)
-        .get('/stream/0/users/1/stars?access_token=1&before_id=1&include_deleted=0&include_annotations=1')
+        .get('/stream/0/users/1/stars?access_token=1&before_id=1&include_deleted=0&include_annotations=1&count=40')
         .reply(200, POST_JSON);
       appnet.userStarred(req, client, function(err, resp) {
         resp.data[0].id.should.equal('1');
@@ -203,7 +203,7 @@ describe('appnet', function() {
 
     it('returns the global feed', function(done) {
       var scope = nock(APPNET_URL)
-        .get('/stream/0/posts/stream/global?access_token=1&since_id=1&before_id=1&include_deleted=0&include_annotations=1')
+        .get('/stream/0/posts/stream/global?access_token=1&since_id=1&before_id=1&include_deleted=0&include_annotations=1&count=40')
         .reply(200, POST_JSON);
       appnet.globalFeed(req, function(err, resp) {
         resp.data[0].id.should.equal('1');
@@ -214,7 +214,7 @@ describe('appnet', function() {
     it('returns a paginated global feed', function(done) {
       req.session.url = '/global/feed';
       var scope = nock(APPNET_URL)
-        .get('/stream/0/posts/stream/global?access_token=1&since_id=&before_id=1&include_deleted=0&include_annotations=1')
+        .get('/stream/0/posts/stream/global?access_token=1&since_id=&before_id=1&include_deleted=0&include_annotations=1&count=40')
         .reply(200, POST_JSON);
       appnet.paginatedFeed(req, client, function(err, resp) {
         resp.data[0].id.should.equal('1');
@@ -225,7 +225,7 @@ describe('appnet', function() {
     it('returns paginated user posts', function(done) {
       req.session.url = '/user/posts';
       var scope = nock(APPNET_URL)
-        .get('/stream/0/users/1/posts?access_token=1&since_id=&before_id=1&include_deleted=0&include_annotations=1')
+        .get('/stream/0/users/1/posts?access_token=1&since_id=&before_id=1&include_deleted=0&include_annotations=1&count=40')
         .reply(200, POST_JSON);
       appnet.paginatedFeed(req, client, function(err, resp) {
         resp.data[0].id.should.equal('1');
@@ -236,7 +236,7 @@ describe('appnet', function() {
     it('returns paginated user mentions', function(done) {
       req.session.url = '/user/mentions';
       var scope = nock(APPNET_URL)
-        .get('/stream/0/users/1/mentions?access_token=1&since_id=&before_id=1&include_deleted=0&count=&include_annotations=1')
+        .get('/stream/0/users/1/mentions?access_token=1&since_id=&before_id=1&include_deleted=0&count=&include_annotations=1&count=40')
         .reply(200, POST_JSON);
       appnet.paginatedFeed(req, client, function(err, resp) {
         resp.data[0].id.should.equal('1');
@@ -247,7 +247,7 @@ describe('appnet', function() {
     it('returns paginated user starred posts', function(done) {
       req.session.url = '/user/starred';
       var scope = nock(APPNET_URL)
-        .get('/stream/0/users/1/stars?access_token=1&before_id=1&include_deleted=0&include_annotations=1')
+        .get('/stream/0/users/1/stars?access_token=1&before_id=1&include_deleted=0&include_annotations=1&count=40')
         .reply(200, POST_JSON);
       appnet.paginatedFeed(req, client, function(err, resp) {
         resp.data[0].id.should.equal('1');
@@ -258,7 +258,7 @@ describe('appnet', function() {
     it('returns paginated my feed', function(done) {
       req.session.url = '/my/feed';
       var scope = nock(APPNET_URL)
-        .get('/stream/0/posts/stream?access_token=1&since_id=&before_id=1&include_deleted=0&include_directed_posts=0&include_annotations=1')
+        .get('/stream/0/posts/stream?access_token=1&since_id=&before_id=1&include_deleted=0&include_directed_posts=0&include_annotations=1&count=40')
         .reply(200, POST_JSON);
       appnet.paginatedFeed(req, client, function(err, resp) {
         resp.data[0].id.should.equal('1');

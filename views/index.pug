@@ -3,22 +3,22 @@ extend layout
 block tabs
   .tabs
     a.my-feed.selected(data-url='/my/feed', data-action='my-feed', href='javascript:;', title='My Feed', class='initial') My Feed
-    a.user-mentions(data-url='/user/mentions/#{session.id}', data-action='user-mentions', href='javascript:;', title='Mentions') Mentions
-    a.user-interactions(data-url='/user/interactions/#{session.id}', data-action='user-interactions', href='javascript:;', title='Interact') Interact
+    a.user-mentions(data-url='/user/mentions/'+session.id, data-action='user-mentions', href='javascript:;', title='Mentions') Mentions
+    a.user-interactions(data-url='/user/interactions/'+session.id, data-action='user-interactions', href='javascript:;', title='Interact') Interact
     a.global-feed(data-url='/global/feed', href='javascript:;', data-action='global-feed', title='Global') Global
 
 block content
   if session
-    mixin messageForm('', 'Write your message', '', 'Post')
+    +messageForm('', 'Write your message', '', 'Post')
 
     section
       ol#unread-messages
         h2
         ol
-      ol.messages(data-userid='#{session.id}', role='listbox', tabindex='0')
+      ol.messages(data-userid=session.id, role='listbox', tabindex='0')
   else
     section.public
       ol.messages
         li
           h1 You need to sign in with your pnut.io account to see this glorious noodle.
-          a(href='/auth/appdotnet', id='login') Log in
+          a(href='/auth/pnut', id='login') Log in

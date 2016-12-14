@@ -1,0 +1,31 @@
+extend layout
+
+block content
+  .message-wrapper
+    h1 Recent Messages
+
+    .write.channel-message
+      form(method='post', class='channel-message-form')
+        span.tip Usernames are required if you are starting a new private channel
+        label(for='destinations', id='recipients') Recipients
+          input(type='text', name='destinations', value='', id='destination', placeholder='Optional @usernames (space-delimited)', autocomplete='off')
+        textarea(name='text', class='writeable submittable', placeholder='Enter your message')
+        input(type='hidden', name='channel_id', id='channel-id', value='', autocomplete='off')
+        input(type='hidden', name='_csrf', value=csrf)
+        .form-action-wrapper
+          span.counter= charLimit
+          button(type='submit', class='submittable', title='Send') Send
+          a(href='javascript:;', class='close', title='Cancel') Cancel
+        ol.suggestions(class='writeable')
+    
+    ul#message-summary
+      for channel in channels
+        li
+          a(href='javascript:;', class='channel', data-action='message', data-username='@'+channel.owner.username, data-id=channel.id)
+            if (channel.type === 'io.pnut.core.pm')
+              img(src=channel.owner.content.avatar_image.link+'?h=41', class='avatar writers', title='@'+channel.owner.username)
+              each user_id in channel.acl.write.user_ids
+                img(src='https://api.pnut.io/v0/users/'+user_id+'/avatar?h=41', class='avatar writers')
+            else
+              img(src=channel.owner.content.avatar_image.link+'?h=80', class='avatar', title='@'+channel.owner.username)
+    ul#message-detail

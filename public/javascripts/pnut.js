@@ -852,6 +852,7 @@ define(['jquery', 'version-timeout', 'friends', 'jquery.caret'],
     getMessages: function(channelId, callback) {
       $.get('/channel/' + channelId, function(data) {
         $('#message-detail').replaceWith(data);
+        // $('#channel-id').val(channelId);
       });
     },
 

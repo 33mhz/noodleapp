@@ -58,7 +58,7 @@ define(['jquery'],
       var fullText = textarea.val().substring(0, cursorPosition - textCount - 1) +
         item.text() + ' ' + textarea.val().substring(cursorPosition,
         fullLength + item.text().length + 1);
-
+console.log(fullText);
       textarea.focus();
       textarea.val(fullText);
       item.closest('write').find('.suggestions').empty();

@@ -1,32 +1,31 @@
 mixin messageForm(cssName, placeholder, message, buttonText)
   if session
-    .write(name='#write', class='#{cssName}')
+    .write(name='#write', class=cssName)
       form(method='post')
-        textarea(name='text', class='writeable submittable', placeholder='#{placeholder}')= message
+        textarea(name='text', class='writeable submittable', placeholder=placeholder)= message
         input(type='hidden', name='reply_to', value='', class='reply_to')
-        input(type='hidden', name='_csrf', value='#{csrf}')
+        input(type='hidden', name='_csrf', value=csrf)
         .form-action-wrapper
           span.counter= charLimit
-          button(type='submit', class='submittable', title='#{buttonText}')= buttonText
+          button(type='submit', class='submittable', title=buttonText)= buttonText
           a(href='javascript:;', class='close', title='Cancel') Cancel
         ol.suggestions(class='writeable')
 
-!!! 5
 html
   head
     title NoodleApp
-    meta(content='width=device-width, height=device-height, user-scalable=no, initial-scale=0.96, maximum-scale=0.96, minimum-scale=0.96', name='viewport')
+    meta(content='minimal-ui, width=device-width, height=device-height, user-scalable=no, initial-scale=0.96, maximum-scale=0.96, minimum-scale=0.96', name='viewport')
     meta(content='yes', name='apple-mobile-web-app-capable')
     meta(content='chrome=1', http-equiv='X-UA-Compatible')
     link(rel='shortcut icon', href='/favicon.png')
     link(rel='apple-touch-icon', sizes='72x72', href='/images/logo-72.png')
     link(rel='apple-touch-icon', sizes='114x114', href='/images/logo-114.png')
     link(rel='apple-touch-icon', sizes='128x128', href='/images/logo-128.png')
-    link(rel='stylesheet', href='/stylesheets/main.css')
+    link(rel='stylesheet', href='/stylesheets/main.css?20161214')
     if analytics
-      != '<script type="text/javascript">var _gaq = _gaq || []; _gaq.push(["_setAccount", "' + analytics + '"]); _gaq.push(["_trackPageview"]); (function() { var ga = document.createElement("script"); ga.type = "text/javascript"; ga.async = true; ga.src = "https://www.google-analytics.com/ga.js"; var s = document.getElementsByTagName("script")[0]; s.parentNode.insertBefore(ga, s); })();</script>'
+      != '<script type="text/javascript">var _gaq = _gaq || []; _gaq.push(["_setAccount", "' + analytics + '"]); _gaq.push(["_trackPageview"]); (function() { var ga = document.createElement("script"); ga.type = "text/javascript"; ga.async = true; ga.src = ("https:"==location.protocol?"//ssl":"//www")+".google-analytics.com/ga.js"; var s = document.getElementsByTagName("script")[0]; s.parentNode.insertBefore(ga, s); })();</script>'
 
-  body(data-url='#{url}', data-username='#{loggedUsername}', data-sessionid='#{loggedInId}', class='#{mediaOn} #{highContrast}', data-charlimit='#{charLimit}')
+  body(data-url=url, data-username=loggedUsername, data-sessionid=loggedInId, class=darkerTheme +' '+ mediaOn +' '+ highContrast, data-charlimit=charLimit)
     #hush
 
     if session
@@ -61,7 +60,7 @@ html
             a(href='javascript:;', id='profile-link', title='Profile') Profile
             ul.submenu
               li
-                a(href='/user/#{session.username}/', title='View Profile') View Profile
+                a(href='/user/'+session.username+'/', title='View Profile') View Profile
               li
                 a(href='/messages/', title='Messages') Messages
           li
@@ -70,9 +69,9 @@ html
               li
                 a(href='javascript:;', id='settings-link', title='Edit settings') Edit Settings
               li
-                a(href='https://github.com/nooodle/noodleapp/blob/master/docs/terms.md', target='_blank') Terms
+                a(href='/tos', target='_blank') Terms
               li
-                a(href='https://github.com/nooodle/noodleapp/blob/master/docs/privacy.md', target='_blank') Privacy Policy
+                a(href='/privacy', target='_blank') Privacy Policy
               li
                 a(href='/logout', title='Sign out') Log out
 
@@ -84,7 +83,7 @@ html
       a(name='#top')
       if session
         #overlay
-          mixin messageForm('overlay-write', 'Reply', '', 'Reply')
+          +messageForm('overlay-write', 'Reply', '', 'Reply')
           .inner-overlay
         #flash-message
       .dashboard-content

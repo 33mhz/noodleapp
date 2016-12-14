@@ -329,6 +329,8 @@ define(['jquery', 'pnut', 'friends', 'jquery.caret'],
     }
 
     switch (true) {
+      case self.hasClass('writers'):
+        self = self.parent('.channel');
       case self.hasClass('channel'):
         pnut.getMessages(self.data('id'));
         self.closest('#message-summary').find('a.selected').removeClass('selected');

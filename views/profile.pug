@@ -2,13 +2,13 @@ extend layout
 
 block tabs
   .tabs.long
-    a.user-posts.selected(data-url='/user/posts/#{user.id}', data-action='user-posts', href='javascript:;', title='Recent', class='initial') Recent
-    a.user-mentions(data-url='/user/mentions/#{user.id}', data-action='user-mentions', href='javascript:;', title='Mentions') Mentions
-    a.user-starred(data-url='/user/starred/#{user.id}', data-action='user-starred', href='javascript:;', title='Starred') Starred
+    a.user-posts.selected(data-url='/user/posts/'+user.id, data-action='user-posts', href='javascript:;', title='Recent', class='initial') Recent
+    a.user-mentions(data-url='/user/mentions/'+user.id, data-action='user-mentions', href='javascript:;', title='Mentions') Mentions
+    a.user-starred(data-url='/user/starred/'+user.id, data-action='user-starred', href='javascript:;', title='Starred') Starred
 
 block content
-  #profile(style='background-image: url(#{user.content.cover_image.link});')
-    img(src='#{user.content.avatar_image.link}?h=200')
+  #profile(style='background-image: url('+user.content.cover_image.link+');')
+    img(src=user.content.avatar_image.link+'?h=180')
     .user-info
       h2= user.name
       if session && (user.id !== session.id)
@@ -20,7 +20,7 @@ block content
       a(class='following', href='javascript:;', title='Following') Following #{user.counts.following}
       a(class='followers', href='javascript:;', title='Followers') Followers #{user.counts.followers}
 
-      .action-buttons(data-userid='#{user.id}', data-username='#{user.username}')
+      .action-buttons(data-userid=user.id, data-username=user.username)
         if session && (user.id !== session.id)
           if user.you_follow
             a(class='follow on', href='javascript:;', title='Unfollow') Unfollow
@@ -33,10 +33,10 @@ block content
       p= 'Posts: ' + user.counts.posts
 
       p!= description.replace(/\n/gm, '<br>')
-  mixin messageForm('profile', 'Write a message to @' + username, '@' + username + ' ', 'Post')
+  +messageForm('profile', 'Write a message to @' + username, '@' + username + ' ', 'Post')
 
   section
     ol#unread-messages
       h2
       ol
-    ol.messages(data-userid='#{user.id}')
+    ol.messages(data-userid=user.id)
