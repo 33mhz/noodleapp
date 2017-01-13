@@ -24,7 +24,7 @@ block content
           a(href='javascript:;', class='channel', data-action='message', data-username='@'+channel.owner.username, data-id=channel.id)
             if (channel.type === 'io.pnut.core.pm')
               img(src=channel.owner.content.avatar_image.link+'?h=41', class='avatar writers', title='@'+channel.owner.username)
-              each user_id in channel.acl.write.user_ids
+              for user_id in channel.acl.write.user_ids
                 img(src='https://api.pnut.io/v0/users/'+user_id+'/avatar?h=41', class='avatar writers')
             else
               img(src=channel.owner.content.avatar_image.link+'?h=80', class='avatar', title='@'+channel.owner.username)

@@ -78,6 +78,10 @@ body.media-disable a.media-off {
     display: inline;
 }
 
+body.alex {
+    background-image: url('/images/background-alex.png');
+}
+
 body.fixed {
     background-image: url('/images/background-dark.png');
     overflow: hidden;
@@ -1531,6 +1535,10 @@ img.hush {
     body {
         background-image: url('/images/background2x.png');
         background-size: auto 200px;
+    }
+    
+    body.alex {
+        background-image: url('/images/background-alex2x.png');
     }
 
     body.fixed {
