@@ -20,17 +20,16 @@ block content
     
     ul#message-summary
       for channel in channels
-        if (channel.has_unread)
-          li.unread-channel
-            a(href='javascript:;', class='channel', data-action='message', data-username='@'+channel.owner.username, data-id=channel.id)
+        li
+          if (channel.has_unread)
+            a(href='javascript:;', class='channel unread', data-action='message', data-username='@'+channel.owner.username, data-id=channel.id)
               if (channel.type === 'io.pnut.core.pm')
                 img(src=channel.owner.content.avatar_image.link+'?h=41', class='avatar writers', title='@'+channel.owner.username)
                 for user_id in channel.acl.write.user_ids
                   img(src='https://api.pnut.io/v0/users/'+user_id+'/avatar?h=41', class='avatar writers')
               else
                 img(src=channel.owner.content.avatar_image.link+'?h=80', class='avatar', title='@'+channel.owner.username)
-        else
-          li
+          else
             a(href='javascript:;', class='channel', data-action='message', data-username='@'+channel.owner.username, data-id=channel.id)
               if (channel.type === 'io.pnut.core.pm')
                 img(src=channel.owner.content.avatar_image.link+'?h=41', class='avatar writers', title='@'+channel.owner.username)

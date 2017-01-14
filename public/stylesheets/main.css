@@ -1531,7 +1531,7 @@ img.hush {
     width: 414px;
 }
 
-#message-summary li.unread-channel a {
+#message-summary li a.unread {
     background-color:#8a2b2b;
 }
 

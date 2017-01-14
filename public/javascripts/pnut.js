@@ -768,6 +768,7 @@ define(['jquery', 'version-timeout', 'friends', 'jquery.caret'],
           form.find('.form-action-wrapper').slideUp('fast');
           $('#message-detail').append($(data.responseText).html());
 
+          $('#message-summary li a.selected').removeClass('unread');
           flashMessage('Posted Channel Message!');
         });
       } else {
@@ -783,6 +784,7 @@ define(['jquery', 'version-timeout', 'friends', 'jquery.caret'],
           form.find('textarea').removeClass('on');
           form.find('.form-action-wrapper').slideUp('fast');
 
+          $('#message-summary li a.selected').removeClass('unread');
           flashMessage('Posted!');
         });
       }
