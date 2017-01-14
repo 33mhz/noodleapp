@@ -766,7 +766,7 @@ define(['jquery', 'version-timeout', 'friends', 'jquery.caret'],
         }).always(function(data) {
           form.find('textarea').removeClass('on');
           form.find('.form-action-wrapper').slideUp('fast');
-          $('#message-detail').append($(data.responseText).html());
+          $('#message-detail').prepend($(data.responseText).html());
 
           $('#message-summary li a.selected').removeClass('unread');
           flashMessage('Posted Channel Message!');
