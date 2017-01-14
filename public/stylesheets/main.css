@@ -872,7 +872,7 @@ section.public li h1 {
     color: #888;
     font-family: Helvetica, Arial;
     font-size: 15px;
-    height: 45px;
+    /* height: 45px; */
     line-height: 20px;
     margin-bottom: 10px;
     overflow: auto;
@@ -1002,7 +1002,7 @@ a.tabs a, .action-buttons a {
 
 .tabs a:hover, .action-buttons a:hover, .tabs a.selected, #message-summary li a:hover,
 #message-summary li a.selected {
-    background-color: #111;
+    background-color: #111 !important;
     color: #eee;
 }
 
@@ -1529,6 +1529,10 @@ img.hush {
     margin-left: 10px;
     padding: 3px;
     width: 414px;
+}
+
+#message-summary li.unread-channel a {
+    background-color:#8a2b2b;
 }
 
 @media screen and (-webkit-min-device-pixel-ratio: 2), screen and (min--moz-device-pixel-ratio: 2), (min-resolution: 2dppx) {
