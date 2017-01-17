@@ -1535,6 +1535,27 @@ img.hush {
     background-color:#8a2b2b;
 }
 
+.new-pm {
+    float:right;
+    background-color: #74b908;
+    border: 0;
+    border-radius: 2px;
+    color: #fff;
+    cursor: pointer;
+    display: block;
+    font-family: 'Oswald';
+    font-size: 18px;
+    line-height: 20px;
+    padding: 3px 11px 2px;
+    text-decoration: none;
+    text-transform: uppercase;
+}
+
+.new-pm:hover {
+    background-color: #111;
+    color: #eee;
+}
+
 @media screen and (-webkit-min-device-pixel-ratio: 2), screen and (min--moz-device-pixel-ratio: 2), (min-resolution: 2dppx) {
     body {
         background-image: url('/images/background2x.png');

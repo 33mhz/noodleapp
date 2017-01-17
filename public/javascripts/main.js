@@ -329,22 +329,31 @@ define(['jquery', 'pnut', 'friends', 'jquery.caret'],
     }
 
     switch (true) {
+      case self.hasClass('new-pm'):
+        $('#message-detail').html('');
+        $('#message-summary').find('a.selected').removeClass('selected');
+        $('#destination').val('');
+        $('#channel-id').val('');
+        $('#destination').focus();
+        break;
       case self.hasClass('writers'):
         self = self.parent('.channel');
       case self.hasClass('channel'):
         pnut.getMessages(self.data('id'));
         self.closest('#message-summary').find('a.selected').removeClass('selected');
-        if (self.data('username') !== '@' + body.data('username')) {
-          write.find('#destination').val(self.data('username'));
-        } else {
-          write.find('#destination').val('');
-        }
+        // if (self.data('username').toLowerCase !== '@' + body.data('username').toLowerCase) {
+          // write.find('#destination').val(self.data('username'));
+        // } else {
+        write.find('#destination').val('');
+        // }
         write.find('#channel-id').val(self.data('id'));
         self.addClass('selected');
         break;
       case selfLink.hasClass('channel'):
         pnut.getMessages(selfLink.data('id'));
         selfLink.closest('#message-summary').find('a.selected').removeClass('selected');
+        write.find('#destination').val('');
+        write.find('#channel-id').val(selfLink.data('id'));
         selfLink.addClass('selected');
         break;
       case (self.hasClass('reply')):

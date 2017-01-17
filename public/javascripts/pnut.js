@@ -764,6 +764,9 @@ define(['jquery', 'version-timeout', 'friends', 'jquery.caret'],
           dataType: 'json',
           cache: false
         }).always(function(data) {
+          // only on success?
+          form.find('textarea').val('');
+          
           form.find('textarea').removeClass('on');
           form.find('.form-action-wrapper').slideUp('fast');
           $('#message-detail').prepend($(data.responseText).html());
