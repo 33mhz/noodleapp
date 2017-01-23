@@ -132,7 +132,8 @@ define(['jquery', 'version-timeout', 'friends', 'jquery.caret'],
     var notify = '';
     var messageId = message.id;
 
-    if (message.message.indexOf('@' + loggedInUsername) > -1) {
+    var re = new RegExp('\\@' + loggedInUsername + '\\b', "i");
+    if (re.test(message.message)) {
       notify = 'notify';
     }
     return $('<li class="message-item ' + notify + '" role="group" tabindex="-1" aria-label="' + message.username + ': ' + message.text.replace(/"/g, '&#34;') + ', ' + dateDisplay(message.createdAt) + '" data-mentions="" data-repostid="' + message.repostId +
