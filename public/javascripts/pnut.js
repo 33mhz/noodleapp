@@ -129,14 +129,16 @@ define(['jquery', 'version-timeout', 'friends', 'jquery.caret'],
   };
 
   var generatePostItem = function(message, detailExtras) {
-    var notify = '';
+    var flag = '';
     var messageId = message.id;
 
     var re = new RegExp('\\@' + loggedInUsername + '\\b', "i");
     if (re.test(message.message)) {
-      notify = 'notify';
+      flag = 'notify';
+    } else if (message.repostDetails.id) {
+      flag = 'repost';
     }
-    return $('<li class="message-item ' + notify + '" role="group" tabindex="-1" aria-label="' + message.username + ': ' + message.text.replace(/"/g, '&#34;') + ', ' + dateDisplay(message.createdAt) + '" data-mentions="" data-repostid="' + message.repostId +
+    return $('<li class="message-item ' + flag + '" role="group" tabindex="-1" aria-label="' + message.username + ': ' + message.text.replace(/"/g, '&#34;') + ', ' + dateDisplay(message.createdAt) + '" data-mentions="" data-repostid="' + message.repostDetails.id +
       '" data-replyto="" data-replytoid="' + message.inReplyToId + '" data-original="" data-id="' +
       messageId + '" ' + 'data-username="' + message.username + '" data-minid="' + message.minId + '">' +
       '<div class="post-wrapper"><div class="meta"><a href="" class="who" title=""><img src=""></a>' +
@@ -177,6 +179,9 @@ define(['jquery', 'version-timeout', 'friends', 'jquery.caret'],
     // user's message
 
     message.find('p').html(messageItem.message.replace(/\n/gm, '<br>'));
+    if (messageItem.repostDetails.id) {
+        message.find('p').after('<p class="reposter">Reposted <a href="/user/' + messageItem.repostDetails.username + '"><img src="' + messageItem.repostDetails.avatar + '?w=160" title="@' + messageItem.repostDetails.username + '"/></a></p>');
+    }
 
     return message;
   };

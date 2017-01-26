@@ -1042,14 +1042,22 @@ ol.messages > li .post-wrapper {
     width: 647px;
 }
 
+/* blue */
 ol.messages > li.notify .post-wrapper {
     border-left: 3px solid #76e4f1;
 }
 
+/* light purple */
+ol.messages > li.repost .post-wrapper {
+    border-left: 3px solid #f9c1ff;	
+}
+
+/* yellow-green */
 ol.messages > li:hover .post-wrapper {
     border-left: 3px solid #d8fd2b;
 }
 
+/* red */
 li.message-item.selected-item div.post-wrapper,
 #thread-detail .selected-item {
     border-left: 3px solid #ff7575;
@@ -1554,6 +1562,22 @@ img.hush {
 .new-pm:hover {
     background-color: #111;
     color: #eee;
+}
+
+.reposter {
+    font-style: italic;
+    width:auto !important;
+    clear:none;
+}
+.reposter img {
+    border-radius: 2px;
+    height: 30px;
+    margin: 0;
+    width: 30px;
+    background-color: #ddd;
+    float: none !important;
+    display: inline !important;
+    vertical-align: middle;
 }
 
 @media screen and (-webkit-min-device-pixel-ratio: 2), screen and (min--moz-device-pixel-ratio: 2), (min-resolution: 2dppx) {
