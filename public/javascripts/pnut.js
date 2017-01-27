@@ -283,7 +283,7 @@ define(['jquery', 'version-timeout', 'friends', 'jquery.caret'],
 
             if (showDetails) {
               var username = '';
-              if (messageOverlay.find('.message-item').data('username').toLowerCase() !== loggedInUsername.toLowerCase()) {
+              if (messageOverlay.find('.message-item').data('username').toString().toLowerCase() !== loggedInUsername.toString().toLowerCase()) {
                 username = '@' + messageOverlay.find('.message-item').data('username');
               }
               var mentionList = messageOverlay.find('.message-item').data('mentions');
