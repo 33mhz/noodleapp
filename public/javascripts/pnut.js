@@ -132,11 +132,15 @@ define(['jquery', 'version-timeout', 'friends', 'jquery.caret'],
     var flag = '';
     var messageId = message.id;
 
-    var re = new RegExp('\\@' + loggedInUsername + '\\b', "i");
-    if (re.test(message.message)) {
-      flag = 'notify';
-    } else if (message.repostDetails.id) {
-      flag = 'repost';
+    if (message.message === '') {
+        message.message = '<div class="deleted-post">[POST DELETED]</div>';
+    } else {
+      var re = new RegExp('\\@' + loggedInUsername + '\\b', "i");
+      if (re.test(message.message)) {
+        flag = 'notify';
+      } else if (message.repostDetails.id) {
+        flag = 'repost';
+      }
     }
     return $('<li class="message-item ' + flag + '" role="group" tabindex="-1" aria-label="' + message.username + ': ' + message.text.replace(/"/g, '&#34;') + ', ' + dateDisplay(message.createdAt) + '" data-mentions="" data-repostid="' + message.repostDetails.id +
       '" data-replyto="" data-replytoid="' + message.inReplyToId + '" data-original="" data-id="' +

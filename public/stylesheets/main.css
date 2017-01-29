@@ -1580,6 +1580,12 @@ img.hush {
     vertical-align: middle;
 }
 
+.deleted-post {
+    opacity:.7;
+    font-style:italic;
+    font-weight:bold;
+}
+
 @media screen and (-webkit-min-device-pixel-ratio: 2), screen and (min--moz-device-pixel-ratio: 2), (min-resolution: 2dppx) {
     body {
         background-image: url('/images/background2x.png');
