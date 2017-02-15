@@ -225,7 +225,7 @@ header a.home {
     height: 25px;
     margin-left: 10px;
     text-indent: -9999px;
-    width: 25px;
+    width: 32px;
 }
 
 header > ul {
@@ -268,7 +268,7 @@ header ul.submenu li {
 
 header ul.submenu li a {
     color: #eee;
-    font-size: 14px;
+    font-size: 1em;
 }
 
 header ul.submenu li a:hover {
@@ -962,14 +962,14 @@ section.public li a {
     display: block;
     float: left;
     font-family: 'Oswald';
-    font-size: 14px;
-    line-height: 16px;
+    font-size: 1em;
+    line-height: 1.2em;
     margin: 0 3px;
     padding: 5px 0 3px;
     text-align: center;
     text-decoration: none;
     text-transform: uppercase;
-    width: 77px;
+    width: 5em;
 }
 
 .tabs.long a {
@@ -981,7 +981,7 @@ a.tabs a, .action-buttons a {
     float: left;
     margin: 2px 2px 0;
     font-family: 'Oswald';
-    font-size: 16px;
+    font-size: 1.2em;
     line-height: 20px;
     text-transform: uppercase;
 }
@@ -1133,11 +1133,11 @@ br {
 
 time {
     background-color: #ccc;
-    border-radius: 100px;
+    border-radius: 30px;
     color: #fff;
     float: right;
-    font-size: 11px;
-    padding: 1px 5px;
+    font-size: 12px;
+    padding: 3px 6px;
     position: absolute;
     right: 0;
     text-align: center;
@@ -1190,11 +1190,11 @@ time:hover {
     border: 0;
     cursor: pointer;
     float: left;
-    height: 23px;
+    height: 30px;
     opacity: 0.2;
     padding: 0;
     position: relative;
-    width: 23px;
+    width: 30px;
     display: inline-block;
 }
 
