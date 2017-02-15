@@ -236,7 +236,7 @@ define(['jquery', 'pnut', 'friends', 'jquery.caret'],
         var textarea = self.closest('.dashboard-content').find('textarea');
         textarea.focus();
         write.find('.form-action-wrapper').slideDown('fast');
-        textarea.val('>> "' + self.closest('.message-item').data('original') + '"');
+        textarea.val(' >> ' + self.closest('.message-item').data('original'));
         break;
 
       case 'delete':
@@ -302,10 +302,18 @@ define(['jquery', 'pnut', 'friends', 'jquery.caret'],
         break;
 
       case 'quote':
-        var textarea = overlay.find('textarea');
-        textarea.focus();
-        overlay.find('.form-action-wrapper').slideDown('fast');
-        textarea.val('"' + self.closest('.message-item').data('original') + '"');
+        var messageItem = self.closest('.message-item');
+
+        overlay.find('textarea')
+          .focus()
+          .val(' >> ' + self.closest('.message-item').data('original'));
+
+        if (parseInt(messageItem.data('replyto'), 10) > 0) {
+          overlay.find('.reply_to').val(messageItem.data('replyto'));
+
+        } else {
+         overlay.find('.reply_to').val(messageItem.data('id'));
+        }
         break;
     }
   });

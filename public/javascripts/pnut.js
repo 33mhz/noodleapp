@@ -115,6 +115,8 @@ define(['jquery', 'version-timeout', 'friends', 'jquery.caret'],
         user.find('img').attr('src', data.users[i].content.avatar_image.link + '?h=200');
         if (typeof data.users[i].name === 'undefined') {
             data.users[i].name = '';
+        } else {
+            data.users[i].name = data.users[i].name.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
         }
         user.find('a')
           .attr('href', '/user/' + data.users[i].username + '/')
@@ -159,6 +161,8 @@ define(['jquery', 'version-timeout', 'friends', 'jquery.caret'],
     // user's profile page
     if (typeof messageItem.name === 'undefined') {
         messageItem.name = '@'+messageItem.username;
+    } else {
+        messageItem.name = messageItem.name.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
     }
     message.find('a.who')
       .attr('title', messageItem.name + ' @' + messageItem.username)
@@ -479,6 +483,8 @@ define(['jquery', 'version-timeout', 'friends', 'jquery.caret'],
               user.attr('href', '/user/' + userList.username);
               if (typeof userList.name === 'undefined') {
                 userList.name = '';
+              } else {
+                userList.name = userList.name.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
               }
               user.attr('title', userList.name);
               user.find('img').attr('src', userList.content.avatar_image.link + '?h=200');
@@ -620,6 +626,8 @@ define(['jquery', 'version-timeout', 'friends', 'jquery.caret'],
           user.find('a').attr('href', '/user/' + userItem.username + '/');
           if (typeof userItem.name === 'undefined') {
             userItem.name = '';
+          } else {
+            userItem.name = userItem.name.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
           }
           user.find('img')
             .attr('src', userItem.content.avatar_image.link + '?h=200')
