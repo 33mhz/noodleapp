@@ -231,7 +231,7 @@ header a.home {
 header > ul {
     position: absolute;
     right: 10px;
-    width: 105px;
+    width: 70px;
 }
 
 header > ul > li {
@@ -953,7 +953,7 @@ section.public li a {
 .tabs {
     display: block;
     margin: 0 auto;
-    width: 360px;
+    width: 430px;
 }
 
 .tabs a {
@@ -1757,11 +1757,13 @@ img.hush {
     }
 
     .tabs {
-        bottom: -25px;
-        left: 50%;
-        margin-left: -142px;
+        /* bottom: -25px; */
+        /* left: 50%; */
+        /* margin-left: -142px; */
         position: absolute;
-        width: 288px;
+        /* width: 288px; */
+        width:350px;
+        left:35px;
     }
 
     .tabs a {

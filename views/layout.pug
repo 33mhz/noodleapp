@@ -22,8 +22,6 @@ html
     link(rel='apple-touch-icon', sizes='114x114', href='/images/logo-114.png')
     link(rel='apple-touch-icon', sizes='128x128', href='/images/logo-128.png')
     link(rel='stylesheet', href='/stylesheets/main.css?20161214')
-    if analytics
-      != '<script type="text/javascript">var _gaq = _gaq || []; _gaq.push(["_setAccount", "' + analytics + '"]); _gaq.push(["_trackPageview"]); (function() { var ga = document.createElement("script"); ga.type = "text/javascript"; ga.async = true; ga.src = ("https:"==location.protocol?"//ssl":"//www")+".google-analytics.com/ga.js"; var s = document.getElementsByTagName("script")[0]; s.parentNode.insertBefore(ga, s); })();</script>'
 
   body(data-url=url, data-username=loggedUsername, data-sessionid=loggedInId, class=darkerTheme +' '+ mediaOn +' '+ highContrast, data-charlimit=charLimit)
     #hush
@@ -57,15 +55,10 @@ html
           li
             a(href='#', id='notifications', title='Notifications', class='') 0
           li
-            a(href='javascript:;', id='profile-link', title='Profile') Profile
+            a(href='javascript:;', id='settings', title='Settings') Settings
             ul.submenu
               li
                 a(href='/user/'+session.username+'/', title='View Profile') View Profile
-              li
-                a(href='/messages/', title='Messages') Messages
-          li
-            a(href='javascript:;', id='settings', title='Settings') Settings
-            ul.submenu
               li
                 a(href='javascript:;', id='settings-link', title='Edit settings') Edit Settings
               li
