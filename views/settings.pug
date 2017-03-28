@@ -26,7 +26,7 @@ form(method='post', action='/settings', autocomplete='off')
         each toggle in toggleSettings
           li
             a.settings-toggle(href='#', title='', class=(locals[toggle.name] === 'true' ? 'on' : ''))
-              span #{toggle.content}
+              span #{toggle.description}
               input(type='hidden', name='user[' + toggle.name + ']', value=locals[toggle.name])
 
       li.buttons

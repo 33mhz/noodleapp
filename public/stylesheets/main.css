@@ -1309,7 +1309,7 @@ ol.messages > li p {
 ol.messages > li p a, #overlay .message-summary li p a, #message-detail li a {
     color: #3da8bf;
     text-decoration: none;
-    white-space: nowrap;
+    white-space: pre-line;
 }
 
 .high-contrast ol.messages > li p a, .high-contrast #overlay .message-summary li p a {
@@ -1757,7 +1757,7 @@ img.hush {
     }
 
     .tabs {
-        /* bottom: -25px; */
+        bottom: -25px;
         /* left: 50%; */
         /* margin-left: -142px; */
         position: absolute;
