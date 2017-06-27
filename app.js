@@ -29,7 +29,7 @@ passport.deserializeUser(function(obj, done) {
 passport.use(new PnutStrategy({
     clientID: nconf.get('pnut_consumer_key'),
     clientSecret: nconf.get('pnut_consumer_secret'),
-    scope: 'stream messages write_post follow update_profile',
+    scope: 'stream messages:io.pnut.core.chat messages:io.pnut.core.pm write_post follow update_profile',
     callbackURL: nconf.get('domain') + '/auth/pnut/callback'
   },
   function(accessToken, refreshToken, profile, done) {
