@@ -878,7 +878,6 @@ section.public li h1 {
     overflow: auto;
     padding: 10px;
     width: 640px;
-    resize: none;
 }
 
 #overlay .write {
