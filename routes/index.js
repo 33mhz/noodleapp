@@ -1,5 +1,3 @@
-'use strict';
-
 module.exports = function(app, client, isLoggedIn, noodle, config) {
   var pnut = require('../lib/pnut');
   var webremix = require('../lib/web-remix');
@@ -12,7 +10,7 @@ module.exports = function(app, client, isLoggedIn, noodle, config) {
   app.get('/', function(req, res) {
     var analytics = false;
 
-    if (req.session.passport.user) {
+    if (req.user) {
       // Process all the users's top 300 followed
       req.body.count = FOLLOWING_MAX;
       pnut.following(req, function(err, users) {
@@ -22,10 +20,10 @@ module.exports = function(app, client, isLoggedIn, noodle, config) {
           });
         }
       });
-      
+
       // pnut.blocked
-      
-      
+
+
       pnut.muted(req, function(err, users) {
         if (users) {
           users.data.forEach(function(user) {
@@ -51,7 +49,7 @@ module.exports = function(app, client, isLoggedIn, noodle, config) {
           if (userItems.highContrast === 'true') {
             highContrast = 'high-contrast';
           }
-          
+
           if (userItems.darkerTheme === 'true') {
             darkerTheme = 'alex';
           }
@@ -70,7 +68,7 @@ module.exports = function(app, client, isLoggedIn, noodle, config) {
           res.render('index', {
             pageType: 'index',
             session: utils.getUser(req),
-            csrf: req.session._csrf,
+            csrf: req.csrfToken(),
             url: '/my/feed',
             loggedInId: utils.getUserId(req),
             username: utils.getUser(req).username,
@@ -155,7 +153,7 @@ module.exports = function(app, client, isLoggedIn, noodle, config) {
 
             res.render('profile', {
               pageType: 'profile',
-              csrf: req.session._csrf,
+              csrf: req.csrfToken(),
               username: req.params.username,
               session: utils.getUser(req),
               user: user,
@@ -180,7 +178,7 @@ module.exports = function(app, client, isLoggedIn, noodle, config) {
       res.status(500);
       res.redirect('/500');
     } else {
-      locals.csrf = req.session._csrf;
+      locals.csrf = req.csrfToken();
       locals.layout = false;
       res.render('settings', locals);
     }
@@ -550,7 +548,7 @@ module.exports = function(app, client, isLoggedIn, noodle, config) {
       }
     });
   });
-  
+
   app.get('/messages', isLoggedIn, function(req, res) {
     var analytics = false;
 
@@ -570,7 +568,7 @@ module.exports = function(app, client, isLoggedIn, noodle, config) {
             if (userItems.mediaOn === 'false') {
               mediaOn = 'media-disable';
             }
-            
+
             if (userItems.darkerTheme === 'true') {
               darkerTheme = 'alex';
             }
@@ -593,7 +591,7 @@ module.exports = function(app, client, isLoggedIn, noodle, config) {
           res.render('messages', {
             pageType: 'messages',
             username: utils.getUser(req).username,
-            csrf: req.session._csrf,
+            csrf: req.csrfToken(),
             session: utils.getUser(req),
             url: '/channels',
             loggedInId: utils.getUserId(req),
@@ -643,3 +641,4 @@ module.exports = function(app, client, isLoggedIn, noodle, config) {
     });
   });
 };
+

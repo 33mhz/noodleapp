@@ -1,20 +1,18 @@
-'use strict';
+var express = require('express')
+var configurations = module.exports
+var app = express()
+var nconf = require('nconf')
+var settings = require('./settings')(app, configurations, express)
+var passport = require('passport')
+var redis = require('redis')
+var client = redis.createClient()
+var PnutStrategy = require('passport-pnut').Strategy
+var noodle = require('./package')
+var utils = require('./lib/utils')
+var userDb = require('./lib/user')
+var errorHandler = require('errorhandler')
 
-var express = require('express');
-var configurations = module.exports;
-var app = express();
-var server = require('http').createServer(app);
-var nconf = require('nconf');
-var settings = require('./settings')(app, configurations, express);
-var passport = require('passport');
-var redis = require('redis');
-var client = redis.createClient();
-var PnutStrategy = require('passport-pnut').Strategy;
-var noodle = require('./package');
-var utils = require('./lib/utils');
-var userDb = require('./lib/user');
-
-nconf.argv().env().file({ file: 'local.json' });
+nconf.argv().env().file({ file: 'local.json' })
 
 /* Passport OAuth setup */
 
@@ -45,7 +43,7 @@ passport.use(new PnutStrategy({
 /* Filters for routes */
 
 var isLoggedIn = function(req, res, next) {
-  if (req.session.passport.user) {
+  if (req.user) {
     next();
   } else {
     res.redirect('/');
@@ -54,8 +52,8 @@ var isLoggedIn = function(req, res, next) {
 
 /* Routing setup */
 
-require('./routes')(app, client, isLoggedIn, noodle, nconf);
-require('./routes/auth')(app, passport);
+require('./routes')(app, client, isLoggedIn, noodle, nconf)
+require('./routes/auth')(app, passport)
 
 app.get('/404', function(req, res, next) {
   next();
@@ -70,4 +68,10 @@ app.get('/500', function(req, res, next) {
   next(new Error('something went wrong!'));
 });
 
-server.listen(process.env.PORT || nconf.get('port'));
+if (app.get('env') === 'prod') {
+  app.use(errorHandler())
+} else {
+  app.use(errorHandler({ dumpExceptions: true, showStack: true }))
+}
+
+app.listen(process.env.PORT || nconf.get('port'));

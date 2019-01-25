@@ -1,12 +1,7 @@
-'use strict';
-
 module.exports = function(app, passport) {
   // Login
   app.get('/auth/pnut',
-    passport.authenticate('pnut'),
-    function(req, res) {
-      // pnut.io for authentication
-    }
+    passport.authenticate('pnut')
   );
 
   // Callback
