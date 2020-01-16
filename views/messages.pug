@@ -25,6 +25,8 @@ block content
           - var owner = channel.owner
         else
           - var owner = channel.recent_message.user
+        if (!owner)
+          - owner = {"username":"", "content": {"avatar_image":{"link":""}}}
         li
           if (channel.has_unread)
             a(href='javascript:;', class='channel unread', data-action='message', data-username='@'+owner.username, data-id=channel.id)
