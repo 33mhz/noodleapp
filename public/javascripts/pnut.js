@@ -112,7 +112,7 @@ define(['jquery', 'version-timeout', 'friends', 'jquery.caret'],
       var userList = $('<ol class="users"></ol>');
       for (var i = 0; i < data.users.length; i ++) {
         var user = $('<li><a href=""><img src=""><span class="name"></span></a></li>');
-        user.find('img').attr('src', data.users[i].content.avatar_image.link + '?h=200');
+        user.find('img').attr('src', data.users[i].content.avatar_image.url + '?h=200');
         if (typeof data.users[i].name === 'undefined') {
             data.users[i].name = '';
         } else {
@@ -487,7 +487,7 @@ define(['jquery', 'version-timeout', 'friends', 'jquery.caret'],
                 userList.name = userList.name.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
               }
               user.attr('title', userList.name);
-              user.find('img').attr('src', userList.content.avatar_image.link + '?h=200');
+              user.find('img').attr('src', userList.content.avatar_image.url + '?h=200');
               message.find('.users').append(user);
             }
 
@@ -630,7 +630,7 @@ define(['jquery', 'version-timeout', 'friends', 'jquery.caret'],
             userItem.name = userItem.name.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
           }
           user.find('img')
-            .attr('src', userItem.content.avatar_image.link + '?h=200')
+            .attr('src', userItem.content.avatar_image.url + '?h=200')
             .attr('alt', userItem.name)
             .attr('title', userItem.name);
           userListMeta.append(user);

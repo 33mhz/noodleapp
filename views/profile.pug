@@ -7,8 +7,8 @@ block tabs
     a.user-starred(data-url='/user/starred/'+user.id, data-action='user-starred', href='javascript:;', title='Starred') Starred
 
 block content
-  #profile(style='background-image: url('+user.content.cover_image.link+');')
-    img(src=user.content.avatar_image.link+'?h=180')
+  #profile(style='background-image: url('+user.content.cover_image.url+');')
+    img(src=user.content.avatar_image.url+'?h=180')
     .user-info
       h2= user.name
       if session && (user.id !== session.id)
