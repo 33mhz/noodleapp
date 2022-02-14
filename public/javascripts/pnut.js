@@ -68,15 +68,17 @@ define(['jquery', 'version-timeout', 'friends', 'jquery.caret'],
 
     if (dayDiff <= 0) {
       if (diff < 60) {
-        return '< 1m';
+        return 'now';
       } else if (diff < 3600) {
-        return Math.floor(diff / 60) + 'm';
-      } else {
-        return Math.floor(diff / 3600) + 'h';
+        return Math.floor(diff / 60) + 'min';
       }
-    } else {
+      return Math.floor(diff / 3600) + 'hr';
+    } else if (dayDiff < 60) {
       return dayDiff + 'd';
+    } else if (dayDiff < 365) {
+      return Math.floor(dayDiff / 30) + 'mo';
     }
+    return Math.floor(dayDiff / 365) + 'yr';
   };
 
   var serverRequest = function(url, type, data, callback) {
