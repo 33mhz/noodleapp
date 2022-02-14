@@ -6,6 +6,7 @@ var settings = require('./settings')(app, configurations, express)
 var passport = require('passport')
 var redis = require('redis')
 var client = redis.createClient()
+// client.connect().catch(console.error)
 var PnutStrategy = require('passport-pnut').Strategy
 var noodle = require('./package')
 var utils = require('./lib/utils')
@@ -13,6 +14,8 @@ var userDb = require('./lib/user')
 var errorHandler = require('errorhandler')
 
 nconf.argv().env().file({ file: 'local.json' })
+
+console.log(`NODE_ENV=${app.get('env')}`)
 
 /* Passport OAuth setup */
 
@@ -27,7 +30,7 @@ passport.deserializeUser(function(obj, done) {
 passport.use(new PnutStrategy({
     clientID: nconf.get('pnut_consumer_key'),
     clientSecret: nconf.get('pnut_consumer_secret'),
-    scope: 'stream messages:io.pnut.core.chat messages:io.pnut.core.pm write_post follow update_profile',
+    scope: 'stream messages:io.pnut.core.chat,messages:io.pnut.core.pm,write_post,follow,update_profile',
     callbackURL: nconf.get('domain') + '/auth/pnut/callback'
   },
   function(accessToken, refreshToken, profile, done) {
