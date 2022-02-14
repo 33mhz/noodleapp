@@ -11,7 +11,6 @@ module.exports = function(app, configurations, express) {
   var csurf = require('csurf')
 //  var errorHandler = require('errorhandler')
   var morgan = require('morgan')
-  var multer = require('multer')
 
   var ONE_DAY = 86400000;
 
@@ -25,7 +24,6 @@ module.exports = function(app, configurations, express) {
   app.use(bodyParser.urlencoded({
     extended: true
   }));
-  app.use(multer())
   app.use(methodOverride())
   if (!process.env.NODE_ENV) {
     app.use(morgan('combined'));
