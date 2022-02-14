@@ -2,3 +2,4 @@
 node_modules
 local.json
 public_build
+*.log
