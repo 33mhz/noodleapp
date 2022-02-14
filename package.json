@@ -21,7 +21,7 @@
     "passport": "^0.5.2",
     "passport-pnut": "^0.1.1",
     "pug": "^3.0.2",
-    "redis": "^2.6.4",
+    "redis": "^3.1.1",
     "request": "^2.88.2",
     "requirejs": "^2.3.6",
     "xtend": "^4.0.2"
