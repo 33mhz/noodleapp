@@ -505,7 +505,7 @@ define(['jquery', 'pnut', 'friends', 'jquery.caret'],
       }
     }
 
-    if (!(self.is('textarea') || ev.ctrlKey || ev.shiftKey || ev.metaKey)) {
+    if (!(self.is('textarea') || self.is('input') || ev.ctrlKey || ev.shiftKey || ev.metaKey)) {
       if (ev.keyCode === K_KEYCODE || ev.keyCode === J_KEYCODE) {
         currentMessage = body.find('.message-item.selected-item');
         if (!currentMessage.length) {
