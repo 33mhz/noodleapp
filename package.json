@@ -1,6 +1,6 @@
 {
   "name": "noodleapp",
-  "version": "0.3.5",
+  "version": "0.4.0",
   "private": true,
   "engines": {
     "node": ">= 22.0.0",
@@ -21,7 +21,7 @@
     "passport": "^0.5.3",
     "passport-pnut": "^0.1.1",
     "pug": "^3.0.4",
-    "redis": "^2.6.5",
+    "redis": "^3.0.0",
     "request": "^2.88.2",
     "requirejs": "^2.3.8",
     "xtend": "^4.0.2"
