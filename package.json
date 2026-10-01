@@ -16,7 +16,7 @@
     "express": "^4.22.*",
     "express-session": "^1.19.0",
     "method-override": "^3.0.0",
-    "morgan": "^1.11.0",
+    "morgan": "^1.12.1",
     "nconf": "^0.13.0",
     "passport": "^0.5.3",
     "passport-pnut": "^0.1.1",
