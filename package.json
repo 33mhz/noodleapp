@@ -27,7 +27,7 @@
     "xtend": "^4.0"
   },
   "devDependencies": {
-    "mocha": "^1",
+    "mocha": "^12",
     "nock": "^1",
     "should": "^1"
   },
