@@ -7,7 +7,7 @@
     "npm": ">= 11.17.0 < 12.0.0"
   },
   "dependencies": {
-    "body-parser": ">=1.20",
+    "body-parser": "^1.20",
     "connect": "^3.7",
     "connect-redis": "^3.4",
     "cookie-parser": "^1.4",
@@ -16,7 +16,7 @@
     "express": "^4.22",
     "express-session": "^1.19",
     "method-override": "^3.0",
-    "morgan": "^1.11",
+    "morgan": "^1.12",
     "nconf": "^0.13",
     "passport": "^0.5",
     "passport-pnut": "^0.1",
@@ -27,9 +27,9 @@
     "xtend": "^4.0"
   },
   "devDependencies": {
-    "mocha": ">= 1.4.2",
-    "nock": ">= 0.13.7",
-    "should": ">= 1.1.1"
+    "mocha": "^1",
+    "nock": "^1",
+    "should": "^1"
   },
   "scripts": {
     "test": "make test",
