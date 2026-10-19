@@ -26,11 +26,6 @@
     "requirejs": "^2.3",
     "xtend": "^4.0"
   },
-  "devDependencies": {
-    "mocha": "^1",
-    "nock": "^1",
-    "should": "^1"
-  },
   "scripts": {
     "test": "make test",
     "start": "node app.js"
